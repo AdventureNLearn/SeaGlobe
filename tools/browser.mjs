@@ -47,3 +47,33 @@ export async function openApp(browser, port, query) {
 }
 
 export const frame = (page) => page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+
+// Layout snapshot of the rendered UI (not the WebGL globe or the moving labels): for every element that is
+// displayed and visible, a stable path, its box (rounded to 0.5 px) and a few computed styles.
+// Used to prove the desktop layout is unchanged by phone-only styles.
+export async function layoutSnapshot(page) {
+  return page.evaluate(() => {
+    const skip = (el) => el.closest("#globe, #labels, #tooltip, #fakecursor, #card");
+    const key = (el) => {
+      const parts = [];
+      for (let e = el; e && e !== document.body; e = e.parentElement) {
+        if (e.id) { parts.unshift("#" + e.id); break; }
+        const cls = [...e.classList].sort().join(".");
+        const sib = e.parentElement ? [...e.parentElement.children].filter((x) => x.tagName === e.tagName && [...x.classList].sort().join(".") === cls) : [e];
+        parts.unshift(e.tagName.toLowerCase() + (cls ? "." + cls : "") + ":" + sib.indexOf(e));
+      }
+      return parts.join(">");
+    };
+    const r2 = (v) => Math.round(v * 2) / 2;
+    const out = {};
+    for (const el of document.body.querySelectorAll("*")) {
+      if (skip(el) || el.tagName === "SCRIPT") continue;
+      if (!el.getClientRects().length) continue;
+      const cs = getComputedStyle(el);
+      if (cs.visibility === "hidden") continue;
+      const b = el.getBoundingClientRect();
+      out[key(el)] = [r2(b.left), r2(b.top), r2(b.width), r2(b.height), cs.fontSize, cs.opacity, cs.color, cs.backgroundColor, cs.transform].join(" ");
+    }
+    return out;
+  });
+}

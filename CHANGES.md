@@ -1,5 +1,21 @@
 # Changes
 
+## v2.2.1 (2026-11-14) — phone layout
+
+- Phones only (`@media (max-width: 820px)` plus `web/js/mobile.js`, gated on the same query); the desktop
+  layout is unchanged.
+- The globe fills the screen; a slim top strip shows the name, era and date; one bottom bar holds play,
+  1×/5×/20×, the moving count, a menu button and the year scrubber.
+- The menu button opens one slide-up sheet: Sampler, Ship's Log, era chips and the Voyage / Routes / Layers /
+  Go deeper tabs (the legend is in Layers). The Ship's Log is its own full-height sheet.
+- Tapping a vehicle opens the voyage card as a bottom sheet (14 px text; the globe shifts up so the vehicle
+  stays in view). Close it with ×, a swipe down on the sheet header, Esc or a tap on empty globe.
+- No floating legend, hover tooltip or crowd of labels on a phone; every control is at least 44 px.
+- Touch: a tap uses a 44 px pick radius (mouse stays 36 px) and the clock brakes under the finger.
+- New `tests/test_mobile.mjs`: desktop layout at 1536×864 and 1920×1080 matches a saved v2.2 snapshot;
+  at 390×844 and 360×800 with touch, no overlapping or off-screen panels, 44 px targets, menu and Ship's Log
+  sheets, tap-to-select with the card opening and closing, and the fastest vehicle at 20× can be tapped.
+
 ## v2.2 (2026-11-14) — selectability fix and cited content pass
 
 - **Ships and jets are easy to select:** no visible vehicle moves faster than about 140 px/s on screen

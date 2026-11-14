@@ -33,6 +33,8 @@ leaving a fading wake.
   history, story and key facts for the route, the named ship (where there is one) and the vehicle type.
 - Vehicles are capped at an on-screen speed you can follow, and time eases to a stop as the pointer
   nears a vehicle, so even jets can be selected. Dates stay true; only the clock slows.
+- **On a phone** the globe fills the screen with one bottom bar (play, speed, year, menu). The menu opens a
+  slide-up sheet with eras, layers, routes and the Ship's Log; a tapped vehicle's card opens as a bottom sheet.
 - Follow camera (chase view), eased fly-ins, slow orbit.
 - Earth from NASA Blue Marble / Black Marble (public domain) with ocean shine, atmosphere, a day/night
   terminator, city lights from the industrial era on, starfield, a moon and a decorative satellite layer
@@ -104,6 +106,7 @@ mean they endorse this project.
 node --test tests/test_engine.mjs     # engine, schema validation of every record, vehicles
 python -m unittest discover tests     # data files, docs hygiene, no runtime network URLs
 node tests/test_app.mjs               # headless browser smoke test (needs Chrome + puppeteer-core)
+node tests/test_mobile.mjs            # phone layout (390x844, 360x800, touch) + desktop layout unchanged
 node tools/vehicle_sheet.mjs         # contact sheet of every vehicle model; fails on a placeholder
 node tools/closeup_check.mjs         # in-app close-ups: hulls at the waterline, wheels on the ground
 ```

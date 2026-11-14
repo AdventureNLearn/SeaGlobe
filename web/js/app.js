@@ -20,6 +20,7 @@
   // and no vehicle may cross the screen faster than MAX_PX_PER_SEC at any time speed. Dates stay true;
   // only the clock rate eases (timeline) or the sample vessel's own pace (sampler).
   const HIT_HOVER = 30, HIT_CLICK = 36, SLOW_NEAR = 150, MAX_PX_PER_SEC = 140, STICKY_SEC = 0.6;
+  const HIT_TOUCH = 44; // a fingertip is less precise than a mouse pointer (touch only)
 
   const st = {
     t: T.parse(P.get("t") || "1320-05-01"),
@@ -550,10 +551,15 @@
   }
   function wirePicking() {
     const el = $("globe"); let down = null;
-    el.addEventListener("pointerdown", (e) => { down = { x: e.clientX, y: e.clientY }; });
+    el.addEventListener("pointerdown", (e) => {
+      down = { x: e.clientX, y: e.clientY };
+      // touch has no hover: brake the clock under the finger while it is down, so a tap lands on a slow target
+      if (e.pointerType === "touch") st.ptr = { x: e.clientX, y: e.clientY, drag: false };
+    });
     el.addEventListener("pointerup", (e) => {
+      if (e.pointerType === "touch") st.ptr = null;
       if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6) return;
-      let l = pick(e.clientX, e.clientY, HIT_CLICK);
+      let l = pick(e.clientX, e.clientY, e.pointerType === "touch" ? HIT_TOUCH : HIT_CLICK);
       // sticky: a vehicle hovered a moment ago still counts if it slipped out from under the pointer
       if (!l && st.hoverKey && st.now - st.hoverAt < STICKY_SEC && live.has(st.hoverKey)) l = live.get(st.hoverKey);
       if (l) select(l.inst.key);
