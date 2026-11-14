@@ -15,10 +15,17 @@ copied, traced or derived from the unbundled sets. Full reasoning: `research/ROU
 
 ## What is in this version
 
-- 69 route records in 24 family files under `web/data/routes/` (counts per family in SOURCES.md).
+- 95 route records in 27 family files under `web/data/routes/` (counts per family in SOURCES.md), including the v2.3
+  air layer: 26 historic air corridors (1903–today) in `air-pioneers`, `air-interwar` and `air-jet-age`.
 - **Dataset-derived geometry:** 1 record — HMS *Launceston* 1769, daily noon positions from CLIWOC (CC BY 3.0).
 - **Hub coordinates from a dataset:** 12 air routes use OurAirports (PD) airport coordinates; the
   routes between them are illustrative great circles (marked reconstruction, start year [UNKNOWN] per route).
+- **Air corridors (v2.3):** 26 hand-picked historic corridors. Stops are airport coordinates from the
+  OurAirports slice (PD); where the historic field is gone or not in OurAirports, a modern airport in the same
+  city stands in and the record says so. Dates, aircraft and facts come only from the cited Wikipedia articles
+  (read 14 Nov 2026) and the sources cited there; anything they do not state is marked [UNKNOWN]. All 26 are
+  `reconstruction: true`. **No OpenFlights, ADS-B or other flight-tracking data** is used, and no third-party
+  flight data of any kind.
 - **Hand-written reconstructions:** 56 records, drawn from published history and public-domain primary
   texts in public-domain translations (Herodotus, Strabo, Pliny, Isidore of Charax, the Periplus of the
   Erythraean Sea, Marco Polo (Yule 1903), Ibn Battuta (Defrémery & Sanguinetti), Cieza de León (Markham)),
@@ -94,6 +101,13 @@ Inter (SIL OFL 1.1), procedural vehicles/stars/moon/satellites (this repo, MIT),
 
 `data/sources/ourairports/hubs.csv`: 17 hub rows from `airports.csv`, downloaded 2026-11-13 from
 https://davidmegginson.github.io/ourairports-data/airports.csv. Public domain.
+
+`data/sources/ourairports/airports-slice.csv` (v2.3): every `large_airport` row (1,175) plus 23 historic or smaller
+fields the air corridors pass through (for example Croydon, Tempelhof, Gatow, Alameda NAS, Kemayoran, First Flight
+Airport), 1,198 rows and 8 columns, sliced by `tools/slice_ourairports.py` from `airports.csv` downloaded 2026-11-14
+from the same URL. Public domain: the official data page states "All data is released to the Public Domain, and comes
+with no guarantee of accuracy or fitness for use" (see `research/ROUTE-SOURCES.md`). Coordinates are rounded to 3
+decimals in the route files. The app does not read the CSV at run time; the route files carry the coordinates.
 
 ## 10. Attribution text (also on the credits card)
 

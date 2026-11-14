@@ -1,5 +1,29 @@
 # Changes
 
+## v2.3 (2026-11-14) — air layer, 1903 to today
+
+- **26 historic air corridors** in three new family files: `air-pioneers` (Wright Flyer at Kitty Hawk 1903, first US Air
+  Mail 1918, transcontinental air mail 1920–1927, Aéropostale Toulouse–Dakar and Mermoz's 1930 South Atlantic flight),
+  `air-interwar` (Imperial Airways to Karachi, Cape Town and Brisbane, KLM to Batavia, Pan Am China Clipper 1935 and
+  Yankee Clipper 1939, American Airlines' first DC-3 service, both Berlin Airlift corridors) and `air-jet-age` (BOAC Comet
+  1952, SAS polar routes 1954 and 1957, Pan Am's first 747 service, Qantas 747 Kangaroo Route, Concorde, Singapore
+  Airlines SQ21 and SQ23, Qantas Perth–London). Same record schema as the ship routes; every record
+  `reconstruction: true` with cited history, story and facts; dates only where a cited source gives them, gaps [UNKNOWN].
+- **OurAirports slice** (public domain): `data/sources/ourairports/airports-slice.csv`, every large airport plus the
+  historic fields the corridors use, made by `tools/slice_ourairports.py`. No OpenFlights, no ADS-B.
+- **Three new aircraft models and cards:** Wright Flyer (1903), Douglas DC-3 / C-47 and Boeing 747, plus cited cards for
+  11 named aircraft on dated flights. Other corridors use the existing piston-airliner and jet models as stand-ins and say so.
+- **Air arc height:** air routes still rise to 0.062 × Earth radius at mid-route on long routes; routes shorter than
+  about 1,900 km now scale their arc down (assumption, see the record notes) so short hops do not tower over the map.
+- The air-* families have their own legend colours, so every earlier family keeps its colour. Aircraft use the same
+  on-screen speed cap as ships. No other interface changes; the phone layout is unchanged.
+- Tests: `tests/test_air.mjs` (browser: corridors load; Wright Flyer, DC-3 and 747 selectable with cited cards; a 747
+  clickable at 20×; Ship's Log Type = air), three engine tests for the air records. The desktop-layout check now
+  counts the 26 new Ship's Log rows instead of comparing them; every other box still matches the v2.2.1 baseline.
+- Video: `walkthrough/air-layer-walkthrough.mp4`, listed on the videos page.
+- Pages workflow: actions updated to current majors that run on Node 24 (checkout v7, configure-pages v6,
+  upload-pages-artifact v5, deploy-pages v5), which removes the Node 20 deprecation warning.
+
 ## v2.2.1 (2026-11-14) — phone layout
 
 - Phones only (`@media (max-width: 820px)` plus `web/js/mobile.js`, gated on the same query); the desktop

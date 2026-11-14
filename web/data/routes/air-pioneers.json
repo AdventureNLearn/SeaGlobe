@@ -1,0 +1,463 @@
+{
+ "family": "air-pioneers",
+ "title": "Air pioneers and air mail (1903–1933)",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "wright-kitty-hawk-1903",
+   "family": "air-pioneers",
+   "color": "#ffe08a",
+   "name": "Wright Flyer, Kill Devil Hills (Kitty Hawk), 17 Dec 1903",
+   "start_date": "1903-12-17",
+   "end_date": "1903-12-17",
+   "vehicle": "wright-flyer",
+   "goods": [
+    "pilot only (test flights)"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "Wikipedia, “Wright Flyer”, https://en.wikipedia.org/wiki/Wright_Flyer (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Wright brothers”, https://en.wikipedia.org/wiki/Wright_brothers (accessed 14 Nov 2026), and the sources cited there",
+    "OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026"
+   ],
+   "path": [
+    [
+     36.0182,
+     -75.6713
+    ],
+    [
+     36.0205,
+     -75.6713
+    ]
+   ],
+   "notes": "Four flights on 17 December 1903; the longest, by Wilbur, covered 852 ft (260 m) in 59 seconds. Drawn as a 260 m line starting at First Flight Airport (OurAirports KFFA), which adjoins the site; the direction of the line is our sketch [UNKNOWN]. Shown at a slowed display pace so it can be seen.",
+   "schedule": {
+    "kind": "dated",
+    "voyages": [
+     {
+      "id": "wright-flyer-1903",
+      "ship": "Wright Flyer (1903)",
+      "record": "First sustained powered, controlled flights (Wright Flyer article)",
+      "url": null,
+      "start": "1903-12-17",
+      "end": "1903-12-17",
+      "anchors": [],
+      "lateral_km": 0,
+      "min_display_days": 30,
+      "vessel": {
+       "name": "Wright Flyer (1903)",
+       "facts": {
+        "Pilots": "Orville and Wilbur Wright",
+        "Flights": "4, on 17 Dec 1903",
+        "Longest": "852 ft (260 m) in 59 s (Wilbur)",
+        "Fate": "wrecked by a gust after flight 4; Smithsonian since 1948"
+       },
+       "history": "The Flyer made all four of its flights on 17 December 1903 from level ground near the brothers' camp at Kill Devil Hills, launched from a rail laid into a wind of more than 20 mph.",
+       "story": "Orville's first flight lasted 12 seconds. Wilbur's fourth flight of 59 seconds was the longest; minutes later strong gusts blew the machine over and wrecked it.",
+       "content_citations": [
+        "Wikipedia, “Wright Flyer”, https://en.wikipedia.org/wiki/Wright_Flyer (accessed 14 Nov 2026), and the sources cited there"
+       ]
+      }
+     }
+    ]
+   },
+   "type": "air",
+   "line": "air",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo or passenger manifest",
+   "source": "published history + OurAirports coordinates",
+   "derived_from": "hand-written reconstruction from published history; stops from OurAirports (public domain)",
+   "era": "industrial",
+   "citation": "Wikipedia, “Wright Flyer”, https://en.wikipedia.org/wiki/Wright_Flyer (accessed 14 Nov 2026), and the sources cited there",
+   "reconstruction": true,
+   "region": "Americas",
+   "history": "On 17 December 1903 Orville and Wilbur Wright made four flights in the Wright Flyer at Kill Devil Hills, about 4 miles south of Kitty Hawk, North Carolina: the first sustained flights of a manned, powered and controlled heavier-than-air aircraft.",
+   "story": "The Smithsonian at first refused to credit the Wrights, and Orville threatened to send the Flyer to London. It went on display at the Smithsonian on 17 December 1948, 45 years to the day after its flights.",
+   "facts": {
+    "Date": "17 December 1903",
+    "Flights": "4",
+    "Longest": "852 ft (260 m), 59 s",
+    "Place": "Kill Devil Hills, NC",
+    "Track on the globe": "260 m sketch; direction [UNKNOWN]"
+   },
+   "content_citations": [
+    "Wikipedia, “Wright Flyer”, https://en.wikipedia.org/wiki/Wright_Flyer (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Wright brothers”, https://en.wikipedia.org/wiki/Wright_brothers (accessed 14 Nov 2026), and the sources cited there"
+   ]
+  },
+  {
+   "id": "us-air-mail-1918",
+   "family": "air-pioneers",
+   "color": "#ffe08a",
+   "name": "First US Air Mail route, Washington–Philadelphia–New York, 1918",
+   "start_date": "1918-05-15",
+   "end_date": "1918-05-15",
+   "vehicle": "prop-airliner",
+   "goods": [
+    "air mail"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "Wikipedia, “United States airmail service”, https://en.wikipedia.org/wiki/United_States_airmail_service (accessed 14 Nov 2026), and the sources cited there",
+    "OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026"
+   ],
+   "path": [
+    [
+     38.852,
+     -77.038
+    ],
+    [
+     39.872,
+     -75.241
+    ],
+    [
+     40.777,
+     -73.873
+    ]
+   ],
+   "notes": "Scheduled US Air Mail began on 15 May 1918 on this route, flown by Army pilots in converted Curtiss JN-4HM 'Jenny' biplanes. The 1918 landing fields are not drawn: modern Washington, Philadelphia and New York airports stand in for them. The 3D model is a generic stand-in for this aircraft type.",
+   "schedule": {
+    "kind": "dated",
+    "voyages": [
+     {
+      "id": "us-air-mail-1918",
+      "ship": "Curtiss JN-4HM 'Jenny' (Army Air Service)",
+      "record": "First day of scheduled US Air Mail",
+      "url": null,
+      "start": "1918-05-15",
+      "end": "1918-05-15",
+      "anchors": [],
+      "lateral_km": 0,
+      "min_display_days": 30,
+      "vessel": {
+       "name": "Curtiss JN-4HM 'Jenny' (US Army Air Service)",
+       "facts": {
+        "Type": "Curtiss JN-4HM, converted",
+        "Fleet": "six aircraft",
+        "Pilots": "US Army",
+        "Date": "15 May 1918",
+        "Serials": "[UNKNOWN]"
+       },
+       "history": "US Air Mail began on 15 May 1918 with six converted Army Curtiss JN-4HM 'Jenny' biplanes flown by Army pilots on the Washington–Philadelphia–New York route.",
+       "story": "On the first day Lt George Boyle, just out of flight school, flew the northbound leg from Washington, got lost and made a forced landing near Waldorf, Maryland, 18 minutes after take-off.",
+       "content_citations": [
+        "Wikipedia, “United States airmail service”, https://en.wikipedia.org/wiki/United_States_airmail_service (accessed 14 Nov 2026), and the sources cited there"
+       ]
+      }
+     }
+    ]
+   },
+   "type": "air",
+   "line": "air",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo or passenger manifest",
+   "source": "published history + OurAirports coordinates",
+   "derived_from": "hand-written reconstruction from published history; stops from OurAirports (public domain)",
+   "era": "industrial",
+   "citation": "Wikipedia, “United States airmail service”, https://en.wikipedia.org/wiki/United_States_airmail_service (accessed 14 Nov 2026), and the sources cited there",
+   "reconstruction": true,
+   "region": "Americas",
+   "history": "The Post Office Department made Air Mail a new class of service on 15 May 1918, with the Washington–Philadelphia–New York route and the first special Air Mail stamps. Army pilots flew it at first; the route was the first step towards a transcontinental air mail.",
+   "story": "Lt James Edgerton, just out of flight school, flew the Philadelphia–Washington leg on the first day; the northbound flight from Washington got lost and came down near Waldorf, Maryland.",
+   "facts": {
+    "First day": "15 May 1918",
+    "Aircraft": "Curtiss JN-4HM 'Jenny' (6)",
+    "Pilots": "US Army",
+    "Track on the globe": "great-circle reconstruction between OurAirports coordinates"
+   },
+   "content_citations": [
+    "Wikipedia, “United States airmail service”, https://en.wikipedia.org/wiki/United_States_airmail_service (accessed 14 Nov 2026), and the sources cited there"
+   ]
+  },
+  {
+   "id": "us-transcontinental-air-mail",
+   "family": "air-pioneers",
+   "color": "#ffe08a",
+   "name": "Transcontinental Air Mail, New York to San Francisco, 1920–1927",
+   "start_date": "1920-09-08",
+   "end_date": "1927-09-01",
+   "vehicle": "prop-airliner",
+   "goods": [
+    "air mail"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "Wikipedia, “United States airmail service”, https://en.wikipedia.org/wiki/United_States_airmail_service (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Transcontinental Airway System”, https://en.wikipedia.org/wiki/Transcontinental_Airway_System (accessed 14 Nov 2026), and the sources cited there",
+    "OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026"
+   ],
+   "path": [
+    [
+     40.777,
+     -73.873
+    ],
+    [
+     40.849,
+     -77.849
+    ],
+    [
+     41.412,
+     -81.85
+    ],
+    [
+     41.467,
+     -84.507
+    ],
+    [
+     41.786,
+     -87.752
+    ],
+    [
+     41.639,
+     -91.547
+    ],
+    [
+     41.303,
+     -95.894
+    ],
+    [
+     41.126,
+     -100.684
+    ],
+    [
+     41.156,
+     -104.812
+    ],
+    [
+     41.806,
+     -107.2
+    ],
+    [
+     41.594,
+     -109.065
+    ],
+    [
+     40.789,
+     -111.98
+    ],
+    [
+     40.825,
+     -115.792
+    ],
+    [
+     39.499,
+     -119.768
+    ],
+    [
+     37.62,
+     -122.375
+    ]
+   ],
+   "notes": "Government-operated transcontinental air mail from 8 September 1920; day-and-night service over the whole route from 1 July 1924; by 1 September 1927 all US air mail routes were flown under contract by commercial carriers, where this record ends. Stops follow the fields the source lists (Bellefonte, Cleveland, Bryan, Chicago, Iowa City, Omaha, North Platte, Cheyenne, Rawlins, Rock Springs, Salt Lake City, Elko, Reno), drawn at modern airports in those towns. Aircraft types on the route are [UNKNOWN] here. The 3D model is a generic stand-in for this aircraft type.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Air mail plane",
+    "speed_km_day": 20000,
+    "active": 3,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "type": "air",
+   "line": "air",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo or passenger manifest",
+   "source": "published history + OurAirports coordinates",
+   "derived_from": "hand-written reconstruction from published history; stops from OurAirports (public domain)",
+   "era": "industrial",
+   "citation": "Wikipedia, “United States airmail service”, https://en.wikipedia.org/wiki/United_States_airmail_service (accessed 14 Nov 2026), and the sources cited there",
+   "reconstruction": true,
+   "region": "Americas",
+   "history": "Scheduled transcontinental air mail between New York and San Francisco began on 8 September 1920. At first mail flew by day and went by train at night; full day-and-night service began on 1 July 1924, so a coast-to-coast trip that had taken over 70 hours was scheduled at 34 h 46 min westbound. Congress funded a lighted airway along the route in 1923; the 2,665-mile New York–San Francisco airway was completed to a June 1925 deadline.",
+   "story": "On 22 February 1921 Jack Knight flew the Omaha–Chicago leg at night for the first time. By 1 September 1927 all US air mail, including the transcontinental route, was flown under contract by commercial carriers.",
+   "facts": {
+    "Opened": "8 September 1920",
+    "Day and night": "from 1 July 1924",
+    "Lighted airway": "2,665 mi (June 1925 deadline)",
+    "Contract flying": "all routes by 1 September 1927",
+    "Track on the globe": "great-circle reconstruction between OurAirports coordinates"
+   },
+   "content_citations": [
+    "Wikipedia, “United States airmail service”, https://en.wikipedia.org/wiki/United_States_airmail_service (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Transcontinental Airway System”, https://en.wikipedia.org/wiki/Transcontinental_Airway_System (accessed 14 Nov 2026), and the sources cited there"
+   ]
+  },
+  {
+   "id": "aeropostale-toulouse-dakar",
+   "family": "air-pioneers",
+   "color": "#ffe08a",
+   "name": "Aéropostale (La Ligne), Toulouse to Dakar, 1926–1933",
+   "start_date": "1926",
+   "end_date": "1933",
+   "vehicle": "prop-airliner",
+   "goods": [
+    "air mail"
+   ],
+   "confidence_level": "low",
+   "years_approximate": true,
+   "citations": [
+    "Wikipedia, “Aéropostale (aviation)”, https://en.wikipedia.org/wiki/Aéropostale_(aviation) (accessed 14 Nov 2026), and the sources cited there",
+    "OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026"
+   ],
+   "path": [
+    [
+     43.629,
+     1.364
+    ],
+    [
+     41.297,
+     2.078
+    ],
+    [
+     33.367,
+     -7.59
+    ],
+    [
+     16.05,
+     -16.461
+    ],
+    [
+     14.742,
+     -17.479
+    ]
+   ],
+   "notes": "Founded in Toulouse on 25 December 1918 as the Lignes Aériennes Latécoère; the Casablanca–Dakar leg across the Sahara was added in 1926 and the company operated until 1933. Stops drawn: Toulouse, Barcelona, Casablanca, Saint-Louis and Dakar, at modern airports. Other stops [UNKNOWN] here. The 3D model is a generic stand-in for this aircraft type.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Aéropostale mail plane",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "type": "air",
+   "line": "air",
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo or passenger manifest",
+   "source": "published history + OurAirports coordinates",
+   "derived_from": "hand-written reconstruction from published history; stops from OurAirports (public domain)",
+   "era": "industrial",
+   "citation": "Wikipedia, “Aéropostale (aviation)”, https://en.wikipedia.org/wiki/Aéropostale_(aviation) (accessed 14 Nov 2026), and the sources cited there",
+   "reconstruction": true,
+   "region": "Africa",
+   "history": "Aéropostale was founded in Toulouse on 25 December 1918 as the Lignes Aériennes Latécoère ('La Ligne') and operated until 1933. Jean Mermoz opened Toulouse–Barcelona over the Pyrenees in 1924, and in 1926 a leg was added from Casablanca across the Sahara to Dakar, where mail went on by steamer to South America.",
+   "story": "The first nonstop Toulouse–Saint-Louis (Senegal) flight began in 1927. Antoine de Saint-Exupéry managed and flew for its Aeroposta Argentina subsidiary; his novel about those years became the 1933 film Night Flight.",
+   "facts": {
+    "Founded": "25 December 1918, Toulouse",
+    "Casablanca–Dakar": "1926",
+    "Company ended": "1933",
+    "Track on the globe": "great-circle reconstruction between OurAirports coordinates"
+   },
+   "content_citations": [
+    "Wikipedia, “Aéropostale (aviation)”, https://en.wikipedia.org/wiki/Aéropostale_(aviation) (accessed 14 Nov 2026), and the sources cited there"
+   ]
+  },
+  {
+   "id": "aeropostale-south-atlantic-1930",
+   "family": "air-pioneers",
+   "color": "#ffe08a",
+   "name": "Mermoz's South Atlantic mail flight, Dakar to Natal, May 1930",
+   "start_date": "1930-05-12",
+   "end_date": "1930-05-13",
+   "vehicle": "prop-airliner",
+   "goods": [
+    "air mail (122 kg)"
+   ],
+   "goods_source": "Aéropostale article",
+   "confidence_level": "medium",
+   "citations": [
+    "Wikipedia, “Aéropostale (aviation)”, https://en.wikipedia.org/wiki/Aéropostale_(aviation) (accessed 14 Nov 2026), and the sources cited there",
+    "OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026"
+   ],
+   "path": [
+    [
+     14.742,
+     -17.479
+    ],
+    [
+     -5.911,
+     -35.248
+    ]
+   ],
+   "notes": "On 12–13 May 1930 Jean Mermoz flew a Latécoère 28 seaplane 3,058 km from Dakar to Natal in 19 h 35 min with 122 kg of mail. Modern Dakar and Natal airfields stand in for the seaplane bases. The 3D model is a generic stand-in for this aircraft type.",
+   "schedule": {
+    "kind": "dated",
+    "voyages": [
+     {
+      "id": "mermoz-1930",
+      "ship": "Latécoère 28 seaplane (Jean Mermoz)",
+      "record": "First nonstop South Atlantic air mail crossing",
+      "url": null,
+      "start": "1930-05-12",
+      "end": "1930-05-13",
+      "anchors": [],
+      "lateral_km": 0,
+      "min_display_days": 30,
+      "vessel": {
+       "name": "Latécoère 28 seaplane (Jean Mermoz)",
+       "facts": {
+        "Type": "Latécoère 28 on floats",
+        "Engine": "Hispano-Suiza, 650 hp",
+        "Distance": "3,058 km",
+        "Time": "19 h 35 min",
+        "Mail": "122 kg",
+        "Aircraft name": "[UNKNOWN]"
+       },
+       "history": "On 12–13 May 1930 the Aéropostale pilot Jean Mermoz made the first nonstop air crossing of the South Atlantic with mail, from Dakar to Natal.",
+       "story": "Before this, mail reaching Dakar by air went on to South America by steamer; Aéropostale had flown Rio de Janeiro–Natal since November 1927.",
+       "content_citations": [
+        "Wikipedia, “Aéropostale (aviation)”, https://en.wikipedia.org/wiki/Aéropostale_(aviation) (accessed 14 Nov 2026), and the sources cited there"
+       ]
+      }
+     }
+    ]
+   },
+   "type": "air",
+   "line": "air",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "source": "published history + OurAirports coordinates",
+   "derived_from": "hand-written reconstruction from published history; stops from OurAirports (public domain)",
+   "era": "industrial",
+   "citation": "Wikipedia, “Aéropostale (aviation)”, https://en.wikipedia.org/wiki/Aéropostale_(aviation) (accessed 14 Nov 2026), and the sources cited there",
+   "reconstruction": true,
+   "region": "Atlantic",
+   "history": "On 12–13 May 1930 Aéropostale finally flew the South Atlantic: Jean Mermoz took a float-equipped Latécoère 28 nonstop from Dakar to Natal, 3,058 km in 19 h 35 min, with 122 kg of mail.",
+   "story": "Until then mail from France flew to Dakar and crossed the ocean by steamer; Aéropostale had flown Rio de Janeiro–Natal since November 1927, so the flight joined the two halves of La Ligne.",
+   "facts": {
+    "Date": "12–13 May 1930",
+    "Pilot": "Jean Mermoz",
+    "Aircraft": "Latécoère 28 seaplane",
+    "Distance": "3,058 km",
+    "Track on the globe": "great-circle reconstruction between OurAirports coordinates"
+   },
+   "content_citations": [
+    "Wikipedia, “Aéropostale (aviation)”, https://en.wikipedia.org/wiki/Aéropostale_(aviation) (accessed 14 Nov 2026), and the sources cited there"
+   ]
+  }
+ ]
+}

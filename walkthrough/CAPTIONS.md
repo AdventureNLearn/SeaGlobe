@@ -50,3 +50,35 @@ Total: 2:59.0
 | 0:53.0–0:58.7 | log | Enter flies to the route, plays it and opens its info |
 
 Total: 0:59.0
+
+## Air layer walkthrough — walkthrough/air-layer-walkthrough.mp4
+
+| Time | Segment | Caption |
+|---|---|---|
+| 0:00.0 | title | Title card: SeaGlobe v2.3 · The air layer, 1903 – today |
+| 0:06.3–0:09.9 | layer-on | Air layer · new in v2.3 · 26 historic corridors, 1903 – today |
+| 0:10.0–0:14.9 | layer-on | Ship’s Log → Type: Air turns the air layer into focus · 26 new historic corridors + the 14 earlier air routes |
+| 0:15.2–0:20.7 | layer-on | Everything else dims · air arcs ride above the sea lanes · era filters work as before |
+| 0:21.4–0:27.0 | 1903 | 1903 · Wright Flyer at Kill Devil Hills (Kitty Hawk), 17 Dec 1903 |
+| 0:27.2–0:32.5 | 1903 | Its card: the aircraft, its history and story, with the real date from the record |
+| 0:32.7–0:38.6 | 1903 | Drawn as a 260 m sketch · labelled a reconstruction · Wikipedia + OurAirports citations |
+| 0:39.4–0:46.8 | 1930s | 1930s · Pan Am China Clipper, Alameda → Manila, 22–29 Nov 1935 |
+| 0:47.0–0:54.6 | 1930s | Via Honolulu, Midway, Wake and Guam · the generic piston model stands in for the M-130 flying boat |
+| 0:55.4–1:01.8 | corridor-card-1 | Corridor card · Imperial Airways and Qantas, London → Brisbane (1935–1939) |
+| 1:02.0–1:08.6 | corridor-card-1 | Reconstruction label, confidence level, stand-in and [UNKNOWN] notes, every citation |
+| 1:09.4–1:16.8 | dc3-berlin | 1948 · Berlin Airlift · Douglas DC-3 / C-47 into Tempelhof |
+| 1:17.0–1:24.6 | dc3-berlin | 26 June 1948 – 30 September 1949 · the corridor is a straight sketch, not a flight track |
+| 1:25.4–1:32.0 | jet-age | 1950s jet age · BOAC Comet G-ALYP, London → Johannesburg, 2 May 1952 |
+| 1:32.2–1:38.6 | jet-age | The first jetliner flight with fare-paying passengers · stops the sources don’t give are marked [UNKNOWN] |
+| 1:39.4–1:46.8 | 747 | 747 era · Pan Am Clipper Victor, New York → London, 22 Jan 1970 |
+| 1:47.0–1:54.6 | 747 | Boeing 747 card: first flight 9 Feb 1969 · 1,574 built · cited |
+| 1:55.4–2:00.8 | corridor-card-2 | Corridor card · Concorde, London → New York JFK (1977–2003) |
+| 2:01.0–2:06.6 | corridor-card-2 | Gaps the record doesn’t cover are said so · the jet model is a stand-in, not a Concorde |
+| 2:07.4–2:13.8 | today | Today · Singapore–New York JFK nonstop (since 9 Nov 2020) · Perth–London (since 25 Mar 2018) |
+| 2:14.0–2:20.6 | today | Endpoints from the OurAirports slice (public domain) · no OpenFlights, no ADS-B |
+| 2:21.0–2:24.0 | phone | Phone layout (390 × 844, touch) · the v2.2.1 phone layout keeps working with the air layer |
+| 2:24.0–2:29.5 | phone | Menu sheet: eras, layers, routes |
+| 2:29.5–2:43.0 | phone | Tap a 747: its card opens as a bottom sheet with the reconstruction label and citations |
+| 2:43.0 | notes | Notes card: assumptions (height, speed, models, sources, [UNKNOWN] gaps) |
+
+Total: 2:53.0

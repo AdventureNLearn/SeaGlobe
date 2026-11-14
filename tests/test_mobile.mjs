@@ -93,12 +93,20 @@ try {
   } else {
     await check("desktop layout at 1536x864 and 1920x1080 is unchanged (home, voyage card, layers, Ship's Log)", async () => {
       const fx = JSON.parse(fs.readFileSync(FIXTURE, "utf8"));
+      // v2.3: the Ship's Log lists every record, so the 26 air corridors add 26 data rows (#log-N) and the record
+      // count text is a few tenths of a pixel wider. Rows are counted, not compared; every other box,
+      // font, colour and transform must still match the v2.2.1 baseline exactly.
+      const ROW = /^#log-(\d+)(>|$)/, ADDED_ROWS = 26;
+      const COUNT_TEXT = new Set(["#logCount", "#log>div.loghead:0>div:0", "#log>div.loghead:0>div:0>div.kicker:0"]);
+      const norm = (k, v) => (v && COUNT_TEXT.has(k) ? v.split(" ").filter((_, i) => i !== 2).join(" ") : v);
+      const rows = (o) => new Set(Object.keys(o).map((k) => (ROW.exec(k) || [])[1]).filter(Boolean)).size;
       for (const [w, h] of DESKTOP) {
         const now = await desktopStates(browser, port, w, h);
         for (const state of Object.keys(fx[w + "x" + h])) {
           const a = fx[w + "x" + h][state], b = now[state];
-          const diff = [...new Set([...Object.keys(a), ...Object.keys(b)])].filter((k) => a[k] !== b[k]).map((k) => k + ": " + a[k] + " -> " + b[k]);
+          const diff = [...new Set([...Object.keys(a), ...Object.keys(b)])].filter((k) => !ROW.test(k) && norm(k, a[k]) !== norm(k, b[k])).map((k) => k + ": " + a[k] + " -> " + b[k]);
           assert.deepEqual(diff, [], `${w}x${h} ${state}`);
+          assert.equal(rows(b), rows(a) + (rows(a) ? ADDED_ROWS : 0), `${w}x${h} ${state} log rows`);
         }
       }
     });

@@ -190,3 +190,35 @@ test("facet surface radius matches the drawn globe sphere", () => {
   }
   assert.ok(minK < 0.9995, "facets sit measurably inside the ideal sphere, which is why vehicles use them");
 });
+
+// ---------- v2.3 air layer ----------
+const air = routes.filter((r) => r.family && r.family.startsWith("air-"));
+test("air layer: 20-40 historic corridors in air-* family files, all reconstructions with citations", () => {
+  const files = D.route_files.filter((f) => /\/air-[a-z-]+\.js$/.test(f));
+  assert.deepEqual(JSON.parse(JSON.stringify(files.map((f) => path.basename(f)).sort())), ["air-interwar.js", "air-jet-age.js", "air-pioneers.js"]);
+  assert.ok(air.length >= 20 && air.length <= 40, "corridors " + air.length);
+  for (const r of air) {
+    assert.equal(r.type, "air", r.id);
+    assert.equal(r.reconstruction, true, r.id);
+    assert.ok(r.citations.some((c) => /^Wikipedia|^[A-Z]/.test(c)) && r.citations.some((c) => /OurAirports/.test(c)), r.id + " cites history and OurAirports");
+    assert.ok(T.parse(r.start_date) >= 1903.9 && T.parse(r.end_date) <= 2027, r.id + " dates " + r.start_date + "–" + r.end_date);
+    assert.equal(r.era, T.parse(r.start_date) < 1950 ? "industrial" : "modern", r.id + " era");
+    assert.ok(!/openflights|ads-b|adsb|flightaware|opensky|flightradar/i.test(JSON.stringify([r.derived_from, r.source, r.citations, r.path_source])), r.id + " no flight-tracking data");
+  }
+});
+test("air layer: Wright Flyer, DC-3 and 747 are in the schema and fly on their eras", () => {
+  const prep = V.prepare(routes);
+  for (const [veh, t] of [["wright-flyer", "1903-12-20"], ["dc-3", "1948-09-01"], ["boeing-747", "1970-01-25"]]) {
+    assert.ok(S.vehicles.some((v) => v.id === veh && v.type === "air"), veh + " in schema");
+    const act = V.activeAll(prep, T.parse(t), 56).filter((i) => i.route.vehicle === veh);
+    assert.ok(act.length >= 1, `${veh} active on ${t}`);
+  }
+});
+test("air layer: dated corridor flights use only dates from their records", () => {
+  for (const r of air.filter((x) => x.schedule.kind === "dated")) {
+    for (const v of r.schedule.voyages) {
+      assert.equal(v.start, r.start_date, r.id); assert.equal(v.end, r.end_date, r.id);
+      assert.ok(v.min_display_days >= 24, r.id + " slowed for display");
+    }
+  }
+});

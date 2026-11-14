@@ -29,6 +29,8 @@ leaving a fading wake.
   "Export CSV" saves the filtered list as a local file.
 - Timeline from 500 BCE to the present (BCE years labelled), play/pause, 1× / 5× / 20×, date scrubber.
 - Era switcher: Classical, Late Antiquity, Medieval, Age of Sail, Industrial, Modern.
+- Air layer (v2.3): 26 historic air corridors from the Wright Flyer (1903) to today's nonstop long-haul routes,
+  with Wright Flyer, DC-3 and Boeing 747 models; every corridor a cited reconstruction. Ship's Log Type = air focuses it.
 - Click any vehicle: ship, route, years, goods, source, citations and a confidence level, plus a cited
   history, story and key facts for the route, the named ship (where there is one) and the vehicle type.
 - Vehicles are capped at an on-screen speed you can follow, and time eases to a stop as the pointer
@@ -107,6 +109,7 @@ node --test tests/test_engine.mjs     # engine, schema validation of every recor
 python -m unittest discover tests     # data files, docs hygiene, no runtime network URLs
 node tests/test_app.mjs               # headless browser smoke test (needs Chrome + puppeteer-core)
 node tests/test_mobile.mjs            # phone layout (390x844, 360x800, touch) + desktop layout unchanged
+node tests/test_air.mjs               # air layer: corridors, Wright Flyer / DC-3 / 747 cards, Type = air
 node tools/vehicle_sheet.mjs         # contact sheet of every vehicle model; fails on a placeholder
 node tools/closeup_check.mjs         # in-app close-ups: hulls at the waterline, wheels on the ground
 ```

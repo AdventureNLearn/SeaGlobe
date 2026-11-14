@@ -341,5 +341,53 @@
    "Wikipedia, “Sputnik 1”, https://en.wikipedia.org/wiki/Sputnik_1 (accessed 14 Nov 2026), and the sources cited there",
    "Wikipedia, “Satellite”, https://en.wikipedia.org/wiki/Satellite (accessed 14 Nov 2026), and the sources cited there"
   ]
+ },
+ "wright-flyer": {
+  "summary": "Wright Flyer (1903), the first successful powered aeroplane.",
+  "history": "The Wright Flyer was a canard biplane with a wingspan of 40 ft 4 in, built by Wilbur and Orville Wright. Their employee Charlie Taylor built its engine from scratch: 12 horsepower, 180 lb. On 17 December 1903 it made the first sustained flight by a manned, powered and controlled heavier-than-air aircraft, at Kill Devil Hills, about 4 miles south of Kitty Hawk, North Carolina.",
+  "story": "Orville flew first, for 12 seconds and 120 ft, shorter than the wingspan of a Boeing 747. After the fourth flight a gust wrecked the Flyer; it never flew again and is now in the National Air and Space Museum.",
+  "facts": {
+   "Configuration": "canard biplane, two pusher propellers",
+   "Wingspan": "40 ft 4 in",
+   "Engine": "12 hp, 180 lb (Charlie Taylor)",
+   "First flights": "17 Dec 1903 (four)",
+   "Today": "National Air and Space Museum"
+  },
+  "content_citations": [
+   "Wikipedia, “Wright Flyer”, https://en.wikipedia.org/wiki/Wright_Flyer (accessed 14 Nov 2026), and the sources cited there",
+   "Wikipedia, “Wright brothers”, https://en.wikipedia.org/wiki/Wright_brothers (accessed 14 Nov 2026), and the sources cited there"
+  ]
+ },
+ "dc-3": {
+  "summary": "Douglas DC-3 twin-engined airliner (C-47 Skytrain / Dakota in military service).",
+  "history": "The prototype Douglas Sleeper Transport first flew on 17 December 1935, 32 years to the day after Kitty Hawk. The day-plane version with 21 seats became the DC-3, and American Airlines began DC-3 passenger service on 26 June 1936. Civil production ended in 1943 at 607; with military versions such as the C-47 Skytrain (the RAF's Dakota) more than 16,000 were built.",
+  "story": "KLM's DC-3s replaced DC-2s on its Amsterdam–Batavia–Sydney route, then the world's longest scheduled route. C-47s flew in the Berlin Airlift, and DC-3s are still in commercial and military service ninety years after the first flight.",
+  "facts": {
+   "First flight": "17 Dec 1935 (DST prototype)",
+   "Seats (DC-3)": "21",
+   "Civil built": "607 (to 1943)",
+   "All versions": "over 16,000",
+   "Military names": "C-47 Skytrain, Dakota"
+  },
+  "content_citations": [
+   "Wikipedia, “Douglas DC-3”, https://en.wikipedia.org/wiki/Douglas_DC-3 (accessed 14 Nov 2026), and the sources cited there",
+   "Wikipedia, “Douglas C-47 Skytrain”, https://en.wikipedia.org/wiki/Douglas_C-47_Skytrain (accessed 14 Nov 2026), and the sources cited there",
+   "Wikipedia, “American Airlines”, https://en.wikipedia.org/wiki/American_Airlines (accessed 14 Nov 2026), and the sources cited there"
+  ]
+ },
+ "boeing-747": {
+  "summary": "Boeing 747 wide-body jet airliner ('Jumbo Jet').",
+  "history": "Pan Am asked Boeing for a jet two and a half times the size of the 707 and ordered 25 747-100s in April 1966. The 747 first flew on 9 February 1969 and entered service with Pan Am on 22 January 1970 on New York–London. The cockpit sits on a short upper deck so a nose cargo door could be fitted, which gives the 747 its hump. Production ended in January 2023 after 54 years and 1,574 aircraft.",
+  "story": "The first 747 was rolled out of Boeing's new Everett plant, built for it and the largest building in the world by volume. Qantas flew 747s for almost 49 years, from August 1971 to July 2020.",
+  "facts": {
+   "First flight": "9 Feb 1969",
+   "Entered service": "22 Jan 1970 (Pan Am)",
+   "Built": "1,574 (to Jan 2023)",
+   "Launch order": "Pan Am, 25 aircraft (April 1966)"
+  },
+  "content_citations": [
+   "Wikipedia, “Boeing 747”, https://en.wikipedia.org/wiki/Boeing_747 (accessed 14 Nov 2026), and the sources cited there",
+   "Wikipedia, “Qantas”, https://en.wikipedia.org/wiki/Qantas (accessed 14 Nov 2026), and the sources cited there"
+  ]
  }
 };

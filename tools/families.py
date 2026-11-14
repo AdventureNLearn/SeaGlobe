@@ -261,3 +261,7 @@ def air_records():
 
 
 FAMILY_RECORDS = FAMILY_RECORDS + air_records()
+
+# v2.3 air layer: historic corridors 1903-today, in their own air-* families (tools/air_corridors.py)
+from air_corridors import air_corridor_records  # noqa: E402
+FAMILY_RECORDS = FAMILY_RECORDS + air_corridor_records()

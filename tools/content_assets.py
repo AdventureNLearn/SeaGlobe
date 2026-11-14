@@ -166,3 +166,6 @@ vessel("pan-am-707-1958", "Pan Am Clipper America (N711PA)",
        "Clipper America flew Pan Am's first scheduled jet service, New York Idlewild to Paris Le Bourget, on 26 October 1958. Pan Am gave its aircraft 'Clipper' names.",
        "The flight carried 111 passengers and stopped at Gander for fuel. Pan Am itself shut down on 4 December 1991.",
        [W("Pan American World Airways"), W("Boeing 707")])
+
+# v2.3 air layer content (adds to R, V and VESSELS)
+import content_air  # noqa: E402,F401

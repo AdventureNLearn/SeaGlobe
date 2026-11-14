@@ -591,6 +591,83 @@
     for (const sd of [-1, 1]) g.add(mesh(box(0.006, 0.09, 0.07), C.paint(0xc8102e, "propc"), sd * 0.17, 0.05, -0.45));
     return g;
   };
+  // v2.3 air layer. Wright Flyer (1903): canard biplane, muslin wings, twin pusher propellers, twin rudders, launch skids.
+  B["wright-flyer"] = () => {
+    const g = new THREE.Group();
+    const muslin = mat("muslin", 0xe9dfc4, { side: THREE.DoubleSide, roughness: 0.95, emissive: 0x14110a });
+    const spruce = mat("spruce", 0xb08850, { roughness: 0.8, emissive: 0x100a04 });
+    for (const y of [0.05, 0.21]) g.add(mesh(box(1.0, 0.006, 0.15), muslin, 0, y, 0));
+    for (const x of [-0.46, -0.31, -0.16, 0.16, 0.31, 0.46]) for (const z of [-0.065, 0.065]) g.add(mesh(cyl(0.003, 0.003, 0.16, 5), spruce, x, 0.13, z));
+    for (const sd of [-1, 1]) { // outriggers to the front elevator and the rear rudders
+      g.add(mesh(box(0.006, 0.006, 0.34), spruce, sd * 0.05, 0.06, 0.24));
+      g.add(mesh(box(0.006, 0.006, 0.26), spruce, sd * 0.05, 0.14, -0.2));
+      g.add(mesh(box(0.008, 0.008, 0.62), spruce, sd * 0.1, 0.004, 0.08)); // launch skids
+    }
+    for (const y of [0.08, 0.13]) g.add(mesh(box(0.3, 0.005, 0.06), muslin, 0, y, 0.4)); // canard elevator
+    for (const sd of [-1, 1]) g.add(mesh(box(0.005, 0.13, 0.06), muslin, sd * 0.035, 0.13, -0.33)); // twin rudders
+    g.add(mesh(box(0.07, 0.05, 0.06), C.iron(), 0.07, 0.08, -0.01)); // engine
+    g.add(mesh(box(0.11, 0.02, 0.05), mat("wpilot", 0x3a3026, { roughness: 0.9 }), -0.06, 0.065, 0.0)); // pilot lying prone
+    for (const sd of [-1, 1]) { // pusher propellers behind the wings, chain-driven
+      g.add(mesh(cyl(0.008, 0.008, 0.02, 8), spruce, sd * 0.2, 0.13, -0.085, Math.PI / 2, 0, 0));
+      for (let b = 0; b < 2; b++) g.add(mesh(box(0.012, 0.2, 0.004), spruce, sd * 0.2, 0.13, -0.095, 0, 0, b * Math.PI / 2 + 0.4 * sd));
+    }
+    return g;
+  };
+  // Douglas DC-3 / C-47: polished twin-engined airliner, tapered wing, single fin, tail-dragger.
+  B["dc-3"] = () => {
+    const g = new THREE.Group();
+    const al = mat("dc3al", 0xd2d6dc, { metalness: 0.65, roughness: 0.3 });
+    const prof = [];
+    for (let i = 0; i <= 32; i++) { const u = i / 32; const r = 0.048 * (u < 0.35 ? 0.18 + 0.82 * Math.pow(u / 0.35, 0.55) : u > 0.86 ? Math.sqrt(Math.max(0, 1 - Math.pow((u - 0.86) / 0.14, 2))) * 0.95 + 0.05 : 1); prof.push(new THREE.Vector2(Math.max(0.002, r), -0.5 + u * 0.98)); }
+    g.add(mesh(new THREE.LatheGeometry(prof, 24), al, 0, 0.06, 0, Math.PI / 2, 0, 0));
+    g.add(mesh(box(0.097, 0.012, 0.62), C.paint(0x1c4f9c, "dc3"), 0, 0.064, 0.0)); // cheat line
+    g.add(mesh(box(0.092, 0.006, 0.5), C.glass(), 0, 0.078, 0.02)); // window band
+    const wing = new THREE.Shape();
+    wing.moveTo(0, 0.13); wing.lineTo(0.52, 0.06); wing.lineTo(0.52, -0.01); wing.lineTo(0, -0.07); wing.closePath();
+    const wg = new THREE.ExtrudeGeometry(wing, { depth: 0.014, bevelEnabled: false });
+    for (const s of [-1, 1]) {
+      const w = mesh(wg, al, 0, 0.03, 0.08, Math.PI / 2, 0, 0); w.scale.x = s; g.add(w);
+      g.add(mesh(cyl(0.03, 0.026, 0.16, 16), al, s * 0.17, 0.03, 0.15, Math.PI / 2, 0, 0)); // nacelle
+      g.add(mesh(cyl(0.031, 0.031, 0.02, 16), mat("cowl", 0x2b2f36, { metalness: 0.5, roughness: 0.4 }), s * 0.17, 0.03, 0.235, Math.PI / 2, 0, 0));
+      g.add(mesh(new THREE.ConeGeometry(0.012, 0.03, 10), al, s * 0.17, 0.03, 0.255, Math.PI / 2, 0, 0)); // spinner
+      for (let b = 0; b < 3; b++) g.add(mesh(box(0.008, 0.11, 0.004), mat("propblade", 0x1a1a1a, { roughness: 0.6 }), s * 0.17, 0.03, 0.25, 0, 0, b * Math.PI * 2 / 3));
+      g.add(mesh(cyl(0.012, 0.012, 0.01, 10), C.iron(), s * 0.17, 0.006, 0.12, 0, 0, Math.PI / 2)); // main wheel
+      const t = mesh(wg, al, 0, 0.07, -0.42, Math.PI / 2, 0, 0); t.scale.set(s * 0.36, 0.36, 1); g.add(t);
+    }
+    const fin = new THREE.Shape(); fin.moveTo(0, 0); fin.lineTo(0.16, 0); fin.lineTo(0.12, 0.15); fin.lineTo(0.05, 0.15); fin.closePath();
+    g.add(mesh(new THREE.ExtrudeGeometry(fin, { depth: 0.008, bevelEnabled: false }), C.paint(0x1c4f9c, "dc3"), -0.004, 0.09, -0.32, 0, -Math.PI / 2, 0));
+    g.add(mesh(cyl(0.006, 0.006, 0.006, 8), C.iron(), 0, 0.012, -0.44, 0, 0, Math.PI / 2)); // tail wheel
+    return g;
+  };
+  // Boeing 747: four-engined wide-body with the upper-deck hump, swept wing and tall fin.
+  B["boeing-747"] = () => {
+    const g = new THREE.Group();
+    const wh = mat("b747", 0xe6e9ee, { metalness: 0.15, roughness: 0.5 });
+    const prof = [];
+    for (let i = 0; i <= 40; i++) { const u = i / 40; const r = 0.055 * (u < 0.24 ? Math.pow(u / 0.24, 0.7) * 0.82 + 0.18 * (u / 0.24) : u > 0.88 ? Math.sqrt(Math.max(0, 1 - Math.pow((u - 0.88) / 0.12, 2))) : 1); prof.push(new THREE.Vector2(Math.max(0.002, r), -0.5 + u * 1.0)); }
+    g.add(mesh(new THREE.LatheGeometry(prof, 28), wh, 0, 0.07, 0, Math.PI / 2, 0, 0));
+    const hump = mesh(new THREE.SphereGeometry(0.05, 20, 12), wh, 0, 0.115, 0.3); hump.scale.set(0.82, 0.7, 3.0); g.add(hump); // upper deck
+    g.add(mesh(box(0.112, 0.01, 0.74), C.paint(0x1d5fb4, "b747s"), 0, 0.068, 0.0)); // cheat line
+    g.add(mesh(box(0.11, 0.005, 0.66), C.glass(), 0, 0.086, 0.0));
+    g.add(mesh(box(0.06, 0.005, 0.2), C.glass(), 0, 0.142, 0.3)); // upper-deck windows
+    const wing = new THREE.Shape();
+    wing.moveTo(0, 0.16); wing.lineTo(0.5, -0.14); wing.lineTo(0.5, -0.2); wing.lineTo(0, -0.1); wing.closePath();
+    const wg = new THREE.ExtrudeGeometry(wing, { depth: 0.014, bevelEnabled: false });
+    for (const s of [-1, 1]) {
+      const w = mesh(wg, wh, 0, 0.03, 0.03, Math.PI / 2, 0, 0); w.scale.x = s; g.add(w);
+      for (const x of [0.17, 0.3]) {
+        g.add(mesh(cyl(0.026, 0.021, 0.13, 20), mat("nacelle", 0xdfe5ec, { metalness: 0.5, roughness: 0.3 }), s * x, 0.0, 0.1 - x * 0.55, Math.PI / 2, 0, 0));
+        g.add(mesh(cyl(0.021, 0.021, 0.004, 20), mat("intake", 0x202428, { metalness: 0.6, roughness: 0.4 }), s * x, 0.0, 0.167 - x * 0.55, Math.PI / 2, 0, 0));
+        g.add(mesh(box(0.006, 0.03, 0.06), wh, s * x, 0.02, 0.08 - x * 0.55));
+      }
+      const t = mesh(wg, wh, 0, 0.08, -0.38, Math.PI / 2, 0, 0); t.scale.set(s * 0.4, 0.4, 1); g.add(t);
+    }
+    const fin = new THREE.Shape(); fin.moveTo(0, 0); fin.lineTo(0.18, 0); fin.lineTo(0.23, 0.22); fin.lineTo(0.15, 0.22); fin.closePath();
+    g.add(mesh(new THREE.ExtrudeGeometry(fin, { depth: 0.01, bevelEnabled: false }), C.paint(0x1d5fb4, "b747s"), -0.005, 0.1, -0.3, 0, -Math.PI / 2, 0));
+    g.add(mesh(new THREE.SphereGeometry(0.008, 6, 5), mat("navR", 0xff3030, { emissive: 0xff2020, emissiveIntensity: 2 }), -0.5, 0.03, -0.17));
+    g.add(mesh(new THREE.SphereGeometry(0.008, 6, 5), mat("navG", 0x30ff60, { emissive: 0x20ff50, emissiveIntensity: 2 }), 0.5, 0.03, -0.17));
+    return g;
+  };
   // Satellite: bus with gold foil, two solar wings, dish antenna (decorative space layer).
   B["satellite"] = () => {
     const g = new THREE.Group();

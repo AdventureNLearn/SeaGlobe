@@ -46,6 +46,7 @@
   const FAMILY_PALETTE = ["#f6c65b", "#5ee7ff", "#ff8a5b", "#9bf06b", "#c59bff", "#ff6fae", "#6fa8ff", "#ffd8a0", "#59d4a8", "#e0e070",
     "#ff9f43", "#8ad1ff", "#d7a6ff", "#a3e635", "#f472b6", "#38bdf8", "#facc15", "#fb7185", "#34d399", "#c4b5fd", "#fdba74", "#67e8f9", "#bef264", "#f9a8d4"];
   const famColor = {};
+  const AIR_COLORS = { "air-pioneers": "#ffe08a", "air-interwar": "#ffb3c7", "air-jet-age": "#b8f3ff" };
   const GHOST = new THREE.MeshBasicMaterial({ color: 0x9fb4cc, transparent: true, opacity: 0.12, depthWrite: false });
   let satModels = null, scene3 = null;
   let sun = null, bloom = null, globe, routes = [], prepared = [], live = new Map(), earthMat, sunLight, stars, moon, sats, vehGroup;
@@ -84,7 +85,8 @@
   }
   // altitude above the drawn (faceted) globe surface, as a fraction of R; sea vessels sit at 0 = the waterline
   function altFor(route, frac) {
-    if (route.type === "air") return 0.012 + 0.05 * Math.sin(Math.PI * Math.max(0, Math.min(1, frac)));
+    // v2.3: arcs scale down for routes shorter than ~1,900 km (a Berlin Airlift hop, the 260 m Kitty Hawk flight); long routes unchanged
+    if (route.type === "air") return (route._line ? Math.min(1, Math.max(0.03, route._line.total / 1900)) : 1) * (0.012 + 0.05 * Math.sin(Math.PI * Math.max(0, Math.min(1, frac))));
     if (route.type === "rail" || route.type === "land") return 0.0001;
     return 0.0;
   }
@@ -1014,7 +1016,9 @@
   // ---------- boot ----------
   loadAll().then(async () => {
     routes.forEach((r) => { if (!r.citations) r.citations = [r.citation]; });
-    [...new Set(routes.map((r) => r.family))].sort().forEach((f, i) => { famColor[f] = FAMILY_PALETTE[i % FAMILY_PALETTE.length]; });
+    // v2.3: the air-* corridor families keep their own colours so every earlier family keeps its palette slot
+    [...new Set(routes.map((r) => r.family))].filter((f) => !AIR_COLORS[f]).sort().forEach((f, i) => { famColor[f] = FAMILY_PALETTE[i % FAMILY_PALETTE.length]; });
+    Object.assign(famColor, AIR_COLORS);
     prepared = V.prepare(routes);
     prepared.forEach((r) => {
       // route lines ride 0.08 % of R above the drawn (faceted) surface: close to the vehicles, clear of depth fighting
