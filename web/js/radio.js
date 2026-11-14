@@ -3,8 +3,11 @@
      privacy-enhanced host). Nothing loads until you press "Load the player", playback starts only when you press
      play (no autoplay), there is only ever one player, it is at least 200 × 200 px, nothing is drawn over it,
      and the player is never [hidden], display:none, or removed while it exists.
-   - Minimize collapses the panel to a dock mini-bar (play/pause, title, expand). The player stays mounted and
-     keeps playing; minimize, opening other panels, tabs or layers never calls destroy() and never resets st.started.
+   - Minimize collapses the panel to a visible on-screen mini player: the real YouTube iframe stays at least
+     200×200 CSS px, uncovered, with its controls usable, docked in a corner, plus the title and Expand next to it.
+     The player stays mounted and keeps playing; minimize, opening other panels, tabs or layers never calls destroy()
+     and never resets st.started. If a 200×200 tile cannot fit above the globe controls, playback is paused instead.
+     The mini-bar Play control only acts on a visible player (it never starts a hidden one).
    - Close (×) is the only action that destroys the player and resets st.started, so a later reopen waits for play.
    - A track that is blocked from embedding or unavailable is skipped with a short message (only after the user has
      started playback).
@@ -15,7 +18,7 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const R = () => (window.SEAGLOBE_DATA || {}).radio;
-  const st = { open: false, player: null, apiState: "idle", skips: 0, msg: "", started: false, minimized: false };
+  const st = { open: false, player: null, apiState: "idle", skips: 0, msg: "", started: false, minimized: false, pausedForFit: false };
   const ERR = { 2: "a bad request", 5: "an HTML5 player error", 100: "the video was removed or is private", 101: "its owner does not allow embedding", 150: "its owner does not allow embedding", 153: "the player could not identify this site" };
   function apiUrl() {   // tests point this at a local stand-in (localhost only)
     const q = new URLSearchParams(location.search).get("radioapi");
@@ -42,12 +45,54 @@
   }
   function playerState() { try { return st.player && st.player.getPlayerState ? st.player.getPlayerState() : -1; } catch (e) { return -1; } }
   function isPlaying() { return playerState() === 1; }
+  function stageVisible() {
+    const stage = $("radioStage"); if (!stage) return false;
+    const r = stage.getBoundingClientRect(), cs = getComputedStyle(stage);
+    return cs.display !== "none" && cs.visibility !== "hidden" && Number(cs.opacity) !== 0 &&
+      r.width >= 200 && r.height >= 200 && r.left >= -0.5 && r.top >= -0.5 &&
+      r.right <= innerWidth + 0.5 && r.bottom <= innerHeight + 0.5;
+  }
   function togglePlay() {
     if (!st.player) return;
+    // Play may only control a visible on-screen player, never a hidden or off-screen one.
+    if (st.minimized && !stageVisible()) { expand(); return; }
     try {
       if (isPlaying()) { if (st.player.pauseVideo) st.player.pauseVideo(); }
       else { if (st.player.playVideo) st.player.playVideo(); }   // explicit press on the mini-bar, not autoplay
     } catch (e) { /* player gone */ }
+    syncMini();
+  }
+  function overlaps(a, b) {
+    return a && b && Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 &&
+      Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1;
+  }
+  function fitsMiniPlayer() {
+    const min = 200, gap = 8;
+    const timeline = $("timeline"), menu = $("menuBtn"), topbar = document.querySelector(".topbar");
+    let left = gap, top = gap, right = innerWidth - gap, bottom = innerHeight - gap;
+    if (topbar) top = Math.max(top, topbar.getBoundingClientRect().bottom + gap);
+    if (timeline) {
+      const t = timeline.getBoundingClientRect();
+      if (t.height > 0 && t.top < innerHeight) bottom = Math.min(bottom, t.top - gap);
+    }
+    if (right - left < min || bottom - top < min) return false;
+    const places = [
+      { left: left, top: bottom - min, right: left + min, bottom: bottom },
+      { left: right - min, top: bottom - min, right: right, bottom: bottom }
+    ];
+    const mr = menu ? menu.getBoundingClientRect() : null;
+    return places.some((p) => !overlaps(p, mr));
+  }
+  function applyMiniFit() {
+    const p = $("radioPanel");
+    const ok = fitsMiniPlayer();
+    st.pausedForFit = !ok;
+    if (p) p.classList.toggle("is-min-paused", !ok);
+    document.body.classList.toggle("radio-min", !!(st.minimized && ok));
+    if (!ok && st.player && st.player.pauseVideo) {
+      try { st.player.pauseVideo(); } catch (e) { /* player gone */ }
+    }
+    if (window.SeaWindows && window.SeaWindows.paintDock) window.SeaWindows.paintDock();
     syncMini();
   }
   function syncMini() {
@@ -114,6 +159,8 @@
     p = document.createElement("aside"); p.className = "panel glass radiopanel"; p.id = "radioPanel"; p.hidden = true; p.setAttribute("aria-label", r.title);
     p.innerHTML = "<div class='loghead'><div><div class='kicker'>Radio</div><div class='rtitle'>" + esc(r.title) + "</div></div><button class='btn ghost icon' id='radioClose' aria-label='Close radio (stops the player)'>×</button></div>" +
       "<div class='radiostage' id='radioStage'><div id='radioPlayer'></div></div>" +
+      "<div class='radiomini' id='radioMini'><button class='btn ghost icon' type='button' data-radio='play' aria-label='Play'>▶</button>" +
+      "<span class='rmtitle'></span><button class='btn ghost small' type='button' data-radio='expand'>Expand</button></div>" +
       "<button class='btn' id='radioLoad'>Load the player</button><div class='small' id='radioMsg' role='status' hidden></div>" +
       "<div class='small'>Playlist: <a href='" + esc(r.player.playlistUrl) + "' target='_blank' rel='noopener noreferrer'>" + esc(r.player.title) + "</a> on <a href='" + esc(r.player.channel) + "' target='_blank' rel='noopener noreferrer'>" + esc(r.player.channelName) + "</a>. Played by YouTube’s embedded player; SeaGlobe hosts no audio. Free; YouTube may show ads.</div>" +
       "<div class='kicker' data-style='margin-top:6px'>Outside radio sites</div><ul class='radiolinks'>" +
@@ -121,6 +168,11 @@
     document.body.appendChild(p);
     $("radioClose").addEventListener("click", () => open(false));
     $("radioLoad").addEventListener("click", start);
+    const mini = $("radioMini");
+    if (mini) {
+      mini.querySelector("[data-radio='play']").addEventListener("click", (e) => { e.stopPropagation(); togglePlay(); });
+      mini.querySelector("[data-radio='expand']").addEventListener("click", (e) => { e.stopPropagation(); expand(); });
+    }
     bindWindows(p);
     return p;
   }
@@ -128,14 +180,18 @@
     if (!st.open) return;
     st.minimized = true;
     const p = $("radioPanel"); if (p) p.hidden = false;   // never [hidden] the player
+    applyMiniFit();
     if (window.SeaWindows) window.SeaWindows.minimize("radio");
-    else { st.minimized = true; if (p) p.classList.add("is-min"); }
+    else if (p) p.classList.add("is-min");
+    applyMiniFit();
     syncMini();
   }
   function expand() {
     const p = panel();
-    st.open = true; st.minimized = false;
-    p.hidden = false; document.body.classList.add("radio-open"); setPressed(true);
+    st.open = true; st.minimized = false; st.pausedForFit = false;
+    p.hidden = false; p.classList.remove("is-min-paused");
+    document.body.classList.add("radio-open"); document.body.classList.remove("radio-min");
+    setPressed(true);
     if (window.SeaWindows) window.SeaWindows.expand("radio");
     else p.classList.remove("is-min");
     syncMini();
@@ -144,8 +200,8 @@
     const p = panel();
     if (!on) {
       if (window.SeaWindows) { window.SeaWindows.expand("radio"); window.SeaWindows.unregister("radio"); }
-      destroy(); p.remove(); st.open = false; st.minimized = false;
-      document.body.classList.remove("radio-open"); setPressed(false); return;
+      destroy(); p.remove(); st.open = false; st.minimized = false; st.pausedForFit = false;
+      document.body.classList.remove("radio-open"); document.body.classList.remove("radio-min"); setPressed(false); return;
     }
     if (st.minimized) { expand(); return; }
     st.open = true; st.minimized = false;
@@ -169,7 +225,8 @@
     const mq = $("mQuick");
     if (mq && !$("mRadioBtn")) { const m = document.createElement("button"); m.className = "btn"; m.id = "mRadioBtn"; m.textContent = "Radio"; m.addEventListener("click", () => { if (window.__sgMobile) window.__sgMobile.sheet(null); onRadioButton(); }); mq.appendChild(m); }
     window.addEventListener("offline", () => { if (st.open) note("Radio needs internet. You are offline now."); });
+    window.addEventListener("resize", () => { if (st.minimized) applyMiniFit(); });
   }
-  window.SeaRadio = { open, start, minimize, expand, state: () => ({ open: st.open, player: !!st.player, api: st.apiState, skips: st.skips, msg: st.msg, started: !!st.started, minimized: !!st.minimized }) };
+  window.SeaRadio = { open, start, minimize, expand, state: () => ({ open: st.open, player: !!st.player, api: st.apiState, skips: st.skips, msg: st.msg, started: !!st.started, minimized: !!st.minimized, pausedForFit: !!st.pausedForFit }) };
   window.addEventListener("seaglobe:ready", () => setTimeout(init, 0));
 })();

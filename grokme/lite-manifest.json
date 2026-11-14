@@ -23,7 +23,7 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 13108265,
+ "total_bytes": 13115260,
  "file_count": 399,
  "files": [
   {
@@ -1923,8 +1923,8 @@
   },
   {
    "path": "js/radio.js",
-   "bytes": 11365,
-   "sha256": "ae20e64e733edc245ab54f81fd990ec9aa0d3c202ae02306bf9c4b7eec2533d6"
+   "bytes": 14666,
+   "sha256": "4c262f6abacc8a4193635212afdfe37e4286331a79ec902cb3856eb3fc6cfaef"
   },
   {
    "path": "js/regions.js",
@@ -1973,8 +1973,8 @@
   },
   {
    "path": "js/windows.js",
-   "bytes": 17473,
-   "sha256": "2909fa5ac4eea8affd9fbd5d21fb319a6a413f2672b558ac406588502876faed"
+   "bytes": 18976,
+   "sha256": "518fbdcd53e7b060b0a94493fb57b383daa2032daf847f1ab12cadc23c2bd2eb"
   },
   {
    "path": "lite.html",
@@ -1988,8 +1988,8 @@
   },
   {
    "path": "v3.css",
-   "bytes": 14611,
-   "sha256": "e81be6b45b649e979c0fe4336aaabd56da91a01c3a106b886d89cbb609b345cb"
+   "bytes": 16802,
+   "sha256": "5b324071f5774f0daa872aa4c83368159f1fa4cf3eb23d5b7cb147635d46f5d5"
   },
   {
    "path": "vendor/README.md",

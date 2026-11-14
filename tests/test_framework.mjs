@@ -48,6 +48,45 @@ const r2 = spawn("python3", [path.join(root, "tools", "mock_r2.py"), r2dir, "--p
 await sleep(800);
 const local = (errs, extra = []) => errs.filter((e) => !extra.some((x) => x.test(e)));
 
+const closeHit = (page) => page.evaluate(() => {
+  const b = document.getElementById("radioClose");
+  if (!b) return { hit: null };
+  const r = b.getBoundingClientRect();
+  const el = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+  const onClose = !!(el && (el.id === "radioClose" || (el.closest && el.closest("#radioClose"))));
+  return { hit: el && (el.id || el.getAttribute("title") || el.className || el.tagName), onClose, w: r.width, h: r.height };
+});
+const miniPlayerBox = (page) => page.evaluate(() => {
+  const stage = document.getElementById("radioStage");
+  const node = (stage && (stage.querySelector(".fake-yt, iframe") || document.getElementById("radioPlayer"))) || stage;
+  if (!node) return null;
+  const r = node.getBoundingClientRect();
+  const cs = getComputedStyle(node);
+  const panel = document.getElementById("radioPanel");
+  const pcs = panel ? getComputedStyle(panel) : null;
+  const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+  const covered = !!(top && top !== node && !node.contains(top) && !top.contains(node));
+  const mini = document.getElementById("radioMini");
+  const mcs = mini ? getComputedStyle(mini) : null;
+  const bar = document.getElementById("timeline");
+  const menu = document.getElementById("menuBtn");
+  const overlap = (a, b) => a && b && Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1;
+  return {
+    w: r.width, h: r.height, left: r.left, top: r.top, right: r.right, bottom: r.bottom,
+    display: cs.display, visibility: cs.visibility, opacity: Number(cs.opacity), pe: cs.pointerEvents,
+    panelPe: pcs && pcs.pointerEvents, panelDisplay: pcs && pcs.display,
+    hidden: !!(panel && panel.hidden),
+    onScreen: r.left >= -0.5 && r.top >= -0.5 && r.right <= innerWidth + 0.5 && r.bottom <= innerHeight + 0.5,
+    covered, topName: top && (top.id || top.className || top.tagName),
+    miniShown: !!(mini && mcs && mcs.display !== "none" && mcs.visibility !== "hidden"),
+    hasExpand: !!(mini && mini.querySelector("[data-radio='expand']")),
+    title: mini && mini.querySelector(".rmtitle") && mini.querySelector(".rmtitle").textContent,
+    overBar: !!(bar && overlap(r, bar.getBoundingClientRect())),
+    overMenu: !!(menu && overlap(r, menu.getBoundingClientRect())),
+    pausedForFit: !!(window.SeaRadio.state().pausedForFit)
+  };
+});
+
 try {
   await check("encyclopedia: open, counts, search, entry with references, A–Z, timeline, compare, bibliography, sources, about", async () => {
     const p = await openApp(browser, port, "capture=1");
@@ -300,6 +339,8 @@ try {
     await p.evaluate(() => { window.__ytPlayer.userPlays(); window.__ytPlayer.fail(150); });
     assert.match(await p.evaluate(() => document.getElementById("radioMsg").textContent), /skipped because its owner does not allow embedding/);
     assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), 1);
+    const hit = await closeHit(p);
+    assert.equal(hit.onClose, true, "Window controls must not cover × (hit " + hit.hit + ")");
     await p.click("#radioClose");
     assert.equal(await p.evaluate(() => !!document.getElementById("radioPanel") || window.__ytDestroyed), 1, "closing removes the player");
     // reopening gives a fresh player that again waits for the user's play before any skip
@@ -327,19 +368,28 @@ try {
       stage: !!document.getElementById("radioStage"),
       node: !!(document.querySelector("#radioStage .fake-yt") || document.getElementById("radioPlayer")),
       display: document.getElementById("radioPanel") && getComputedStyle(document.getElementById("radioPanel")).display,
-      hidden: !!(document.getElementById("radioPanel") && document.getElementById("radioPanel").hidden),
-      dock: !!(document.querySelector("#windowDockChips .radiomini, #windowDock .windock-chip")),
+      hidden: !!(document.getElementById("radioPanel") && document.getElementById("radioPanel").hidden)
     }));
     assert.equal(mid.st.minimized, true, "minimized");
     assert.equal(mid.st.player, true, "player still mounted after minimize");
     assert.equal(mid.st.started, true, "started not reset by minimize");
+    assert.equal(mid.st.pausedForFit, false, "200×200 tile should fit on a 1280×800 desktop");
     assert.equal(mid.calls, before.calls, "minimize must not restart the player");
     assert.equal(mid.destroyed, before.destroyed, "minimize must not call destroy()");
     assert.equal(mid.nexts, before.nexts, "minimize must not skip");
     assert.equal(mid.stage && mid.node, true, "stage and player node still in the document");
     assert.notEqual(mid.display, "none");
     assert.equal(mid.hidden, false, "minimized radio must not be [hidden]");
-    assert.ok(mid.dock, "mini-bar is in the dock");
+    const miniBox = await miniPlayerBox(p);
+    assert.ok(miniBox && miniBox.w >= 200 && miniBox.h >= 200, "minimized player rect must be ≥200×200, got " + JSON.stringify(miniBox && { w: miniBox.w, h: miniBox.h }));
+    assert.equal(miniBox.onScreen, true, "minimized player must be fully on screen, got " + JSON.stringify({ left: miniBox.left, top: miniBox.top, right: miniBox.right, bottom: miniBox.bottom }));
+    assert.notEqual(miniBox.display, "none");
+    assert.notEqual(miniBox.visibility, "hidden");
+    assert.ok(miniBox.opacity > 0.99, "minimized player opacity " + miniBox.opacity);
+    assert.notEqual(miniBox.pe, "none", "iframe must receive pointer events");
+    assert.notEqual(miniBox.panelPe, "none", "panel must not use pointer-events:none");
+    assert.equal(miniBox.covered, false, "minimized player must not be covered (top element " + miniBox.topName + ")");
+    assert.equal(miniBox.miniShown && miniBox.hasExpand, true, "title and Expand sit next to the player");
     await p.evaluate(() => window.SeaEncyclopedia.open(true)); await sleep(200);
     mid = await p.evaluate(() => ({
       st: window.SeaRadio.state(), calls: window.__ytCalls.length, destroyed: window.__ytDestroyed || 0,
@@ -349,6 +399,9 @@ try {
     assert.equal(mid.calls, before.calls);
     assert.equal(mid.destroyed, before.destroyed);
     assert.equal(mid.nexts, before.nexts);
+    const afterAtlas = await miniPlayerBox(p);
+    assert.ok(afterAtlas && afterAtlas.w >= 200 && afterAtlas.h >= 200 && afterAtlas.onScreen, "player stays on screen with encyclopedia open");
+    assert.equal(afterAtlas.covered, false, "encyclopedia must not cover the mini player (top " + afterAtlas.topName + ")");
     await p.evaluate(() => window.__ytPlayer.fail(150));
     assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), before.nexts + 1, "skips still work after minimize");
     await p.evaluate(() => window.SeaRadio.expand());
@@ -409,6 +462,28 @@ try {
     const afterKey = await p.evaluate(() => window.SeaWindows.state("side"));
     assert.ok(afterKey.moved, "arrow key moves an unlocked panel");
     await p.evaluate(() => window.SeaWindows.resetLayout());
+    assert.deepEqual(p._errors, []); await p.close();
+  });
+
+  await check("windows: a saved zoom outside the normal range is clamped on load", async () => {
+    const p = await openApp(browser, port, "update=0&assets=local");
+    await p.evaluate(() => {
+      localStorage.setItem("seaglobe-windows", JSON.stringify({
+        side: { x: 20, y: 80, w: 300, h: 300, zoom: 99, locked: false, minimized: false }
+      }));
+    });
+    await p.reload({ waitUntil: "load" });
+    await p.waitForFunction(() => document.documentElement.dataset.ready === "1" || document.documentElement.dataset.ready === "error", { timeout: 180000 });
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("side").zoom), 1.8, "zoom 99 clamps to 1.8");
+    await p.evaluate(() => {
+      localStorage.setItem("seaglobe-windows", JSON.stringify({
+        side: { x: 20, y: 80, w: 300, h: 300, zoom: 0.1, locked: false, minimized: false }
+      }));
+    });
+    await p.reload({ waitUntil: "load" });
+    await p.waitForFunction(() => document.documentElement.dataset.ready === "1" || document.documentElement.dataset.ready === "error", { timeout: 180000 });
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("side").zoom), 0.8, "zoom 0.1 clamps to 0.8");
+    await p.evaluate(() => localStorage.removeItem("seaglobe-windows"));
     assert.deepEqual(p._errors, []); await p.close();
   });
 
@@ -483,21 +558,15 @@ try {
       assert.equal(st.speaking, false, "phone: opening Go deeper started speaking");
       await p.evaluate(() => window.SeaRadio.open(true)); await sleep(200);
       await p.evaluate(() => window.SeaRadio.minimize());
-      const cov = await p.evaluate(() => {
-        const dock = document.getElementById("windowDock");
-        const bar = document.getElementById("timeline");
-        const menu = document.getElementById("menuBtn");
-        const d = dock && getComputedStyle(dock).display !== "none" ? dock.getBoundingClientRect() : null;
-        const t = bar.getBoundingClientRect(), m = menu.getBoundingClientRect();
-        const overlap = (a, b) => a && Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1;
-        return { hidden: !!(document.getElementById("radioPanel") && document.getElementById("radioPanel").hidden),
-          display: document.getElementById("radioPanel") && getComputedStyle(document.getElementById("radioPanel")).display,
-          dockTop: d && d.top, barTop: t.top, overBar: overlap(d, t), overMenu: overlap(d, m) };
-      });
+      const cov = await miniPlayerBox(p);
       assert.equal(cov.hidden, false, "phone: minimized radio is not [hidden]");
-      assert.notEqual(cov.display, "none");
-      assert.equal(cov.overBar, false, "phone: dock must not cover the timeline");
-      assert.equal(cov.overMenu, false, "phone: dock must not cover the menu button");
+      assert.notEqual(cov.panelDisplay, "none");
+      assert.equal(cov.pausedForFit, false, "phone 390×844 should fit a 200×200 tile");
+      assert.ok(cov.w >= 200 && cov.h >= 200, "phone: minimized player ≥200×200, got " + cov.w + "×" + cov.h);
+      assert.equal(cov.onScreen, true, "phone: minimized player must be on screen");
+      assert.equal(cov.covered, false, "phone: minimized player must not be covered (top " + cov.topName + ")");
+      assert.equal(cov.overBar, false, "phone: mini player must not cover the timeline");
+      assert.equal(cov.overMenu, false, "phone: mini player must not cover the menu button");
       await p.evaluate(() => window.SeaRadio.open(false));
       assert.deepEqual(p._errors, []); await p.close();
     } finally { await ph.close(); }

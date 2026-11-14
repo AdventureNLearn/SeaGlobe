@@ -5,13 +5,16 @@
 - Narration in Go deeper starts only when you press a tour or Listen button. Opening the tab does not start it, and a
   tour no longer advances to the next stop on its own (not when a clip ends, and not when the speech voice errors).
 - A speech error no longer skips through the rest of the tour. Press Next for the next stop, or Stop to end it.
-- Creedence Radio has a minimize control that collapses it to a dock mini-bar (play/pause, track title, expand). The
-  YouTube player stays mounted and keeps playing while you open other panels, tabs and layers. Only Close (×) stops
-  and destroys the player. There is still no autoplay.
+- Creedence Radio has a minimize control that collapses it to a visible on-screen mini player: the real YouTube
+  iframe stays at least 200×200 CSS pixels, uncovered, with its controls usable, docked in a corner, plus the title
+  and Expand next to it. The player stays mounted and keeps playing while you open other panels, tabs and layers.
+  If a 200×200 tile cannot fit above the globe controls, playback is paused instead. Only Close (×) stops and
+  destroys the player. There is still no autoplay.
 - Shared window system for the radio, encyclopedia, Ship's Log and the side panel: drag, resize from edges and
   corners, lock / unlock, content zoom that does not change the globe zoom, a dock for minimized windows, and a
-  Reset layout button. The layout is remembered in this browser (not during tests). On a phone the panels stay as
-  snap-to-edge sheets; the dock sits above the globe controls and does not cover them.
+  Reset layout button. The layout is remembered in this browser (not during tests). A stored zoom outside the
+  normal range is clamped when the layout loads. On a phone the panels stay as snap-to-edge sheets; the dock and
+  the radio mini player sit above the globe controls and do not cover them.
 
 
 ## v3.0.0 (2026-11-14) — atlas framework

@@ -59,6 +59,8 @@
       const r = regs[id];
       if (r.moved || r.locked || r.zoom !== 1) dirty = true;
       if (!r.minimized) return;
+      // Visible keep-alive tile (radio) already shows title and Expand; a dock chip would cover the iframe.
+      if (r.opts.keepAlive && r.opts.mini && !r.el.classList.contains("is-min-paused")) return;
       n++;
       const b = document.createElement("button");
       b.className = "btn ghost small windock-chip" + (r.opts.keepAlive ? " is-alive" : "");
@@ -114,6 +116,22 @@
       el.appendChild(h);
     });
   }
+  function closeBtn(el) {
+    return el.querySelector("#radioClose, #atlasClose, #logClose");
+  }
+  function placeTools(r) {
+    const el = r.el;
+    const t = el.querySelector(":scope > .wintools-overlay");
+    const close = closeBtn(el);
+    if (!t || !close || el.hidden || el.classList.contains("is-min")) return;
+    const er = el.getBoundingClientRect(), cr = close.getBoundingClientRect();
+    if (cr.width < 1 || er.width < 1) return;
+    const gap = 4;
+    // Sit just to the left of ×, out of the document flow so other header buttons do not shift.
+    t.style.right = (er.right - cr.left + gap) + "px";
+    t.style.left = "auto";
+    t.style.top = Math.max(2, cr.top - er.top) + "px";
+  }
   function attachChrome(id, r) {
     const el = r.el;
     const head = [el.querySelector(".loghead"), el.querySelector("#mHead"), el.querySelector(".tabs")].find((h) => {
@@ -124,6 +142,12 @@
     const t = tools(id);
     t.classList.add("wintools-overlay");
     el.appendChild(t);
+    if (closeBtn(el)) {
+      const ro = new ResizeObserver(() => placeTools(r));
+      ro.observe(el);
+      ro.observe(closeBtn(el));
+      requestAnimationFrame(() => placeTools(r));
+    }
     if (head) head.setAttribute("data-winbar", "1");
     else {
       const bar = document.createElement("div");
@@ -141,7 +165,10 @@
     r.el.style.setProperty("--win-zoom", String(r.zoom));
     r.el.classList.toggle("is-zoomed", r.zoom !== 1);
     const t = zoomTarget(r);
-    if (t) t.style.zoom = r.zoom === 1 ? "" : String(r.zoom);
+    if (!t) return;
+    // A keep-alive mini player must stay at least 200×200 CSS px, uncovered, so do not zoom it while minimized.
+    if (r.minimized && r.opts.keepAlive) t.style.zoom = "";
+    else t.style.zoom = r.zoom === 1 ? "" : String(r.zoom);
   }
   function applyLock(r) {
     r.el.classList.toggle("is-locked", r.locked);
@@ -277,7 +304,9 @@
     if (!testMode()) {
       const saved = store()[id];
       if (saved && !phone()) {
-        r.zoom = saved.zoom || 1; r.locked = !!saved.locked;
+        const z = Number(saved.zoom);
+        r.zoom = Number.isFinite(z) ? clamp(z, 0.8, 1.8) : 1;
+        r.locked = !!saved.locked;
         applyBox(r, saved); applyZoom(r); applyLock(r);
         if (saved.minimized) minimize(id);
       }
@@ -290,6 +319,7 @@
     r.minimized = true;
     r.el.classList.add("is-min");
     if (!r.opts.keepAlive) r.el.setAttribute("data-win-min", "1");
+    applyZoom(r);
     // keepAlive panels stay in the document and must not be [hidden] or display:none (YouTube would stop)
     if (typeof r.opts.onMinimize === "function") r.opts.onMinimize();
     persist(); paintDock();
@@ -298,10 +328,13 @@
     const r = regs[id]; if (!r || !r.minimized) return;
     r.minimized = false;
     r.el.classList.remove("is-min");
+    r.el.classList.remove("is-min-paused");
     r.el.removeAttribute("data-win-min");
+    applyZoom(r);
     if (r.el.hidden && r.opts.unhideOnExpand !== false) { /* leave hidden to the owner's open() */ }
     if (typeof r.opts.onExpand === "function") r.opts.onExpand();
     raise(r.el);
+    requestAnimationFrame(() => placeTools(r));
     persist(); paintDock();
   }
   function toggleLock(id) {
@@ -375,6 +408,6 @@
     return false;
   }
 
-  window.SeaWindows = { register, unregister, minimize, expand, toggleLock, zoom, move, resize, resetLayout, state, persist, bring };
+  window.SeaWindows = { register, unregister, minimize, expand, toggleLock, zoom, move, resize, resetLayout, state, persist, bring, paintDock };
   window.addEventListener("seaglobe:ready", () => setTimeout(initBuiltins, 0));
 })();

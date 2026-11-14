@@ -106,10 +106,13 @@ body.atlas-open .radiopanel { left: calc(490px * var(--ui)); }
 .sgwin.is-dragging .winbar, .sgwin.is-dragging { cursor: grabbing; user-select: none; }
 .sgwin.is-locked .winbar { cursor: default; }
 .wintools { display: flex; align-items: center; gap: calc(2px * var(--ui)); flex: none; }
-.wintools-overlay { position: absolute; top: calc(4px * var(--ui)); right: calc(28px * var(--ui)); z-index: 8; }
+.wintools-overlay { position: absolute; top: calc(4px * var(--ui)); left: calc(8px * var(--ui)); right: auto; z-index: 8; }
+.radiopanel > .wintools-overlay, .atlaspanel > .wintools-overlay, .logpanel > .wintools-overlay {
+  left: auto; right: calc(52px * var(--ui)); }
+.wintools-row { display: flex; align-items: center; gap: calc(4px * var(--ui)); flex: none; margin: 0; }
 .wintools-menu { display: flex; gap: calc(2px * var(--ui)); position: absolute; right: 0; top: calc(100% + 2px * var(--ui)); padding: calc(4px * var(--ui)); background: var(--solid); border: calc(1px * var(--ui)) solid var(--edge); z-index: 9; }
 .wintools-menu[hidden] { display: none !important; }
-#side > .wintools-overlay { right: calc(6px * var(--ui)); top: calc(6px * var(--ui)); }
+#side > .wintools-overlay { left: calc(6px * var(--ui)); right: auto; top: calc(6px * var(--ui)); }
 .wintools .btn.icon { min-width: calc(28px * var(--ui)); padding: 0 calc(6px * var(--ui)); font-size: calc(13px * var(--ui)); }
 .wintools .win-lock[aria-pressed="true"] { color: var(--gold); }
 .sgwin { --win-zoom: 1; }
@@ -125,22 +128,32 @@ body.atlas-open .radiopanel { left: calc(490px * var(--ui)); }
 .sgwin.is-locked .win-h, .sgwin.is-min .win-h { display: none; }
 .sgwin.is-min:not([data-win="radio"]) { display: none !important; }
 
-/* Radio stays mounted and painted (never display:none / [hidden] / visibility:hidden / opacity:0) so YouTube keeps playing. */
-.sgwin.is-min[data-win="radio"] { position: fixed !important; left: -250px !important; top: 0 !important;
-  width: 200px !important; height: 200px !important; right: auto !important; bottom: auto !important;
-  opacity: 1; pointer-events: none; overflow: hidden; z-index: 1; box-shadow: none; }
-.sgwin.is-min[data-win="radio"] .loghead,
-.sgwin.is-min[data-win="radio"] .wintools,
-.sgwin.is-min[data-win="radio"] .win-h,
-.sgwin.is-min[data-win="radio"] .radiolinks,
-.sgwin.is-min[data-win="radio"] #radioLoad,
-.sgwin.is-min[data-win="radio"] #radioMsg,
-.sgwin.is-min[data-win="radio"] .winbody > .small,
-.sgwin.is-min[data-win="radio"] .kicker[data-style] { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.sgwin.is-min[data-win="radio"] .winbody { overflow: visible; }
-.sgwin.is-min[data-win="radio"] .radiostage { position: absolute !important; inset: 0 !important;
-  width: 200px !important; height: 200px !important; min-width: 200px !important; min-height: 200px !important;
-  aspect-ratio: auto; }
+/* Minimized radio is a visible on-screen mini player (YouTube forbids a background / off-screen player).
+   The real iframe stays at least 200×200 CSS px, uncovered, with its controls usable. */
+.sgwin.is-min[data-win="radio"] { position: fixed !important; left: calc(14px * var(--ui)) !important;
+  bottom: calc(156px * var(--ui)) !important; top: auto !important; right: auto !important;
+  width: fit-content !important; height: auto !important; max-width: calc(100vw - 28px * var(--ui));
+  display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important;
+  gap: calc(8px * var(--ui)); padding: calc(8px * var(--ui)); opacity: 1; pointer-events: auto;
+  overflow: visible !important; z-index: 30 !important; clip-path: none; box-shadow: 0 calc(16px * var(--ui)) calc(40px * var(--ui)) rgba(0,0,0,.55); }
+.sgwin.is-min[data-win="radio"] > :not(#radioStage):not(#radioMini) { display: none !important; }
+.sgwin.is-min[data-win="radio"] .winbody { overflow: visible; display: contents; }
+.sgwin.is-min[data-win="radio"] .radiostage { position: relative !important; inset: auto !important;
+  width: calc(200px * var(--ui)) !important; height: calc(200px * var(--ui)) !important;
+  min-width: 200px !important; min-height: 200px !important; flex: none; aspect-ratio: auto;
+  pointer-events: auto; }
+.sgwin.is-min[data-win="radio"] .radiostage iframe,
+.sgwin.is-min[data-win="radio"] .radiostage #radioPlayer,
+.sgwin.is-min[data-win="radio"] .radiostage .fake-yt { pointer-events: auto; }
+#radioMini { display: none; }
+.sgwin.is-min[data-win="radio"] #radioMini { display: flex; flex-direction: column; justify-content: center;
+  gap: calc(6px * var(--ui)); min-width: calc(108px * var(--ui)); max-width: calc(200px * var(--ui));
+  pointer-events: auto; }
+.sgwin.is-min[data-win="radio"] #radioMini .rmtitle { white-space: normal; max-width: none; }
+/* If the 200×200 tile cannot fit, playback is paused and only the compact chrome is shown. */
+.sgwin.is-min[data-win="radio"].is-min-paused { padding: calc(6px * var(--ui)) calc(8px * var(--ui)); }
+.sgwin.is-min[data-win="radio"].is-min-paused .radiostage { display: none !important; }
+.sgwin.is-min[data-win="radio"].is-min-paused #radioMini { max-width: calc(240px * var(--ui)); }
 
 .windock { left: calc(14px * var(--ui)); bottom: calc(156px * var(--ui)); max-width: min(calc(560px * var(--ui)), 56vw);
   display: flex; flex-wrap: wrap; align-items: center; gap: calc(6px * var(--ui)); padding: calc(8px * var(--ui)) calc(10px * var(--ui));
@@ -160,4 +173,15 @@ body.atlas-open .radiopanel { left: calc(490px * var(--ui)); }
   /* keep the window-control button off the close button and era chips */
   #side > .wintools-overlay { left: calc(8px * var(--ui)); right: auto; top: calc(8px * var(--ui)); }
   .radiomini .rmtitle { max-width: 36vw; }
+  .sgwin.is-min[data-win="radio"] { left: var(--mgap) !important;
+    bottom: calc(var(--mbar) + var(--mgap) * 2 + var(--sab)) !important;
+    max-width: calc(100vw - var(--mgap) * 2); z-index: 30 !important; padding: calc(6px * var(--ui)); }
+  body.radio-min .atlaspanel, body.radio-min .logpanel,
+  body.radio-min.m-sheet #side { bottom: calc(var(--mbar) + var(--mgap) * 2 + var(--sab) + 200px + 28px * var(--ui)); }
+  /* When the dock would sit on the mini player, lift it above the 200×200 tile. */
+  body.radio-min .windock { left: var(--mgap); right: var(--mgap);
+    bottom: calc(var(--mbar) + var(--mgap) * 2 + var(--sab) + 200px + 20px * var(--ui)); }
+}
+@media (min-width: 821px) {
+  body.radio-min .windock { left: calc(14px * var(--ui) + 200px * var(--ui) + 140px * var(--ui)); }
 }
