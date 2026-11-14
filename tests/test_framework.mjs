@@ -257,6 +257,12 @@ try {
     assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), 1);
     await p.click("#radioClose");
     assert.equal(await p.evaluate(() => !!document.getElementById("radioPanel") || window.__ytDestroyed), 1, "closing removes the player");
+    // reopening gives a fresh player that again waits for the user's play before any skip
+    await p.evaluate(() => window.SeaRadio.open(true)); await p.click("#radioLoad");
+    await p.waitForFunction(() => window.__ytCalls.length === 2 && window.SeaRadio.state().api === "ready", { timeout: 10000 });
+    await p.evaluate(() => window.__ytPlayer.fail(150));
+    assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), 0, "no skip after reopening until the user plays");
+    await p.click("#radioClose");
     assert.deepEqual(p._errors, []); await p.close();
     // YouTube unreachable: clean message, app keeps running
     p = await openApp(browser, port, `capture=1&radioapi=${encodeURIComponent("http://127.0.0.1:9/iframe_api.js")}`);

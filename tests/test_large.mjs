@@ -36,6 +36,7 @@ for (const [w, h, dpr, ui] of CASES) {
         canvasCss: [cb.width, cb.height], buffer: [c.width, c.height],
         overflow: [document.documentElement.scrollWidth > innerWidth + 1, document.documentElement.scrollHeight > innerHeight + 1],
         tex,
+        labels: [...document.querySelectorAll(".vlabel")].filter((e) => !e.hidden && e.textContent).map((e) => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.right, b.bottom, e.textContent]; }),
       };
     });
     assert.equal(r.vw, w); assert.equal(r.dpr, dpr);
@@ -54,9 +55,14 @@ for (const [w, h, dpr, ui] of CASES) {
     assert.ok(r.buffer[0] * r.buffer[1] <= 7680 * 4320 * 1.01, "drawing buffer capped near 8K " + r.buffer);
     assert.ok(r.buffer[0] >= Math.min(w * dpr, 7680) - 2, "buffer uses the screen's pixels " + r.buffer);
     assert.ok(r.tex.length > 0, "8K day texture loaded");
+    // vehicle labels on the globe never sit on top of each other (their spacing scales with --ui)
+    const hit = (a, b) => a[0] < b[2] - 1 && b[0] < a[2] - 1 && a[1] < b[3] - 1 && b[1] < a[3] - 1;
+    const clash = r.labels.flatMap((a, i) => r.labels.slice(i + 1).filter((b) => hit(a, b)).map((b) => a[4] + " / " + b[4]));
+    assert.ok(r.labels.length > 0, "labels shown");
+    assert.deepEqual(clash, [], "overlapping labels");
     assert.deepEqual(p._errors, [], "console errors");
     if (shots && dpr === 1) { fs.mkdirSync(shots, { recursive: true }); await p.screenshot({ path: path.join(shots, `large-${w}x${h}.png`) }); }
-    console.log(`ok - ${name}: --ui ${r.ui}, tab text ${r.tabFont}px, side panel ${(share * 100).toFixed(1)}% of width, buffer ${r.buffer.join("×")}`);
+    console.log(`ok - ${name}: --ui ${r.ui}, tab text ${r.tabFont}px, side panel ${(share * 100).toFixed(1)}% of width, buffer ${r.buffer.join("×")}, ${r.labels.length} labels, none overlapping`);
     await p.close();
   } catch (e) { failed++; console.log(`not ok - ${name}\n  ` + String(e.message || e).split("\n").slice(0, 8).join("\n  ")); }
   finally { await browser.close(); }

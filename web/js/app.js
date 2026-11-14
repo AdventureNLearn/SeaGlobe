@@ -1,7 +1,8 @@
 /* SeaGlobe app: a planet of routes with moving vehicles, 500 BCE to today.
    Static: every file is local. The only outside requests are opt-in or have a fallback: the read-only version check
-   (js/update.js), large files from the R2 base when one is set (js/assets.js), the chat Worker when set (js/chat.js)
-   and feeds the user brings in the BYO edition (js/byo.js). */
+   (js/update.js), large files from the R2 base when one is set (js/assets.js), the chat (js/chat.js: only after the visitor
+   saves their own xAI key, sent straight to api.x.ai; the optional Worker in worker/chat is a pass-through a visitor may run on
+   their own Cloudflare account) and feeds the user brings in the BYO edition (js/byo.js). */
 (function () {
   "use strict";
   const THREE = window.SEAGLOBE_THREE;
@@ -838,7 +839,7 @@
       const placed = [];
       for (const c of cand) {
         if (want.length >= max && !c.sel) continue;
-        if (!c.sel && placed.some((q) => Math.abs(q.x - c.p.x) < 120 && Math.abs(q.y - c.p.y) < 22)) continue;
+        if (!c.sel && placed.some((q) => Math.abs(q.x - c.p.x) < 120 * uiK && Math.abs(q.y - c.p.y) < 22 * uiK)) continue;   // spacing grows with the UI scale so big-screen labels never overlap
         placed.push(c.p); want.push(c);
       }
     }

@@ -37,3 +37,18 @@ test("oversized bodies are refused", async () => {
   const calls = mockFetch(); const r = await worker.fetch(req({ body: "x".repeat(70000) }), env);
   assert.equal(r.status, 413); assert.equal(calls.length, 0);
 });
+test("a declared Content-Length over the cap is refused before the body is read", async () => {
+  const calls = mockFetch();
+  const r = await worker.fetch(req({ headers: { "content-length": "70000" }, body: "{}" }), env);
+  assert.equal(r.status, 413); assert.equal(calls.length, 0);
+});
+test("an upstream that never answers is cut off with 504 (AbortController timeout)", async () => {
+  globalThis.fetch = (url, init) => new Promise((_, reject) => init.signal.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError"))));
+  const r = await worker.fetch(req(), Object.assign({}, env, { UPSTREAM_TIMEOUT_MS: "50" }));
+  assert.equal(r.status, 504);
+});
+test("the default upstream timeout is about 60 s and the fetch carries an abort signal", async () => {
+  const calls = mockFetch(); await worker.fetch(req(), env);
+  assert.ok(calls[0].init.signal instanceof AbortSignal);
+  assert.match(await (await import("node:fs")).promises.readFile(new URL("../src/index.js", import.meta.url), "utf8"), /UPSTREAM_TIMEOUT_MS = 60 \* 1000/);
+});

@@ -58,7 +58,7 @@
     st.apiState = "loading";
     return true;
   }
-  function destroy() { if (st.player && st.player.destroy) { try { st.player.destroy(); } catch (e) { /* already gone */ } } st.player = null; st.skips = 0; }
+  function destroy() { if (st.player && st.player.destroy) { try { st.player.destroy(); } catch (e) { /* already gone */ } } st.player = null; st.skips = 0; st.started = false; }   // a reopened player waits for the user's play again before any skip
   function panel() {
     let p = $("radioPanel"); if (p) return p;
     const r = R();

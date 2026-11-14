@@ -5,6 +5,24 @@
 // stores nothing (no KV, no cache, no logs of headers or bodies) and accepts only the origins listed in ALLOWED_ORIGINS.
 const XAI = "https://api.x.ai/v1/chat/completions";
 const MAX_BODY = 64 * 1024;
+const UPSTREAM_TIMEOUT_MS = 60 * 1000;
+
+// Reads at most `max` bytes of the request body; returns null as soon as it goes over (backstop for a missing or wrong Content-Length).
+async function readCapped(request, max) {
+  if (!request.body) return "";
+  const reader = request.body.getReader(), parts = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > max) { try { await reader.cancel(); } catch (e) { /* already closed */ } return null; }
+    parts.push(value);
+  }
+  const all = new Uint8Array(size); let at = 0;
+  for (const p of parts) { all.set(p, at); at += p.byteLength; }
+  return new TextDecoder().decode(all);
+}
 
 export function corsHeaders(origin, allowed) {
   const ok = origin && String(allowed || "").split(",").map((s) => s.trim()).filter(Boolean).includes(origin);
@@ -21,9 +39,18 @@ export default {
     if (request.method !== "POST") return json(405, { error: "POST only" }, cors);
     const auth = request.headers.get("authorization") || "";
     if (!/^Bearer \S{8,}$/.test(auth)) return json(401, { error: "send your own xAI key as Authorization: Bearer <key>" }, cors);
-    const body = await request.text();
-    if (body.length > MAX_BODY) return json(413, { error: "request too large" }, cors);
-    const up = await fetch(env.XAI_URL || XAI, { method: "POST", headers: { authorization: auth, "content-type": "application/json" }, body });
+    const declared = Number(request.headers.get("content-length"));
+    if (declared > MAX_BODY) return json(413, { error: "request too large" }, cors);
+    const body = await readCapped(request, MAX_BODY);
+    if (body === null) return json(413, { error: "request too large" }, cors);
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), Number(env.UPSTREAM_TIMEOUT_MS) || UPSTREAM_TIMEOUT_MS);
+    let up;
+    try {
+      up = await fetch(env.XAI_URL || XAI, { method: "POST", headers: { authorization: auth, "content-type": "application/json" }, body, signal: ctl.signal });
+    } catch (e) {
+      return json(ctl.signal.aborted ? 504 : 502, { error: ctl.signal.aborted ? "the xAI API did not answer in time" : "could not reach the xAI API" }, cors);
+    } finally { clearTimeout(timer); }
     return new Response(up.body, { status: up.status, headers: Object.assign({ "content-type": up.headers.get("content-type") || "application/json", "cache-control": "no-store" }, cors) });
   },
 };
