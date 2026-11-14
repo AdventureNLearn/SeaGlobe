@@ -65,10 +65,11 @@
     const img = snapshot(), V = window.SEAGLOBE_VERSION || {};
     const s = window.__sg ? window.__sg.state() : {};
     let pv = $("printView"); if (!pv) { pv = document.createElement("div"); pv.id = "printView"; document.body.appendChild(pv); }
-    const legend = $("legend") ? $("legend").innerHTML : "";
+    const restyle = (h) => h.replace(/ style="/g, ' data-style="');   // copies go back through js/styles.js (no inline style attributes under the CSP)
+    const legend = $("legend") ? restyle($("legend").innerHTML) : "";
     const ent = entity ? document.querySelector("#atlasBody .aentry") : null;
     pv.innerHTML = "<h1>SeaGlobe — " + esc(entity ? entity.title : "map view") + "</h1><div class='pmeta'>" + esc(s.date || "") + " · SeaGlobe v" + esc(V.version || "") + " · printed from " + esc(location.href.split("#")[0]) + "</div>" +
-      (img ? "<img alt='Globe view' src='" + img + "'>" : "<p>[Map image not available in this browser]</p>") + "<div class='plegend'>" + legend + "</div>" + (ent ? ent.outerHTML : "") +
+      (img ? "<img alt='Globe view' src='" + img + "'>" : "<p>[Map image not available in this browser]</p>") + "<div class='plegend'>" + legend + "</div>" + (ent ? restyle(ent.outerHTML) : "") +
       "<p class='pfootp'>Every reconstruction is labelled; gaps are marked [UNKNOWN]. Sources: see each entry, DATA.md and SOURCES.md. Made with Natural Earth; Earth imagery NASA (public domain).</p>";
     document.body.classList.add("printing");
     const done = () => { document.body.classList.remove("printing"); window.removeEventListener("afterprint", done); };

@@ -6,6 +6,7 @@
   - Reads the release's version.json (a local file you downloaded, from tools/make_release.sh or the public site).
   - Checks the zip's SHA-256 against version.json's zip_sha256. A mismatch stops everything.
   - With -Apply, unpacks into <Root>\versions\<version>\ and writes <Root>\current.txt with that folder name.
+    <Root> defaults to %LOCALAPPDATA%\SeaGlobe on Windows ($HOME/SeaGlobe elsewhere); pass -Root to choose another folder.
   - Never deletes or overwrites an installed version: an existing version folder is left as it is and the script stops.
     The only file it rewrites is the current.txt pointer.
     (The only thing it removes is its own empty staging folder from the same run.)
@@ -21,13 +22,15 @@ param(
   [string]$Zip,
   [string]$VersionJson,
   [string]$Rollback,
-  [string]$Root = $(if ($IsWindows -or $env:OS -eq 'Windows_NT') { 'C:\AOS\SeaGlobe' } else { Join-Path $HOME 'SeaGlobe' }),
+  [string]$Root = $(if ($env:LOCALAPPDATA) { Join-Path $env:LOCALAPPDATA 'SeaGlobe' } else { Join-Path $HOME 'SeaGlobe' }),
   [switch]$Apply
 )
 $ErrorActionPreference = 'Stop'
 function Say($m) { Write-Host "[SeaGlobe update] $m" }
 
+$VersionPattern = '^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$'
 if ($Rollback) {   # switch back to a version that is already installed; nothing is unpacked or removed
+  if ($Rollback -notmatch $VersionPattern -or $Rollback.Contains('..')) { throw "-Rollback must be a version like 2.3.0 (got '$Rollback')" }
   $back = Join-Path (Join-Path $Root 'versions') $Rollback
   if (-not (Test-Path -LiteralPath $back -PathType Container)) { throw "Version $Rollback is not installed under $Root\versions" }
   $cf = Join-Path $Root 'current.txt'
@@ -43,7 +46,7 @@ if (-not (Test-Path -LiteralPath $Zip -PathType Leaf)) { throw "Zip not found: $
 if (-not (Test-Path -LiteralPath $VersionJson -PathType Leaf)) { throw "version.json not found: $VersionJson" }
 $meta = Get-Content -LiteralPath $VersionJson -Raw | ConvertFrom-Json
 $version = [string]$meta.version
-if ($version -notmatch '^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$') { throw "version.json has no valid version: '$version'" }
+if ($version -notmatch $VersionPattern -or $version.Contains('..')) { throw "version.json has no valid version: '$version'" }
 $expected = ([string]$meta.zip_sha256).ToLowerInvariant()
 if ($expected -notmatch '^[0-9a-f]{64}$') { throw "version.json has no zip_sha256 (got '$expected'); use the stamped version.json from the release" }
 

@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "web"
 FAM = WEB / "data" / "routes"
 RUNTIME = [p for p in WEB.rglob("*") if p.suffix in {".js", ".css", ".html"} and "vendor" not in p.parts]
-SHAREABLE = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in {".md", ".js", ".mjs", ".py", ".css", ".html", ".json", ".cmd", ".txt"}
+SHAREABLE = [p for p in ROOT.rglob("*") if p.is_file() and p.suffix in {".md", ".js", ".mjs", ".py", ".css", ".html", ".json", ".cmd", ".txt", ".ps1", ".sh", ".toml", ".yml", ".yaml"}
              and not any(x in p.parts for x in ("raw", "das", "__pycache__", "node_modules", "vendor", ".git"))
              and p.name != "pangaea-750354.metadata.json"]  # excluded from the repo (.gitignore); redacted copy is shipped
 
@@ -93,8 +93,34 @@ class DataFiles(unittest.TestCase):
                 self.assertIn(f"`{r['id']}`", src)
 
 
+class Csp(unittest.TestCase):
+    """The shipped pages' Content-Security-Policy: no localhost, no inline styles, no wildcard hosts."""
+    def policies(self):
+        out = {}
+        for name in ("index.html", "lite.html"):
+            m = re.search(r'http-equiv="Content-Security-Policy" content="([^"]*)"', (ROOT / "web" / name).read_text(encoding="utf-8"))
+            self.assertIsNotNone(m, name); out[name] = m.group(1)
+        js = (ROOT / "web" / "js" / "byo-csp.js").read_text(encoding="utf-8")
+        out["byo-csp.js"] = re.search(r"var base = (\[.*\]);", js).group(1)
+        self.assertNotIn("Content-Security-Policy", (ROOT / "web" / "byo.html").read_text(encoding="utf-8").split("byo-csp.js")[0].split("<head>")[1].replace('<script src="js/', ""))
+        return out
+
+    def test_no_localhost_inline_or_wildcards(self):
+        for name, pol in self.policies().items():
+            self.assertNotIn("unsafe-inline", pol, name)
+            self.assertNotIn("unsafe-eval", pol, name)
+            for d in re.split(r";|\",\s*\"", pol):
+                srcs = d.strip().strip('"[]').split()[1:]
+                self.assertFalse({"https:", "http:", "*"} & set(srcs), f"wildcard in {name}: {d}")
+                if name != "byo-csp.js" or not d.strip().strip('"').startswith("connect-src"):
+                    self.assertFalse([x for x in srcs if "127.0.0.1" in x or "localhost" in x], f"localhost in {name}: {d[:40]}")
+
+    def test_lite_has_no_asset_host(self):
+        self.assertNotIn("seaglobe-assets", self.policies()["lite.html"])
+
+
 class Hygiene(unittest.TestCase):
-    HOME = re.compile(r"(C:\\Users\\[A-Za-z]|/home/[a-z]|/Users/[A-Za-z]|" + "/work" + "space/)")
+    HOME = re.compile(r"(C:\\Users\\[A-Za-z]|/home/[a-z]|/Users/[A-Za-z]|" + "/work" + "space/|" + r"\b[A-Za-z]:[\\/]+" + "A" + r"OS\b)", re.I)
     EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
     SECRET = re.compile(r"(api[_-]?key|secret|token|password)\s*[:=]\s*['\"][^'\"]{8,}", re.I)
 

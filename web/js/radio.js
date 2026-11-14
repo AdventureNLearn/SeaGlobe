@@ -44,9 +44,13 @@
       playerVars: { listType: "playlist", list: P.playlist, autoplay: 0, playsinline: 1, rel: 0, origin: location.origin },
       events: {
         onReady: () => { st.apiState = "ready"; note("Press play in the player to start. Tracks play from YouTube."); if (btn) btn.hidden = true; },
+        // the user has pressed play once (state 1 = playing); before that nothing may start playback by itself
+        onStateChange: (e) => { if (e && e.data === 1) st.started = true; },
         onError: (e) => {
+          const why = ERR[e.data] || "it is unavailable";
+          if (!st.started) { note("The first track can’t be played here because " + why + ". Press the next-track button in the player to go on."); return; }
           st.skips++;
-          note("A track was skipped because " + (ERR[e.data] || "it is unavailable") + ".");
+          note("A track was skipped because " + why + ".");
           try { if (st.skips < 25) st.player.nextVideo(); } catch (x) { /* player gone */ }
         },
       },
@@ -63,7 +67,7 @@
       "<div class='radiostage' id='radioStage'><div id='radioPlayer'></div></div>" +
       "<button class='btn' id='radioLoad'>Load the player</button><div class='small' id='radioMsg' role='status' hidden></div>" +
       "<div class='small'>Playlist: <a href='" + esc(r.player.playlistUrl) + "' target='_blank' rel='noopener noreferrer'>" + esc(r.player.title) + "</a> on <a href='" + esc(r.player.channel) + "' target='_blank' rel='noopener noreferrer'>" + esc(r.player.channelName) + "</a>. Played by YouTube’s embedded player; SeaGlobe hosts no audio. Free; YouTube may show ads.</div>" +
-      "<div class='kicker' style='margin-top:6px'>Outside radio sites</div><ul class='radiolinks'>" +
+      "<div class='kicker' data-style='margin-top:6px'>Outside radio sites</div><ul class='radiolinks'>" +
       r.links.map((l) => "<li><a href='" + esc(l.url) + "' target='_blank' rel='noopener noreferrer'>" + esc(l.title) + "</a> <span class='rtype'>outside site: " + esc(l.site) + " ↗</span><div class='small'>" + esc(l.note) + "</div></li>").join("") + "</ul>";
     document.body.appendChild(p);
     $("radioClose").addEventListener("click", () => open(false));

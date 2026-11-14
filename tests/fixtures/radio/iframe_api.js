@@ -12,6 +12,7 @@
   Player.prototype.nextVideo = function () { this.nexts++; };
   Player.prototype.destroy = function () { window.__ytDestroyed = (window.__ytDestroyed || 0) + 1; };
   Player.prototype.fail = function (code) { this.opts.events.onError({ data: code, target: this }); };
+  Player.prototype.userPlays = function () { this.opts.events.onStateChange && this.opts.events.onStateChange({ data: 1, target: this }); };
   window.YT = { Player: Player };
   setTimeout(function () { window.onYouTubeIframeAPIReady && window.onYouTubeIframeAPIReady(); }, 10);
 })();

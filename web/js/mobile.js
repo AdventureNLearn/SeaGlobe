@@ -34,7 +34,7 @@
     $("mLogBtn").setAttribute("aria-pressed", $("logBtn").getAttribute("aria-pressed") || "false");
     const src = $("eraChips");
     // copies carry data-mera (not data-era) so selectors for the real era chips never match a hidden copy
-    const html = src ? src.innerHTML.replace(/data-era=/g, "data-mera=") : "";
+    const html = src ? src.innerHTML.replace(/data-era=/g, "data-mera=").replace(/ style="/g, ' data-style="') : "";   // styles go back through js/styles.js (no inline style attributes under the CSP)
     if ($("mEras").innerHTML !== html) $("mEras").innerHTML = html;
   }
 

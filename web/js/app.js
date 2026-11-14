@@ -9,6 +9,9 @@
   const S = D.schema;
   const T = window.SeaTime, V = window.SeaVoyages;
   const $ = (id) => document.getElementById(id);
+  // UI scale from the CSS (--ui: 1 on ordinary screens, larger on 4K/8K wall displays)
+  const uiScale = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui")) || 1;
+  let uiK = 1; window.addEventListener("resize", () => { uiK = uiScale(); }); setTimeout(() => { uiK = uiScale(); }, 0);
   const P = new URLSearchParams(location.search);
   const capture = P.get("capture") === "1";
   const shot = P.get("shot") === "1" || capture;
@@ -167,7 +170,7 @@
       .onPathHover((d) => tip(d ? "<b>" + esc(d.name) + "</b><div>" + esc(yearsText(d)) + " · " + esc(d.reconstruction ? "Reconstruction" : "Record") + "</div>" : null))
       .htmlLat((d) => d.lat).htmlLng((d) => d.lon).htmlAltitude(0.02).htmlElement(windElement).htmlTransitionDuration(0);
     const r3 = globe.renderer();
-    r3.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.5 : 2));
+    r3.setPixelRatio(pixelRatio());
     const cam = globe.camera();
     cam.far = 30000; cam.near = 0.05; cam.updateProjectionMatrix();
     const scene = globe.scene();
@@ -195,7 +198,14 @@
     resize();
     window.addEventListener("resize", resize);
   }
-  function resize() { if (globe) globe.width(window.innerWidth).height(window.innerHeight); }
+  // cap the drawing buffer at about 8K (7680×4320) so 4K/8K wall displays stay smooth
+  function pixelRatio() { return Math.min(window.devicePixelRatio || 1, lite ? 1.5 : 2, Math.max(1, Math.sqrt(7680 * 4320 / Math.max(1, innerWidth * innerHeight)))); }
+  function resize() {
+    if (!globe) return;
+    const pr = pixelRatio(), r3 = globe.renderer();
+    if (r3.getPixelRatio() !== pr) { r3.setPixelRatio(pr); const comp = globe.postProcessingComposer && globe.postProcessingComposer(); if (comp && comp.setPixelRatio) comp.setPixelRatio(pr); }
+    globe.width(window.innerWidth).height(window.innerHeight);
+  }
 
   // ---------- routes on the globe ----------
   function refreshRoutes() {
@@ -221,7 +231,7 @@
     vis.forEach((r) => {
       const li = document.createElement("li");
       if (r.id === sel) li.classList.add("active");
-      li.innerHTML = "<span class='rn'><span class='dot' style='background:" + esc(colorOf(r)) + "'></span>" + esc(r.name) + "</span><span class='rm'>" +
+      li.innerHTML = "<span class='rn'><span class='dot' data-style='background:" + esc(colorOf(r)) + "'></span>" + esc(r.name) + "</span><span class='rm'>" +
         esc(r.type) + " · " + esc(yearsText(r)) + " · " + (r.reconstruction ? "reconstruction" : "record") + " · confidence " + esc(r.confidence_level) + "</span>";
       li.addEventListener("click", () => openRoute(r));
       ul.appendChild(li);
@@ -606,7 +616,7 @@
     const t = $("tooltip");
     if (!html) { t.hidden = true; return; }
     t.innerHTML = html; t.hidden = false;
-    if (e) { t.style.left = Math.min(window.innerWidth - 340, e.clientX + 14) + "px"; t.style.top = Math.min(window.innerHeight - 120, e.clientY + 14) + "px"; }
+    if (e) { const u = uiScale(); t.style.left = Math.min(window.innerWidth - 340 * u, e.clientX + 14 * u) + "px"; t.style.top = Math.min(window.innerHeight - 120 * u, e.clientY + 14 * u) + "px"; }
   }
 
   // ---------- UI ----------
@@ -644,11 +654,11 @@
   }
   function buildUI() {
     const span = S.timeline.max + 1 - S.timeline.min;
-    $("bands").innerHTML = S.eras.map((e) => "<div style='width:" + ((e.to + 1 - e.from) / span * 100) + "%;background:" + e.color + "'>" + esc(e.name) + "</div>").join("");
+    $("bands").innerHTML = S.eras.map((e) => "<div data-style='width:" + ((e.to + 1 - e.from) / span * 100) + "%;background:" + e.color + "'>" + esc(e.name) + "</div>").join("");
     const ticks = [-399, -199, 1, 200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 1950];
-    $("ticks").innerHTML = ticks.map((y) => "<span style='left:" + ((y - S.timeline.min) / span * 100) + "%'>" + esc(T.yearLabel(y)) + "</span>").join("");
+    $("ticks").innerHTML = ticks.map((y) => "<span data-style='left:" + ((y - S.timeline.min) / span * 100) + "%'>" + esc(T.yearLabel(y)) + "</span>").join("");
     const counts = {}; prepared.forEach((r) => { counts[r.era] = (counts[r.era] || 0) + 1; });
-    $("eraChips").innerHTML = S.eras.map((e) => "<button class='btn" + (counts[e.id] ? "" : " empty-era") + "' data-era='" + e.id + "' title='" + esc(e.name + (e.subtitle ? " (" + e.subtitle + ")" : "")) + "'><span class='sw' style='background:" + e.color + "'></span>" + esc(e.name) + "</button>").join("");
+    $("eraChips").innerHTML = S.eras.map((e) => "<button class='btn" + (counts[e.id] ? "" : " empty-era") + "' data-era='" + e.id + "' title='" + esc(e.name + (e.subtitle ? " (" + e.subtitle + ")" : "")) + "'><span class='sw' data-style='background:" + e.color + "'></span>" + esc(e.name) + "</button>").join("");
     $("eraChips").addEventListener("click", (ev) => { const b = ev.target.closest("[data-era]"); if (b) goEra(b.dataset.era); });
     document.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => switchTab(b.dataset.tab)));
     document.querySelectorAll("[data-speed]").forEach((b) => b.addEventListener("click", () => setSpeed(parseFloat(b.dataset.speed))));
@@ -660,7 +670,7 @@
     for (const [id, k] of Object.entries(lay)) $(id).addEventListener("change", (e) => { st.layers[k] = e.target.checked; refreshRoutes(); });
     $("tOrbit").addEventListener("change", (e) => { st.orbit = e.target.checked; st.orbitPaused = false; if (st.orbit) setFollow(false); });
     const types = {}; prepared.forEach((r) => { types[r.line] = types[r.line] || r.color; });
-    $("legend").innerHTML = Object.entries(types).map(([k, c]) => "<div><i style='background:" + c + "'></i>" + esc(k) + "</div>").join("");
+    $("legend").innerHTML = Object.entries(types).map(([k, c]) => "<div><i data-style='background:" + c + "'></i>" + esc(k) + "</div>").join("");
     $("deeperList").innerHTML = (D.deeper || []).map((x) => "<li><a href='" + esc(x.url) + "' target='_blank' rel='noopener noreferrer'>" + esc(x.name) + " ↗</a><div class='dd'>" + esc(x.desc) + "</div><div class='dc'>Credit: " + esc(x.credit) + "</div></li>").join("");
     $("liteBadge").hidden = !lite;
     setSpeed(st.speed); setPlaying(st.playing);
@@ -807,7 +817,7 @@
     const list = [...fams.values()].sort((a, b) => b.n - a.n).slice(0, 9);
     el.hidden = !list.length || st.allGold;
     el.innerHTML = "<div class='kicker'>" + (focusActive() ? "In focus" : st.mode === "idle" ? "Sampler" : "On the globe") + "</div>" +
-      list.map((x) => "<div class='lg'><i style='background:" + esc(x.c) + "'></i>" + esc(x.title) + "</div>").join("") + (fams.size > 9 ? "<div class='lg more'>+" + (fams.size - 9) + " more families</div>" : "");
+      list.map((x) => "<div class='lg'><i data-style='background:" + esc(x.c) + "'></i>" + esc(x.title) + "</div>").join("") + (fams.size > 9 ? "<div class='lg more'>+" + (fams.size - 9) + " more families</div>" : "");
   }
   const labelEls = [];
   function updateLabels() {
@@ -840,7 +850,7 @@
       const txt = (inst.ship || vehicleName(inst.route.vehicle)) + " · " + T.yearLabel(Math.floor(y));
       if (d.textContent !== txt) d.textContent = txt;
       d.hidden = false; d.classList.toggle("sel", c.sel);
-      d.style.transform = "translate(" + Math.round(c.p.x + 12) + "px," + Math.round(c.p.y - 9) + "px)";
+      d.style.transform = "translate(" + Math.round(c.p.x + 12 * uiK) + "px," + Math.round(c.p.y - 9 * uiK) + "px)";
     });
   }
 
@@ -898,7 +908,7 @@
     ul.innerHTML = LOG.rows.map((r, i) => {
       const ev = evidenceOf(r);
       return "<li role='option' id='log-" + i + "' data-i='" + i + "' aria-selected='" + (i === LOG.sel) + "'" + (st.focus.routeId === r.id ? " class='on'" : "") + ">" +
-        "<div class='lt'><span class='dot' style='background:" + esc(colorOf(r)) + "'></span><b>" + esc(r.name) + "</b></div>" +
+        "<div class='lt'><span class='dot' data-style='background:" + esc(colorOf(r)) + "'></span><b>" + esc(r.name) + "</b></div>" +
         "<div class='lm'>" + esc(yearsText(r)) + " · " + esc(r.type) + " · " + esc(vehicleName(r.vehicle)) + "</div>" +
         "<div class='lm'>Goods: " + esc(r.goods && r.goods.length ? r.goods.join(", ") : "[UNKNOWN]") + "</div>" +
         "<div class='lp'><span class='pill " + (ev === "reconstruction" ? "recon" : "log") + "'>" + (ev === "dataset" ? "Dataset" : ev === "dated" ? "Real dates · reconstruction" : "Reconstruction") + "</span>" +

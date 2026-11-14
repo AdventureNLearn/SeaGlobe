@@ -54,6 +54,10 @@ const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/cs
 const serveDir = (dir) => http.createServer((q, s) => {
   const u = decodeURIComponent(new URL(q.url, "http://x").pathname); const p = path.join(dir, u === "/" ? "lite.html" : u);
   if (!p.startsWith(dir) || !fs.existsSync(p) || fs.statSync(p).isDirectory()) { s.writeHead(404); s.end(); return; }
+  if (p.endsWith(".html")) {   // test only: let the page reach the local version host (a different origin); the file itself stays as shipped
+    const html = fs.readFileSync(p, "utf8").replace(/(connect-src [^;"]*)/, "$1 http://localhost:*");
+    s.writeHead(200, { "content-type": "text/html" }); s.end(html); return;
+  }
   s.writeHead(200, { "content-type": TYPES[path.extname(p)] || "application/octet-stream" }); fs.createReadStream(p).pipe(s);
 });
 let remote = { version: version };

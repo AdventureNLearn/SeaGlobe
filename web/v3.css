@@ -1,68 +1,68 @@
 /* SeaGlobe v3 additions: encyclopedia panel, region and tool chips, listening captions, update notice,
    footer credit and the print view. Builds on app.css (same glass theme and variables). */
-.atlaspanel { top: 88px; left: 14px; bottom: 156px; width: 460px; display: flex; flex-direction: column; padding: 12px; gap: 8px; z-index: 15; }
+.atlaspanel { top: calc(88px * var(--ui)); left: calc(14px * var(--ui)); bottom: calc(156px * var(--ui)); width: calc(460px * var(--ui)); display: flex; flex-direction: column; padding: calc(12px * var(--ui)); gap: calc(8px * var(--ui)); z-index: 15; }
 body.cinema .atlaspanel, body.cinema-soft .atlaspanel { opacity: 0; pointer-events: none; }
-#atlasQ { width: 100%; background: rgba(4,10,26,.6); border: 1px solid var(--edge); color: var(--text); padding: 8px 10px; font: 13px var(--font); outline: none; }
+#atlasQ { width: 100%; background: rgba(4,10,26,.6); border: calc(1px * var(--ui)) solid var(--edge); color: var(--text); padding: calc(8px * var(--ui)) calc(10px * var(--ui)); font: calc(13px * var(--ui)) var(--font); outline: none; }
 #atlasQ:focus { border-color: var(--edge-hi); }
-.atabs { display: flex; flex-wrap: wrap; gap: 4px; }
-.atab { background: transparent; border: 1px solid rgba(94,231,255,.16); color: var(--text2); padding: 3px 8px; font-size: 11px; cursor: pointer; }
+.atabs { display: flex; flex-wrap: wrap; gap: calc(4px * var(--ui)); }
+.atab { background: transparent; border: calc(1px * var(--ui)) solid rgba(94,231,255,.16); color: var(--text2); padding: calc(3px * var(--ui)) calc(8px * var(--ui)); font-size: calc(11px * var(--ui)); cursor: pointer; }
 .atab.active, .atab:hover { border-color: var(--edge-hi); color: var(--text); background: rgba(94,231,255,.1); }
-.abody { flex: 1; overflow-y: auto; border-top: 1px solid var(--edge); padding-top: 8px; outline: none; }
-.abody h2 { font-size: 18px; margin: 4px 0 6px; font-weight: 650; }
-.abody h3 { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.abody { flex: 1; overflow-y: auto; border-top: calc(1px * var(--ui)) solid var(--edge); padding-top: calc(8px * var(--ui)); outline: none; }
+.abody h2 { font-size: calc(18px * var(--ui)); margin: calc(4px * var(--ui)) 0 calc(6px * var(--ui)); font-weight: 650; }
+.abody h3 { font-size: calc(12px * var(--ui)); letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin: calc(14px * var(--ui)) 0 calc(6px * var(--ui)); }
 .abody a { color: var(--cyan); text-decoration: none; }
 .abody a:hover { text-decoration: underline; }
-.abody ul, .abody ol { padding-left: 18px; margin: 4px 0; }
-.abody li { margin: 2px 0; }
+.abody ul, .abody ol { padding-left: calc(18px * var(--ui)); margin: calc(4px * var(--ui)) 0; }
+.abody li { margin: calc(2px * var(--ui)) 0; }
 .alist { list-style: none; padding: 0 !important; }
-.alist li { padding: 6px 4px; border-bottom: 1px solid rgba(94,231,255,.08); }
-.afilters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
-.afilters select { background: rgba(4,10,26,.7); color: var(--text); border: 1px solid var(--edge); padding: 3px; font: 12px var(--font); }
+.alist li { padding: calc(6px * var(--ui)) calc(4px * var(--ui)); border-bottom: calc(1px * var(--ui)) solid rgba(94,231,255,.08); }
+.afilters { display: flex; gap: calc(6px * var(--ui)); flex-wrap: wrap; margin-bottom: calc(6px * var(--ui)); }
+.afilters select { background: rgba(4,10,26,.7); color: var(--text); border: calc(1px * var(--ui)) solid var(--edge); padding: calc(3px * var(--ui)); font: calc(12px * var(--ui)) var(--font); }
 .aact { flex-wrap: wrap; }
-.acite { font: 11px var(--mono); color: var(--text2); background: rgba(4,10,26,.6); padding: 6px; border: 1px solid var(--edge); white-space: pre-wrap; }
-.acmp { width: 100%; border-collapse: collapse; font-size: 11.5px; }
-.acmp th, .acmp td { border-bottom: 1px solid rgba(94,231,255,.1); padding: 4px; text-align: left; vertical-align: top; }
+.acite { font: calc(11px * var(--ui)) var(--mono); color: var(--text2); background: rgba(4,10,26,.6); padding: calc(6px * var(--ui)); border: calc(1px * var(--ui)) solid var(--edge); white-space: pre-wrap; }
+.acmp { width: 100%; border-collapse: collapse; font-size: calc(11.5px * var(--ui)); }
+.acmp th, .acmp td { border-bottom: calc(1px * var(--ui)) solid rgba(94,231,255,.1); padding: calc(4px * var(--ui)); text-align: left; vertical-align: top; }
 .acmp th { color: var(--text2); font-weight: 600; }
-.arefs li { font-size: 11.5px; color: var(--text2); }
-.rtype { display: inline-block; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid rgba(255,255,255,.2); padding: 0 4px; margin-right: 4px; color: var(--text3); }
-.atl { font-size: 11.5px; }
+.arefs li { font-size: calc(11.5px * var(--ui)); color: var(--text2); }
+.rtype { display: inline-block; font-size: calc(9.5px * var(--ui)); letter-spacing: .08em; text-transform: uppercase; border: calc(1px * var(--ui)) solid rgba(255,255,255,.2); padding: 0 calc(4px * var(--ui)); margin-right: calc(4px * var(--ui)); color: var(--text3); }
+.atl { font-size: calc(11.5px * var(--ui)); }
 .linkbtn { background: none; border: 0; color: var(--cyan); cursor: pointer; padding: 0; font: inherit; }
 .warn { color: var(--amber) !important; }
-.credit { display: block; margin-top: 4px; color: var(--text2); }
+.credit { display: block; margin-top: calc(4px * var(--ui)); color: var(--text2); }
 .credit a, .vline a { color: var(--cyan); }
-.vline { display: block; margin-top: 2px; }
-.chatlog { max-height: 46vh; overflow-y: auto; margin: 6px 0; }
-.cq { margin: 8px 0 2px; color: var(--text); }
-.ca { padding: 6px 8px; border-left: 2px solid var(--edge-hi); background: rgba(94,231,255,.05); color: var(--text2); }
-#chatForm { display: flex; gap: 6px; }
-#chatQ, #chatKey, #chatModel, .byo input, .byo textarea, #byoTleUrl { flex: 1; min-width: 0; background: rgba(4,10,26,.6); border: 1px solid var(--edge); color: var(--text); padding: 6px 8px; font: 12px var(--font); }
-.byo textarea { width: 100%; font: 11px var(--mono); }
-.byo label { display: block; margin: 6px 0; }
-.byo .row { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0; }
-.toolrow { display: flex; gap: 6px; margin: 8px 0; flex-wrap: wrap; }
-.tours { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.vline { display: block; margin-top: calc(2px * var(--ui)); }
+.chatlog { max-height: 46vh; overflow-y: auto; margin: calc(6px * var(--ui)) 0; }
+.cq { margin: calc(8px * var(--ui)) 0 calc(2px * var(--ui)); color: var(--text); }
+.ca { padding: calc(6px * var(--ui)) calc(8px * var(--ui)); border-left: calc(2px * var(--ui)) solid var(--edge-hi); background: rgba(94,231,255,.05); color: var(--text2); }
+#chatForm { display: flex; gap: calc(6px * var(--ui)); }
+#chatQ, #chatKey, #chatModel, .byo input, .byo textarea, #byoTleUrl { flex: 1; min-width: 0; background: rgba(4,10,26,.6); border: calc(1px * var(--ui)) solid var(--edge); color: var(--text); padding: calc(6px * var(--ui)) calc(8px * var(--ui)); font: calc(12px * var(--ui)) var(--font); }
+.byo textarea { width: 100%; font: calc(11px * var(--ui)) var(--mono); }
+.byo label { display: block; margin: calc(6px * var(--ui)) 0; }
+.byo .row { display: flex; gap: calc(6px * var(--ui)); flex-wrap: wrap; margin: calc(4px * var(--ui)) 0; }
+.toolrow { display: flex; gap: calc(6px * var(--ui)); margin: calc(8px * var(--ui)) 0; flex-wrap: wrap; }
+.tours { display: flex; flex-direction: column; gap: calc(6px * var(--ui)); margin-bottom: calc(12px * var(--ui)); }
 .tours .btn { text-align: left; }
-.skyreadout { margin: 8px 0; }
-.radioslot { margin-top: 12px; opacity: .7; }
-.regionchip { top: 88px; left: 50%; transform: translateX(-50%); max-width: min(620px, 60vw); padding: 6px 12px; font-size: 12px; z-index: 12; text-align: center; }
+.skyreadout { margin: calc(8px * var(--ui)) 0; }
+.radioslot { margin-top: calc(12px * var(--ui)); opacity: .7; }
+.regionchip { top: calc(88px * var(--ui)); left: 50%; transform: translateX(-50%); max-width: min(calc(620px * var(--ui)), 60vw); padding: calc(6px * var(--ui)) calc(12px * var(--ui)); font-size: calc(12px * var(--ui)); z-index: 12; text-align: center; }
 .regionchip a { color: var(--text); text-decoration: none; }
 .regionchip a:hover { color: var(--cyan); }
-.toolchip { bottom: 168px; left: 14px; padding: 6px 12px; font-size: 12px; z-index: 13; max-width: 420px; }
+.toolchip { bottom: calc(168px * var(--ui)); left: calc(14px * var(--ui)); padding: calc(6px * var(--ui)) calc(12px * var(--ui)); font-size: calc(12px * var(--ui)); z-index: 13; max-width: calc(420px * var(--ui)); }
 body.measuring .globe { cursor: crosshair; }
-.listencap { bottom: 214px; left: 50%; transform: translateX(-50%); max-width: min(760px, 80vw); padding: 8px 14px; font-size: 13.5px; z-index: 31; }
-.btn.small { padding: 2px 8px; font-size: 11px; }
-.updatenotice { top: 88px; right: 390px; padding: 8px 12px; font-size: 12px; z-index: 16; max-width: 320px; }
+.listencap { bottom: calc(214px * var(--ui)); left: 50%; transform: translateX(-50%); max-width: min(calc(760px * var(--ui)), 80vw); padding: calc(8px * var(--ui)) calc(14px * var(--ui)); font-size: calc(13.5px * var(--ui)); z-index: 31; }
+.btn.small { padding: calc(2px * var(--ui)) calc(8px * var(--ui)); font-size: calc(11px * var(--ui)); }
+.updatenotice { top: calc(88px * var(--ui)); right: calc(390px * var(--ui)); padding: calc(8px * var(--ui)) calc(12px * var(--ui)); font-size: calc(12px * var(--ui)); z-index: 16; max-width: calc(320px * var(--ui)); }
 .updatenotice a { color: var(--cyan); }
-body.atlas-open .regionchip { left: calc(50% + 240px); }
+body.atlas-open .regionchip { left: calc(50% + calc(240px * var(--ui))); }
 #printView { display: none; }
 @media (max-width: 820px) {
   /* phones open these from the menu sheet (Encyclopedia, Radio), with 44 px targets */
   #atlasBtn, #radioBtn { display: none; }
   .atlaspanel { left: var(--mgap); right: var(--mgap); width: auto; top: calc(var(--mtop) + var(--mgap) * 2); bottom: calc(var(--mgap) + var(--sab)); z-index: 19; }
-  .regionchip { top: calc(var(--mtop) + var(--mgap) * 2); max-width: 92vw; font-size: 11px; }
+  .regionchip { top: calc(var(--mtop) + var(--mgap) * 2); max-width: 92vw; font-size: calc(11px * var(--ui)); }
   body.atlas-open .regionchip { left: 50%; }
   .toolchip { left: var(--mgap); right: var(--mgap); bottom: calc(var(--mbar) + var(--mgap) * 2 + var(--sab)); max-width: none; }
-  .listencap { bottom: calc(var(--mbar) + 64px + var(--sab)); max-width: 92vw; font-size: 14px; }
+  .listencap { bottom: calc(var(--mbar) + calc(64px * var(--ui)) + var(--sab)); max-width: 92vw; font-size: calc(14px * var(--ui)); }
   .updatenotice { top: calc(var(--mtop) + var(--mgap) * 2); left: var(--mgap); right: var(--mgap); max-width: none; }
   .chatlog { max-height: 40vh; }
 }
@@ -70,24 +70,33 @@ body.atlas-open .regionchip { left: calc(50% + 240px); }
   body.printing > *:not(#printView) { display: none !important; }
   body.printing { overflow: visible; background: #fff; color: #000; height: auto; }
   body.printing #printView { display: block; font: 11pt/1.4 var(--font); color: #000; }
-  #printView img { width: 100%; height: auto; border: 1px solid #999; }
+  #printView img { width: 100%; height: auto; border: calc(1px * var(--ui)) solid #999; }
   #printView a { color: #003c8f; }
   #printView .pmeta, #printView .pfootp { font-size: 9pt; color: #333; }
   #printView .aact, #printView button { display: none !important; }
 }
 /* Radio: YouTube's player is never covered, shrunk below 200 x 200 px or hidden while it exists */
-.radiopanel { left: 14px; bottom: 156px; width: 400px; max-height: calc(100vh - 260px); overflow-y: auto; padding: 12px; z-index: 17; display: flex; flex-direction: column; gap: 8px; clip-path: none; }
-.radiopanel .rtitle { font-size: 14px; font-weight: 650; }
-.radiostage { position: relative; width: 100%; min-width: 200px; aspect-ratio: 16 / 9; min-height: 200px; background: #000; }
+.radiopanel { left: calc(14px * var(--ui)); bottom: calc(156px * var(--ui)); width: calc(400px * var(--ui)); max-height: calc(100vh - calc(260px * var(--ui))); overflow-y: auto; padding: calc(12px * var(--ui)); z-index: 17; display: flex; flex-direction: column; gap: calc(8px * var(--ui)); clip-path: none; }
+.radiopanel .rtitle { font-size: calc(14px * var(--ui)); font-weight: 650; }
+.radiostage { position: relative; width: 100%; min-width: calc(200px * var(--ui)); aspect-ratio: 16 / 9; min-height: calc(200px * var(--ui)); background: #000; }
 .radiostage iframe, .radiostage #radioPlayer { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .radiolinks { list-style: none; padding: 0; margin: 0; }
-.radiolinks li { margin: 4px 0; }
+.radiolinks li { margin: calc(4px * var(--ui)) 0; }
 .radiolinks a, .radiopanel a { color: var(--cyan); }
-body.atlas-open .radiopanel { left: 490px; }
+body.atlas-open .radiopanel { left: calc(490px * var(--ui)); }
 @media (max-width: 820px) {
-  .radiopanel { left: var(--mgap); right: var(--mgap); width: auto; top: calc(var(--mtop) + var(--mgap) * 2); bottom: auto; max-height: calc(100vh - var(--mtop) - var(--mbar) - 40px); z-index: 20; }
+  .radiopanel { left: var(--mgap); right: var(--mgap); width: auto; top: calc(var(--mtop) + var(--mgap) * 2); bottom: auto; max-height: calc(100vh - var(--mtop) - var(--mbar) - calc(40px * var(--ui))); z-index: 20; }
   body.atlas-open .radiopanel { left: var(--mgap); }
 }
 
 /* phone: tour buttons in Go deeper are full tap targets */
 @media (max-width: 820px) { [data-listen^="tour:"] { min-height: 44px; } }
+
+/* Large screens (4K/8K wall displays): every UI size in app.css and v3.css is "N px × --ui", so text and panels keep
+   the same share of the screen as on a 1920×1080 desktop. Steps go by the smaller of the width and height ratios. */
+@media (min-width: 2400px) and (min-height: 1350px) { :root { --ui: 1.25; } }
+@media (min-width: 2880px) and (min-height: 1620px) { :root { --ui: 1.5; } }
+@media (min-width: 3600px) and (min-height: 2025px) { :root { --ui: 2; } }
+@media (min-width: 4800px) and (min-height: 2700px) { :root { --ui: 2.5; } }
+@media (min-width: 5760px) and (min-height: 3240px) { :root { --ui: 3; } }
+@media (min-width: 7200px) and (min-height: 4050px) { :root { --ui: 4; } }

@@ -42,12 +42,25 @@
 - `tools/build_town_index.py` writes one small town list (`web/data/regions/towns-index.js`) so search does not
   need the 225 town packs.
 
+### Wall displays, security and the PC update script
+
+- **4K and 8K screens:** every UI size scales with one CSS factor (`--ui`: 2 at 3840×2160, 4 at 7680×4320), so text
+  and panels keep the share of the screen they have at 1920×1080. The globe's drawing buffer is capped at about
+  7680×4320, and the 8K day texture (from the R2 asset host) is used on desktop editions. `tests/test_large.mjs`
+  checks both sizes at devicePixelRatio 1 and 2.
+- **Content-Security-Policy:** published pages allow no localhost and no inline styles (the three fixed style blocks
+  of the bundled globe.gl library are allowed by hash). The PC-only BYO page allows this computer plus the exact
+  origins of the feeds you save, instead of any host. Test servers add their local hosts only to what they serve.
+- **Radio:** a track that cannot be embedded is skipped only after you have started playback yourself.
+- **PC update script:** installs to `%LOCALAPPDATA%\SeaGlobe` by default and checks the `-Rollback` value.
+
 ### Known gaps in v3.0.0
 
 - The videos page still shows the earlier walkthroughs (atlas, ships, air). They were recorded before v3.0, so they show
   the older aircraft models and do not cover the v3.0 features. New narrated walkthroughs are scripted in
   `tools/video/features/` and will be recorded in a later release.
-- The full-quality atlas walkthrough is an asset-store (R2) file; until it is uploaded, the page plays the 1280×720 copy.
+- Large files (HD textures, GCAT tables, the full-quality atlas walkthrough) come from the R2 asset host, with the repo
+  copies as fallbacks.
 
 ## v2.3 (2026-11-14) — air layer, 1903 to today
 

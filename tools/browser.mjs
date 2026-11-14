@@ -12,7 +12,8 @@ export const puppeteer = require(pcPath);
 
 let actualPort = null; // serve.py may step past a busy port; use the one it reports
 export async function startServer(port) {
-  const server = spawn(process.env.PYTHON || "python3", ["serve.py", "--port", String(port)], { cwd: root, stdio: ["ignore", "pipe", "pipe"] });
+  // SEAGLOBE_TEST_CSP=1: serve.py adds the local test hosts to the page's policy (the files on disk never have them)
+  const server = spawn(process.env.PYTHON || "python3", ["serve.py", "--port", String(port)], { cwd: root, stdio: ["ignore", "pipe", "pipe"], env: Object.assign({}, process.env, { SEAGLOBE_TEST_CSP: "1" }) });
   await new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error("server start timeout")), 15000);
     const on = (b) => { const m = /SeaGlobe at http:\/\/127\.0\.0\.1:(\d+)/.exec(b.toString()); if (m) { actualPort = Number(m[1]); clearTimeout(timer); resolve(); } };
@@ -41,7 +42,9 @@ export async function openApp(browser, port, query, file) {
   page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });
   page.on("request", (r) => { const u = r.url(); if (!u.startsWith("http://127.0.0.1") && !u.startsWith("data:") && !u.startsWith("blob:")) errors.push("EXTERNAL REQUEST " + u); });
   // the read-only version check is the one sanctioned outside request; tests turn it off unless they test it
-  const q = /(^|&)(update|updateurl)=/.test(query || "") ? query : (query ? query + "&" : "") + "update=0";
+  let q = /(^|&)(update|updateurl)=/.test(query || "") ? query : (query ? query + "&" : "") + "update=0";
+  // the published copy loads large files from R2; tests stay offline and use the repo copies unless they test R2
+  if (!/(^|&)(r2base|assets)=/.test(q)) q += "&assets=local";
   await page.goto(`http://127.0.0.1:${actualPort || port}/${file || ""}?${q}`, { waitUntil: "load" });
   await page.waitForFunction(() => document.documentElement.dataset.ready === "1" || document.documentElement.dataset.ready === "error", { timeout: 180000 });
   page._errors = errors;

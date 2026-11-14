@@ -247,7 +247,12 @@ try {
     const box = await p.evaluate(() => { const r = document.getElementById("radioStage").getBoundingClientRect(); return [r.width, r.height]; });
     assert.ok(box[0] >= 200 && box[1] >= 200, "player box " + box);
     await p.click("#radioLoad").catch(() => {}); assert.equal((await p.evaluate(() => window.__ytCalls)).length, 1, "one player only");
+    // before the user has pressed play, an error never moves on by itself (no playback without a user action)
     await p.evaluate(() => window.__ytPlayer.fail(150));
+    assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), 0, "no skip before the user plays");
+    assert.match(await p.evaluate(() => document.getElementById("radioMsg").textContent), /can’t be played here because its owner does not allow embedding/);
+    // after the user has started playback, a blocked track is skipped
+    await p.evaluate(() => { window.__ytPlayer.userPlays(); window.__ytPlayer.fail(150); });
     assert.match(await p.evaluate(() => document.getElementById("radioMsg").textContent), /skipped because its owner does not allow embedding/);
     assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), 1);
     await p.click("#radioClose");

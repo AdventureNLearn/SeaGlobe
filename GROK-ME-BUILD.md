@@ -40,7 +40,10 @@ pieces and chat offline (no visitor key set).
 - `https://adventurenlearn.github.io/SeaGlobe/version.json` (read-only, short timeout, silent on failure).
 - US Census TIGERweb, only when the live town layer is switched on.
 - YouTube (youtube-nocookie.com, youtube.com iframe API), only after "Load the player" in the radio panel.
-- Nothing else. The page's Content-Security-Policy enforces this list.
+- The xAI API (`https://api.x.ai`), only after a visitor pastes their own xAI key in chat settings.
+- Nothing else. `lite.html`'s Content-Security-Policy allows exactly these hosts (connect-src: the version host,
+  TIGERweb and api.x.ai; script-src: youtube.com; frame-src: youtube-nocookie.com and youtube.com), no localhost
+  and no inline styles. `tools/check_grokme_lite.mjs` adds a localhost host only to the copy it serves for its own test.
 
 ## GROK-ME-UPDATE
 

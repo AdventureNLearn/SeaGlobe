@@ -40,7 +40,24 @@
     clearInterval(st.satTimer); if (st.sats.length) { satTick(); st.satTimer = setInterval(satTick, 2000); }
     status(); return st.sats.length;
   }
+  // the page's policy (js/byo-csp.js) allows this computer plus the feed origins saved before the page loaded;
+  // a new origin is saved and the page reloads once so the policy can include it
+  function allowed(url) {
+    let u; try { u = new URL(url, location.href); } catch (e) { return "bad"; }
+    if (!/^https?:$/.test(u.protocol)) return "bad";
+    if (u.origin === location.origin || /^(127\.0\.0\.1|localhost)$/.test(u.hostname)) return "ok";
+    return (window.SEAGLOBE_BYO_ORIGINS || []).indexOf(u.origin) >= 0 ? "ok" : "reload";
+  }
+  function needReload(url, key, label) {
+    save(key, url);
+    const el = $("byoStatus"); if (el) el.textContent = "Saved. Reloading once so this page may reach " + new URL(url).origin + "; then press " + label + " again.";
+    setTimeout(() => location.reload(), 1200);
+  }
   async function loadTleUrl(url) {
+    const a = allowed(url);
+    if (a === "bad") { st.satStatus = "That is not an http(s) URL; nothing loaded."; status(); return 0; }
+    if (a === "reload") { needReload(url, "sg-byo-tle-url", "Load URL"); return 0; }
+    save("sg-byo-tle-url", url);
     try { const r = await fetch(url, { credentials: "omit" }); if (!r.ok) throw new Error(r.status); const t = await r.text(); $("byoTle").value = t; save("sg-byo-tle", t); return startSats(t); }
     catch (e) { st.satStatus = "Could not read that URL (" + esc(e.message || "network") + "); nothing loaded."; status(); return 0; }
   }
@@ -57,7 +74,11 @@
     catch (e) { st.airStatus = "Receiver did not answer; retrying every 5 s."; }
     clearTimeout(t); status();
   }
-  function startAir(url) { st.airUrl = String(url || "").trim(); clearInterval(st.airTimer); if (!st.airUrl) return; save("sg-byo-air", st.airUrl); airTick(); st.airTimer = setInterval(airTick, 5000); }
+  function startAir(url) { st.airUrl = String(url || "").trim(); clearInterval(st.airTimer); if (!st.airUrl) return;
+    const a = allowed(st.airUrl);
+    if (a === "bad") { st.airStatus = "That is not an http(s) URL."; status(); return; }
+    if (a === "reload") { needReload(st.airUrl, "sg-byo-air", "Start aircraft"); return; }
+    save("sg-byo-air", st.airUrl); airTick(); st.airTimer = setInterval(airTick, 5000); }
   function stopAll() { clearInterval(st.satTimer); clearInterval(st.airTimer); st.sats = []; st.air = []; if (window.SeaTools) { window.SeaTools.points("byo-sats", [], false); window.SeaTools.points("byo-air", [], false); } st.satStatus = st.airStatus = "Stopped."; status(); }
   function status() { const el = $("byoStatus"); if (el) el.textContent = [st.satStatus, st.airStatus].filter(Boolean).join(" "); }
   function init() {
@@ -69,7 +90,7 @@
       "<div class='row'><button class='btn' id='byoSatGo'>Start satellites</button><input id='byoTleUrl' placeholder='or a TLE URL you may use' aria-label='TLE URL'><button class='btn ghost' id='byoTleLoad'>Load URL</button></div>" +
       "<label class='small'>Your ADS-B receiver aircraft.json<input id='byoAir' placeholder='http://192.168.1.50/tar1090/data/aircraft.json'></label>" +
       "<div class='row'><button class='btn' id='byoAirGo'>Start aircraft</button><button class='btn ghost' id='byoStop'>Stop all</button></div><div class='small' id='byoStatus' aria-live='polite'></div></details>");
-    $("byoTle").value = load("sg-byo-tle"); $("byoAir").value = load("sg-byo-air");
+    $("byoTle").value = load("sg-byo-tle"); $("byoAir").value = load("sg-byo-air"); $("byoTleUrl").value = load("sg-byo-tle-url");
     $("byoSatGo").addEventListener("click", () => { save("sg-byo-tle", $("byoTle").value); startSats($("byoTle").value); });
     $("byoTleLoad").addEventListener("click", () => { const u = $("byoTleUrl").value.trim(); if (u) loadTleUrl(u); });
     $("byoAirGo").addEventListener("click", () => startAir($("byoAir").value));

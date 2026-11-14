@@ -5,7 +5,7 @@
   var defaults = {
     id: "web",                 // web (GitHub Pages, full), lite (Grok.me and small hosts), byo (PC: bring-your-own feeds)
     lite: false,
-    r2Base: "",                // large-file host, e.g. an R2 public URL ending in "/". Empty: every large file uses its repo fallback
+    r2Base: "https://seaglobe-assets.idontwanttodothisshit.com/",   // large-file host (R2). Each large file falls back to its repo copy
     updateUrl: "https://adventurenlearn.github.io/SeaGlobe/version.json",  // read-only version check
     byoFeeds: false            // live feeds the user brings (satellite elements, ADS-B receiver); off on hosted editions
     // chat: every edition can use the visitor's OWN xAI key (chat settings); there is no SeaGlobe chat server or key

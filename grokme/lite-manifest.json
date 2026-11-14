@@ -23,13 +23,13 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 13065826,
- "file_count": 396,
+ "total_bytes": 13079787,
+ "file_count": 398,
  "files": [
   {
    "path": "app.css",
-   "bytes": 22819,
-   "sha256": "7f7645b95440e2aa3334cf3b87be92d1c123d2e96d46adb334cd951a0366c35a"
+   "bytes": 29879,
+   "sha256": "70fd238c28c4dccf25c78fd630a1ed42aa40ca3b4b91b4437f5deda48afe6e12"
   },
   {
    "path": "assets.json",
@@ -63,13 +63,13 @@
   },
   {
    "path": "data/edition-lite.js",
-   "bytes": 179,
-   "sha256": "3022ec11203e6181ec1528aaa75ca37ee9ffb96e2323c2773fb2c088c9f7b389"
+   "bytes": 229,
+   "sha256": "ff4ee10e4fec25bfa87ac43f5cebb6c694e5bc3a9c75be33698d8b983938d62b"
   },
   {
    "path": "data/edition.js",
-   "bytes": 1009,
-   "sha256": "a86082bd843be19b0616f32e8aba89804027e811343b4d60278a59578c1826bc"
+   "bytes": 1011,
+   "sha256": "ff86fcbfd6390ee685c9bea2bb37c0a569ad87d686f4fe957c38341e6b9ca756"
   },
   {
    "path": "data/ne_110m_coastline.geojson",
@@ -1878,8 +1878,8 @@
   },
   {
    "path": "js/app.js",
-   "bytes": 69930,
-   "sha256": "34672cc02d87374d68bb7cabf3dca5147c089d3570612ad1d2cf3ec7c3b50a3e"
+   "bytes": 70812,
+   "sha256": "87cc4e394ac0b9c145318da1ef5b52859eb022891fa5fff427c04b9650e6bae1"
   },
   {
    "path": "js/assets.js",
@@ -1890,6 +1890,11 @@
    "path": "js/atlas.js",
    "bytes": 27292,
    "sha256": "77874bb39204c5eedcb972dbe0b83dab1bf18c8a2167fd4062f0d269b2c58635"
+  },
+  {
+   "path": "js/byo-csp.js",
+   "bytes": 1731,
+   "sha256": "15cd1d89cbea24ac1f03d232fe7e632129f9670fe971ff03c17b45570ab511dc"
   },
   {
    "path": "js/chat.js",
@@ -1908,8 +1913,8 @@
   },
   {
    "path": "js/mobile.js",
-   "bytes": 4977,
-   "sha256": "1723a9b25baa4f90c9f6ea05fb0c2b0215558295102c353f97fe90bd1a704e38"
+   "bytes": 5099,
+   "sha256": "d5e63fe1b1cf2f98810dee77819b22ff4d4fe1e1ef8a7b654a3bbf66805b6ab5"
   },
   {
    "path": "js/planet.js",
@@ -1918,8 +1923,8 @@
   },
   {
    "path": "js/radio.js",
-   "bytes": 7084,
-   "sha256": "828eb3b7402f7f70ba59b6b1a847701ec77da1b34a70729c5313feddcc79d20a"
+   "bytes": 7463,
+   "sha256": "2b1e2beac0946279a01b212c39b65c23429445ab339c57fab5c523d77afb1f2c"
   },
   {
    "path": "js/regions.js",
@@ -1932,14 +1937,19 @@
    "sha256": "688684af7c972a4dcfdbaccbea7fa71f3807cfe19af836bb07c8d7d7cc008c09"
   },
   {
+   "path": "js/styles.js",
+   "bytes": 784,
+   "sha256": "733bbdf6aa3bf03f1c6992a26ba91461cacd23c60c3c595edbf6ba00e3b1d487"
+  },
+  {
    "path": "js/timemodel.js",
    "bytes": 2015,
    "sha256": "8075e8635be1e7159b4d7acdf7b4fdf9076a04a5c92afc773df77d45a5173947"
   },
   {
    "path": "js/tools.js",
-   "bytes": 8169,
-   "sha256": "08e751f7de9d7cd02d02eed843e2b4f59901b7b745b919b1475dc28298fed659"
+   "bytes": 8339,
+   "sha256": "36ca96a4a701fe8dc7cf813172e25855fcd0a8183cb00f76668b22747578587c"
   },
   {
    "path": "js/update.js",
@@ -1963,8 +1973,8 @@
   },
   {
    "path": "lite.html",
-   "bytes": 10321,
-   "sha256": "f3a6caf976e5800e3d356186b0e43ad5db6b713465440de544a36437afb7d5f1"
+   "bytes": 10408,
+   "sha256": "84197895425f84602820efc21abddc329cd4ff7f3e48c401407fedfb70708c6f"
   },
   {
    "path": "textures/earth-navy.png",
@@ -1973,8 +1983,8 @@
   },
   {
    "path": "v3.css",
-   "bytes": 7137,
-   "sha256": "4b48fdf2b458ae3a0dc3573e0df8d1face204a5710d3ab4e76caac7e716b2a93"
+   "bytes": 9831,
+   "sha256": "bc8986d565146d2441d4622dc0481193dae01bfa60e49a6a6954f48f7e653938"
   },
   {
    "path": "vendor/README.md",

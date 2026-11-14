@@ -12,7 +12,8 @@ Built by AdventureNLearn — [@AdventureNLearn](https://x.com/AdventureNLearn)
   - **Creedence Clearwater Revival Radio**: the YouTube player loads only after you click "Load the player";
   - the **Ask** chat, only after you paste **your own** xAI API key in chat settings: questions then go straight
     from your browser to the xAI API (api.x.ai), and you pay xAI for your own use. Without a key it stays offline;
-  - an optional **R2 asset base** for large files, with the bundled copy as the fallback (none is set in this build);
+  - the **R2 asset host** `https://seaglobe-assets.idontwanttodothisshit.com/` for large files (8k/4k textures, the GCAT
+    tables, the full-quality atlas video), each with the bundled copy as the fallback (the lite edition uses none);
   - in the PC-only BYO edition, the TLE and receiver feeds you type in yourself.
   The page's Content-Security-Policy (from `data/csp.json`) allows only these hosts.
 - The Windows launchers and `serve.py` start a local HTTP server bound to **`127.0.0.1`** only (this
@@ -163,6 +164,7 @@ node tests/test_mobile.mjs            # phone layout (390x844, 360x800, touch) +
 node tests/test_air.mjs               # air layer: corridors, Wright Flyer / DC-3 / 747 cards, Type = air
 node tests/test_framework.mjs         # v3: encyclopedia, drill-down, tools, space, listen, chat, radio, R2, BYO, phone
 node tests/test_models.mjs            # every model's nose follows its travel; fins, lights, engines, LOD
+node tests/test_large.mjs             # 4K and 8K wall displays at DPR 1 and 2: UI scale, no overflow, canvas not stretched, 8K texture
 node tests/test_coverage.mjs          # every data entity has an encyclopedia entry; the chat index holds every entry
 node tests/test_update.mjs            # version compare and the cross-origin version check
 cd worker/chat && npm test            # optional pass-through Worker you can run on your own account (mocked upstream)

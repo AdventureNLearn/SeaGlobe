@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import argparse
 import functools
+import os
+import re
 import http.server
 import socketserver
 import sys
@@ -23,6 +25,35 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("Cache-Control", "no-cache")
         super().end_headers()
+
+    def do_GET(self):
+        # Tests only (SEAGLOBE_TEST_CSP=1): widen the page's Content-Security-Policy with the local test hosts so
+        # local stand-ins (R2 mock, version file, xAI stand-in, radio API) can be reached. Never on by default.
+        path = self.path.split("?", 1)[0]
+        if os.environ.get("SEAGLOBE_TEST_CSP") == "1" and (path.endswith(".html") or path.endswith("/")):
+            f = WEB / (path.lstrip("/") or "index.html")
+            if f.is_dir():
+                f = f / "index.html"
+            if f.is_file():
+                body = widen_csp(f.read_text(encoding="utf-8")).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+                return
+        super().do_GET()
+
+
+TEST_HOSTS = "http://127.0.0.1:* http://localhost:*"
+
+
+def widen_csp(html: str) -> str:
+    def fix(m):
+        parts = [p.strip() for p in m.group(1).split(";")]
+        parts = [p + " " + TEST_HOSTS if p.split(" ")[0] in ("script-src", "img-src", "media-src", "connect-src") else p for p in parts]
+        return 'http-equiv="Content-Security-Policy" content="' + "; ".join(parts) + '"'
+    return re.sub(r'http-equiv="Content-Security-Policy" content="([^"]*)"', fix, html)
 
 
 def make_server(port: int):
