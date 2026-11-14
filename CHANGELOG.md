@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.0.1 (2026-11-14) — narrated tours, radio window, shared windows
+
+- Narration in Go deeper starts only when you press a tour or Listen button. Opening the tab does not start it, and a
+  tour no longer advances to the next stop on its own (not when a clip ends, and not when the speech voice errors).
+- A speech error no longer skips through the rest of the tour. Press Next for the next stop, or Stop to end it.
+- Creedence Radio has a minimize control that collapses it to a dock mini-bar (play/pause, track title, expand). The
+  YouTube player stays mounted and keeps playing while you open other panels, tabs and layers. Only Close (×) stops
+  and destroys the player. There is still no autoplay.
+- Shared window system for the radio, encyclopedia, Ship's Log and the side panel: drag, resize from edges and
+  corners, lock / unlock, content zoom that does not change the globe zoom, a dock for minimized windows, and a
+  Reset layout button. The layout is remembered in this browser (not during tests). On a phone the panels stay as
+  snap-to-edge sheets; the dock sits above the globe controls and does not cover them.
+
+
 ## v3.0.0 (2026-11-14) — atlas framework
 
 - **Encyclopedia ("Go deeper")**: every vehicle, route, place, region and space entry in one searchable panel, with

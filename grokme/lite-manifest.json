@@ -1,6 +1,6 @@
 {
  "name": "SeaGlobe Lite",
- "version": "3.0.0",
+ "version": "3.0.1",
  "commit": "[set at release]",
  "entry": "lite.html",
  "root": "web/",
@@ -23,8 +23,8 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 13080128,
- "file_count": 398,
+ "total_bytes": 13108265,
+ "file_count": 399,
  "files": [
   {
    "path": "app.css",
@@ -1903,13 +1903,13 @@
   },
   {
    "path": "js/encyclopedia.js",
-   "bytes": 23548,
-   "sha256": "f3ab868758d0b058cf5328c3d804f41de88070ca4ef3267b8cf33b00ab12518a"
+   "bytes": 24030,
+   "sha256": "0883d7a700aedfeb35b057e734890a280e67f289e2fe990c1e46ea7a13b27c18"
   },
   {
    "path": "js/listen.js",
-   "bytes": 5459,
-   "sha256": "9572fb067d423f875efc1973e2b4dbc34add0bf372801c36ae6a4d45dfa70082"
+   "bytes": 7010,
+   "sha256": "646163c5bbc462448e383247a271b7db99b2d149d2d5a63c9c753bda8c4f9c7f"
   },
   {
    "path": "js/mobile.js",
@@ -1923,8 +1923,8 @@
   },
   {
    "path": "js/radio.js",
-   "bytes": 7554,
-   "sha256": "fede9471069f489a29688af7d94147983973ca80f5df00e11a492445ead48c3b"
+   "bytes": 11365,
+   "sha256": "ae20e64e733edc245ab54f81fd990ec9aa0d3c202ae02306bf9c4b7eec2533d6"
   },
   {
    "path": "js/regions.js",
@@ -1964,7 +1964,7 @@
   {
    "path": "js/version.js",
    "bytes": 492,
-   "sha256": "8cab9bed214737a30657f56efa6636d528c12197c76dbc41df6b2148fbd82630"
+   "sha256": "33a41bd3aa0a06b8433f5dbca6928f164aea8747c8514543552fd458d415471b"
   },
   {
    "path": "js/voyages.js",
@@ -1972,9 +1972,14 @@
    "sha256": "09a1e453cbb004537c705da41bd69916fb0009b51d294be0d34c407f9d1d25ea"
   },
   {
+   "path": "js/windows.js",
+   "bytes": 17473,
+   "sha256": "2909fa5ac4eea8affd9fbd5d21fb319a6a413f2672b558ac406588502876faed"
+  },
+  {
    "path": "lite.html",
-   "bytes": 10408,
-   "sha256": "84197895425f84602820efc21abddc329cd4ff7f3e48c401407fedfb70708c6f"
+   "bytes": 10448,
+   "sha256": "2a802cec83e3007a184d82a12cd935d178a9f9a5d386864a1d05128b8f1da7ff"
   },
   {
    "path": "textures/earth-navy.png",
@@ -1983,8 +1988,8 @@
   },
   {
    "path": "v3.css",
-   "bytes": 9831,
-   "sha256": "bc8986d565146d2441d4622dc0481193dae01bfa60e49a6a6954f48f7e653938"
+   "bytes": 14611,
+   "sha256": "e81be6b45b649e979c0fe4336aaabd56da91a01c3a106b886d89cbb609b345cb"
   },
   {
    "path": "vendor/README.md",
@@ -2014,7 +2019,7 @@
   {
    "path": "version.json",
    "bytes": 352,
-   "sha256": "092d0357add987e224a0c1d0102c44d6d3dd7489def9952325e455678de7e481"
+   "sha256": "9940d7545ddaaada863b2d6054ac831c63703f5baa411cf10a84dbdbc6039622"
   }
  ]
 }

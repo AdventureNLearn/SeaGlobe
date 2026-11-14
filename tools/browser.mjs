@@ -58,7 +58,7 @@ export const frame = (page) => page.evaluate(() => new Promise((r) => requestAni
 // Used to prove the desktop layout is unchanged by phone-only styles.
 export async function layoutSnapshot(page) {
   return page.evaluate(() => {
-    const skip = (el) => el.closest("#globe, #labels, #tooltip, #fakecursor, #card");
+    const skip = (el) => el.closest("#globe, #labels, #tooltip, #fakecursor, #card, #windowDock, .wintools, .win-h, .winbar");
     const key = (el) => {
       const parts = [];
       for (let e = el; e && e !== document.body; e = e.parentElement) {

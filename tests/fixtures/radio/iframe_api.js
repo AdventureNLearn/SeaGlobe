@@ -12,7 +12,11 @@
   Player.prototype.nextVideo = function () { this.nexts++; };
   Player.prototype.destroy = function () { window.__ytDestroyed = (window.__ytDestroyed || 0) + 1; };
   Player.prototype.fail = function (code) { this.opts.events.onError({ data: code, target: this }); };
-  Player.prototype.userPlays = function () { this.opts.events.onStateChange && this.opts.events.onStateChange({ data: 1, target: this }); };
+  Player.prototype.playVideo = function () { this._state = 1; this.opts.events.onStateChange && this.opts.events.onStateChange({ data: 1, target: this }); };
+  Player.prototype.pauseVideo = function () { this._state = 2; this.opts.events.onStateChange && this.opts.events.onStateChange({ data: 2, target: this }); };
+  Player.prototype.getPlayerState = function () { return this._state == null ? -1 : this._state; };
+  Player.prototype.getVideoData = function () { return { title: "Proud Mary (test)" }; };
+  Player.prototype.userPlays = function () { this._state = 1; this.opts.events.onStateChange && this.opts.events.onStateChange({ data: 1, target: this }); };
   window.YT = { Player: Player };
   setTimeout(function () { window.onYouTubeIframeAPIReady && window.onYouTubeIframeAPIReady(); }, 10);
 })();

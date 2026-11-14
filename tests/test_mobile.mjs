@@ -99,7 +99,8 @@ try {
       // v3.0: the baseline was regenerated on purpose (--write-fixture) for the new top-bar buttons (Go deeper,
       // Radio) and the footer credit and version line; the desktop layout is otherwise compared exactly as before.
       const ROW = /^#log-(\d+)(>|$)/, ADDED_ROWS = 0;
-      const COUNT_TEXT = new Set(["#logCount", "#log>div.loghead:0>div:0", "#log>div.loghead:0>div:0>div.kicker:0"]);
+      // footer version width ("v3.0.0" vs "v3.0.1") changes with VERSION; position, font and colour still match
+      const COUNT_TEXT = new Set(["#logCount", "#log>div.loghead:0>div:0", "#log>div.loghead:0>div:0>div.kicker:0", "#pfoot>span.vline:0>span:0"]);
       const norm = (k, v) => (v && COUNT_TEXT.has(k) ? v.split(" ").filter((_, i) => i !== 2).join(" ") : v);
       const rows = (o) => new Set(Object.keys(o).map((k) => (ROW.exec(k) || [])[1]).filter(Boolean)).size;
       for (const [w, h] of DESKTOP) {

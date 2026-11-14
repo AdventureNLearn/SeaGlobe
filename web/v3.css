@@ -100,3 +100,64 @@ body.atlas-open .radiopanel { left: calc(490px * var(--ui)); }
 @media (min-width: 4800px) and (min-height: 2700px) { :root { --ui: 2.5; } }
 @media (min-width: 5760px) and (min-height: 3240px) { :root { --ui: 3; } }
 @media (min-width: 7200px) and (min-height: 4050px) { :root { --ui: 4; } }
+
+/* Shared window system (SeaWindows): chrome, dock, resize handles, content zoom, phone dock. */
+.winbar { cursor: grab; touch-action: none; }
+.sgwin.is-dragging .winbar, .sgwin.is-dragging { cursor: grabbing; user-select: none; }
+.sgwin.is-locked .winbar { cursor: default; }
+.wintools { display: flex; align-items: center; gap: calc(2px * var(--ui)); flex: none; }
+.wintools-overlay { position: absolute; top: calc(4px * var(--ui)); right: calc(28px * var(--ui)); z-index: 8; }
+.wintools-menu { display: flex; gap: calc(2px * var(--ui)); position: absolute; right: 0; top: calc(100% + 2px * var(--ui)); padding: calc(4px * var(--ui)); background: var(--solid); border: calc(1px * var(--ui)) solid var(--edge); z-index: 9; }
+.wintools-menu[hidden] { display: none !important; }
+#side > .wintools-overlay { right: calc(6px * var(--ui)); top: calc(6px * var(--ui)); }
+.wintools .btn.icon { min-width: calc(28px * var(--ui)); padding: 0 calc(6px * var(--ui)); font-size: calc(13px * var(--ui)); }
+.wintools .win-lock[aria-pressed="true"] { color: var(--gold); }
+.sgwin { --win-zoom: 1; }
+.sgwin .winbody { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: auto; transform-origin: 0 0; }
+.sgwin.sgwin-moved { clip-path: none; }
+.win-h { position: absolute; z-index: 6; background: transparent; }
+.win-h.n, .win-h.s { left: calc(10px * var(--ui)); right: calc(10px * var(--ui)); height: calc(8px * var(--ui)); cursor: ns-resize; }
+.win-h.e, .win-h.w { top: calc(10px * var(--ui)); bottom: calc(10px * var(--ui)); width: calc(8px * var(--ui)); cursor: ew-resize; }
+.win-h.n { top: 0; } .win-h.s { bottom: 0; } .win-h.e { right: 0; } .win-h.w { left: 0; }
+.win-h.ne, .win-h.nw, .win-h.se, .win-h.sw { width: calc(14px * var(--ui)); height: calc(14px * var(--ui)); }
+.win-h.ne { top: 0; right: 0; cursor: nesw-resize; } .win-h.nw { top: 0; left: 0; cursor: nwse-resize; }
+.win-h.se { bottom: 0; right: 0; cursor: nwse-resize; } .win-h.sw { bottom: 0; left: 0; cursor: nesw-resize; }
+.sgwin.is-locked .win-h, .sgwin.is-min .win-h { display: none; }
+.sgwin.is-min:not([data-win="radio"]) { display: none !important; }
+
+/* Radio stays mounted and painted (never display:none / [hidden] / visibility:hidden / opacity:0) so YouTube keeps playing. */
+.sgwin.is-min[data-win="radio"] { position: fixed !important; left: -250px !important; top: 0 !important;
+  width: 200px !important; height: 200px !important; right: auto !important; bottom: auto !important;
+  opacity: 1; pointer-events: none; overflow: hidden; z-index: 1; box-shadow: none; }
+.sgwin.is-min[data-win="radio"] .loghead,
+.sgwin.is-min[data-win="radio"] .wintools,
+.sgwin.is-min[data-win="radio"] .win-h,
+.sgwin.is-min[data-win="radio"] .radiolinks,
+.sgwin.is-min[data-win="radio"] #radioLoad,
+.sgwin.is-min[data-win="radio"] #radioMsg,
+.sgwin.is-min[data-win="radio"] .winbody > .small,
+.sgwin.is-min[data-win="radio"] .kicker[data-style] { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.sgwin.is-min[data-win="radio"] .winbody { overflow: visible; }
+.sgwin.is-min[data-win="radio"] .radiostage { position: absolute !important; inset: 0 !important;
+  width: 200px !important; height: 200px !important; min-width: 200px !important; min-height: 200px !important;
+  aspect-ratio: auto; }
+
+.windock { left: calc(14px * var(--ui)); bottom: calc(156px * var(--ui)); max-width: min(calc(560px * var(--ui)), 56vw);
+  display: flex; flex-wrap: wrap; align-items: center; gap: calc(6px * var(--ui)); padding: calc(8px * var(--ui)) calc(10px * var(--ui));
+  z-index: 21; clip-path: none; }
+.windock-chips { display: flex; flex-wrap: wrap; gap: calc(6px * var(--ui)); align-items: center; }
+.windock-chip { display: inline-flex; align-items: center; gap: calc(6px * var(--ui)); max-width: calc(280px * var(--ui)); }
+.windock-chip.is-alive { min-height: calc(36px * var(--ui)); }
+.radiomini { display: inline-flex; align-items: center; gap: calc(6px * var(--ui)); min-width: 0; }
+.radiomini .rmtitle { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: calc(180px * var(--ui)); font-weight: 650; }
+#side[data-win-min] { visibility: hidden; pointer-events: none; }
+
+@media (max-width: 820px) {
+  .win-h { display: none; } /* phone: snap-to-edge sheets, no free resize */
+  .windock { left: var(--mgap); right: var(--mgap); width: auto; max-width: none;
+    bottom: calc(var(--mbar) + var(--mgap) * 2 + var(--sab)); top: auto; z-index: 17; }
+  .wintools .btn.icon { min-width: calc(44px * var(--ui)); min-height: calc(44px * var(--ui)); }
+  /* keep the window-control button off the close button and era chips */
+  #side > .wintools-overlay { left: calc(8px * var(--ui)); right: auto; top: calc(8px * var(--ui)); }
+  .radiomini .rmtitle { max-width: 36vw; }
+}

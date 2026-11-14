@@ -27,8 +27,11 @@
     const logBtn = $("logBtn"); logBtn.parentNode.insertBefore(btn, logBtn.nextSibling);
     const mq = $("mQuick");
     if (mq) { const m = document.createElement("button"); m.className = "btn"; m.id = "mAtlasBtn"; m.textContent = "Encyclopedia"; m.addEventListener("click", () => { if (window.__sgMobile) window.__sgMobile.sheet(null); open(true); }); mq.appendChild(m); }
-    btn.addEventListener("click", () => open(panel.hidden));
+    btn.addEventListener("click", () => { if (window.SeaWindows && window.SeaWindows.state("atlas") && window.SeaWindows.state("atlas").minimized) { window.SeaWindows.expand("atlas"); open(true); return; } open(panel.hidden); });
     $("atlasClose").addEventListener("click", () => open(false));
+    if (window.SeaWindows) window.SeaWindows.register("atlas", panel, { title: "Encyclopedia", minW: 320, minH: 240, sheet: true,
+      onMinimize: () => { document.body.classList.remove("atlas-open"); },
+      onExpand: () => { if (panel.hidden) open(true); else document.body.classList.add("atlas-open"); } });
     $("atlasBack").addEventListener("click", () => history.back());
     q.addEventListener("input", () => { const v = q.value.trim(); go(v ? "#/search/" + encodeURIComponent(v) : "#/browse", true); });
     panel.querySelectorAll("[data-av]").forEach((b) => b.addEventListener("click", () => go("#/" + b.dataset.av)));

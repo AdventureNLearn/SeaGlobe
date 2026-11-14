@@ -163,10 +163,55 @@ try {
     assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /Age of Sail/);
     await p.evaluate(() => window.SeaListen.stop());
     await p.evaluate(() => window.SeaListen.tour("space"));
-    await p.waitForFunction(() => window.SeaListen.state().i >= 2, { timeout: 30000 });
+    assert.equal(await p.evaluate(() => window.SeaListen.state().i), 1);
+    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /The space age · 1\/7/);
+    assert.ok(await p.evaluate(() => !!document.getElementById("listenNext")), "Next is offered on a tour");
+    await p.evaluate(() => window.SeaListen.next());
+    assert.equal(await p.evaluate(() => window.SeaListen.state().i), 2);
     assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /The space age · 2\/7/);
     await p.evaluate(() => window.SeaListen.stop());
     assert.ok(await p.evaluate(() => document.querySelectorAll("#tourList [data-listen]").length === 3));
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("listen: Go deeper does not autoplay; a speech error does not skip the tour", async () => {
+    const p = await openApp(browser, port, "capture=1");
+    const tab = await p.$(".tab[data-tab='deeper']");
+    const tb = await tab.boundingBox();
+    await p.mouse.click(tb.x + tb.width / 2, tb.y + tb.height / 2);
+    await sleep(800);
+    let st = await p.evaluate(() => window.SeaListen.state());
+    assert.equal(st.speaking, false, "opening Go deeper started speaking");
+    assert.equal(st.tour, null, "opening Go deeper started a tour");
+    assert.equal(st.i, 0);
+    await p.evaluate(() => {
+      const s = window.speechSynthesis;
+      if (!s || s.__testHook) return;
+      const orig = s.speak.bind(s);
+      s.speak = function (u) {
+        orig(u);
+        setTimeout(() => { try { u.onerror && u.onerror({ error: "synthesis-failed" }); } catch (e) {} }, 0);
+      };
+      s.__testHook = true;
+    });
+    const btn = await p.$("[data-listen='tour:eras']");
+    const bb = await btn.boundingBox();
+    await p.mouse.click(bb.x + bb.width / 2, bb.y + bb.height / 2);
+    await sleep(200);
+    st = await p.evaluate(() => window.SeaListen.state());
+    assert.equal(st.tour, "eras");
+    assert.equal(st.i, 1, "should be on stop 1 after a press, got " + st.i);
+    await sleep(2500);
+    st = await p.evaluate(() => window.SeaListen.state());
+    assert.equal(st.i, 1, "speech error auto-advanced the tour, i=" + st.i);
+    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /1\/6/);
+    await p.evaluate(() => window.SeaListen.next());
+    await sleep(200);
+    st = await p.evaluate(() => window.SeaListen.state());
+    assert.equal(st.i, 2, "Next should advance to stop 2, got " + st.i);
+    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /2\/6/);
+    await p.evaluate(() => window.SeaListen.stop());
     assert.deepEqual(p._errors, []);
     await p.close();
   });
@@ -264,6 +309,55 @@ try {
     assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), 0, "no skip after reopening until the user plays");
     await p.click("#radioClose");
     assert.deepEqual(p._errors, []); await p.close();
+
+    // minimize keeps the same mounted player playing; opening another panel does not destroy, restart or skip
+    p = await openApp(browser, port, `capture=1&radioapi=${encodeURIComponent(`http://127.0.0.1:${fport}/radio/iframe_api.js`)}`);
+    await p.evaluate(() => window.SeaRadio.open(true)); await p.click("#radioLoad");
+    await p.waitForFunction(() => window.SeaRadio.state().api === "ready", { timeout: 10000 });
+    await p.evaluate(() => window.__ytPlayer.userPlays());
+    assert.equal(await p.evaluate(() => window.SeaRadio.state().started), true);
+    const before = await p.evaluate(() => ({ calls: window.__ytCalls.length, destroyed: window.__ytDestroyed || 0, nexts: window.__ytPlayer.nexts, player: window.SeaRadio.state().player }));
+    await p.evaluate(() => window.SeaRadio.minimize());
+    await sleep(200);
+    let mid = await p.evaluate(() => ({
+      st: window.SeaRadio.state(),
+      calls: window.__ytCalls.length,
+      destroyed: window.__ytDestroyed || 0,
+      nexts: window.__ytPlayer.nexts,
+      stage: !!document.getElementById("radioStage"),
+      node: !!(document.querySelector("#radioStage .fake-yt") || document.getElementById("radioPlayer")),
+      display: document.getElementById("radioPanel") && getComputedStyle(document.getElementById("radioPanel")).display,
+      hidden: !!(document.getElementById("radioPanel") && document.getElementById("radioPanel").hidden),
+      dock: !!(document.querySelector("#windowDockChips .radiomini, #windowDock .windock-chip")),
+    }));
+    assert.equal(mid.st.minimized, true, "minimized");
+    assert.equal(mid.st.player, true, "player still mounted after minimize");
+    assert.equal(mid.st.started, true, "started not reset by minimize");
+    assert.equal(mid.calls, before.calls, "minimize must not restart the player");
+    assert.equal(mid.destroyed, before.destroyed, "minimize must not call destroy()");
+    assert.equal(mid.nexts, before.nexts, "minimize must not skip");
+    assert.equal(mid.stage && mid.node, true, "stage and player node still in the document");
+    assert.notEqual(mid.display, "none");
+    assert.equal(mid.hidden, false, "minimized radio must not be [hidden]");
+    assert.ok(mid.dock, "mini-bar is in the dock");
+    await p.evaluate(() => window.SeaEncyclopedia.open(true)); await sleep(200);
+    mid = await p.evaluate(() => ({
+      st: window.SeaRadio.state(), calls: window.__ytCalls.length, destroyed: window.__ytDestroyed || 0,
+      nexts: window.__ytPlayer.nexts, player: window.SeaRadio.state().player,
+    }));
+    assert.equal(mid.st.player && mid.st.started && mid.st.minimized, true);
+    assert.equal(mid.calls, before.calls);
+    assert.equal(mid.destroyed, before.destroyed);
+    assert.equal(mid.nexts, before.nexts);
+    await p.evaluate(() => window.__ytPlayer.fail(150));
+    assert.equal(await p.evaluate(() => window.__ytPlayer.nexts), before.nexts + 1, "skips still work after minimize");
+    await p.evaluate(() => window.SeaRadio.expand());
+    assert.equal(await p.evaluate(() => window.SeaRadio.state().minimized), false);
+    assert.equal(await p.evaluate((b) => window.SeaRadio.state().player && window.__ytCalls.length === b.calls && (window.__ytDestroyed || 0) === b.destroyed, before), true);
+    await p.click("#radioClose");
+    assert.ok(await p.evaluate((b) => (window.__ytDestroyed || 0) === b.destroyed + 1, before), "close still destroys");
+    assert.deepEqual(p._errors, []); await p.close();
+
     // YouTube unreachable: clean message, app keeps running
     p = await openApp(browser, port, `capture=1&radioapi=${encodeURIComponent("http://127.0.0.1:9/iframe_api.js")}`);
     await p.evaluate(() => window.SeaRadio.open(true)); await p.click("#radioLoad");
@@ -271,6 +365,69 @@ try {
     assert.match(await p.evaluate(() => document.getElementById("radioMsg").textContent), /Radio needs internet/);
     assert.ok(await p.evaluate(() => window.__sg.state().routes === 95));
     assert.deepEqual(local(p._errors, [/ERR_CONNECTION_REFUSED|Failed to load resource/]), []); await p.close();
+  });
+
+  await check("windows: drag, resize, lock, content zoom (globe unchanged), reset layout", async () => {
+    const p = await openApp(browser, port, "capture=1");
+    assert.ok(await p.evaluate(() => !!(window.SeaWindows && document.getElementById("side").classList.contains("sgwin"))));
+    const before = await p.evaluate(() => {
+      const s = window.SeaWindows.state("side");
+      const pov = window.__sg.globe().pointOfView();
+      return { left: s.left, top: s.top, width: s.width, height: s.height, zoom: s.zoom, alt: pov.altitude, lat: pov.lat, lng: pov.lng };
+    });
+    await p.evaluate(() => window.SeaWindows.move("side", 40, 80));
+    let st = await p.evaluate(() => window.SeaWindows.state("side"));
+    assert.ok(Math.abs(st.left - 40) < 2 && Math.abs(st.top - 80) < 2, "move " + JSON.stringify(st));
+    assert.equal(st.moved, true);
+    await p.evaluate(() => window.SeaWindows.toggleLock("side"));
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("side").locked), true);
+    const lockedAt = await p.evaluate(() => { const s = window.SeaWindows.state("side"); window.SeaWindows.move("side", 200, 200); window.SeaWindows.resize("side", 100, 100); return s; });
+    st = await p.evaluate(() => window.SeaWindows.state("side"));
+    assert.ok(Math.abs(st.left - lockedAt.left) < 2 && Math.abs(st.top - lockedAt.top) < 2, "lock blocks move");
+    assert.ok(Math.abs(st.width - lockedAt.width) < 2 && Math.abs(st.height - lockedAt.height) < 2, "lock blocks resize");
+    await p.evaluate(() => window.SeaWindows.toggleLock("side"));
+    await p.evaluate(() => window.SeaWindows.resize("side", 400, 360));
+    st = await p.evaluate(() => window.SeaWindows.state("side"));
+    assert.ok(Math.abs(st.width - 400) < 3 && Math.abs(st.height - 360) < 3, "resize " + JSON.stringify(st));
+    await p.evaluate(() => window.SeaWindows.zoom("side", 0.2));
+    const z = await p.evaluate(() => ({ win: window.SeaWindows.state("side").zoom, pov: window.__sg.globe().pointOfView() }));
+    assert.equal(z.win, 1.2);
+    assert.ok(Math.abs(z.pov.altitude - before.alt) < 1e-6, "content zoom must not change globe zoom");
+    assert.ok(Math.abs(z.pov.lat - before.lat) < 1e-6 && Math.abs(z.pov.lng - before.lng) < 1e-6);
+    await p.evaluate(() => window.SeaWindows.zoom("side", "reset"));
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("side").zoom), 1);
+    // persist API: save is skipped in capture=1; reset still restores the default box
+    await p.evaluate(() => window.SeaWindows.resetLayout());
+    st = await p.evaluate(() => window.SeaWindows.state("side"));
+    assert.equal(st.moved, false);
+    assert.equal(st.locked, false);
+    assert.equal(st.zoom, 1);
+    assert.equal(st.minimized, false);
+    // keyboard: focus the bar and press L then M is covered by the API above; arrow move:
+    await p.evaluate(() => { const s = window.SeaWindows.state("side"); window.SeaWindows.move("side", s.left, s.top); document.querySelector("#side .winbar, #side .tabs").focus(); });
+    await p.keyboard.press("ArrowRight");
+    const afterKey = await p.evaluate(() => window.SeaWindows.state("side"));
+    assert.ok(afterKey.moved, "arrow key moves an unlocked panel");
+    await p.evaluate(() => window.SeaWindows.resetLayout());
+    assert.deepEqual(p._errors, []); await p.close();
+  });
+
+  await check("windows: encyclopedia and the Ship's Log minimize to the dock and come back", async () => {
+    const p = await openApp(browser, port, "capture=1");
+    await p.evaluate(() => window.SeaEncyclopedia.open(true)); await sleep(200);
+    await p.evaluate(() => window.SeaWindows.minimize("atlas"));
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("atlas").minimized), true);
+    assert.ok(await p.evaluate(() => !!document.querySelector("#windowDockChips [data-win='atlas']")));
+    await p.evaluate(() => window.SeaWindows.expand("atlas"));
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("atlas").minimized || document.getElementById("atlasPanel").hidden), false);
+    await p.evaluate(() => { window.SeaEncyclopedia.open(false); window.__sg.log(true); });
+    await p.evaluate(() => window.SeaWindows.minimize("log"));
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("log").minimized), true);
+    await p.evaluate(() => window.SeaWindows.expand("log"));
+    assert.equal(await p.evaluate(() => window.SeaWindows.state("log").minimized), false);
+    assert.ok(await p.evaluate(() => !document.getElementById("log").hidden));
+    await p.evaluate(() => window.SeaWindows.resetLayout());
+    assert.deepEqual(p._errors, []); await p.close();
   });
 
   await check("R2 mock: textures load from the large-file host when set; a dead host falls back to the repo copy", async () => {
@@ -315,6 +472,33 @@ try {
       const r = await p.evaluate(() => { const b = document.getElementById("radioStage").getBoundingClientRect(); return [b.left, b.right, b.width, b.height]; });
       assert.ok(r[0] >= 0 && r[1] <= 390 && r[2] >= 200 && r[3] >= 200, "radio " + r);
       assert.ok(await p.evaluate(() => !!document.getElementById("mAtlasBtn") && !!document.getElementById("mRadioBtn")));
+      await p.evaluate(() => { window.SeaRadio.open(false); document.getElementById("menuBtn").click(); });
+      await sleep(300);
+      const tab = await p.$(".tab[data-tab='deeper']");
+      const tb = await tab.boundingBox();
+      await p.mouse.click(tb.x + tb.width / 2, tb.y + tb.height / 2);
+      await sleep(500);
+      const st = await p.evaluate(() => window.SeaListen.state());
+      assert.equal(st.tour, null, "phone: opening Go deeper started a tour");
+      assert.equal(st.speaking, false, "phone: opening Go deeper started speaking");
+      await p.evaluate(() => window.SeaRadio.open(true)); await sleep(200);
+      await p.evaluate(() => window.SeaRadio.minimize());
+      const cov = await p.evaluate(() => {
+        const dock = document.getElementById("windowDock");
+        const bar = document.getElementById("timeline");
+        const menu = document.getElementById("menuBtn");
+        const d = dock && getComputedStyle(dock).display !== "none" ? dock.getBoundingClientRect() : null;
+        const t = bar.getBoundingClientRect(), m = menu.getBoundingClientRect();
+        const overlap = (a, b) => a && Math.min(a.right, b.right) - Math.max(a.left, b.left) > 1 && Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 1;
+        return { hidden: !!(document.getElementById("radioPanel") && document.getElementById("radioPanel").hidden),
+          display: document.getElementById("radioPanel") && getComputedStyle(document.getElementById("radioPanel")).display,
+          dockTop: d && d.top, barTop: t.top, overBar: overlap(d, t), overMenu: overlap(d, m) };
+      });
+      assert.equal(cov.hidden, false, "phone: minimized radio is not [hidden]");
+      assert.notEqual(cov.display, "none");
+      assert.equal(cov.overBar, false, "phone: dock must not cover the timeline");
+      assert.equal(cov.overMenu, false, "phone: dock must not cover the menu button");
+      await p.evaluate(() => window.SeaRadio.open(false));
       assert.deepEqual(p._errors, []); await p.close();
     } finally { await ph.close(); }
   });
