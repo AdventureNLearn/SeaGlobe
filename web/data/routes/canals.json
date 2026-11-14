@@ -84,7 +84,20 @@
    "citation": "Peter L. Bernstein, Wedding of the Waters: The Erie Canal and the Making of a Great Nation (New York: Norton, 2005)",
    "reconstruction": true,
    "region": "Americas",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Erie Canal opened on 26 October 1825 and ran 363 miles (584 km) from Albany on the Hudson to Buffalo on Lake Erie. Critics called it 'Clinton's Ditch', but the legislature approved $7 million in 1817 and tolls covered the state's construction debt within the first year. It was enlarged several times, and from 1905 to 1918 most of the old line was replaced by the New York State Barge Canal.",
+   "story": "On opening day Governor DeWitt Clinton rode a canal boat from Buffalo to New York and poured a keg of Lake Erie water into the Atlantic, the 'Wedding of the Waters'. After that, mule-towed boats carried western grain east and settlers west.",
+   "facts": {
+    "Opened": "26 October 1825",
+    "Length": "363 mi (584 km)",
+    "Cost": "about $7 million",
+    "Towing": "mules and horses on the towpath",
+    "Successor": "NYS Barge Canal (1918)"
+   },
+   "content_citations": [
+    "Wikipedia, “Erie Canal”, https://en.wikipedia.org/wiki/Erie_Canal (accessed 14 Nov 2026), and the sources cited there",
+    "Peter L. Bernstein, Wedding of the Waters: The Erie Canal and the Making of a Great Nation (New York: Norton, 2005)"
+   ]
   },
   {
    "id": "panama-canal-route",
@@ -182,7 +195,18 @@
    "citation": "David McCullough, The Path Between the Seas: The Creation of the Panama Canal, 1870-1914 (New York: Simon & Schuster, 1977)",
    "reconstruction": true,
    "region": "Americas",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Panama Canal formally opened on 15 August 1914 with the transit of the cargo ship SS Ancon. It cut thousands of miles from the New York–San Francisco sea route, which before had to go around Cape Horn or through the Strait of Magellan. The United States ran the canal until Panama took full control at noon on 31 December 1999.",
+   "story": "The first official transit took place days after the First World War broke out in Europe, so the opening got little attention. The canal still changed coast-to-coast American shipping almost at once.",
+   "facts": {
+    "Opened": "15 August 1914 (SS Ancon)",
+    "Panamanian control": "31 December 1999",
+    "Route drawn": "New York – Colón – Panama – San Francisco (reconstruction)"
+   },
+   "content_citations": [
+    "Wikipedia, “Panama Canal”, https://en.wikipedia.org/wiki/Panama_Canal (accessed 14 Nov 2026), and the sources cited there",
+    "David McCullough, The Path Between the Seas (New York: Simon & Schuster, 1977)"
+   ]
   }
  ]
 }

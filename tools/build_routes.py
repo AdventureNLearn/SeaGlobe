@@ -290,6 +290,9 @@ def main():
         "   so the page also works from file:// and as a single HTML file. */\n"
         "(window.SEAGLOBE_DATA = window.SEAGLOBE_DATA || {}).texture = \"data:" + mime + ";base64,"
         + base64.b64encode(png).decode() + "\";\n", encoding="utf-8")
+    # v2.2: history, story, facts and citations (additive fields)
+    from enrich import main as enrich
+    enrich()
 
 
 if __name__ == "__main__":

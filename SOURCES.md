@@ -461,3 +461,163 @@ Timing: dated (real dates) 6, years (published years, reconstructed months/pace)
 - derived from: hand-written reconstruction from published history
 - K. N. Chaudhuri, The Trading World of Asia and the English East India Company, 1660-1760 (Cambridge: Cambridge University Press, 1978)
 
+
+## v2.2 content pass (14 Nov 2026): history, story and facts
+
+Every route record now has `history`, `story`, `facts` and `content_citations`. Each named vessel or aircraft has a `vessel` entry on its voyage, and each vehicle type has an entry in `web/data/content.js`. The text was written by hand from the sources below (source files `tools/content_routes.py` and `tools/content_assets.py`, merged by `tools/enrich.py`). Numbers were checked against plain-text extracts of the cited Wikipedia articles, fetched through the public Wikipedia API on 14 Nov 2026 and kept in the gitignored `research/raw/wiki/` folder, and against Pliny (Perseus) for the amber story. Wikipedia is cited together with the sources each article cites. Anything not found is marked [UNKNOWN]. Ship sizes, crews and cargoes in the Dutch-Asiatic Shipping database are not bundled (CC BY-NC-SA) and stay [UNKNOWN] here.
+
+Data corrections made in this pass: the Shanghai Pudong–Los Angeles line now starts in 1999 (PVG opened 1 Oct 1999) and São Paulo–Johannesburg starts in 1985 (GRU opened 1985), because no line should run before its airport opened. *London–New York jet traffic* now cites "Transatlantic flight" in place of its [UNKNOWN] citation. Pan Am's 707 is named Clipper America, 707-121, N711PA.
+
+### Wikipedia articles cited (accessed 14 Nov 2026)
+- Air China
+- Amber Road
+- Appian Way
+- Athenian navy
+- Atlantic slave trade
+- BOAC
+- Baku–Tbilisi–Ceyhan pipeline
+- Barge
+- Boeing 707
+- Bremen cog
+- Bryggen
+- Caffa
+- Calicut
+- Camel train
+- Capture of Vigilant
+- Cathay Pacific
+- Chinese treasure ship
+- Cog (ship)
+- Concorde
+- Container ship
+- Containerization
+- Cura Annonae
+- Cursus publicus
+- De Havilland Comet
+- Dhow
+- Diesel locomotive
+- Douglas DC-3
+- Druzhba pipeline
+- Dubai International Airport
+- Durham boat
+- Dutch East India Company
+- Duyfken
+- East India Company
+- East Indiaman
+- Emirates (airline)
+- Empire of Trebizond
+- Erie Canal
+- Erik the Red
+- First Dutch Expedition to the East Indies
+- First transcontinental railroad
+- Fort St. George, India
+- Fourth Anglo-Dutch War
+- Frigate
+- Galleon
+- Galley
+- Genoese colonies
+- Grand Canal (China)
+- HMS Launceston
+- Haneda Airport
+- Hanseatic League
+- High-speed rail
+- Ibn Battuta
+- Incense trade route
+- Indian Ocean trade
+- Istanbul Airport
+- Jet airliner
+- Junk (ship)
+- Kangaroo Route
+- Kilwa Sultanate
+- Kingdom of Ormus
+- Knarr
+- Liverpool and Manchester Railway
+- Llama
+- Lockheed Constellation
+- Longship
+- Lufthansa
+- Manila galleon
+- Marco Polo
+- Middle Passage
+- Ming treasure voyages
+- Muda (convoy)
+- Muziris
+- Norse colonization of North America
+- Olympias (trireme)
+- Oseberg ship
+- Ox wagon
+- P&O (company)
+- Paddle steamer
+- Pan American World Airways
+- Panama Canal
+- Periplus of the Erythraean Sea
+- Pipeline transport
+- Qhapaq Ñan
+- Royal Road
+- SS Great Western
+- SS Ideal X
+- Satellite
+- Settlement of Iceland
+- Shanghai Pudong International Airport
+- Shinkansen
+- Ships of ancient Rome
+- Sijilmasa
+- Silk Road
+- Singapore Airlines
+- South African Airways
+- Sputnik 1
+- Steam locomotive
+- Steelyard
+- Suez Canal
+- São Paulo/Guarulhos International Airport
+- T2 tanker
+- Trade route from the Varangians to the Greeks
+- Trans-Alaska Pipeline System
+- Trans-Saharan trade
+- Trans-Siberian Railway
+- Transatlantic flight
+- Triangular trade
+- Trireme
+- Via Egnatia
+- Zheng He
+
+### Other works cited in the content pass
+- A. H. M. Jones, The Later Roman Empire, 284-602 (Oxford, 1964)
+- Alfonso Moreno, Feeding the Democracy (Oxford: Oxford University Press, 2007)
+- Christian Wolmar, To the Edge of the World (London: Atlantic, 2013)
+- Constantine VII Porphyrogenitus, De Administrando Imperio, ch. 9
+- David McCullough, The Path Between the Seas (New York: Simon & Schuster, 1977)
+- Denis Griffiths, Brunel's 'Great Western' (Wellingborough, 1985)
+- Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006)
+- Eric Williams, Capitalism and Slavery (Chapel Hill, 1944)
+- Freda Harcourt, Flagships of Imperialism (Manchester, 2006)
+- Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973)
+- García-Herrera et al., PANGAEA (2010), https://doi.org/10.1594/PANGAEA.750354, CC BY 3.0
+- Gwyn Jones, The Norse Atlantic Saga (Oxford: Oxford University Press, 1964; 2nd ed. 1986)
+- Herodotus, Histories 5.52-54 and 8.98, trans. G. C. Macaulay (London: Macmillan, 1890) [public domain]
+- Ibn Battuta, Voyages d'Ibn Batoutah, ed. Defrémery and Sanguinetti (Paris, 1853-1858) [public domain]
+- Isidore of Charax, Parthian Stations, trans. W. H. Schoff (Philadelphia: Commercial Museum, 1914) [public domain]
+- J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)
+- Jeronim Perović (ed.), Cold War Energy (Cham: Palgrave Macmillan, 2017)
+- K. N. Chaudhuri, The Trading World of Asia and the English East India Company (Cambridge, 1978)
+- K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean (Cambridge: Cambridge University Press, 1985)
+- Lionel Casson (ed. and trans.), The Periplus Maris Erythraei (Princeton, 1989)
+- Lionel Casson, Ships and Seamanship in the Ancient World (Princeton, 1971)
+- Marc Levinson, The Box (Princeton: Princeton University Press, 2006)
+- Marco Polo, The Book of Ser Marco Polo, trans. H. Yule, 3rd ed. (1903) [public domain]
+- Nehemia Levtzion, Ancient Ghana and Mali (London: Methuen, 1973)
+- Olaudah Equiano, The Interesting Narrative of the Life of Olaudah Equiano (London, 1789) [public domain]
+- OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026
+- Pedro de Cieza de León, The Travels of Pedro de Cieza de León, A.D. 1532-50, trans. C. R. Markham (London: Hakluyt Society, 1864) [public domain]
+- Peter A. Coates, The Trans-Alaska Pipeline Controversy (Bethlehem, 1991)
+- Peter L. Bernstein, Wedding of the Waters: The Erie Canal and the Making of a Great Nation (New York: Norton, 2005)
+- Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford, 1970)
+- Pliny the Elder, Natural History 12.30-32 [public domain]
+- Pliny the Elder, Natural History 37.11 (45), trans. J. Bostock and H. T. Riley (London: Bohn, 1855-1857) [public domain]
+- S. F. Starr and S. E. Cornell (eds), The Baku-Tbilisi-Ceyhan Pipeline (Washington, 2005)
+- Simon Garfield, The Last Journey of William Huskisson (London, 2002)
+- Stephen E. Ambrose, Nothing Like It in the World (New York, 2000)
+- Steven A. Epstein, Genoa and the Genoese, 958–1528 (Chapel Hill: University of North Carolina Press, 1996)
+- Strabo, Geography 6.3.7, trans. H. C. Hamilton and W. Falconer (London: Bohn, 1854-1857) [public domain]
+- Strabo, Geography 7.7.4 (quoting Polybius) [public domain]
+- Valerie Hansen, The Silk Road: A New History (Oxford: Oxford University Press, 2012)
+- William Lytle Schurz, The Manila Galleon (New York: E. P. Dutton, 1939)

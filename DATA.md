@@ -123,3 +123,10 @@ ships is debated among historians, so its proportions are illustrative. The Erie
 matching that record's schedule label. `ox-wagon`, `diesel-train`, `electric-train` and `prop-airliner` exist as models
 but no bundled route uses them yet (no cited records for those services are in the data): [UNKNOWN] until such records
 are added (see BACKLOG.md, v2.2).
+
+## v2.2 additive content fields
+
+- Route records: `history` (string), `story` (string; retells documented events and says so when it describes a typical voyage), `facts` (label → value; gaps are "[UNKNOWN]"), `content_citations` (list).
+- Voyages with a named ship or aircraft: `vessel` = { name, facts, history, story, content_citations }.
+- `web/data/content.js`: `SEAGLOBE_DATA.vehicle_info[<vehicle id>]` = { summary, history, story, facts, content_citations } for all 26 vehicle types in `schema.js`.
+- The voyage card shows these in its existing notes and citation lines. Ship's Log search covers history, story and ship names, and the CSV gains `history`, `story` and `content_citations` columns. Nothing in the layout changed.

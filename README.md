@@ -29,7 +29,10 @@ leaving a fading wake.
   "Export CSV" saves the filtered list as a local file.
 - Timeline from 500 BCE to the present (BCE years labelled), play/pause, 1× / 5× / 20×, date scrubber.
 - Era switcher: Classical, Late Antiquity, Medieval, Age of Sail, Industrial, Modern.
-- Click any vehicle: ship, route, years, goods, source, citations and a confidence level.
+- Click any vehicle: ship, route, years, goods, source, citations and a confidence level, plus a cited
+  history, story and key facts for the route, the named ship (where there is one) and the vehicle type.
+- Vehicles are capped at an on-screen speed you can follow, and time eases to a stop as the pointer
+  nears a vehicle, so even jets can be selected. Dates stay true; only the clock slows.
 - Follow camera (chase view), eased fly-ins, slow orbit.
 - Earth from NASA Blue Marble / Black Marble (public domain) with ocean shine, atmosphere, a day/night
   terminator, city lights from the industrial era on, starfield, a moon and a decorative satellite layer
@@ -54,9 +57,9 @@ Useful URL options: `?t=1595-09-20` (start date; `-0479-05-01` is 480 BCE), `?er
 ## Live site
 
 This repository is the hosted site (GitHub Pages, no build of the app itself; a workflow publishes the
-`web/` folder plus videos and screenshots). The public URL is **[UNKNOWN until published]**:
+`web/` folder plus videos and screenshots):
 
-`https://<owner>.github.io/SeaGlobe/`
+https://adventurenlearn.github.io/SeaGlobe/
 
 ## Videos
 
@@ -65,7 +68,7 @@ Rendered frame by frame from the app with `tools/capture.mjs`. Captions: `walkth
 - [Full atlas walkthrough](walkthrough/atlas-walkthrough.mp4) (2:59, 1920×1080)
 - [Ships and Ship's Log](walkthrough/seaglobe-ships.mp4) (0:59, 1280×720)
 
-On the hosted site they also play at `https://<owner>.github.io/SeaGlobe/videos.html` (**[UNKNOWN until published]**).
+On the hosted site they also play at https://adventurenlearn.github.io/SeaGlobe/videos.html.
 The vehicle contact sheet is [screens/v2.1-all-vehicles.png](screens/v2.1-all-vehicles.png).
 
 ## Data

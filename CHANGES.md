@@ -1,5 +1,22 @@
 # Changes
 
+## v2.2 (2026-11-14) — selectability fix and cited content pass
+
+- **Ships and jets are easy to select:** no visible vehicle moves faster than about 140 px/s on screen
+  (the clock eases instead, so dates stay true); time eases to a stop as the pointer comes near a
+  vehicle and holds while it is under the pointer; larger hover/click targets and a short sticky click.
+  Trade-off: in jet-heavy modern years the 20× button runs at roughly 1–2× pace, because the cap wins.
+- **Content pass:** all 69 routes, 9 named ships and aircraft and all 26 vehicle types have a history,
+  a story, key facts and citations (241 citation references), shown in the existing voyage card. Nothing
+  is invented: 30 facts no source gives are marked **[UNKNOWN]**.
+- Data fixes: two air routes no longer start before their airports opened (PVG–LAX from 1999,
+  GRU–JNB from 1985); London–New York jet citation filled.
+- Ship's Log search covers history, story and ship names; the CSV export gains history, story and
+  content citation columns. No layout or style change.
+- New: `web/data/content.js`, `tools/content_routes.py`, `tools/content_assets.py`, `tools/enrich.py`;
+  data tests require history, story and a citation for every entry; a browser test hovers and clicks the
+  fastest on-screen vehicle. Screenshots `screens/v2.2-card-*.png`.
+
 ## v2.1 (2026-11-14) — detailed vessel models
 
 - Every vehicle type has a detailed procedural model (26 types): smooth lofted hulls with waterline

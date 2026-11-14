@@ -72,7 +72,18 @@
     "Peter A. Coates, The Trans-Alaska Pipeline Controversy (Bethlehem, 1991)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Oil was found at Prudhoe Bay in 1968. The Trans-Alaska Pipeline is 800 miles (1,287 km) of 48-inch (1.22 m) steel pipe from Prudhoe Bay to Valdez on Prince William Sound, and oil first flowed on 20 June 1977.",
+   "story": "Oil from the North Slope crosses three mountain ranges and many rivers to reach tankers at Valdez. The 1989 Exxon Valdez spill involved one of those tankers, not the pipeline itself.",
+   "facts": {
+    "Length": "800 mi (1,287 km)",
+    "Diameter": "48 in (1.22 m)",
+    "First oil": "20 June 1977"
+   },
+   "content_citations": [
+    "Wikipedia, “Trans-Alaska Pipeline System”, https://en.wikipedia.org/wiki/Trans-Alaska_Pipeline_System (accessed 14 Nov 2026), and the sources cited there",
+    "Peter A. Coates, The Trans-Alaska Pipeline Controversy (Bethlehem, 1991)"
+   ]
   },
   {
    "id": "druzhba-pipeline",
@@ -145,7 +156,19 @@
    "citation": "Jeronim Perović (ed.), Cold War Energy: A Transnational History of Soviet Oil and Gas (Cham: Palgrave Macmillan, 2017)",
    "reconstruction": true,
    "region": "Northern Europe & North Atlantic",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Druzhba ('Friendship') pipeline has been in full operation since October 1964. It starts at Almetyevsk in Tatarstan, collecting oil from western Siberia, the Urals and the Caspian, and carries it more than 4,000 km into Europe. Its northern branch crosses Belarus and Poland to the Schwedt refinery in Germany.",
+   "story": "Built to supply the Soviet Union's Eastern Bloc allies, Druzhba outlasted the bloc. It is still one of the longest oil pipelines in the world.",
+   "facts": {
+    "In service": "October 1964",
+    "Start": "Almetyevsk",
+    "Length": "over 4,000 km (system)",
+    "Northern end": "Schwedt, Germany"
+   },
+   "content_citations": [
+    "Wikipedia, “Druzhba pipeline”, https://en.wikipedia.org/wiki/Druzhba_pipeline (accessed 14 Nov 2026), and the sources cited there",
+    "Jeronim Perović (ed.), Cold War Energy (Cham: Palgrave Macmillan, 2017)"
+   ]
   },
   {
    "id": "btc-pipeline",
@@ -218,7 +241,18 @@
    "citation": "S. Frederick Starr and Svante E. Cornell (eds), The Baku-Tbilisi-Ceyhan Pipeline: Oil Window to the West (Washington: CACI and SRSP, 2005)",
    "reconstruction": true,
    "region": "Middle East & Central Asia",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Baku–Tbilisi–Ceyhan pipeline is 1,768 km long, from the Sangachal terminal near Baku through Georgia to Ceyhan on Turkey's Mediterranean coast. It was inaugurated at Sangachal on 25 May 2005, and the first oil reached Ceyhan on 28 May 2006. On 1 July 2026 SOCAR took over operation from BP.",
+   "story": "The line was built to bring Caspian oil to world markets without crossing Russia or Iran. It crosses the Caucasus mountains on the way to the Mediterranean.",
+   "facts": {
+    "Length": "1,768 km",
+    "First oil at Ceyhan": "28 May 2006",
+    "Operator": "BP until 1 July 2026, then SOCAR"
+   },
+   "content_citations": [
+    "Wikipedia, “Baku–Tbilisi–Ceyhan pipeline”, https://en.wikipedia.org/wiki/Baku–Tbilisi–Ceyhan_pipeline (accessed 14 Nov 2026), and the sources cited there",
+    "S. F. Starr and S. E. Cornell (eds), The Baku-Tbilisi-Ceyhan Pipeline (Washington, 2005)"
+   ]
   }
  ]
 }

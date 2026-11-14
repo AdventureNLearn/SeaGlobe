@@ -87,7 +87,24 @@
       "start": "1956-04-26",
       "end": "1956-05-02",
       "anchors": [],
-      "lateral_km": 0
+      "lateral_km": 0,
+      "vessel": {
+       "name": "Ideal X",
+       "facts": {
+        "Built": "Marinship Corporation (Sausalito), WWII, as T2 tanker Potrero Hills",
+        "Class size": "T2-SE-A1: 523 ft, 16,613 DWT (class figures)",
+        "Converted": "1955 for containers",
+        "Later": "Elemir (Bulgarian owners, 1959)",
+        "Fate": "scrapped 20 Oct 1964, Hirao, Japan"
+       },
+       "history": "Ideal X was built in the Second World War as the T2 tanker Potrero Hills. Malcom McLean's Pan-Atlantic Steamship Company bought her and in 1955 converted her to carry containers on deck.",
+       "story": "On 26 April 1956 she carried 58 containers from Newark to Houston. In 1959 she was sold to Bulgarian owners and renamed Elemir, was badly damaged in heavy weather on 8 February 1964, and was scrapped in Japan that October.",
+       "content_citations": [
+        "Wikipedia, “SS Ideal X”, https://en.wikipedia.org/wiki/SS_Ideal_X (accessed 14 Nov 2026), and the sources cited there",
+        "Wikipedia, “T2 tanker”, https://en.wikipedia.org/wiki/T2_tanker (accessed 14 Nov 2026), and the sources cited there",
+        "Marc Levinson, The Box (Princeton: Princeton University Press, 2006)"
+       ]
+      }
      }
     ]
    },
@@ -104,7 +121,20 @@
     "Marc Levinson, The Box: How the Shipping Container Made the World Smaller and the World Economy Bigger (Princeton, 2006)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "On 26 April 1956 Malcom McLean's converted T2 tanker Ideal X carried 58 containers from Port Newark to Houston, where 58 trucks were waiting. It is usually counted as the start of commercially successful container shipping.",
+   "story": "McLean, a trucking owner, decided that loading the whole trailer box on a ship was cheaper than unloading and reloading every crate. On arrival in Houston the boxes were lifted straight onto trucks.",
+   "facts": {
+    "Date": "26 April 1956",
+    "Containers": "58",
+    "Ship": "Ideal X (ex-T2 tanker Potrero Hills)",
+    "Owner": "Pan-Atlantic Steamship Co. (McLean)"
+   },
+   "content_citations": [
+    "Wikipedia, “SS Ideal X”, https://en.wikipedia.org/wiki/SS_Ideal_X (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Containerization”, https://en.wikipedia.org/wiki/Containerization (accessed 14 Nov 2026), and the sources cited there",
+    "Marc Levinson, The Box (Princeton: Princeton University Press, 2006)"
+   ]
   },
   {
    "id": "shanghai-rotterdam-containers",
@@ -253,7 +283,17 @@
     "Marc Levinson, The Box (Princeton, 2006)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "After China opened its economy from 1978, Asia–Europe container lines through the Suez Canal grew into one of the world's main trade routes. About 90% of non-bulk cargo now goes by container ship, and since 2023 the largest ships carry more than 24,000 TEU.",
+   "story": "A box loaded in Shanghai passes Singapore, the Indian Ocean, the Red Sea and Suez on its way to the Maasvlakte terminals at Rotterdam. When the Red Sea is unsafe, ships go around the Cape instead [UNKNOWN: specific diversion dates not compiled].",
+   "facts": {
+    "Largest ships": "over 24,000 TEU (from 2023)",
+    "Share": "about 90% of non-bulk cargo by container"
+   },
+   "content_citations": [
+    "Wikipedia, “Container ship”, https://en.wikipedia.org/wiki/Container_ship (accessed 14 Nov 2026), and the sources cited there",
+    "Marc Levinson, The Box (Princeton: Princeton University Press, 2006)"
+   ]
   },
   {
    "id": "transpacific-containers",
@@ -330,7 +370,18 @@
    "citation": "Marc Levinson, The Box (Princeton: Princeton University Press, 2006)",
    "reconstruction": true,
    "region": "Intercontinental",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The trans-Pacific container lane carries Asian manufactured goods to the US West Coast ports of Los Angeles and Long Beach. Capacity is measured in TEU (twenty-foot equivalent units), and NYK's Hakone Maru of 1968, at 752 TEU, is counted as the first ship built to the standard.",
+   "story": "A ship leaving Shanghai follows the great circle north across the Pacific toward the Aleutians before turning down toward San Pedro Bay.",
+   "facts": {
+    "Unit": "TEU",
+    "First TEU-standard ship": "Hakone Maru (NYK), 1968, 752 TEU"
+   },
+   "content_citations": [
+    "Wikipedia, “Containerization”, https://en.wikipedia.org/wiki/Containerization (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Container ship”, https://en.wikipedia.org/wiki/Container_ship (accessed 14 Nov 2026), and the sources cited there",
+    "Marc Levinson, The Box (Princeton: Princeton University Press, 2006)"
+   ]
   }
  ]
 }

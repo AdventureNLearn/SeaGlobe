@@ -59,7 +59,20 @@
     "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Indian Ocean trade ran on the monsoon winds: south-west from about April to September, north-east in winter. Calicut (Kozhikode), capital of the Zamorins, was a main pepper port where Arab merchants had traded since the 7th century. Vasco da Gama landed there on 20 May 1498, and after that the Portuguese tried to control these seas.",
+   "story": "In 1345 Ibn Battuta stayed in Calicut as a guest of the Zamorin and saw Chinese junks in the harbour. Dhows from Aden, junks from China and Malay ships all met in the same ports, each timing its voyage to the monsoon.",
+   "facts": {
+    "Goods": "pepper, spices, textiles, horses",
+    "Wind": "monsoon (seasonal)",
+    "Calicut": "da Gama landed 20 May 1498"
+   },
+   "content_citations": [
+    "Wikipedia, “Calicut”, https://en.wikipedia.org/wiki/Calicut (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Indian Ocean trade”, https://en.wikipedia.org/wiki/Indian_Ocean_trade (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Ibn Battuta”, https://en.wikipedia.org/wiki/Ibn_Battuta (accessed 14 Nov 2026), and the sources cited there",
+    "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean (Cambridge: Cambridge University Press, 1985)"
+   ]
   },
   {
    "id": "indian-ocean-east-africa-india",
@@ -115,7 +128,18 @@
     "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Kilwa took control of Sofala in the late 12th century, which put it at the outlet of the gold and ivory trade from Great Zimbabwe and Monomatapa. Kilwa's sultans used the gold to extend their power along the Swahili coast. In 1505 Francisco de Almeida landed about 500 Portuguese soldiers at Kilwa, and the Portuguese built a fort at Sofala.",
+   "story": "Sofala's gold paid for Kilwa's stone mosques and palaces. Monsoon dhows carried the gold and ivory to India and brought back cloth and beads.",
+   "facts": {
+    "Goods": "gold, ivory, textiles, beads",
+    "Key ports": "Sofala, Kilwa",
+    "Portuguese": "Kilwa taken 1505"
+   },
+   "content_citations": [
+    "Wikipedia, “Kilwa Sultanate”, https://en.wikipedia.org/wiki/Kilwa_Sultanate (accessed 14 Nov 2026), and the sources cited there",
+    "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean (Cambridge: Cambridge University Press, 1985)"
+   ]
   },
   {
    "id": "indian-ocean-hormuz-calicut",
@@ -167,7 +191,17 @@
     "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Hormuz at the mouth of the Persian Gulf was a great entrepôt for Gulf horses and pearls going to India. Afonso de Albuquerque attacked it in 1507, the Portuguese held it from 1515 to 1622, and then Shah Abbas the Great took it with English help.",
+   "story": "Indian kingdoms imported war horses by the shipload, because horses bred poorly in the south. Ships from Hormuz carried them to the Malabar ports and came back with pepper and cloth.",
+   "facts": {
+    "Goods": "horses, pearls; pepper and textiles back",
+    "Portuguese Hormuz": "1515–1622"
+   },
+   "content_citations": [
+    "Wikipedia, “Kingdom of Ormus”, https://en.wikipedia.org/wiki/Kingdom_of_Ormus (accessed 14 Nov 2026), and the sources cited there",
+    "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean (Cambridge: Cambridge University Press, 1985)"
+   ]
   }
  ]
 }

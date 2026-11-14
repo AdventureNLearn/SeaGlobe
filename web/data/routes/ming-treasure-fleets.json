@@ -92,7 +92,20 @@
     "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Ming treasure fleets under Zheng He made seven voyages between 1405 and 1433. Ships built at the Longjiang yard gathered at Liujiagang on the Yangtze. On the first voyage there were 317 ships, 62 of them treasure ships, with 27,800 men. The first three voyages went by Champa, Java, Sumatra and Malacca to Ceylon and Calicut.",
+   "story": "Before each departure Zheng He made sacrifices to the sea goddess Tianfei at Liujiagang. The fleet then sailed with the north-east monsoon, stopping to deliver gifts and bring back envoys and tribute to the Yongle Emperor.",
+   "facts": {
+    "Voyages": "7, 1405–1433",
+    "First voyage": "317 ships (62 treasure ships), 27,800 men",
+    "Assembly": "Liujiagang",
+    "Commander": "Zheng He"
+   },
+   "content_citations": [
+    "Wikipedia, “Ming treasure voyages”, https://en.wikipedia.org/wiki/Ming_treasure_voyages (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Zheng He”, https://en.wikipedia.org/wiki/Zheng_He (accessed 14 Nov 2026), and the sources cited there",
+    "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006)"
+   ]
   },
   {
    "id": "zheng-he-west",
@@ -162,7 +175,18 @@
     "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "From the fourth voyage (1413) the fleets went past India to Hormuz, Aden and the East African coast: Mogadishu, Brava and Malindi. On the last voyage the fleet reached Hormuz on 17 January 1433.",
+   "story": "Envoys from Malindi sent a giraffe to the Ming court in 1415, where it was greeted as a qilin, a lucky mythical beast (see Dreyer).",
+   "facts": {
+    "From": "1413 (4th voyage)",
+    "Furthest": "Mogadishu, Brava, Malindi",
+    "Hormuz (7th voyage)": "17 January 1433"
+   },
+   "content_citations": [
+    "Wikipedia, “Ming treasure voyages”, https://en.wikipedia.org/wiki/Ming_treasure_voyages (accessed 14 Nov 2026), and the sources cited there",
+    "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006)"
+   ]
   }
  ]
 }

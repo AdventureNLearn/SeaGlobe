@@ -60,7 +60,20 @@
     "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Hanseatic League grew from Lübeck and other north German towns in the late 12th century into a league of nearly 200 settlements. Before the Hansa, Visby on Gotland was the leading Baltic centre, and its merchants founded a trading post at Novgorod in 1080. The Hansa's diets met in Lübeck from about 1300 (formally from 1356 or 1358). The league slowly came apart, and its last diet met in 1669.",
+   "story": "Cogs carried grain, furs, wax and timber west from the Baltic, and cloth, salt and wine east. A Bremen cog wreck dated about 1380 shows what such a ship could carry: about 130 tons.",
+   "facts": {
+    "Founded": "late 12th century (Lübeck)",
+    "Members": "nearly 200 settlements",
+    "Last diet": "1669",
+    "Ship": "cog (about 130 t capacity, Bremen cog)"
+   },
+   "content_citations": [
+    "Wikipedia, “Hanseatic League”, https://en.wikipedia.org/wiki/Hanseatic_League (accessed 14 Nov 2026), and the sources cited there",
+    "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford, 1970)",
+    "Wikipedia, “Bremen cog”, https://en.wikipedia.org/wiki/Bremen_cog (accessed 14 Nov 2026), and the sources cited there"
+   ]
   },
   {
    "id": "hanseatic-bergen",
@@ -114,7 +127,19 @@
     "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "At Bergen the Hansa ran a kontor on the Bryggen wharf. Its warehouses stored stockfish (dried cod) from northern Norway and grain from Europe. Bryggen has been a UNESCO World Heritage Site since 1979.",
+   "story": "German merchants at Bryggen lived in a closed, all-male community. They paid for stockfish with grain, which northern Norway needed. The dried cod was shipped on through Lübeck to the rest of Europe.",
+   "facts": {
+    "Goods": "stockfish north→south; grain in",
+    "Kontor": "Bryggen, Bergen",
+    "UNESCO": "1979"
+   },
+   "content_citations": [
+    "Wikipedia, “Hanseatic League”, https://en.wikipedia.org/wiki/Hanseatic_League (accessed 14 Nov 2026), and the sources cited there",
+    "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford, 1970)",
+    "Wikipedia, “Bryggen”, https://en.wikipedia.org/wiki/Bryggen (accessed 14 Nov 2026), and the sources cited there"
+   ]
   },
   {
    "id": "hanseatic-bruges-london",
@@ -173,7 +198,19 @@
     "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "In London the Hansa's kontor was the Steelyard (Stâlhof, named as early as 1320). It was once the largest medieval trading complex in Britain, and Elizabeth I abolished its privileges in 1598. Its site is now under Cannon Street station. Bruges was the Hansa's great western market in Flanders.",
+   "story": "In 1988 archaeologists working at Cannon Street station found the remains of the Steelyard, centuries after its merchants had left. Steelyard Passage and Hanseatic Walk are still named after it.",
+   "facts": {
+    "London kontor": "Steelyard (to 1598)",
+    "Flanders": "Bruges",
+    "Goods": "wool, cloth, wine"
+   },
+   "content_citations": [
+    "Wikipedia, “Hanseatic League”, https://en.wikipedia.org/wiki/Hanseatic_League (accessed 14 Nov 2026), and the sources cited there",
+    "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford, 1970)",
+    "Wikipedia, “Steelyard”, https://en.wikipedia.org/wiki/Steelyard (accessed 14 Nov 2026), and the sources cited there"
+   ]
   }
  ]
 }

@@ -83,7 +83,18 @@
     "Valerie Hansen, The Silk Road: A New History (Oxford, 2012)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Silk Road began with the Han dynasty's push into Central Asia after the missions of the envoy Zhang Qian, around 130–114 BCE. Caravans left Chang'an and went along the Hexi Corridor and around the Taklamakan to Kashgar, then over the Pamirs to Sogdiana. Sogdian merchants ran much of the trade between China and Central Asia until about the 10th century.",
+   "story": "Few caravans went the whole way. Most goods passed hand to hand from oasis to oasis. Letters from Sogdian traders left near Dunhuang in the 4th century show families running trade networks across thousands of kilometres (see Hansen).",
+   "facts": {
+    "Opened": "c. 130–114 BCE (Han missions of Zhang Qian)",
+    "Traders": "Sogdians prominent to c. 10th century",
+    "Goods": "silk, paper, horses, silver, glass, spices"
+   },
+   "content_citations": [
+    "Wikipedia, “Silk Road”, https://en.wikipedia.org/wiki/Silk_Road (accessed 14 Nov 2026), and the sources cited there",
+    "Valerie Hansen, The Silk Road: A New History (Oxford: Oxford University Press, 2012)"
+   ]
   },
   {
    "id": "silk-road-samarkand-antioch",
@@ -168,7 +179,18 @@
    "citation": "Isidore of Charax, Parthian Stations, trans. W. H. Schoff (Philadelphia: Commercial Museum, 1914) [public domain]",
    "reconstruction": true,
    "region": "Middle East & Central Asia",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "West of Samarkand the caravan roads crossed Parthian and later Sasanian Persia toward Mesopotamia and Syria. Isidore of Charax's Parthian Stations (1st century BCE/CE) lists the halts and distances of the Parthian road from the Euphrates eastward. Rome bought silk through Persian middlemen. From 1453 the Ottomans competed with other empires for control of these routes, and Europeans looked for sea routes around them.",
+   "story": "Isidore's itinerary reads like a road sign list: a station, then the distance in schoeni to the next, from Zeugma on the Euphrates across Mesopotamia and Media toward Arachosia. It is one of the oldest surviving route guides.",
+   "facts": {
+    "Source itinerary": "Isidore of Charax, Parthian Stations",
+    "Middlemen": "Parthian, then Sasanian Persia",
+    "Goods": "silk west; silver, glass, wool east"
+   },
+   "content_citations": [
+    "Wikipedia, “Silk Road”, https://en.wikipedia.org/wiki/Silk_Road (accessed 14 Nov 2026), and the sources cited there",
+    "Isidore of Charax, Parthian Stations, trans. W. H. Schoff (Philadelphia: Commercial Museum, 1914) [public domain]"
+   ]
   },
   {
    "id": "maritime-silk-road-polo-1291",
@@ -267,7 +289,19 @@
    "citation": "Marco Polo, The Book of Ser Marco Polo, trans. and ed. Henry Yule, 3rd ed. rev. H. Cordier (London: John Murray, 1903) [public domain]",
    "reconstruction": true,
    "region": "Intercontinental",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Around 1291 the Polos left China by sea as escorts for the Mongol princess Kököchin, who was travelling to marry the Ilkhan of Persia. They sailed from Quanzhou through Southeast Asia and India to Hormuz. Marco Polo was back in Venice in 1295 after 24 years away.",
+   "story": "By Polo's account (Yule's translation) the fleet had 14 ships and the voyage took about two years. Many of the travellers died on the way. When they reached Persia the Ilkhan Arghun had died, so the princess married his son Ghazan instead [figures from Polo's own account; not independently verified].",
+   "facts": {
+    "Departed": "c. 1291, Quanzhou",
+    "Arrived": "Hormuz, c. 1293",
+    "Ships": "14 (Polo's account)",
+    "Polo home": "1295"
+   },
+   "content_citations": [
+    "Wikipedia, “Marco Polo”, https://en.wikipedia.org/wiki/Marco_Polo (accessed 14 Nov 2026), and the sources cited there",
+    "Marco Polo, The Book of Ser Marco Polo, trans. H. Yule, 3rd ed. (1903) [public domain]"
+   ]
   },
   {
    "id": "ibn-battuta-calicut-quanzhou",
@@ -348,7 +382,18 @@
    "citation": "Ibn Battuta, Voyages d'Ibn Batoutah, ed. and trans. C. Defrémery and B. R. Sanguinetti (Paris, 1853-1858) [public domain]",
    "reconstruction": true,
    "region": "Indian Ocean & South Asia",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Ibn Battuta travelled from 1325 to 1354. In Calicut he was the guest of the Zamorin. He then sailed east by way of Bengal and Southeast Asia and reached Quanzhou (Zaitun) in 1345. He later dictated the Rihla describing his travels.",
+   "story": "At Calicut a storm wrecked the Chinese junk that was carrying the gifts of the Sultan of Delhi he was escorting. He went on alone, as he tells it, and finally reached Zaitun, which he called one of the greatest ports in the world.",
+   "facts": {
+    "Traveller": "Ibn Battuta (1304–c. 1368/69)",
+    "Reached Quanzhou": "1345",
+    "Source": "the Rihla"
+   },
+   "content_citations": [
+    "Wikipedia, “Ibn Battuta”, https://en.wikipedia.org/wiki/Ibn_Battuta (accessed 14 Nov 2026), and the sources cited there",
+    "Ibn Battuta, Voyages d'Ibn Batoutah, ed. Defrémery and Sanguinetti (Paris, 1853-1858) [public domain]"
+   ]
   }
  ]
 }

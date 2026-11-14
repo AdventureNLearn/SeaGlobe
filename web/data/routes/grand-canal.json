@@ -96,7 +96,20 @@
    "citation": "Marco Polo, The Book of Ser Marco Polo, trans. and ed. Henry Yule, 3rd ed. rev. H. Cordier (London: John Murray, 1903) [public domain], book 2",
    "reconstruction": true,
    "region": "East & Southeast Asia",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Grand Canal is the longest canal in the world; its main stem from Hangzhou to Beijing is about 1,776 km. Emperor Yang of Sui joined older canals into a network by 609. Under the Yuan and Ming the line was straightened toward Beijing so that grain barges could feed the capital. In 1855 the Yellow River changed course and cut the canal in Shandong. It became a UNESCO World Heritage Site in 2014.",
+   "story": "Marco Polo described the canal and the huge grain traffic on it. For centuries tribute grain from the Yangtze delta went north in convoys of state barges.",
+   "facts": {
+    "Length": "about 1,776 km (Hangzhou–Beijing)",
+    "Network joined": "by 609 (Sui)",
+    "Cut": "1855 (Yellow River shift)",
+    "Goods": "tribute grain, salt, silk",
+    "UNESCO": "2014"
+   },
+   "content_citations": [
+    "Wikipedia, “Grand Canal (China)”, https://en.wikipedia.org/wiki/Grand_Canal_(China) (accessed 14 Nov 2026), and the sources cited there",
+    "Marco Polo, The Book of Ser Marco Polo, trans. H. Yule, 3rd ed. (1903) [public domain]"
+   ]
   }
  ]
 }

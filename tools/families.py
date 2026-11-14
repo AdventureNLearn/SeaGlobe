@@ -238,6 +238,10 @@ FAMILY_RECORDS = [
 ]
 
 
+# v2.2: no line before its airport opened (PVG opened 1 Oct 1999; GRU opened 1985). Other start years stay illustrative.
+AIR_START = {("PVG", "LAX"): "1999", ("GRU", "JNB"): "1985"}
+
+
 def air_records():
     hubs = {r["iata_code"]: r for r in csv.DictReader(open(ROOT / "data" / "sources" / "ourairports" / "hubs.csv", encoding="utf-8"))}
     pairs = [("LHR", "JFK"), ("DXB", "LHR"), ("SIN", "LHR"), ("HND", "LAX"), ("HKG", "SYD"), ("FRA", "ORD"), ("PEK", "FRA"),
@@ -246,7 +250,7 @@ def air_records():
     for a, b in pairs:
         A, B = hubs[a], hubs[b]
         out.append(rec(id=f"air-{a.lower()}-{b.lower()}", type="air", family="air", line="air", era="modern", color="#e8f1ff",
-                       name=f"Jet route {A['municipality']} ({a}) to {B['municipality']} ({b})", start_date="1980", end_date="2026",
+                       name=f"Jet route {A['municipality']} ({a}) to {B['municipality']} ({b})", start_date=AIR_START.get((a, b), "1980"), end_date="2026",
                        vehicle="jet", goods=["passengers", "air freight"], goods_source="general description", confidence_level="low",
                        source="dataset (endpoints) + great circle", derived_from="OurAirports hub coordinates (public domain)",
                        citations=[OURAIRPORTS], reconstruction=True,

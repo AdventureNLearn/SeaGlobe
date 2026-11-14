@@ -64,7 +64,19 @@
     "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973). See also Lane, “Venetian Merchant Galleys, 1300–1334,” Speculum 38, no. 2 (1963): 179–205."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Venetian mude were state-organised convoys of great merchant galleys (galee grosse da mercato) led by a captain appointed by the state, with the galleys auctioned to merchants for each voyage. The state first paid for merchant galleys in 1290. The system ran continuously from 1315 to 1533, and the Alexandria line brought spices back from Mamluk Egypt.",
+   "story": "Each year the galleys of the Alexandria muda sailed together on a fixed schedule set by the Senate. They loaded pepper and spices that had come up the Red Sea from India, and brought them back to the Rialto for sale across Europe.",
+   "facts": {
+    "Organiser": "Venetian state (Senate)",
+    "Ships": "great merchant galleys",
+    "System": "1315–1533",
+    "Goods": "spices, silk, cotton; silver and cloth out"
+   },
+   "content_citations": [
+    "Wikipedia, “Muda (convoy)”, https://en.wikipedia.org/wiki/Muda_(convoy) (accessed 14 Nov 2026), and the sources cited there",
+    "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973)"
+   ]
   },
   {
    "id": "venetian-constantinople",
@@ -120,7 +132,18 @@
     "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Venetian Romania galleys went to Constantinople and the Black Sea. In 1290 the state for the first time paid for ten merchant galleys bound for the Byzantine Empire. The route lasted until the Ottoman conquest of Constantinople in 1453.",
+   "story": "The galleys called at Venetian bases in Greece on the way to the Byzantine capital. There they loaded silk, alum and grain, and some went on into the Black Sea.",
+   "facts": {
+    "State galleys first": "1290 (ten galleys to Byzantium)",
+    "Ended": "1453",
+    "Goods": "silk, alum, grain, spices"
+   },
+   "content_citations": [
+    "Wikipedia, “Muda (convoy)”, https://en.wikipedia.org/wiki/Muda_(convoy) (accessed 14 Nov 2026), and the sources cited there",
+    "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973)"
+   ]
   },
   {
    "id": "venetian-flanders-galleys",
@@ -196,7 +219,18 @@
     "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973); Lane, “Venetian Merchant Galleys, 1300–1334,” Speculum 38, no. 2 (1963): 179–205."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "From the early 14th century, Venetian galley convoys sailed out of the Mediterranean through the Strait of Gibraltar to Southampton, London and Bruges. They carried spices and sweet wine north and brought back wool and cloth. The line was part of the muda system (1315–1533).",
+   "story": "The Flanders galleys were the longest of the muda voyages, a round trip of many months. Their arrival in an English or Flemish port was a major event at the market.",
+   "facts": {
+    "Route": "Venice – Gibraltar – Southampton/London – Bruges",
+    "System": "1315–1533",
+    "Goods": "spices, sweet wine; wool and cloth back"
+   },
+   "content_citations": [
+    "Wikipedia, “Muda (convoy)”, https://en.wikipedia.org/wiki/Muda_(convoy) (accessed 14 Nov 2026), and the sources cited there",
+    "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973)"
+   ]
   },
   {
    "id": "genoese-black-sea",
@@ -253,7 +287,20 @@
     "Steven A. Epstein, Genoa and the Genoese, 958–1528 (Chapel Hill: University of North Carolina Press, 1996). Colony dates: Caffa from the late thirteenth century until the Ottoman capture in 1475; Pera (Galata) as the Genoese suburb of Constantinople until 1453."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Treaty of Nymphaeum (1261) gave Genoa great privileges in the Byzantine world. Genoese merchants held Pera (Galata) across the Golden Horn and founded Caffa in Crimea, which became their main Black Sea colony until the Ottomans took it in 1475. The trade included grain, furs, silk, alum and enslaved people.",
+   "story": "In 1347 the Black Death is believed to have reached Europe for the first time through Caffa, carried by Genoese ships leaving the besieged colony. That story ties this trade route to the worst pandemic of the Middle Ages.",
+   "facts": {
+    "Treaty": "Nymphaeum, 1261",
+    "Colonies": "Pera (Galata), Caffa",
+    "Caffa fell": "1475 (Ottomans)",
+    "Goods": "grain, furs, silk, alum, enslaved people"
+   },
+   "content_citations": [
+    "Wikipedia, “Genoese colonies”, https://en.wikipedia.org/wiki/Genoese_colonies (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Caffa”, https://en.wikipedia.org/wiki/Caffa (accessed 14 Nov 2026), and the sources cited there",
+    "Steven A. Epstein, Genoa and the Genoese, 958–1528 (Chapel Hill: University of North Carolina Press, 1996)"
+   ]
   },
   {
    "id": "genoese-trebizond",
@@ -304,7 +351,17 @@
     "Steven A. Epstein, Genoa and the Genoese, 958–1528 (Chapel Hill: University of North Carolina Press, 1996)."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Trebizond on the southern Black Sea coast was the capital of an empire founded in 1204 that lasted until Mehmed II conquered it in 1461. It was the end point of a caravan road from Tabriz and Persia, and Genoese and Venetian ships came there for silk and spices.",
+   "story": "Silk from Persia reached Trebizond overland, where Italian ships loaded it and carried it west through Pera.",
+   "facts": {
+    "Empire of Trebizond": "1204–1461",
+    "Goods": "silk, spices, alum"
+   },
+   "content_citations": [
+    "Wikipedia, “Empire of Trebizond”, https://en.wikipedia.org/wiki/Empire_of_Trebizond (accessed 14 Nov 2026), and the sources cited there",
+    "Steven A. Epstein, Genoa and the Genoese, 958–1528 (Chapel Hill: University of North Carolina Press, 1996)"
+   ]
   }
  ]
 }

@@ -69,7 +69,24 @@
       "start": "1838-04-08",
       "end": "1838-04-23",
       "anchors": [],
-      "lateral_km": 0
+      "lateral_km": 0,
+      "vessel": {
+       "name": "SS Great Western",
+       "facts": {
+        "Designer": "Isambard Kingdom Brunel",
+        "Builder": "Patterson & Mercer, Bristol",
+        "Launched": "19 July 1837",
+        "Engines": "Maudslay, Sons and Field side-lever, 750 ihp",
+        "Hull": "oak, iron-strapped; four masts",
+        "Tonnage": "[UNKNOWN] in sources consulted",
+        "Fate": "Crimean War troopship; scrapped 1856"
+       },
+       "history": "Great Western was the first steamship built specially for the Atlantic crossing, and in 1838–39 she was the largest passenger ship in the world. She sailed to New York for eight years. She was then sold to the Royal Mail Steam Packet Company, served as a troopship in the Crimean War and was scrapped in 1856.",
+       "story": "At her launch a shipwright was killed by a falling timber, and a fire before the maiden voyage injured Brunel. She still made the crossing with fuel to spare.",
+       "content_citations": [
+        "Wikipedia, “SS Great Western”, https://en.wikipedia.org/wiki/SS_Great_Western (accessed 14 Nov 2026), and the sources cited there"
+       ]
+      }
      }
     ]
    },
@@ -85,7 +102,19 @@
     "Denis Griffiths, Brunel's 'Great Western' (Wellingborough, 1985)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "SS Great Western, designed by Isambard Kingdom Brunel, was the first steamship built specially for the Atlantic crossing. She was launched at Bristol on 19 July 1837. A fire before the maiden voyage injured Brunel, and more than 50 passengers cancelled. She left on 8 April 1838 with only seven passengers.",
+   "story": "The rival company chartered the small steamer Sirius to beat her. Sirius reached New York on 22 April, and Great Western arrived the next day with 200 tons of coal still aboard. That showed a big steamship could cross the Atlantic with fuel to spare.",
+   "facts": {
+    "Departed": "Avonmouth, 8 April 1838",
+    "Arrived": "New York, 23 April 1838",
+    "Passengers": "7",
+    "Coal left": "200 tons"
+   },
+   "content_citations": [
+    "Wikipedia, “SS Great Western”, https://en.wikipedia.org/wiki/SS_Great_Western (accessed 14 Nov 2026), and the sources cited there",
+    "Denis Griffiths, Brunel's 'Great Western' (Wellingborough, 1985)"
+   ]
   },
   {
    "id": "suez-steam-bombay",
@@ -201,7 +230,19 @@
     "Freda Harcourt, Flagships of Imperialism: The P&O Company and the Politics of Empire (Manchester, 2006)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Suez Canal, built by Ferdinand de Lesseps's company, opened on 17 November 1869. Steamers to India no longer had to go round the Cape. P&O, which held British mail contracts from 1837 and to Alexandria from 1840, became the main British line to Bombay by way of the canal. Egypt nationalised the canal in 1956.",
+   "story": "Before 1869, passengers and mail got off at Alexandria, crossed the desert overland and boarded another ship at Suez. The canal let a single steamer go all the way from Britain to Bombay.",
+   "facts": {
+    "Canal opened": "17 November 1869",
+    "Main line": "P&O",
+    "Nationalised": "1956"
+   },
+   "content_citations": [
+    "Wikipedia, “Suez Canal”, https://en.wikipedia.org/wiki/Suez_Canal (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “P&O (company)”, https://en.wikipedia.org/wiki/P&O_(company) (accessed 14 Nov 2026), and the sources cited there",
+    "Freda Harcourt, Flagships of Imperialism (Manchester, 2006)"
+   ]
   }
  ]
 }

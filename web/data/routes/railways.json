@@ -63,7 +63,18 @@
     "Simon Garfield, The Last Journey of William Huskisson (London, 2002)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Liverpool and Manchester Railway opened on 15 September 1830. It was the first inter-city railway where every train was hauled by steam on a set timetable. Stephenson's Rocket won the Rainhill trials in October 1829, which settled the choice of locomotives.",
+   "story": "On opening day William Huskisson MP was hit and killed by Rocket, the first widely reported railway death. The narrow gap between the two tracks played a part. The railway opened anyway, and passenger numbers were far higher than expected.",
+   "facts": {
+    "Opened": "15 September 1830",
+    "Engineer": "George Stephenson",
+    "Rainhill trials": "October 1829 (Rocket won)"
+   },
+   "content_citations": [
+    "Wikipedia, “Liverpool and Manchester Railway”, https://en.wikipedia.org/wiki/Liverpool_and_Manchester_Railway (accessed 14 Nov 2026), and the sources cited there",
+    "Simon Garfield, The Last Journey of William Huskisson (London, 2002)"
+   ]
   },
   {
    "id": "first-transcontinental",
@@ -147,7 +158,19 @@
     "Stephen E. Ambrose, Nothing Like It in the World (New York, 2000)."
    ],
    "confidence_level": "low",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The first transcontinental railroad opened for through traffic on 10 May 1869, when the Central Pacific (690 miles east from Sacramento) met the Union Pacific (1,085 miles west from Council Bluffs/Omaha) at Promontory Summit, Utah. Thousands of Chinese labourers built most of the Central Pacific's line through the Sierra Nevada.",
+   "story": "Leland Stanford tapped the golden 'Last Spike' with a silver hammer, and the news went out by telegraph. A trip across the continent that had taken months by wagon now took about a week.",
+   "facts": {
+    "Opened": "10 May 1869",
+    "Central Pacific": "690 mi",
+    "Union Pacific": "1,085 mi",
+    "Meeting point": "Promontory Summit, Utah"
+   },
+   "content_citations": [
+    "Wikipedia, “First transcontinental railroad”, https://en.wikipedia.org/wiki/First_transcontinental_railroad (accessed 14 Nov 2026), and the sources cited there",
+    "Stephen E. Ambrose, Nothing Like It in the World (New York, 2000)"
+   ]
   },
   {
    "id": "trans-siberian-railway",
@@ -251,7 +274,18 @@
    "citation": "Christian Wolmar, To the Edge of the World: The Story of the Trans-Siberian Railway (London: Atlantic, 2013)",
    "reconstruction": true,
    "region": "Intercontinental",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Russia announced the Trans-Siberian Railway on 9 March 1891 and built it between 1891 and 1916. It is 9,289 km from Moscow to Vladivostok, the longest railway line in the world, and has connected the two cities directly since 1916.",
+   "story": "Trains leave from Yaroslavsky station in Moscow and pass Omsk, Novosibirsk, Krasnoyarsk, Irkutsk, Ulan-Ude, Chita and Khabarovsk before reaching the Pacific at Vladivostok.",
+   "facts": {
+    "Built": "1891–1916",
+    "Length": "9,289 km",
+    "Ends": "Moscow – Vladivostok"
+   },
+   "content_citations": [
+    "Wikipedia, “Trans-Siberian Railway”, https://en.wikipedia.org/wiki/Trans-Siberian_Railway (accessed 14 Nov 2026), and the sources cited there",
+    "Christian Wolmar, To the Edge of the World (London: Atlantic, 2013)"
+   ]
   }
  ]
 }

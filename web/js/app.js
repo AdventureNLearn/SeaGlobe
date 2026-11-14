@@ -16,6 +16,10 @@
   const DAYS_PER_SEC = 3; // at 1x
   const R = 100; // globe.gl radius
   const WATER = new Set(["sea", "river", "canal"]);
+  // v2.2 selectability assist (no visual change): vehicles ease to a stop as the pointer closes on one,
+  // and no vehicle may cross the screen faster than MAX_PX_PER_SEC at any time speed. Dates stay true;
+  // only the clock rate eases (timeline) or the sample vessel's own pace (sampler).
+  const HIT_HOVER = 30, HIT_CLICK = 36, SLOW_NEAR = 150, MAX_PX_PER_SEC = 140, STICKY_SEC = 0.6;
 
   const st = {
     t: T.parse(P.get("t") || "1320-05-01"),
@@ -27,6 +31,7 @@
     mode: P.get("t") || P.get("era") || P.get("select") || P.get("idle") === "0" ? "timeline" : "idle",
     focus: {},            // era, type, family, goods, region, evidence, routeId, q
     slots: [], lastSwap: 0, idleSeq: 0, pendingKey: null, orbitIdleUntil: 0,
+    ptr: null, slow: 1, govern: 1, hoverKey: null, hoverAt: -9,
   };
   const IDLE_N = lite ? 10 : 16;
   // curated idle pool: mixed eras, types and regions (the Middle Passage is deliberately not used as decoration)
@@ -129,7 +134,7 @@
     if (f.evidence === "dataset" && r.reconstruction) return false;
     if (f.evidence === "reconstruction" && !r.reconstruction) return false;
     if (f.evidence === "dated" && !(r.schedule && r.schedule.kind === "dated")) return false;
-    if (f.q) { const h = (r.name + " " + r.id + " " + (r.goods || []).join(" ") + " " + r.family + " " + r.vehicle + " " + (r.citations || []).join(" ")).toLowerCase(); if (!f.q.toLowerCase().split(/\s+/).every((w) => h.includes(w))) return false; }
+    if (f.q) { const h = (r.name + " " + r.id + " " + (r.goods || []).join(" ") + " " + r.family + " " + r.vehicle + " " + (r.citations || []).join(" ") + " " + (r.history || "") + " " + (r.story || "") + " " + ((r.schedule && r.schedule.voyages) || []).map((v) => v.ship || "").join(" ")).toLowerCase(); if (!f.q.toLowerCase().split(/\s+/).every((w) => h.includes(w))) return false; }
     return true;
   }
   function eraById(id) { return S.eras.find((e) => e.id === id) || S.eras[0]; }
@@ -420,7 +425,7 @@
     }
     if (st.orbit) {
       const cur = globe.pointOfView();
-      globe.pointOfView({ lat: cur.lat + (st.orbitLat == null ? 0 : (st.orbitLat - cur.lat) * 0.01), lng: cur.lng + dt * (st.orbitSpeed || 3), altitude: cur.altitude }, 0);
+      globe.pointOfView({ lat: cur.lat + (st.orbitLat == null ? 0 : (st.orbitLat - cur.lat) * 0.01), lng: cur.lng + dt * (st.orbitSpeed || 3) * st.slow, altitude: cur.altitude }, 0);
     }
   }
 
@@ -452,13 +457,26 @@
     $("dTiming").textContent = V.timingLabel(inst) + (inst.record && inst.timing === "dated" ? " · " + inst.record : "");
     $("dGoods").textContent = (r.goods && r.goods.length ? r.goods.join(", ") : "—") + (r.goods_source ? " (" + r.goods_source + ")" : "");
     $("dSource").textContent = r.source;
-    $("dNotes").textContent = r.notes;
-    $("dCite").textContent = (r.citations || [r.citation]).join(" · ");
+    // v2.2: history, story, facts for the route, the named vessel and the vehicle type, in the existing notes/cite lines
+    const c = cardContent(r, inst);
+    $("dNotes").innerHTML = c.html;
+    $("dCite").textContent = c.cites.join(" · ");
     const ids = (D.deeper_by_line || {})[r.line] || [];
     const links = ids.map((id) => (D.deeper || []).find((x) => x.id === id)).filter(Boolean);
     $("dDeeper").hidden = !links.length;
     $("dDeeper").innerHTML = links.length ? "Go deeper: " + links.map((x) => "<a href='" + esc(x.url) + "' target='_blank' rel='noopener noreferrer'>" + esc(x.name) + "</a>").join(" · ") : "";
     $("followBtn").setAttribute("aria-pressed", String(st.follow));
+  }
+  function cardContent(r, inst) {
+    const sec = (label, txt) => (txt ? "<b>" + esc(label) + ".</b> " + esc(txt) : "");
+    const facts = (f) => (f ? Object.keys(f).map((k) => k + ": " + f[k]).join(" · ") : "");
+    const vi = (D.vehicle_info || {})[r.vehicle];
+    const ves = inst.voyage && inst.voyage.vessel;
+    const parts = [esc(r.notes), sec("History", r.history), sec("Story", r.story), sec("Key facts", facts(r.facts))];
+    if (ves) parts.push(sec("The " + (r.type === "air" ? "aircraft" : "ship") + ": " + ves.name, ves.history + " " + ves.story), sec("Ship facts", facts(ves.facts)));
+    if (vi) parts.push(sec("About the " + vehicleName(r.vehicle).toLowerCase(), vi.history + " " + vi.story));
+    const cites = [...new Set([].concat(r.citations || [r.citation], r.content_citations || [], ves ? ves.content_citations : [], vi ? vi.content_citations : []))];
+    return { html: parts.filter(Boolean).join("<br><br>"), cites };
   }
   function updateProgress() {
     if (!st.selected) return;
@@ -470,6 +488,45 @@
     st.follow = !!on; st.fly = null;
     if (on) st.orbit = false;
     $("followBtn").setAttribute("aria-pressed", String(st.follow));
+  }
+
+  // ---------- selectability assist ----------
+  const sp = { a: new THREE.Vector3(), b: new THREE.Vector3() };
+  function projPx(v, cam) { v.project(cam); return v.z > 1 ? null : { x: (v.x + 1) / 2 * window.innerWidth, y: (1 - v.y) / 2 * window.innerHeight }; }
+  // on-screen speed of every vehicle in pixels per year of its own clock (camera held still)
+  function measureSpeeds() {
+    const cam = globe.camera(); let worst = 0;
+    for (const l of live.values()) {
+      const t = l.t != null ? l.t : st.t, pos = l.obj.position;
+      if (l._pp && t !== l._pt && l._pp.angleTo(pos) < 0.05) {
+        const a = projPx(sp.a.copy(l._pp), cam), b = projPx(sp.b.copy(pos), cam);
+        const seen = l.obj.visible && screenOf(l);
+        if (a && b && seen) {
+          const v = Math.hypot(a.x - b.x, a.y - b.y) / Math.abs(t - l._pt);
+          l._pxy = l._pxy ? l._pxy * 0.6 + v * 0.4 : v;
+          worst = Math.max(worst, l._pxy);
+        }
+      }
+      if (!l._pp) l._pp = new THREE.Vector3();
+      l._pp.copy(pos); l._pt = t;
+    }
+    // timeline: one clock for all, so the fastest on-screen vehicle sets the cap
+    const yps = st.speed * DAYS_PER_SEC / T.DAYS;
+    const g = worst > 0 ? Math.min(1, MAX_PX_PER_SEC / (worst * yps)) : 1;
+    st.govern = st.govern + (g - st.govern) * (g < st.govern ? 0.5 : 0.08);
+  }
+  function nearestPx() {
+    if (!st.ptr || st.ptr.drag) return Infinity;
+    let d = Infinity;
+    for (const l of live.values()) { if (!l.obj.visible) continue; const p = screenOf(l); if (p) d = Math.min(d, Math.hypot(p.x - st.ptr.x, p.y - st.ptr.y)); }
+    return d;
+  }
+  // ease the clock toward a stop as the pointer closes on a vehicle; resume gently when it leaves
+  function updateAssist(dt) {
+    const d = nearestPx();
+    const target = d <= HIT_HOVER ? 0 : d >= SLOW_NEAR ? 1 : Math.pow((d - HIT_HOVER) / (SLOW_NEAR - HIT_HOVER), 1.5);
+    st.slow += (target - st.slow) * (1 - Math.exp(-dt * (target < st.slow ? 14 : 2.5)));
+    if (target === 0 && st.slow < 0.01) st.slow = 0;
   }
 
   // ---------- picking ----------
@@ -496,15 +553,21 @@
     el.addEventListener("pointerdown", (e) => { down = { x: e.clientX, y: e.clientY }; });
     el.addEventListener("pointerup", (e) => {
       if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6) return;
-      const l = pick(e.clientX, e.clientY);
+      let l = pick(e.clientX, e.clientY, HIT_CLICK);
+      // sticky: a vehicle hovered a moment ago still counts if it slipped out from under the pointer
+      if (!l && st.hoverKey && st.now - st.hoverAt < STICKY_SEC && live.has(st.hoverKey)) l = live.get(st.hoverKey);
       if (l) select(l.inst.key);
     });
     el.addEventListener("pointermove", (e) => {
+      st.ptr = { x: e.clientX, y: e.clientY, drag: !!e.buttons };
       if (e.buttons) return;
-      const l = pick(e.clientX, e.clientY, 22);
+      const l = pick(e.clientX, e.clientY, HIT_HOVER);
+      if (l) { st.hoverKey = l.inst.key; st.hoverAt = st.now; }
       el.style.cursor = l ? "pointer" : "";
       tip(l ? "<b>" + esc(l.inst.ship || vehicleName(l.inst.route.vehicle)) + "</b><div>" + esc(l.inst.route.name) + "</div><div class='src'>" + esc(V.timingLabel(l.inst)) + "</div>" : null, e);
     });
+    el.addEventListener("pointerleave", () => { st.ptr = null; });
+    window.addEventListener("blur", () => { st.ptr = null; });
     el.addEventListener("pointerdown", () => { if (!capture) { st.fly = null; st.orbitIdleUntil = st.now + 10; if (st.orbit) st.orbitPaused = true; } });
   }
   function tip(html, e) {
@@ -591,11 +654,13 @@
   function step(dt) {
     st.now += dt;
     if (st.mode === "idle") updateIdle(dt);
-    else if (st.playing) setTime(st.t + dt * st.speed * DAYS_PER_SEC / T.DAYS);
+    else if (st.playing) setTime(st.t + dt * st.speed * DAYS_PER_SEC / T.DAYS * st.slow * st.govern);
     const y = Math.floor(st.t * 4);
     if (y !== st.lastYear) { st.lastYear = y; refreshRoutes(); }
     updateCamera(dt);
     placeVehicles(dt);
+    measureSpeeds();
+    updateAssist(dt);
     updatePlanet();
     updateClock();
     updateProgress();
@@ -650,7 +715,8 @@
     if (!st.slots.length) fillSlots();
     let changed = false;
     for (const x of st.slots) {
-      x.t += dt * x.rate;
+      const l = live.get(x.key), cap = l && l._pxy ? MAX_PX_PER_SEC / (l._pxy * x.rate) : 1;
+      x.t += dt * x.rate * st.slow * Math.min(1, cap);
       if (x.phase === "in") { x.a = Math.min(1, x.a + dt / 1.2); if (x.a >= 1) x.phase = "run"; }
       if (x.phase === "out") x.a = Math.max(0, x.a - dt / 1.2);
       if (x.phase !== "out" && V.stateAt(x.inst, x.t).frac > 0.96) x.phase = "out";
@@ -668,7 +734,7 @@
     if (changed) refreshRoutes();
     if (!capture && !st.follow && !st.fly && st.now > st.orbitIdleUntil) {
       const cur = globe.pointOfView();
-      globe.pointOfView({ lat: cur.lat + (18 - cur.lat) * 0.002, lng: cur.lng + dt * 2.2, altitude: cur.altitude }, 0);
+      globe.pointOfView({ lat: cur.lat + (18 - cur.lat) * 0.002, lng: cur.lng + dt * 2.2 * st.slow, altitude: cur.altitude }, 0);
     }
   }
   function enterTimeline() {
@@ -840,10 +906,10 @@
     refreshRoutes(); renderLog();
   }
   function exportCsv() {
-    const cols = ["id", "name", "family", "type", "era", "region", "start_date", "end_date", "vehicle", "goods", "evidence", "reconstruction", "confidence_level", "timing", "citations"];
+    const cols = ["id", "name", "family", "type", "era", "region", "start_date", "end_date", "vehicle", "goods", "evidence", "reconstruction", "confidence_level", "timing", "citations", "history", "story", "content_citations"];
     const q = (v) => { const x = String(v == null ? "" : v); return /[",\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; };
     const lines = [cols.join(",")].concat(logRows().map((r) => [r.id, r.name, r.family, r.type, r.era, r.region, r.start_date, r.end_date, r.vehicle,
-      (r.goods || []).join("; "), evidenceOf(r), r.reconstruction, r.confidence_level, r.schedule && r.schedule.kind, (r.citations || []).join(" | ")].map(q).join(",")));
+      (r.goods || []).join("; "), evidenceOf(r), r.reconstruction, r.confidence_level, r.schedule && r.schedule.kind, (r.citations || []).join(" | "), r.history, r.story, (r.content_citations || []).join(" | ")].map(q).join(",")));
     const blob = new Blob(["\ufeff" + lines.join("\r\n") + "\r\n"], { type: "text/csv;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob); a.download = "seaglobe-ships-log.csv";
@@ -904,6 +970,9 @@
     elementCenter: (sel) => { const r = document.querySelector(sel).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; },
     clickAt: (x, y) => { const l = pick(x, y, 40); if (l) select(l.inst.key); return l ? l.inst.key : null; },
     list: () => [...live.values()].map((l) => ({ key: l.inst.key, route: l.inst.route.id, vehicle: l.inst.route.vehicle, timing: l.inst.timing, screen: screenOf(l) })),
+    assist: () => ({ slow: st.slow, govern: st.govern, hoverKey: st.hoverKey, maxPxPerSec: MAX_PX_PER_SEC,
+      speeds: [...live.values()].filter((l) => l._pxy && l.obj.visible && screenOf(l)).map((l) => ({ key: l.inst.key, pxPerSec: l._pxy * (st.mode === "idle" ? (st.slots.find((x) => x.key === l.inst.key) || {}).rate || 0 : st.speed * DAYS_PER_SEC / T.DAYS) })) }),
+    screenOf: (key) => { const l = live.get(key); return l ? screenOf(l) : null; },
     state: () => ({ t: st.t, date: T.dateLabel(st.t), speed: st.speed, playing: st.playing, selected: st.selected && st.selected.key, follow: st.follow, live: live.size, routes: prepared.length }),
     sunAngle: (a) => { st.sunAng = a; },
     gold: (on) => { st.allGold = !!on; refreshRoutes(); },

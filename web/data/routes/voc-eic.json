@@ -83,7 +83,23 @@
       "start": "1595-04-02",
       "end": "1596-06-06",
       "anchors": [],
-      "lateral_km": -90.0
+      "lateral_km": -90.0,
+      "vessel": {
+       "name": "Amsterdam (1595)",
+       "facts": {
+        "Type": "ship of the Compagnie van Verre",
+        "Built": "[UNKNOWN]",
+        "Tonnage": "[UNKNOWN] (in DAS, not bundled)",
+        "Crew": "[UNKNOWN] (fleet total 248)",
+        "Fate": "burnt in the Indies, early 1597"
+       },
+       "history": "Amsterdam was one of the four ships the Compagnie van Verre fitted out for the first Dutch voyage to the East Indies. She left Texel on 2 April 1595.",
+       "story": "Her skipper was one of twelve men killed when the ships were boarded at Sidayu, near Surabaya. Off Madura her guns fired on the royal party coming out to meet the Dutch. By the end of the voyage she was in such bad condition that the crew set her adrift and burnt her, and she never came home.",
+       "content_citations": [
+        "Wikipedia, “First Dutch Expedition to the East Indies”, https://en.wikipedia.org/wiki/First_Dutch_Expedition_to_the_East_Indies (accessed 14 Nov 2026), and the sources cited there",
+        "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)"
+       ]
+      }
      },
      {
       "id": "das-0002.1",
@@ -93,7 +109,22 @@
       "start": "1595-04-02",
       "end": "1596-06-06",
       "anchors": [],
-      "lateral_km": -30.0
+      "lateral_km": -30.0,
+      "vessel": {
+       "name": "Duifje (1595)",
+       "facts": {
+        "Type": "small jacht (scout)",
+        "Tonnage": "[UNKNOWN] (the 25–30 lasten often quoted belongs to the later 1601 Duyfken)",
+        "Fate": "returned Aug 1597; renamed Overijsel"
+       },
+       "history": "Duifje ('Little Dove') was the smallest ship of the 1595 fleet, a fast, lightly armed jacht. After the fleet came home in August 1597 she was renamed Overijsel and sailed again on the second and fourth Dutch expeditions.",
+       "story": "Don't confuse her with the later Duyfken of 1601, which reached Australia in 1606 under Willem Janszoon. They were different ships with the same name.",
+       "content_citations": [
+        "Wikipedia, “First Dutch Expedition to the East Indies”, https://en.wikipedia.org/wiki/First_Dutch_Expedition_to_the_East_Indies (accessed 14 Nov 2026), and the sources cited there",
+        "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)",
+        "Wikipedia, “Duyfken”, https://en.wikipedia.org/wiki/Duyfken (accessed 14 Nov 2026), and the sources cited there"
+       ]
+      }
      },
      {
       "id": "das-0003.1",
@@ -103,7 +134,21 @@
       "start": "1595-04-02",
       "end": "1596-06-06",
       "anchors": [],
-      "lateral_km": 30.0
+      "lateral_km": 30.0,
+      "vessel": {
+       "name": "Hollandia (1595)",
+       "facts": {
+        "Type": "ship of the Compagnie van Verre",
+        "Tonnage": "[UNKNOWN] (in DAS, not bundled)",
+        "Fate": "returned to Texel 14 Aug 1597"
+       },
+       "history": "Hollandia sailed in the first Dutch expedition and was one of the three ships that came home.",
+       "story": "Her skipper, Jan Dignumsz, died during the six months at Madagascar. The fight over who would replace him ended only when Gerrit van Beuningen was put in irons for the rest of the voyage.",
+       "content_citations": [
+        "Wikipedia, “First Dutch Expedition to the East Indies”, https://en.wikipedia.org/wiki/First_Dutch_Expedition_to_the_East_Indies (accessed 14 Nov 2026), and the sources cited there",
+        "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)"
+       ]
+      }
      },
      {
       "id": "das-0004.1",
@@ -113,7 +158,21 @@
       "start": "1595-04-02",
       "end": "1596-06-06",
       "anchors": [],
-      "lateral_km": 90.0
+      "lateral_km": 90.0,
+      "vessel": {
+       "name": "Mauritius (1595)",
+       "facts": {
+        "Type": "ship of the Compagnie van Verre",
+        "Tonnage": "[UNKNOWN] (in DAS, not bundled)",
+        "Fate": "returned to Texel 14 Aug 1597"
+       },
+       "history": "Mauritius was the first-named of the four ships of the 1595 fleet and one of the three that came home in 1597.",
+       "story": "The survivors brought home 245 bags of pepper, 41 tonnes of nutmeg and 30 bales of mace. Prices were so high that this small cargo still made the voyage pay.",
+       "content_citations": [
+        "Wikipedia, “First Dutch Expedition to the East Indies”, https://en.wikipedia.org/wiki/First_Dutch_Expedition_to_the_East_Indies (accessed 14 Nov 2026), and the sources cited there",
+        "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)"
+       ]
+      }
      }
     ]
    },
@@ -124,7 +183,20 @@
     "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries, 3 vols. (The Hague: Martinus Nijhoff, 1979-1987), voyages 0001.1-0004.1. Dates typed from the published compilation; the online DAS database is not bundled."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Compagnie van Verre raised 290,000 guilders and fitted out four ships, Mauritius, Amsterdam, Hollandia and Duifje, with 248 men. Petrus Plancius trained the navigators. They left Texel on 2 April 1595 and lost 71 men during six months at Madagascar. They reached Bantam in June 1596, and only 94 men were still alive when the ships went home. The expedition still made a profit, and it opened the spice trade to the merchants who later formed the VOC in 1602.",
+   "story": "The voyage went badly: the officers quarrelled, Bantam refused them, de Houtman was captured and ransomed, and twelve men including Amsterdam's skipper were killed at Sidayu. Amsterdam was in such bad condition that she was burnt. The other three ships left Bali on 26 February 1597 and reached Texel on 14 August 1597.",
+   "facts": {
+    "Fleet": "Amsterdam, Mauritius, Hollandia, Duifje",
+    "Crew": "248 out; about 94 survived to the return",
+    "Departed": "Texel, 2 April 1595",
+    "Home": "Texel, 14 August 1597 (three ships)",
+    "Cargo home": "245 bags of pepper, 41 t nutmeg, 30 bales of mace"
+   },
+   "content_citations": [
+    "Wikipedia, “First Dutch Expedition to the East Indies”, https://en.wikipedia.org/wiki/First_Dutch_Expedition_to_the_East_Indies (accessed 14 Nov 2026), and the sources cited there",
+    "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)"
+   ]
   },
   {
    "id": "das-patriot-1780",
@@ -217,7 +289,22 @@
         "index": 6
        }
       ],
-      "lateral_km": 0
+      "lateral_km": 0,
+      "vessel": {
+       "name": "Patriot (VOC, 1780)",
+       "facts": {
+        "Operator": "VOC",
+        "Departed": "Texel, 4 Jan 1780",
+        "Arrived": "Batavia, 22 Jul 1780",
+        "Builder, tonnage, crew, cargo": "[UNKNOWN] (in DAS, not bundled)"
+       },
+       "history": "Patriot's 1780 outward voyage is recorded in Dutch-Asiatic Shipping as voyage 4367.3. Beyond its dates, the details are [UNKNOWN] in this build.",
+       "story": "She reached Batavia five months before Britain declared war on the Dutch Republic in December 1780.",
+       "content_citations": [
+        "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)",
+        "Wikipedia, “Fourth Anglo-Dutch War”, https://en.wikipedia.org/wiki/Fourth_Anglo-Dutch_War (accessed 14 Nov 2026), and the sources cited there"
+       ]
+      }
      }
     ]
    },
@@ -228,7 +315,19 @@
     "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries, 3 vols. (The Hague: Martinus Nijhoff, 1979-1987), voyage 4367.3. Dates typed from the published compilation; the online DAS database is not bundled."
    ],
    "confidence_level": "medium",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "Voyage 4367.3 in the Dutch-Asiatic Shipping record went from Texel on 4 January 1780 to Batavia on 22 July 1780, via the Cape. Later that year, in December 1780, Britain declared war on the Dutch Republic (the Fourth Anglo-Dutch War, 1780–1784). The war cost the VOC heavily, and the company was dissolved in 1799.",
+   "story": "This is one of the last VOC outward voyages before the war: Patriot reached Batavia five months before Britain declared war. The ship's size, crew and cargo are in the DAS database, which is not bundled here [UNKNOWN in this build].",
+   "facts": {
+    "Departed": "Texel, 4 January 1780",
+    "Arrived": "Batavia, 22 July 1780",
+    "Tonnage, crew, cargo": "[UNKNOWN] (in DAS, not bundled)"
+   },
+   "content_citations": [
+    "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)",
+    "Wikipedia, “Fourth Anglo-Dutch War”, https://en.wikipedia.org/wiki/Fourth_Anglo-Dutch_War (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Dutch East India Company”, https://en.wikipedia.org/wiki/Dutch_East_India_Company (accessed 14 Nov 2026), and the sources cited there"
+   ]
   },
   {
    "id": "voc-return-fleet",
@@ -329,7 +428,19 @@
    "citation": "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)",
    "reconstruction": true,
    "region": "Intercontinental",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The VOC was set up on 20 March 1602. In 1619 it made Jayakarta its Asian headquarters and renamed it Batavia. Between 1602 and 1796 it sent nearly a million Europeans to Asia on 4,785 ships. Return fleets brought pepper, spices, textiles, tea and porcelain home in convoy, usually by way of the Cape.",
+   "story": "Return ships left Batavia around the turn of the year and stopped at the Cape for fresh food. They reached the Dutch coast in the summer, where the sale of their cargo set prices across Europe.",
+   "facts": {
+    "VOC founded": "20 March 1602",
+    "Batavia": "1619",
+    "Ships sent": "4,785 (1602–1796)",
+    "Dissolved": "1799"
+   },
+   "content_citations": [
+    "Wikipedia, “Dutch East India Company”, https://en.wikipedia.org/wiki/Dutch_East_India_Company (accessed 14 Nov 2026), and the sources cited there",
+    "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)"
+   ]
   },
   {
    "id": "eic-london-madras",
@@ -433,7 +544,21 @@
    "citation": "K. N. Chaudhuri, The Trading World of Asia and the English East India Company, 1660-1760 (Cambridge: Cambridge University Press, 1978)",
    "reconstruction": true,
    "region": "Intercontinental",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The English East India Company was chartered on 31 December 1600. In 1639 Francis Day bought coastal land from the ruler of Chandragiri, and Fort St George at Madras was completed on 23 April 1644. The company stopped trading in 1833 and was dissolved in 1874.",
+   "story": "East Indiamen sailed around the Cape to the Coromandel Coast and brought back cotton cloth (calico and chintz), which became fashionable in Britain. Fort St George grew into the city of Madras (now Chennai).",
+   "facts": {
+    "Charter": "31 December 1600",
+    "Madras land": "1639 (Francis Day)",
+    "Fort St George": "completed 23 April 1644",
+    "Trade ended": "1833",
+    "Dissolved": "1874"
+   },
+   "content_citations": [
+    "Wikipedia, “East India Company”, https://en.wikipedia.org/wiki/East_India_Company (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Fort St. George, India”, https://en.wikipedia.org/wiki/Fort_St._George,_India (accessed 14 Nov 2026), and the sources cited there",
+    "K. N. Chaudhuri, The Trading World of Asia and the English East India Company (Cambridge, 1978)"
+   ]
   }
  ]
 }

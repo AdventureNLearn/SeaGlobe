@@ -96,7 +96,20 @@
    "citation": "Pedro de Cieza de León, The Travels of Pedro de Cieza de León, A.D. 1532-50, trans. C. R. Markham (London: Hakluyt Society, 1864) [public domain]",
    "reconstruction": true,
    "region": "Americas",
-   "derived_from": "hand-written reconstruction from published history"
+   "derived_from": "hand-written reconstruction from published history",
+   "history": "The Qhapaq Ñan was the Inca road system, a network of roughly 40,000 km across what are now Colombia, Ecuador, Peru, Bolivia, Chile and Argentina. Relay stations for chasqui runners stood at short intervals, and tambos a day's walk apart supplied travellers and llama herds. It became a UNESCO World Heritage Site in 2014.",
+   "story": "Messages travelled by relay: one chasqui ran a short stage and passed the message and knotted-cord quipu to the next runner. Llama trains carried loads along the same road, and the llama was the only beast of burden in the Inca Empire.",
+   "facts": {
+    "Network length": "about 40,000 km (estimates vary up to 60,000)",
+    "Runners": "chasqui relay",
+    "Pack animal": "llama (about 25–30 kg loads)",
+    "UNESCO": "2014"
+   },
+   "content_citations": [
+    "Wikipedia, “Qhapaq Ñan”, https://en.wikipedia.org/wiki/Qhapaq_Ñan (accessed 14 Nov 2026), and the sources cited there",
+    "Wikipedia, “Llama”, https://en.wikipedia.org/wiki/Llama (accessed 14 Nov 2026), and the sources cited there",
+    "Pedro de Cieza de León, The Travels of Pedro de Cieza de León, A.D. 1532-50, trans. C. R. Markham (London: Hakluyt Society, 1864) [public domain]"
+   ]
   }
  ]
 }

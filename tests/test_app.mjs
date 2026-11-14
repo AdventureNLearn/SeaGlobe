@@ -38,6 +38,10 @@ try {
     assert.ok(s.selected && s.selected.startsWith("das-amsterdam-1595"), "selected " + s.selected);
     const txt = await p.evaluate(() => document.body.innerText);
     assert.match(txt, /Amsterdam/); assert.match(txt, /Bruijn/);
+    // v2.2 content in the existing card: route history and story, the named ship, the vehicle type, citations
+    const notes = await p.evaluate(() => document.getElementById("dNotes").innerText + "\n" + document.getElementById("dCite").innerText);
+    assert.match(notes, /History\. /); assert.match(notes, /Story\. /); assert.match(notes, /The ship: Amsterdam \(1595\)/);
+    assert.match(notes, /About the east indiaman/); assert.match(notes, /First_Dutch_Expedition_to_the_East_Indies/);
     const fb = await p.evaluate(() => window.__sg.elementCenter("#followBtn"));
     await p.mouse.click(fb.x, fb.y);
     s = await p.evaluate(() => window.__sg.state());
@@ -97,6 +101,47 @@ try {
     assert.ok(Math.abs(wt.lo) < 0.01 * wt.scale + 0.012, "train on the ground " + JSON.stringify(wt));
     await q.close();
   });
+  await check("moving vehicles can be hovered and clicked at default, fastest and sampler speeds", async () => {
+    const cases = [{ q: "capture=1&t=1985-06-01&speed=5", name: "5x" }, { q: "capture=1&t=1985-06-01&speed=20", name: "20x" },
+      { q: "capture=1&t=1595-09-20&speed=20&pov=-20,40,1.9", name: "20x age of sail" }, { q: "capture=1", name: "sampler" }];
+    for (const c of cases) {
+      const p = await openApp(browser, port, c.q);
+      if (c.name !== "sampler") await p.evaluate(() => window.__sg.play(true));
+      for (let f = 0; f < 15; f++) await p.evaluate(() => window.__sg.advance(1 / 30));
+      let a = await p.evaluate(() => window.__sg.assist());
+      assert.ok(a.speeds.length >= 2, c.name + ": vehicles measured " + a.speeds.length);
+      const eff = a.speeds.map((v) => v.pxPerSec * (c.name === "sampler" ? 1 : a.govern));
+      const top = Math.max(...eff);
+      // nothing outruns the cap (smoothing allowance), and the globe is still lively (something visibly moves)
+      assert.ok(top <= a.maxPxPerSec * 1.3, c.name + ": fastest " + top.toFixed(0) + " px/s");
+      assert.ok(top > 3, c.name + ": still moving " + top.toFixed(1) + " px/s");
+      // aim at the fastest moving vehicle, the hardest one to catch
+      const target = a.speeds[eff.indexOf(top)].key;
+      const s0 = await p.evaluate((k) => window.__sg.screenOf(k), target);
+      await p.mouse.move(s0.x, s0.y);
+      assert.equal(await p.evaluate(() => !document.getElementById("tooltip").hidden), true, c.name + ": tooltip on hover");
+      for (let f = 0; f < 20; f++) await p.evaluate(() => window.__sg.advance(1 / 30));
+      a = await p.evaluate(() => window.__sg.assist());
+      assert.ok(a.slow < 0.05, c.name + ": time eases to a stop on hover " + a.slow);
+      const s1 = await p.evaluate((k) => window.__sg.screenOf(k), target);
+      const drift = Math.hypot(s1.x - s0.x, s1.y - s0.y);
+      assert.ok(drift < 30, c.name + ": stays under the pointer, drift " + drift.toFixed(1) + " px");
+      const t0 = (await p.evaluate(() => window.__sg.state())).t;
+      for (let f = 0; f < 30; f++) await p.evaluate(() => window.__sg.advance(1 / 30));
+      if (c.name !== "sampler") assert.ok(Math.abs((await p.evaluate(() => window.__sg.state())).t - t0) < 1e-4, c.name + ": clock held while hovering");
+      await p.mouse.click(s0.x, s0.y);
+      const st = await p.evaluate(() => window.__sg.state());
+      assert.equal(st.selected, target, c.name + ": click selects the hovered vehicle");
+      // pointer leaves: the clock picks up again
+      await p.mouse.move(5, 360);
+      await p.evaluate(() => document.getElementById("globe").dispatchEvent(new PointerEvent("pointerleave")));
+      for (let f = 0; f < 60; f++) await p.evaluate(() => window.__sg.advance(1 / 30));
+      a = await p.evaluate(() => window.__sg.assist());
+      assert.ok(a.slow > 0.9, c.name + ": resumes after the pointer leaves " + a.slow);
+      assert.deepEqual(p._errors, [], c.name);
+      await p.close();
+    }
+  });
   await check("lite mode loads", async () => {
     const p = await openApp(browser, port, "capture=1&lite=1&t=1320-05-01");
     assert.ok((await p.evaluate(() => window.__sg.state())).live > 0);
@@ -118,5 +163,5 @@ try {
 } finally {
   await browser.close(); server.kill();
 }
-console.log(`${ok}/8 browser checks passed`);
-if (ok !== 8) process.exit(1);
+console.log(`${ok}/9 browser checks passed`);
+if (ok !== 9) process.exit(1);
