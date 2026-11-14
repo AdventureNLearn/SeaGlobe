@@ -420,6 +420,30 @@ try {
     assert.deepEqual(local(p._errors, [/ERR_CONNECTION_REFUSED|Failed to load resource/]), []); await p.close();
   });
 
+  await check("radio: a hidden is-min-paused player that starts playing is paused again", async () => {
+    const p = await openApp(browser, port, `capture=1&radioapi=${encodeURIComponent(`http://127.0.0.1:${fport}/radio/iframe_api.js`)}`);
+    await p.evaluate(() => window.SeaRadio.open(true)); await p.click("#radioLoad");
+    await p.waitForFunction(() => window.SeaRadio.state().api === "ready", { timeout: 10000 });
+    await p.evaluate(() => window.__ytPlayer.userPlays());
+    assert.equal(await p.evaluate(() => window.SeaRadio.state().started), true);
+    await p.setViewport({ width: 400, height: 260, deviceScaleFactor: 1 });
+    await p.evaluate(() => window.SeaRadio.minimize());
+    await sleep(200);
+    const fit = await p.evaluate(() => ({
+      st: window.SeaRadio.state(),
+      pausedClass: document.getElementById("radioPanel").classList.contains("is-min-paused"),
+      yt: window.__ytPlayer.getPlayerState()
+    }));
+    assert.equal(fit.st.minimized && fit.st.pausedForFit && fit.pausedClass, true, "tiny viewport should use is-min-paused, got " + JSON.stringify(fit));
+    assert.equal(fit.yt, 2, "already paused for fit");
+    // Force PLAYING, as a media key or the hidden iframe might do
+    await p.evaluate(() => { window.__ytPlayer.opts.events.onStateChange({ data: 1, target: window.__ytPlayer }); });
+    assert.equal(await p.evaluate(() => window.__ytPlayer.getPlayerState()), 2, "hidden PLAYING must be paused again");
+    assert.equal(await p.evaluate(() => window.SeaRadio.state().player), true, "player still mounted");
+    await p.evaluate(() => window.SeaRadio.open(false));
+    assert.deepEqual(p._errors, []); await p.close();
+  });
+
   await check("windows: drag, resize, lock, content zoom (globe unchanged), reset layout", async () => {
     const p = await openApp(browser, port, "capture=1");
     assert.ok(await p.evaluate(() => !!(window.SeaWindows && document.getElementById("side").classList.contains("sgwin"))));

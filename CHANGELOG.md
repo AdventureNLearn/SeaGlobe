@@ -8,8 +8,9 @@
 - Creedence Radio has a minimize control that collapses it to a visible on-screen mini player: the real YouTube
   iframe stays at least 200×200 CSS pixels, uncovered, with its controls usable, docked in a corner, plus the title
   and Expand next to it. The player stays mounted and keeps playing while you open other panels, tabs and layers.
-  If a 200×200 tile cannot fit above the globe controls, playback is paused instead. Only Close (×) stops and
-  destroys the player. There is still no autoplay.
+  If a 200×200 tile cannot fit above the globe controls, playback is paused instead. If a media key or the player
+  itself tries to start while that hidden paused state is on, it is paused again; a media-key Play expands the panel
+  instead of starting audio out of sight. Only Close (×) stops and destroys the player. There is still no autoplay.
 - Shared window system for the radio, encyclopedia, Ship's Log and the side panel: drag, resize from edges and
   corners, lock / unlock, content zoom that does not change the globe zoom, a dock for minimized windows, and a
   Reset layout button. The layout is remembered in this browser (not during tests). A stored zoom outside the

@@ -52,6 +52,21 @@
       r.width >= 200 && r.height >= 200 && r.left >= -0.5 && r.top >= -0.5 &&
       r.right <= innerWidth + 0.5 && r.bottom <= innerHeight + 0.5;
   }
+  function hiddenPlayback() {
+    if (st.pausedForFit) return true;
+    const p = $("radioPanel");
+    if (p && p.classList.contains("is-min-paused")) return true;
+    if (st.minimized && !stageVisible()) return true;
+    return false;
+  }
+  function bindMediaSession() {
+    const ms = navigator.mediaSession;
+    if (!ms || !ms.setActionHandler) return;
+    const set = (action, fn) => { try { ms.setActionHandler(action, fn); } catch (e) { /* action not supported */ } };
+    // Play must not start a hidden player; expand so the user can press play on a visible tile, or do nothing.
+    set("play", () => { if (hiddenPlayback()) { expand(); return; } try { if (st.player && st.player.playVideo) st.player.playVideo(); } catch (e) { /* player gone */ } syncMini(); });
+    set("pause", () => { try { if (st.player && st.player.pauseVideo) st.player.pauseVideo(); } catch (e) { /* player gone */ } syncMini(); });
+  }
   function togglePlay() {
     if (!st.player) return;
     // Play may only control a visible on-screen player, never a hidden or off-screen one.
@@ -124,9 +139,19 @@
       host: P.host, width: "100%", height: "100%",
       playerVars: { listType: "playlist", list: P.playlist, autoplay: 0, playsinline: 1, rel: 0, origin: location.origin },
       events: {
-        onReady: () => { st.apiState = "ready"; note("Press play in the player to start. Tracks play from YouTube."); if (btn) btn.hidden = true; syncMini(); },
+        onReady: () => { st.apiState = "ready"; note("Press play in the player to start. Tracks play from YouTube."); if (btn) btn.hidden = true; bindMediaSession(); syncMini(); },
         // the user has pressed play once (state 1 = playing); before that nothing may start playback by itself
-        onStateChange: (e) => { if (e && e.data === 1) st.started = true; syncMini(); },
+        onStateChange: (e) => {
+          const data = e && e.data;
+          // 1 = playing, 3 = buffering. A media key must not restart a hidden / paused-for-fit player.
+          if ((data === 1 || data === 3) && hiddenPlayback()) {
+            try { if (st.player && st.player.pauseVideo) st.player.pauseVideo(); } catch (x) { /* player gone */ }
+            syncMini();
+            return;
+          }
+          if (data === 1) st.started = true;
+          syncMini();
+        },
         onError: (e) => {
           const why = ERR[e.data] || "it is unavailable";
           if (!st.started) { note("The first track can’t be played here because " + why + ". Press the next-track button in the player to go on."); return; }
