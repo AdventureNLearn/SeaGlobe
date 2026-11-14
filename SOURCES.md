@@ -102,7 +102,7 @@ Timing: dated (real dates) 17, years (published years, reconstructed months/pace
 ## Jet age air corridors (1952–today) (`data/routes/air-jet-age.json`)
 
 ### BOAC Comet, first jetliner passenger service, London to Johannesburg, 1952 (`boac-comet-1952`)
-- air · modern · vehicle `jet` · timing **dated** · reconstruction · confidence medium
+- air · modern · vehicle `comet` · timing **dated** · reconstruction · confidence medium
 - derived from: hand-written reconstruction from published history; stops from OurAirports (public domain)
 - Wikipedia, “De Havilland Comet”, https://en.wikipedia.org/wiki/De_Havilland_Comet (accessed 14 Nov 2026), and the sources cited there
 - Wikipedia, “BOAC”, https://en.wikipedia.org/wiki/BOAC (accessed 14 Nov 2026), and the sources cited there
@@ -137,25 +137,25 @@ Timing: dated (real dates) 17, years (published years, reconstructed months/pace
 - OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026
 
 ### Concorde, first British Airways service, London to Bahrain, 1976 (`concorde-london-bahrain-1976`)
-- air · modern · vehicle `jet` · timing **dated** · reconstruction · confidence medium
+- air · modern · vehicle `concorde` · timing **dated** · reconstruction · confidence medium
 - derived from: hand-written reconstruction from published history; stops from OurAirports (public domain)
 - Wikipedia, “Concorde”, https://en.wikipedia.org/wiki/Concorde (accessed 14 Nov 2026), and the sources cited there
 - OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026
 
 ### Concorde, first Air France service, Paris to Rio via Dakar, 1976 (`concorde-paris-rio-1976`)
-- air · modern · vehicle `jet` · timing **dated** · reconstruction · confidence medium
+- air · modern · vehicle `concorde` · timing **dated** · reconstruction · confidence medium
 - derived from: hand-written reconstruction from published history; stops from OurAirports (public domain)
 - Wikipedia, “Concorde”, https://en.wikipedia.org/wiki/Concorde (accessed 14 Nov 2026), and the sources cited there
 - OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026
 
 ### Concorde, London to New York JFK, 1977–2003 (`concorde-london-new-york`)
-- air · modern · vehicle `jet` · timing **traffic** · reconstruction · confidence medium
+- air · modern · vehicle `concorde` · timing **traffic** · reconstruction · confidence medium
 - derived from: hand-written reconstruction from published history; stops from OurAirports (public domain)
 - Wikipedia, “Concorde”, https://en.wikipedia.org/wiki/Concorde (accessed 14 Nov 2026), and the sources cited there
 - OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026
 
 ### Concorde, Paris to New York JFK, 1977–2003 (`concorde-paris-new-york`)
-- air · modern · vehicle `jet` · timing **traffic** · reconstruction · confidence low
+- air · modern · vehicle `concorde` · timing **traffic** · reconstruction · confidence low
 - derived from: hand-written reconstruction from published history; stops from OurAirports (public domain)
 - Wikipedia, “Concorde”, https://en.wikipedia.org/wiki/Concorde (accessed 14 Nov 2026), and the sources cited there
 - OurAirports, airports.csv (public domain), airport coordinates; slice in data/sources/ourairports/airports-slice.csv, downloaded 14 Nov 2026

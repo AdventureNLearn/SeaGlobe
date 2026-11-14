@@ -1,9 +1,20 @@
 # SeaGlobe — routes of the world, 500 BCE to today
 
+Built by AdventureNLearn — [@AdventureNLearn](https://x.com/AdventureNLearn)
+
 ## Read first / Risks
 
 - SeaGlobe is a **static**, **offline-capable** web app. Libraries, textures, fonts and data are in this
-  repository. It makes no runtime network calls.
+  repository. It works with no network. The only requests it can make to other hosts are:
+  - a read-only **version check** of `version.json` on the public site (short timeout, silent when offline;
+    `?update=0` turns it off);
+  - the **live US town boundaries** layer (US Census TIGERweb), only when you switch it on;
+  - **Creedence Clearwater Revival Radio**: the YouTube player loads only after you click "Load the player";
+  - the **Ask** chat, only when a chat Worker address is configured (none is in this build), or, in the PC-only
+    BYO edition, with your own key straight to the xAI API;
+  - an optional **R2 asset base** for large files, with the bundled copy as the fallback (none is set in this build);
+  - in the PC-only BYO edition, the TLE and receiver feeds you type in yourself.
+  The page's Content-Security-Policy (from `data/csp.json`) allows only these hosts.
 - The Windows launchers and `serve.py` start a local HTTP server bound to **`127.0.0.1`** only (this
   computer). Close the console window to stop it. Nothing here publishes, uploads or pushes by itself.
 - Many routes are **reconstructions**. The app labels every reconstruction, and every pre-1500 route is
@@ -38,6 +49,22 @@ leaving a fading wake.
 - **On a phone** the globe fills the screen with one bottom bar (play, speed, year, menu). The menu opens a
   slide-up sheet with eras, layers, routes and the Ship's Log; a tapped vehicle's card opens as a bottom sheet.
 - Follow camera (chase view), eased fly-ins, slow orbit.
+- **Go deeper (v3.0)**: an encyclopedia of every vehicle, route, place, region and spacecraft, with search, Browse,
+  Ask (grounded chat that cites the entries it used, [UNKNOWN] otherwise) and About tabs, and Listen (browser speech
+  with captions) on every entry.
+- **Regions drill-down**: countries, US states, counties and towns (Natural Earth) load as you zoom in; a breadcrumb
+  shows where the view centre is. Live US town boundaries (TIGERweb) are opt-in.
+- **Map tools**: air hubs layer (OurAirports), distance measuring (km / mi / nmi), coordinates and a print view.
+- **Space layer**: launch sites and yearly payload counts from GCAT (CC BY 4.0) and illustrative orbit rings.
+- **Guided tours** (eras, air, space) narrated from the entries' own text.
+- **Creedence Clearwater Revival Radio**: the official "Chronicle: The 20 Greatest Hits" YouTube playlist in the
+  standard embedded player (starts only when you press play), plus links to two outside radio sites. SeaGlobe hosts no
+  audio. Offline it says "Radio needs internet".
+- **Vehicle models (v3.0)**: aircraft rebuilt with correct tails and lights, plus de Havilland Comet and Concorde;
+  landing gear near airports, spinning propellers, banking in turns, filling sails and drifting smoke; a lighter level
+  of detail for the lite build. All models are artistic impressions made in code.
+- **Editions**: `index.html` (full), `lite.html` (smaller, for hosted builders) and `byo.html` (PC only: your own
+  satellite TLEs and aircraft receiver feed). An update notice appears when the public site has a newer version.
 - Earth from NASA Blue Marble / Black Marble (public domain) with ocean shine, atmosphere, a day/night
   terminator, city lights from the industrial era on, starfield, a moon and a decorative satellite layer
   for the space age.
@@ -110,6 +137,11 @@ python -m unittest discover tests     # data files, docs hygiene, no runtime net
 node tests/test_app.mjs               # headless browser smoke test (needs Chrome + puppeteer-core)
 node tests/test_mobile.mjs            # phone layout (390x844, 360x800, touch) + desktop layout unchanged
 node tests/test_air.mjs               # air layer: corridors, Wright Flyer / DC-3 / 747 cards, Type = air
+node tests/test_framework.mjs         # v3: encyclopedia, drill-down, tools, space, listen, chat, radio, R2, BYO, phone
+node tests/test_models.mjs            # every model's nose follows its travel; fins, lights, engines, LOD
+node tests/test_update.mjs            # version compare and the cross-origin version check
+cd worker/chat && npm test            # chat Worker (mocked upstream; never deployed from here)
+node tools/check_grokme_lite.mjs      # lite build: manifest, size budget, credit, offline chat
 node tools/vehicle_sheet.mjs         # contact sheet of every vehicle model; fails on a placeholder
 node tools/closeup_check.mjs         # in-app close-ups: hulls at the waterline, wheels on the ground
 ```
@@ -118,8 +150,12 @@ node tools/closeup_check.mjs         # in-app close-ups: hulls at the waterline,
 
 Made with Natural Earth. Earth imagery: NASA Earth Observatory (Blue Marble Next Generation, Black Marble
 2012), public domain. CLIWOC 2.1 logbook sample: Jones et al. (2007) and García-Herrera et al. (2010),
-CC BY 3.0. Airport coordinates: OurAirports, public domain. Font: Inter, SIL OFL 1.1. three.js and
-globe.gl: MIT. Full notices: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+CC BY 3.0. Airport coordinates: OurAirports, public domain. Space data: GCAT, J. McDowell,
+planet4589.org, CC BY 4.0. Boundaries: Natural Earth (public domain); live layer: U.S. Census Bureau TIGERweb.
+satellite.js: MIT (BYO edition only). Radio: the official Creedence Clearwater Revival YouTube channel, played in
+YouTube's own embedded player under YouTube's terms. Font: Inter, SIL OFL 1.1. three.js and globe.gl: MIT. Full notices: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+Built by AdventureNLearn — [@AdventureNLearn](https://x.com/AdventureNLearn).
 
 ## License
 

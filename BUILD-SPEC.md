@@ -7,7 +7,10 @@ What the app does and how it is put together. Paths are relative to the reposito
 - Static web app in `web/`: `index.html`, `app.css`, `js/*.js`, `data/**`, `vendor/`, `textures/`, `fonts/`, `assets/`.
 - Classic scripts only (no modules, no build step), so it runs from a local server, from `file://` (lite) and on a static host.
 - Libraries: globe.gl 2.46.2; three.js r187 as `window.SEAGLOBE_THREE`; example add-ons (bloom, output pass, lensflare) as `window.SEAGLOBE_THREE_ADDONS`.
-- No runtime network calls. "Go deeper" links are plain `target="_blank"` links.
+- Works with no network. Since v3.0 the only runtime requests to other hosts are optional and fail quietly: the
+  read-only version check, the opt-in TIGERweb layer, the radio's YouTube player (on click), the chat Worker (when
+  configured), an R2 asset base (bundled fallbacks) and the PC-only BYO feeds; `data/csp.json` lists the hosts.
+  "Go deeper" links are plain `target="_blank"` links. Details: `DESIGN-V3.md`, `GROK-ME-BUILD.md`.
 - `serve.py` (standard library) serves `web/` on 127.0.0.1; `Start-SeaGlobe.cmd` runs it with `--open`.
 
 ## 2. Modules

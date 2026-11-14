@@ -22,24 +22,34 @@
   <p><a href="./">Open the SeaGlobe atlas</a></p>
   <h1>Sea<b>Globe</b> videos</h1>
   <p class="tag">Rendered from the app. No music. Earth imagery: NASA Earth Observatory (public domain). Made with Natural Earth.</p>
-  <figure class="clip">
-    <video controls preload="metadata" src="walkthrough/atlas-walkthrough.mp4" title="SeaGlobe atlas walkthrough">
-      Sorry, your browser cannot play this video. <a href="walkthrough/atlas-walkthrough.mp4">Download the walkthrough</a>.
+  <figure class="clip" id="video-atlas">
+    <video controls preload="metadata" data-asset="video-atlas" title="Full atlas walkthrough">
+      <source src="walkthrough/atlas-walkthrough-720p.mp4" type="video/mp4">
+      Sorry, your browser cannot play this video. <a href="walkthrough/atlas-walkthrough-720p.mp4">Download: Full atlas walkthrough</a>.
     </video>
-    <figcaption>Full atlas walkthrough — 2:59, 1920×1080. A tour of eras, follow-camera voyages and the Ship's Log.</figcaption>
+    <figcaption><b>Full atlas walkthrough</b> — 2:59 · full quality 1920×1080 (99 MiB, from the asset store when available); this site&#x27;s copy 1280×720 (41 MiB). A tour of eras, follow-camera voyages and the Ship&#x27;s Log.</figcaption>
   </figure>
-  <figure class="clip">
-    <video controls preload="metadata" src="walkthrough/seaglobe-ships.mp4" title="SeaGlobe ships and Ship's Log">
-      Sorry, your browser cannot play this video. <a href="walkthrough/seaglobe-ships.mp4">Download the ships clip</a>.
+  <figure class="clip" id="video-ships">
+    <video controls preload="metadata" data-asset="video-ships" title="Ships and the Ship&#x27;s Log">
+      <source src="walkthrough/seaglobe-ships.mp4" type="video/mp4">
+      Sorry, your browser cannot play this video. <a href="walkthrough/seaglobe-ships.mp4">Download: Ships and the Ship&#x27;s Log</a>.
     </video>
-    <figcaption>Ships and Ship's Log — 0:59, 1280×720.</figcaption>
+    <figcaption><b>Ships and the Ship&#x27;s Log</b> — 0:59, 1280×720.</figcaption>
   </figure>
-  <figure class="clip">
-    <video controls preload="metadata" src="walkthrough/air-layer-walkthrough.mp4" title="SeaGlobe air layer walkthrough">
-      Sorry, your browser cannot play this video. <a href="walkthrough/air-layer-walkthrough.mp4">Download the air layer walkthrough</a>.
+  <figure class="clip" id="video-air">
+    <video controls preload="metadata" data-asset="video-air" title="Air layer walkthrough">
+      <source src="walkthrough/air-layer-walkthrough.mp4" type="video/mp4">
+      Sorry, your browser cannot play this video. <a href="walkthrough/air-layer-walkthrough.mp4">Download: Air layer walkthrough</a>.
     </video>
-    <figcaption>Air layer walkthrough — 2:53, 1280×720. Historic air corridors from the Wright Flyer (1903) to today, the DC-3 and 747 cards, corridor citations and the phone layout.</figcaption>
+    <figcaption><b>Air layer walkthrough</b> — 2:53, 1280×720. Historic air corridors from the Wright Flyer (1903) to today, the DC-3 and 747 cards, corridor citations and the phone layout.</figcaption>
   </figure>
+  <p class="credit">Built by AdventureNLearn · <a href="https://x.com/AdventureNLearn" target="_blank" rel="noopener noreferrer">@AdventureNLearn</a> · <span data-sg-version></span></p>
   <p>Captions: <a href="walkthrough/CAPTIONS.md">walkthrough/CAPTIONS.md</a>. Vehicle sheet: <a href="screens/v2.1-all-vehicles.png">screens/v2.1-all-vehicles.png</a>.</p>
+  <script src="data/edition.js"></script>
+  <script src="js/version.js"></script>
+  <script src="data/assets.js"></script>
+  <script src="js/assets.js"></script>
+  <script>document.querySelectorAll("video[data-asset]").forEach(function (v) { if (window.SeaAssets && window.SeaAssets.status(v.dataset.asset) === "r2") window.SeaAssets.video(v, v.dataset.asset); });
+    var V = window.SEAGLOBE_VERSION; document.querySelectorAll("[data-sg-version]").forEach(function (e) { e.textContent = V ? "v" + V.version : ""; });</script>
 </body>
 </html>

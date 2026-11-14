@@ -25,6 +25,17 @@ v("boeing-747", "Boeing 747 wide-body jet airliner ('Jumbo Jet').",
   {"First flight": "9 Feb 1969", "Entered service": "22 Jan 1970 (Pan Am)", "Built": "1,574 (to Jan 2023)", "Launch order": "Pan Am, 25 aircraft (April 1966)"},
   [W("Boeing 747"), W("Qantas")])
 
+v("comet", "de Havilland Comet, the first jet airliner.",
+  "The Comet made its maiden flight on 27 July 1949. Its four de Havilland Ghost turbojets were buried in the wing roots. On 2 May 1952 BOAC's Comet G-ALYP flew the world's first jetliner service with fare-paying passengers, London to Johannesburg.",
+  "The model shows the Comet's layout: a swept wing with the engines inside the wing roots and a conventional tail. Proportions follow the published span (35 m) and length (28 m); livery and details are an artistic impression.",
+  {"Maiden flight": "27 July 1949", "Engines": "four de Havilland Ghost turbojets, in the wing roots", "First jetliner service": "2 May 1952 (BOAC)", "Span / length": "35 m / 28 m"},
+  [W("De Havilland Comet")])
+v("concorde", "Concorde supersonic airliner.",
+  "Concorde first flew on 2 March 1969. It has an ogival delta wing, no horizontal tailplane, and a nose that droops for take-off and landing so the pilots can see the runway. Four Olympus 593 engines sit in pairs under the wing. Twenty aircraft were built, and British Airways and Air France retired it in 2003.",
+  "The model shows the ogival delta, the paired engine nacelles and the hinged droop nose, which lowers near the ground. Proportions follow the published span (25.6 m) and length (61.7 m); livery and details are an artistic impression.",
+  {"First flight": "2 March 1969", "Wing": "ogival delta, no tailplane", "Engines": "four Olympus 593, in pairs", "Built": "20", "Retired": "2003", "Span / length": "25.6 m / 61.7 m"},
+  [W("Concorde")])
+
 # ---------------- named aircraft on dated flights ----------------
 vessel("wright-flyer-1903", "Wright Flyer (1903)",
        {"Pilots": "Orville and Wilbur Wright", "Flights": "4, on 17 Dec 1903", "Longest": "852 ft (260 m) in 59 s (Wilbur)", "Fate": "wrecked by a gust after flight 4; Smithsonian since 1948"},

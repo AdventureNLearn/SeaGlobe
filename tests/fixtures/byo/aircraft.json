@@ -1,0 +1,5 @@
+{ "now": 1794679200.0, "messages": 1000, "aircraft": [
+  { "hex": "test01", "flight": "TEST1   ", "lat": 42.9, "lon": -85.5, "alt_baro": 32000, "gs": 450, "track": 90 },
+  { "hex": "test02", "flight": "TEST2   ", "lat": 43.1, "lon": -86.0, "alt_baro": 12000, "gs": 300, "track": 180 },
+  { "hex": "test03", "alt_baro": 5000 }
+] }

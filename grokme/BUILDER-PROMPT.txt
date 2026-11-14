@@ -1,0 +1,23 @@
+Rebuild the SeaGlobe Lite web app from this repository exactly as it is. Do not redesign it.
+
+Source of truth:
+- Use the files listed in grokme/lite-manifest.json. Each path is relative to web/. Copy each file unchanged.
+- Check every file's size and SHA-256 against the manifest. If any file is missing or differs, stop and say which.
+- The entry page is web/lite.html. Serve it as the app's start page. Keep every relative path as it is.
+
+Do not:
+- add analytics, trackers, sign-in, ads, cookies or any other script or network request;
+- add, remove or edit content, data, text, credits, licences or styles;
+- fetch any file from a CDN or another site; everything the app needs is in the manifest;
+- change the Content-Security-Policy in lite.html;
+- add a chat key, API key or any secret. Chat stays offline in this build.
+
+Keep:
+- the credit "Built by AdventureNLearn" linking to https://x.com/AdventureNLearn in the footer and the About tab;
+- the version label (footer and About) and its read-only check of
+  https://adventurenlearn.github.io/SeaGlobe/version.json;
+- the radio panel as it is: YouTube's standard embedded player, loaded only when the user clicks, plus two outside
+  links that open in a new tab.
+
+When done, open the app and confirm: the globe loads, the footer shows the credit and a version, the About tab shows
+the credit and version, and the browser console shows no errors. Report the version and the number of files used.

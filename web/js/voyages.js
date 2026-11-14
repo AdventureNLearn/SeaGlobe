@@ -64,6 +64,37 @@
     if (km >= line.total) return pts[pts.length - 1];
     let lo = 0, hi = cum.length - 1;
     while (hi - lo > 1) { const m = (lo + hi) >> 1; if (cum[m] <= km) lo = m; else hi = m; }
+    // round the corner at a turning waypoint, so the course (and the model's heading) turns smoothly
+    const R = ROUND_KM;
+    const v = (km - cum[lo] < R && lo > 0) ? lo : (cum[hi] - km < R && hi < cum.length - 1) ? hi : -1;
+    if (v > 0) {
+      const r = Math.min(R, (cum[v] - cum[v - 1]) / 2, (cum[v + 1] - cum[v]) / 2);
+      if (r > 0 && Math.abs(km - cum[v]) < r && turnAt(pts, v) > TURN_MIN) {
+        const p0 = rawAt(line, cum[v] - r), p2 = rawAt(line, cum[v] + r), p1 = pts[v], u = (km - cum[v] + r) / (2 * r);
+        const a = (1 - u) * (1 - u), b = 2 * u * (1 - u), c = u * u;
+        const q = [a * p0[0] + b * p1[0] + c * p2[0], a * p0[1] + b * p1[1] + c * p2[1], a * p0[2] + b * p1[2] + c * p2[2]];
+        const n = Math.hypot(q[0], q[1], q[2]) || 1;
+        return [q[0] / n, q[1] / n, q[2] / n];
+      }
+    }
+    const seg = cum[hi] - cum[lo];
+    return slerp(pts[lo], pts[hi], seg > 0 ? (km - cum[lo]) / seg : 0);
+  }
+  const ROUND_KM = 20, TURN_MIN = 0.5 * Math.PI / 180;
+  // heading change at polyline vertex v (radians); great-circle infill vertices have none
+  function turnAt(pts, v) {
+    const a = pts[v - 1], b = pts[v], c = pts[v + 1];
+    const d1 = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], d2 = [c[0] - b[0], c[1] - b[1], c[2] - b[2]];
+    const dot = d1[0] * d2[0] + d1[1] * d2[1] + d1[2] * d2[2], n = Math.hypot(...d1) * Math.hypot(...d2);
+    return n > 0 ? Math.acos(Math.max(-1, Math.min(1, dot / n))) : 0;
+  }
+  // the unrounded polyline point (used for the corner's end points)
+  function rawAt(line, km) {
+    const { pts, cum } = line;
+    if (km <= 0) return pts[0];
+    if (km >= line.total) return pts[pts.length - 1];
+    let lo = 0, hi = cum.length - 1;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (cum[m] <= km) lo = m; else hi = m; }
     const seg = cum[hi] - cum[lo];
     return slerp(pts[lo], pts[hi], seg > 0 ? (km - cum[lo]) / seg : 0);
   }
@@ -180,9 +211,10 @@
     const km = kmAt(inst, t);
     const dir = inst.reverse ? -1 : 1;
     let p = pointAt(line, km);
-    let ahead = pointAt(line, Math.max(0, Math.min(line.total, km + dir * 25)));
+    // heading: the course 2 km ahead (corners are rounded over 20 km, so this follows the turn closely)
+    let ahead = pointAt(line, Math.max(0, Math.min(line.total, km + dir * 2)));
     if (angle(p, ahead) < 1e-7) {
-      const back = pointAt(line, Math.max(0, Math.min(line.total, km - dir * 25)));
+      const back = pointAt(line, Math.max(0, Math.min(line.total, km - dir * 2)));
       ahead = [2 * p[0] - back[0], 2 * p[1] - back[1], 2 * p[2] - back[2]];
     }
     if (inst.lateral) {
@@ -193,7 +225,9 @@
       ahead = [ahead[0] + side[0] / n * off, ahead[1] + side[1] / n * off, ahead[2] + side[2] / n * off];
     }
     const ll = toLatLng(p), la = toLatLng(ahead);
-    return { lat: ll[0], lng: ll[1], aheadLat: la[0], aheadLng: la[1], km, frac: line.total ? (inst.reverse ? 1 - km / line.total : km / line.total) : 0 };
+    // a second point further on, so callers can read the turn (heading change) for banking
+    const a2 = toLatLng(pointAt(line, Math.max(0, Math.min(line.total, km + dir * 100))));
+    return { lat: ll[0], lng: ll[1], aheadLat: la[0], aheadLng: la[1], ahead2Lat: a2[0], ahead2Lng: a2[1], km, frac: line.total ? (inst.reverse ? 1 - km / line.total : km / line.total) : 0 };
   }
 
   // Trail points behind the vehicle (lat,lng), newest first.

@@ -1,0 +1,8 @@
+{
+  "comment": "Videos page list. tools/make_videos_page.py reads duration and resolution from the files (R2 staging copy for the full-quality version, repo copy for the fallback) and writes pages/videos.html.",
+  "videos": [
+    { "asset": "video-atlas", "title": "Full atlas walkthrough", "desc": "A tour of eras, follow-camera voyages and the Ship's Log." },
+    { "asset": "video-ships", "title": "Ships and the Ship's Log", "desc": "" },
+    { "asset": "video-air", "title": "Air layer walkthrough", "desc": "Historic air corridors from the Wright Flyer (1903) to today, the DC-3 and 747 cards, corridor citations and the phone layout." }
+  ]
+}

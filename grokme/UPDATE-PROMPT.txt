@@ -1,0 +1,12 @@
+Update this SeaGlobe Lite app to the new release in the repository. Do not redesign it.
+
+1. Read web/version.json and grokme/lite-manifest.json in the repository at the release the owner names
+   (a tag or commit). Note the version.
+2. Replace the app's files with exactly the files in that manifest (paths relative to web/), unchanged. Remove files
+   that are no longer in the manifest only from this app's build, not from the repository.
+3. Check every file's size and SHA-256 against the manifest. If any differ, stop and say which.
+4. Change nothing else: no new scripts, requests, analytics, keys or secrets; keep the Content-Security-Policy,
+   the credit "Built by AdventureNLearn" (link https://x.com/AdventureNLearn) and the version check as they are.
+5. Open the app and confirm the footer says "Up to date · v<version>" and the console shows no errors.
+   Report the old and new versions.
+If anything fails, keep the previous version of the app running and report the problem.

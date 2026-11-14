@@ -1,0 +1,20 @@
+{
+  "comment": "Source of truth for every asset SeaGlobe loads or plans to load. tools/build_assets.py fills bytes and sha256 from the files and writes web/data/assets.js and web/assets.json. tier repo = always in the app folder; tier large = R2 copy when a base URL is set, else the smaller fallback in the repo, else not available. r2 keys are relative to the R2 base URL; paths are relative to the site root.",
+  "r2_staging": "local folder holding the exact files to upload to R2 (outside the repository)",
+  "assets": [
+    { "id": "tex-day-8k", "title": "Earth day texture, 8k", "tier": "repo", "path": "textures/hd/earth-day-8k.jpg", "r2": "textures/hd/earth-day-8k.jpg", "licence": "Public domain (NASA Earth Observatory)", "source": "src-nasa-imagery" },
+    { "id": "tex-day-2k", "title": "Earth day texture, 2k (lite)", "tier": "repo", "path": "textures/hd/earth-day-2k.jpg", "licence": "Public domain (NASA Earth Observatory)", "source": "src-nasa-imagery" },
+    { "id": "tex-night-4k", "title": "Night lights, 4k", "tier": "repo", "path": "textures/hd/earth-night-4k.jpg", "r2": "textures/hd/earth-night-4k.jpg", "licence": "Public domain (NASA)", "source": "src-nasa-imagery" },
+    { "id": "tex-water-4k", "title": "Water mask, 4k", "tier": "repo", "path": "textures/hd/earth-water-4k.png", "r2": "textures/hd/earth-water-4k.png", "licence": "Public domain (Natural Earth)", "source": "src-natural-earth" },
+    { "id": "video-atlas", "title": "Atlas walkthrough (full quality)", "tier": "large", "r2": "walkthrough/atlas-walkthrough.mp4", "staged": "walkthrough/atlas-walkthrough.mp4", "fallback": "walkthrough/atlas-walkthrough-720p.mp4", "licence": "Same as the app (see LICENSE); imagery NASA, data as credited in DATA.md" },
+    { "id": "video-ships", "title": "Ships and the Ship's Log", "tier": "repo", "path": "walkthrough/seaglobe-ships.mp4", "licence": "Same as the app (see LICENSE)" },
+    { "id": "video-air", "title": "Air layer walkthrough", "tier": "repo", "path": "walkthrough/air-layer-walkthrough.mp4", "licence": "Same as the app (see LICENSE)" },
+    { "id": "data-regions", "title": "Region packs (Natural Earth countries, states, US counties, towns)", "tier": "repo", "path": "data/regions/", "licence": "Public domain (Natural Earth)", "source": "src-natural-earth" },
+    { "id": "data-gcat-slice", "title": "GCAT slice: counts, launch sites, notable craft", "tier": "repo", "path": "data/space/gcat.js", "licence": "CC BY 4.0 (GCAT, J. McDowell)", "source": "src-gcat" },
+    { "id": "data-airports", "title": "Air hubs (OurAirports slice)", "tier": "repo", "path": "data/places/airports.js", "licence": "Public domain (OurAirports)", "source": "src-ourairports" },
+    { "id": "data-gcat-satcat", "title": "GCAT full satellite catalogue (satcat.tsv), for download", "tier": "large", "r2": "data/gcat/satcat.tsv", "staged": "data/gcat/satcat.tsv", "licence": "CC BY 4.0 (GCAT, J. McDowell)", "source": "src-gcat" },
+    { "id": "data-gcat-launchlog", "title": "GCAT orbital launch log (launchlog.tsv), for download", "tier": "large", "r2": "data/gcat/launchlog.tsv", "staged": "data/gcat/launchlog.tsv", "licence": "CC BY 4.0 (GCAT, J. McDowell)", "source": "src-gcat" },
+    { "id": "tour-narration", "title": "Recorded tour narration (planned)", "tier": "large", "planned": true, "licence": "[UNKNOWN] (not made yet)", "note": "Tours are read by the browser's own speech voice until recorded files exist." },
+    { "id": "dem-terrain", "title": "Terrain elevation tiles (planned)", "tier": "large", "planned": true, "licence": "[UNKNOWN] (source not chosen)", "note": "Not made; no terrain relief is shown." }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+ "version": "3.0.0",
+ "assets": [
+  {
+   "id": "tex-day-8k",
+   "title": "Earth day texture, 8k",
+   "tier": "repo",
+   "path": "textures/hd/earth-day-8k.jpg",
+   "r2": "textures/hd/earth-day-8k.jpg",
+   "licence": "Public domain (NASA Earth Observatory)",
+   "source": "src-nasa-imagery",
+   "bytes": 4136600,
+   "sha256": "fbf2ea856b9b0ac0e672ebb0154893a901e2b976a72bc1e29dbe9a1597c2ee81"
+  },
+  {
+   "id": "tex-day-2k",
+   "title": "Earth day texture, 2k (lite)",
+   "tier": "repo",
+   "path": "textures/hd/earth-day-2k.jpg",
+   "licence": "Public domain (NASA Earth Observatory)",
+   "source": "src-nasa-imagery",
+   "bytes": 313226,
+   "sha256": "a53b8b0b038f1bbb67f63ece3dd4c4073a3b06fd69bb57c8430972d29865de11"
+  },
+  {
+   "id": "tex-night-4k",
+   "title": "Night lights, 4k",
+   "tier": "repo",
+   "path": "textures/hd/earth-night-4k.jpg",
+   "r2": "textures/hd/earth-night-4k.jpg",
+   "licence": "Public domain (NASA)",
+   "source": "src-nasa-imagery",
+   "bytes": 469071,
+   "sha256": "20b16fa2247682ca9b2f1a8c1b2683c38b4b475fb341c65735c4920b4735806b"
+  },
+  {
+   "id": "tex-water-4k",
+   "title": "Water mask, 4k",
+   "tier": "repo",
+   "path": "textures/hd/earth-water-4k.png",
+   "r2": "textures/hd/earth-water-4k.png",
+   "licence": "Public domain (Natural Earth)",
+   "source": "src-natural-earth",
+   "bytes": 369037,
+   "sha256": "ec5028fed9c6207bb5b4215ece9a7145ecfe2b234df4916e1bf360333d930a87"
+  },
+  {
+   "id": "video-atlas",
+   "title": "Atlas walkthrough (full quality)",
+   "tier": "large",
+   "r2": "walkthrough/atlas-walkthrough.mp4",
+   "fallback": "walkthrough/atlas-walkthrough-720p.mp4",
+   "licence": "Same as the app (see LICENSE); imagery NASA, data as credited in DATA.md",
+   "fallback_bytes": 42512066,
+   "fallback_sha256": "ffa3beeb93ba6eac4a4c343e4f84f1dbcfdfb86251dc9d2b01794f9335b0e240",
+   "bytes": 103443453,
+   "sha256": "01c10324d2b1cb26b5e7cbada6221f09b515e1bf4aaff526d586c607ab5df8aa"
+  },
+  {
+   "id": "video-ships",
+   "title": "Ships and the Ship's Log",
+   "tier": "repo",
+   "path": "walkthrough/seaglobe-ships.mp4",
+   "licence": "Same as the app (see LICENSE)",
+   "bytes": 10741220,
+   "sha256": "6dec2627ac0f6e80f50c68324d575297ea374e00283170fba6c6307239e1fe86"
+  },
+  {
+   "id": "video-air",
+   "title": "Air layer walkthrough",
+   "tier": "repo",
+   "path": "walkthrough/air-layer-walkthrough.mp4",
+   "licence": "Same as the app (see LICENSE)",
+   "bytes": 35051770,
+   "sha256": "1e444667dea1e0455b14b03b076fd08c73d86b8f20c37aec09122df169d53b4b"
+  },
+  {
+   "id": "data-regions",
+   "title": "Region packs (Natural Earth countries, states, US counties, towns)",
+   "tier": "repo",
+   "path": "data/regions/",
+   "licence": "Public domain (Natural Earth)",
+   "source": "src-natural-earth",
+   "files": 289,
+   "bytes": 5453456
+  },
+  {
+   "id": "data-gcat-slice",
+   "title": "GCAT slice: counts, launch sites, notable craft",
+   "tier": "repo",
+   "path": "data/space/gcat.js",
+   "licence": "CC BY 4.0 (GCAT, J. McDowell)",
+   "source": "src-gcat",
+   "bytes": 18609,
+   "sha256": "1aa2f7eab14362bbb0e4b7957e266d09dc33b1d6161a89617cf94af7f6fbf801"
+  },
+  {
+   "id": "data-airports",
+   "title": "Air hubs (OurAirports slice)",
+   "tier": "repo",
+   "path": "data/places/airports.js",
+   "licence": "Public domain (OurAirports)",
+   "source": "src-ourairports",
+   "bytes": 117816,
+   "sha256": "ec3125cd11b8bec89ef7cfeef03fb20f4a337e8229fe653ace6c5fbcca3ec3c6"
+  },
+  {
+   "id": "data-gcat-satcat",
+   "title": "GCAT full satellite catalogue (satcat.tsv), for download",
+   "tier": "large",
+   "r2": "data/gcat/satcat.tsv",
+   "licence": "CC BY 4.0 (GCAT, J. McDowell)",
+   "source": "src-gcat",
+   "bytes": 19298204,
+   "sha256": "12f803553030e86ee44d29fd9c7ea76092ecc55c09f31fc227d447d0e25e16a4"
+  },
+  {
+   "id": "data-gcat-launchlog",
+   "title": "GCAT orbital launch log (launchlog.tsv), for download",
+   "tier": "large",
+   "r2": "data/gcat/launchlog.tsv",
+   "licence": "CC BY 4.0 (GCAT, J. McDowell)",
+   "source": "src-gcat",
+   "bytes": 5297324,
+   "sha256": "46fee43f66c53181da238ccd11903d65803b2f5d52f0b4214970da19725152d5"
+  },
+  {
+   "id": "tour-narration",
+   "title": "Recorded tour narration (planned)",
+   "tier": "large",
+   "planned": true,
+   "licence": "[UNKNOWN] (not made yet)",
+   "note": "Tours are read by the browser's own speech voice until recorded files exist."
+  },
+  {
+   "id": "dem-terrain",
+   "title": "Terrain elevation tiles (planned)",
+   "tier": "large",
+   "planned": true,
+   "licence": "[UNKNOWN] (source not chosen)",
+   "note": "Not made; no terrain relief is shown."
+  }
+ ]
+}

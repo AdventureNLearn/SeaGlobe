@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SeaGlobe videos</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: #02040c; color: #eaf6ff;
+      max-width: 980px; margin-left: auto; margin-right: auto; padding: 32px 20px 64px; line-height: 1.5; }
+    a { color: #5ee7ff; }
+    h1 { font-weight: 650; letter-spacing: .02em; }
+    h1 b { color: #5ee7ff; }
+    .tag { color: #7f93ad; margin: -8px 0 24px; }
+    .clip { margin: 0 0 36px; }
+    video { width: 100%; height: auto; background: #000; border: 1px solid rgba(94,231,255,.24); }
+    figcaption { color: #b3c6de; font-size: 14px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <p><a href="./">Open the SeaGlobe atlas</a></p>
+  <h1>Sea<b>Globe</b> videos</h1>
+  <p class="tag">Rendered from the app. No music. Earth imagery: NASA Earth Observatory (public domain). Made with Natural Earth.</p>
+<!--VIDEOS-->
+  <p class="credit">Built by AdventureNLearn · <a href="https://x.com/AdventureNLearn" target="_blank" rel="noopener noreferrer">@AdventureNLearn</a> · <span data-sg-version></span></p>
+  <p>Captions: <a href="walkthrough/CAPTIONS.md">walkthrough/CAPTIONS.md</a>. Vehicle sheet: <a href="screens/v2.1-all-vehicles.png">screens/v2.1-all-vehicles.png</a>.</p>
+  <script src="data/edition.js"></script>
+  <script src="js/version.js"></script>
+  <script src="data/assets.js"></script>
+  <script src="js/assets.js"></script>
+  <script>document.querySelectorAll("video[data-asset]").forEach(function (v) { if (window.SeaAssets && window.SeaAssets.status(v.dataset.asset) === "r2") window.SeaAssets.video(v, v.dataset.asset); });
+    var V = window.SEAGLOBE_VERSION; document.querySelectorAll("[data-sg-version]").forEach(function (e) { e.textContent = V ? "v" + V.version : ""; });</script>
+</body>
+</html>

@@ -144,3 +144,15 @@ are added (see BACKLOG.md, v2.2).
 - Voyages with a named ship or aircraft: `vessel` = { name, facts, history, story, content_citations }.
 - `web/data/content.js`: `SEAGLOBE_DATA.vehicle_info[<vehicle id>]` = { summary, history, story, facts, content_citations } for all 26 vehicle types in `schema.js`.
 - The voyage card shows these in its existing notes and citation lines. Ship's Log search covers history, story and ship names, and the CSV gains `history`, `story` and `content_citations` columns. Nothing in the layout changed.
+
+## v3.0 atlas data
+
+| Data | Files | Source and licence | Built by |
+|---|---|---|---|
+| Regions: countries, admin-1 (states/provinces), US counties, towns | `web/data/regions/` | Natural Earth 1:110m / 1:50m / 1:10m, public domain. Coordinates rounded (2 decimals for countries, 3 below). | `tools/build_regions.py` |
+| Live US town boundaries (opt-in, not bundled) | fetched at run time; fixtures in `tests/fixtures/live/` | U.S. Census Bureau TIGERweb, layer 4 of `Places_CouSub_ConCity_SubMCD`. Health check first; skipped with a message when down. | `web/js/regions.js` |
+| Airports (1,197) for the hubs layer and encyclopedia | `web/data/places/airports.js` | OurAirports slice, public domain; rows named "(Duplicate)…" are skipped | `tools/build_places.py` |
+| Space: launch sites (75), yearly payload counts, 14 notable objects | `data/sources/gcat/`, `web/data/space/gcat.js`, `web/data/space/content.js` | GCAT (J. McDowell, planet4589.org/space/gcat), CC BY 4.0, release 1.8.9 (data update 13 Nov 2026). Orbit rings are illustrative (inclination and mean altitude), not live positions. The full catalogue and launch log are R2 assets. | `tools/build_gcat.py`, `tools/content_space.py` |
+| Tours | `web/data/tours.js` | Stops are entry ids; narration is the entries' own cited text | hand-written |
+| Radio | `web/data/radio.js` | Playlist and link URLs from the official pages, read 14 Nov 2026. No audio is hosted. | hand-written |
+| Large assets | `data/assets.json` → `web/data/assets.js`, `web/assets.json` | Each asset has a bundled path or Pages fallback and, where large, an R2 key; R2 is not configured in this build | `tools/build_assets.py` |

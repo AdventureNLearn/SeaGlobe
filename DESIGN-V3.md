@@ -115,4 +115,4 @@ One codebase, one data set. The edition is a **quality tier**, not a fork.
 8. Remaining glTF models type by type; performance pass per tier on typical desktop hardware ([UNKNOWN] until measured).
 9. Re-render walkthrough videos (full edition), lite package for Grok.me, release.
 
-Each phase ends with tests green, a screenshot set, a CHANGES.md line and a local commit.
+Each phase ends with tests green, a screenshot set, a CHANGELOG.md line and a local commit.

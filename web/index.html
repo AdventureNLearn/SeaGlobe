@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.youtube.com http://127.0.0.1:* http://localhost:*; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://127.0.0.1:* http://localhost:*; media-src 'self' blob: http://127.0.0.1:* http://localhost:*; font-src 'self'; connect-src 'self' data: blob: https://adventurenlearn.github.io https://tigerweb.geo.census.gov http://127.0.0.1:* http://localhost:* https://api.x.ai; frame-src https://www.youtube-nocookie.com https://www.youtube.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>SeaGlobe — routes of the world, 500 BCE to today</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="v3.css">
 </head>
 <body>
   <div id="globe" class="globe" role="img" aria-label="Interactive globe of historical routes with moving vehicles"></div>
@@ -31,7 +33,7 @@
     </div>
     <div class="badges">
       <span class="badge sample" title="Seed data, not a complete atlas">Sample</span>
-      <span class="offline" title="No network calls. Everything is local.">Offline</span>
+      <span class="offline" title="Works offline. The only automatic request is a read-only version check; live layers, chat and feeds run only if you switch them on.">Offline</span>
       <span class="offline lite" id="liteBadge" hidden>Lite</span>
     </div>
   </header>
@@ -63,6 +65,7 @@
           <div class="row actions">
             <button class="btn" id="followBtn" aria-pressed="false">Follow camera</button>
             <button class="btn ghost" id="clearBtn">Clear</button>
+            <button class="btn ghost" data-listen="card" aria-pressed="false" title="Read this card aloud">Listen</button>
           </div>
           <dl class="facts">
             <dt>Years</dt><dd id="dYears"></dd>
@@ -101,7 +104,7 @@
         <ul class="deeper" id="deeperList"></ul>
       </section>
     </div>
-    <footer class="pfoot" id="pfoot">Made with Natural Earth. Earth imagery: NASA (public domain). CLIWOC logbook sample CC BY 3.0. See DATA.md.</footer>
+    <footer class="pfoot" id="pfoot">Made with Natural Earth. Earth imagery: NASA (public domain). CLIWOC logbook sample CC BY 3.0. Space data: GCAT (CC BY 4.0). See DATA.md.<span class="credit">Built by AdventureNLearn · <a href="https://x.com/AdventureNLearn" target="_blank" rel="noopener noreferrer">@AdventureNLearn</a></span><span class="vline"><a href="#/about">About</a> · <span data-sg-version></span></span></footer>
   </aside>
 
   <section class="timeline glass" id="timeline">
@@ -139,10 +142,16 @@
   <div class="card" id="card" hidden></div>
   <div class="fakecursor" id="fakecursor" hidden></div>
   <div class="tooltip" id="tooltip" hidden></div>
+  <div class="updatenotice glass" id="updateNotice" role="status" hidden></div>
 
   <script src="vendor/globe.gl.min.js"></script>
   <script src="vendor/three.global.js"></script>
   <script src="vendor/three-addons.global.js"></script>
+  <script src="data/edition.js"></script>
+  <script src="js/version.js"></script>
+  <script src="data/assets.js"></script>
+  <script src="js/assets.js"></script>
+  <script src="js/update.js"></script>
   <script src="data/schema.js"></script>
   <script src="data/routes/index.js"></script>
   <script src="data/deeper.js"></script>
@@ -152,6 +161,20 @@
   <script src="js/voyages.js"></script>
   <script src="js/vehicles.js"></script>
   <script src="js/planet.js"></script>
+  <script src="data/places/airports.js"></script>
+  <script src="data/space/gcat.js"></script>
+  <script src="data/space/content.js"></script>
+  <script src="data/tours.js"></script>
+  <script src="data/radio.js"></script>
+  <script src="js/atlas.js"></script>
+  <script src="js/encyclopedia.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/regions.js"></script>
+  <script src="js/sky.js"></script>
+  <script src="js/listen.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/radio.js"></script>
+  <!--BYO-->
   <script src="js/app.js"></script>
   <script src="js/mobile.js"></script>
 </body>

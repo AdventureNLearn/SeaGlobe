@@ -13,7 +13,7 @@
    "name": "BOAC Comet, first jetliner passenger service, London to Johannesburg, 1952",
    "start_date": "1952-05-02",
    "end_date": "1952-05-02",
-   "vehicle": "jet",
+   "vehicle": "comet",
    "goods": [
     "passengers"
    ],
@@ -442,7 +442,7 @@
    "name": "Concorde, first British Airways service, London to Bahrain, 1976",
    "start_date": "1976-01-21",
    "end_date": "1976-01-21",
-   "vehicle": "jet",
+   "vehicle": "concorde",
    "goods": [
     "passengers"
    ],
@@ -461,7 +461,7 @@
      50.638
     ]
    ],
-   "notes": "Concorde entered service on 21 January 1976 with British Airways from London Heathrow and Air France from Paris. London–Bahrain is among the BA routes the source lists. The jet model is a generic stand-in, not a Concorde.",
+   "notes": "Concorde entered service on 21 January 1976 with British Airways from London Heathrow and Air France from Paris. London–Bahrain is among the BA routes the source lists. The Concorde model is an artistic impression.",
    "schedule": {
     "kind": "dated",
     "voyages": [
@@ -526,7 +526,7 @@
    "name": "Concorde, first Air France service, Paris to Rio via Dakar, 1976",
    "start_date": "1976-01-21",
    "end_date": "1976-01-21",
-   "vehicle": "jet",
+   "vehicle": "concorde",
    "goods": [
     "passengers"
    ],
@@ -549,7 +549,7 @@
      -43.251
     ]
    ],
-   "notes": "Air France's first Concorde service left Paris-Roissy on 21 January 1976; Paris–Dakar–Rio de Janeiro is among the Air France routes the source lists. Rio is drawn at Galeão. The jet model is a generic stand-in, not a Concorde.",
+   "notes": "Air France's first Concorde service left Paris-Roissy on 21 January 1976; Paris–Dakar–Rio de Janeiro is among the Air France routes the source lists. Rio is drawn at Galeão. The Concorde model is an artistic impression.",
    "schedule": {
     "kind": "dated",
     "voyages": [
@@ -615,7 +615,7 @@
    "name": "Concorde, London to New York JFK, 1977–2003",
    "start_date": "1977-10-17",
    "end_date": "2003-10-24",
-   "vehicle": "jet",
+   "vehicle": "concorde",
    "goods": [
     "passengers"
    ],
@@ -634,7 +634,7 @@
      -73.779
     ]
    ],
-   "notes": "Concorde flew to New York JFK from 17 October 1977; the average supersonic transatlantic flight took just under 3.5 hours. British Airways retired its Concorde fleet on 24 October 2003. Service gaps (for example after the July 2000 crash, until 7 November 2001) are not shown. Display pace slowed so the aircraft can be seen. The jet model is a generic stand-in, not a Concorde.",
+   "notes": "Concorde flew to New York JFK from 17 October 1977; the average supersonic transatlantic flight took just under 3.5 hours. British Airways retired its Concorde fleet on 24 October 2003. Service gaps (for example after the July 2000 crash, until 7 November 2001) are not shown. Display pace slowed so the aircraft can be seen. The Concorde model is an artistic impression.",
    "schedule": {
     "kind": "traffic",
     "label": "Concorde (British Airways)",
@@ -677,7 +677,7 @@
    "name": "Concorde, Paris to New York JFK, 1977–2003",
    "start_date": "1977-10-17",
    "end_date": "2003-05-30",
-   "vehicle": "jet",
+   "vehicle": "concorde",
    "goods": [
     "passengers"
    ],
@@ -696,7 +696,7 @@
      -73.779
     ]
    ],
-   "notes": "Paris–New York is among the Air France Concorde routes; the source dates Concorde service to JFK from 17 October 1977 without naming the airline, so Air France's own start date is [UNKNOWN] here. Air France flew its last commercial Concorde flight on 30 May 2003. The jet model is a generic stand-in, not a Concorde.",
+   "notes": "Paris–New York is among the Air France Concorde routes; the source dates Concorde service to JFK from 17 October 1977 without naming the airline, so Air France's own start date is [UNKNOWN] here. Air France flew its last commercial Concorde flight on 30 May 2003. The Concorde model is an artistic impression.",
    "schedule": {
     "kind": "traffic",
     "label": "Concorde (Air France)",

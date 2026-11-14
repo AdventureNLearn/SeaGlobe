@@ -96,7 +96,9 @@ try {
       // v2.3: the Ship's Log lists every record, so the 26 air corridors add 26 data rows (#log-N) and the record
       // count text is a few tenths of a pixel wider. Rows are counted, not compared; every other box,
       // font, colour and transform must still match the v2.2.1 baseline exactly.
-      const ROW = /^#log-(\d+)(>|$)/, ADDED_ROWS = 26;
+      // v3.0: the baseline was regenerated on purpose (--write-fixture) for the new top-bar buttons (Go deeper,
+      // Radio) and the footer credit and version line; the desktop layout is otherwise compared exactly as before.
+      const ROW = /^#log-(\d+)(>|$)/, ADDED_ROWS = 0;
       const COUNT_TEXT = new Set(["#logCount", "#log>div.loghead:0>div:0", "#log>div.loghead:0>div:0>div.kicker:0"]);
       const norm = (k, v) => (v && COUNT_TEXT.has(k) ? v.split(" ").filter((_, i) => i !== 2).join(" ") : v);
       const rows = (o) => new Set(Object.keys(o).map((k) => (ROW.exec(k) || [])[1]).filter(Boolean)).size;

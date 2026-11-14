@@ -15,3 +15,4 @@ data/sources/cliwoc/pangaea-750354.metadata.json
 
 # local GitHub Pages assembly (tools/assemble_pages.sh)
 _site/
+release/

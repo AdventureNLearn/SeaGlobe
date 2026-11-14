@@ -1,4 +1,41 @@
-# Changes
+# Changelog
+
+## v3.0.0 (2026-11-14) — atlas framework
+
+- **Encyclopedia ("Go deeper")**: every vehicle, route, place, region and space entry in one searchable panel, with
+  Browse, Ask and About tabs, a Listen button on entries and "show on globe".
+- **Regions drill-down**: countries, US states, counties and towns from Natural Earth packs that load as you zoom, a
+  breadcrumb chip for the view centre, and an opt-in live layer of US places from the Census TIGERweb service (health
+  check first; skipped with a message when it is down).
+- **Map tools**: airport hubs layer (1,197 airports from OurAirports), distance measuring in km / mi / nmi,
+  a coordinates readout and a print view of any entry.
+- **Space layer**: 75 launch sites and yearly payload counts from GCAT (CC BY), satellite counts scaled to the
+  catalogue, and illustrative orbit rings (inclination and mean altitude; not live positions).
+- **Guided tours with narration**: eras, air and space tours read from the entries' own text by the browser's speech
+  voice, with captions; `?mute=1` gives captions only.
+- **Grounded chat (Ask)**: answers only from the atlas entries it retrieves and cites them; anything it cannot ground
+  is [UNKNOWN]. Runs through an optional chat Worker (not deployed), the owner's own key on a PC (BYO edition), or is
+  shown as offline.
+- **Creedence Clearwater Revival Radio**: the official "Chronicle: The 20 Greatest Hits" YouTube playlist in a
+  standard embed that loads only when you click, plus two outside-site links. SeaGlobe hosts no audio.
+- **Editions**: full (`index.html`), lite (`lite.html`, the Grok.me build) and BYO (`byo.html`, PC only, your own TLE
+  and receiver feeds). A Content-Security-Policy is generated for each page from `data/csp.json`.
+- **Version check and update path**: `version.json`, a read-only check against the public site (short timeout, silent
+  offline) and an update notice; large assets can come from an R2 base URL with Pages fallbacks.
+- **Vehicle models**: the jet's tail was backwards (the fins swept forward) and the wing-tip navigation lights were on
+  the wrong sides; both fixed. New parametric aircraft: generic jet, de Havilland Comet, Concorde (droop nose),
+  Boeing 747 (hump forward, four podded engines), DC-3, piston airliner and Wright Flyer (canard forward, pushers aft),
+  with landing gear near airports, spinning propellers and banking in turns. Steamship lifeboats and portholes. Close-up
+  detail is a separate level of detail; the lite build leaves it out. Routes round their corners over 20 km so the nose
+  follows the course (tests/test_models.mjs checks every moving model within 5 degrees).
+- **Credit**: "Built by AdventureNLearn" in the footer, the About tab and the README.
+
+### Known gaps in v3.0.0
+
+- The videos page still shows the earlier walkthroughs (atlas, ships, air). They were recorded before v3.0, so they show
+  the older aircraft models and do not cover the v3.0 features. New narrated walkthroughs are scripted in
+  `tools/video/features/` and will be recorded in a later release.
+- The full-quality atlas walkthrough is an asset-store (R2) file; until it is uploaded, the page plays the 1280×720 copy.
 
 ## v2.3 (2026-11-14) — air layer, 1903 to today
 

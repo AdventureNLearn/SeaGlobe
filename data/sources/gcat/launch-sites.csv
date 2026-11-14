@@ -1,0 +1,76 @@
+code,name,short,state,location,lat,lon,launches,first,last
+NIIP-53,"53-y Nauchno-Issledovatelskiy Ispitatelniy Poligon,",Plesetsk,SU,Plesetsk,62.9,40.5,1414,1966,1992
+CC,"Cape Canaveral Air Station, Florida",Canaveral,US,-,28.46,-80.54,1108,1957,2026
+NIIP-5,"NIIP-5, Baykonur, Kazakstan",Baykonur,SU,-,46.0,63.0,894,1957,2026
+GIK-5,"GIK-5, Baykonur, Kazakstan",Baykonur,RU,-,46.0,63.0,670,1989,2026
+VS,"South Vandenberg AFB, California",Vandenberg,US,-,34.63,-120.61,353,1964,2026
+CSG,"Centre Spatial Guyanais, Kourou, Guyane Francaise",Kourou,GUF,-,5.233,-52.752,336,1970,2026
+V,"Vandenberg AFB, California",Vandenberg,US,-,34.75,-120.62,314,1959,2018
+JQ,"Jiuquan Space Center, Nei Monggol Zizhiqu, China",Jiuquan,CN,-,41.31,100.31,303,1970,2026
+KSC,"NASA John F. Kennedy Space Center, Florida",Kennedy,US,-,28.608,-80.604,282,1967,2026
+XSC,"Xichang Space Center (Songlin), Sichuan, China",Xichang,CN,-,28.247,102.029,243,1984,2026
+GIK-1,1-y Gosudarstvenniy Ispitatelniy Kosmodrom MO RF,Plesetsk,RU,"Plesetsk, Rossiya",62.9,40.5,232,1994,2026
+VSFBS,"South Base, Vandenberg Space Force Base, California",Vandenberg,US,-,34.63,-120.61,226,2021,2026
+TYSC,Taiyuan weixing fashe zhongxin,Taiyuan,CN,"Wuzhai, Shanxi, China",38.85,111.6,162,1988,2026
+SHAR,"Satish Dhawan Space Ctr, Sriharikota, Andhra Pradesh, India",Sriharikota,IN,-,13.621,80.303,103,1979,2026
+TNSC,"Tanegashima Space Center, Tanegashima, Nippon",Tanegashima,J,-,30.4,130.97,100,1975,2026
+GTsP-4,"GTsP-4, Kapustin Yar, Volgograd, Rossiya",Kapustin Yar,SU,-,48.5,45.8,99,1961,1987
+MAHIA,"Rocket Lab Launch Complex 1, Onenui Station, Mahia Peninsula",Mahia,NZ,"Mahia Peninsula, N Island",-39.261,177.865,86,2017,2026
+WEN,"Wenchang Space Center, Hainan",Wenchang,CN,-,19.614,110.951,51,2016,2026
+PA,"Naval Missile Facility, Point Arguello, California",Pt Arguello,US,-,34.62,-120.6,43,1960,1964
+GNIIPV,"GNIIP, VKS section, Plesetsk, Rossiya",Plesetsk,RU,-,62.9,40.5,40,1993,1994
+KLA,"Sea Launch Kiritimati Launch Area, Pacific Ocean",Kirimati,KI,-,0.0,-154.0,36,1999,2014
+KASC,"Kagoshima Space Center, Kagoshima, Kyushu, Nippon",Kagoshima,J,-,31.25,131.079,35,1966,2006
+MARS,"Mid-Atlantic Regional Spaceport, Wallops Island, Virginia",Wallops MARS,US,-,37.83,-75.48,31,2006,2026
+HCSLS,Hainan Shangye Hangtian Fashe Chang (Hainan Commercial Space Launch Site),Hainan CLS,CN,"Wenchang, Hainan",19.597,110.931,26,2024,2026
+WI,"Wallops Flight Facility, Wallops Island, Virginia",Wallops I,US,-,37.83,-75.48,22,1960,1995
+VOST,"Vostochniy, Svobodniy, Amurskaya Oblast', Rossiya",Vostochniy,RU,-,51.7,128.0,21,2016,2025
+HHAI,Huang Hai CZ-11 launch zone,Huang Hai,CN,-,34.9,121.19,21,2019,2026
+SEM,"Semnan missile launch site, Iran",Semnan,IR,-,35.235,53.921,15,2008,2025
+STB,"Starbase, Boca Chica Beach, Texas",Starbase,US,-,25.996,-97.154,14,2023,2026
+PALB,"Israeli Air Force Test Range, Palmachim Beach, Israel",Palmachim,IL,-,31.9,34.7,13,1988,2025
+KMR,"US Army Kwajalein Atoll (USAKA), Marshall Islands",Kwajalein,TTPI,-,8.992,167.72,10,2000,2026
+YAS,"Yasniy site, Dombarovskiy Air Base, Orensburgskaya Oblast', Rossiya",Yasniy,RU,-,50.75,59.5,10,2006,2015
+SMLC,"San Marco Launch Complex, Formosa Bay, Kenya",San Marco,KE,-,-2.941,40.213,9,1967,1988
+NARO,"Naro Space Center (Naro Uju Senteo),Oenaro I,GoHeung, Jeollanam-do,Korea",Naro,KR,-,34.432,127.536,8,2009,2026
+USC,"Uchinoura Space Center, Kagoshima (formerly Kagoshima)",Uchinoura,J,-,31.25,131.079,8,2013,2022
+VSFB,"Vandenberg Space Force Base, California",Vandenberg,US,-,34.75,-120.62,8,2021,2026
+SOHAE,"Sohae Launch Site, Tongch'ang-dong, Pyongang-bukdo (N Pyongan Prov), N Korea",Tonghae,KP,-,39.66,124.706,7,2012,2024
+NOTS,"Naval Ordnance Test Station, China Lake, California",China Lake,US,-,35.58,-117.17,6,1958,1958
+WOO,"Woomera Instrumented Range, Woomera, South Australia",Woomera,AU,-,-30.925,136.5,6,1967,1971
+WIMB,"Wallops Island Main Base, NASA Wallops Flight Facility, Chincoteague, Virginia",Wallops I,US,"Chincoteague, Virginia",37.938,-75.463,6,1996,1999
+SHAHR,"Imam Reza Space Ctr, Damghan (Shahroud), Iran (Dasht-E-Kabir?)",Shahroud,IR,-,36.23,55.33,6,2020,2024
+PSCA,"Pacific Spaceport Complex Alaska, Kodiak Island, Alaska",Kodiak,US,-,57.436,-152.338,6,2020,2023
+YJ,Yangjiang launch area,Yangjiang,CN,South China Sea,21.28,112.0,6,2023,2026
+EAFB,"Edwards AFB, California",Edwards AFB,US,-,34.9,-117.8,5,1990,1994
+GIK-2,"GIK-2, Svobodniy, Amurskaya Oblast', Rossiya",Svobodniy,RU,-,51.79,128.19,5,1997,2006
+MHV,"Mojave Spaceport, California",Mojave,US,-,35.049,-118.136,5,2020,2022
+HMG,"Centre Interarmees d'Essais d'Engins Speciaux (CIEES), Algerie",Hammaguir,DZ,-,30.887,-3.083,4,1965,1967
+ALCA,"CLA, Alcantara Space Center",Alcantara,BR,"Alcantara, Maranhao, Brasil",-2.317,-44.367,3,1997,2025
+BLA,"Barents Launch Area, Barentsovo More, Murmansk Oblast'  (Os. Kildin)",Barents Sea,SU,Barents Sea,70.0,34.0,3,1998,2006
+KLC,"Kodiak Launch Complex, Kodiak Island, Alaska",Kodiak,US,-,57.436,-152.338,3,2001,2011
+SPFLA,"Space Florida, Cape Canaveral",Canaveral,US,-,28.458,-80.527,3,2017,2022
+KII,"Spaceport Kii, Kanagawa",Kii,J,-,33.544,135.889,3,2024,2026
+GNIIP,"GNIIP, Plesetsk, Rossiya",Plesetsk,RU,-,63.0,41.1,2,1993,1995
+SPFL,"Spaceport Florida, Cape Canaveral",Spaceport Florida,US,-,28.458,-80.527,2,1998,1999
+TONGH,"Tonghae SLG, Musudan-ri, Hwadae-gun, Hamgyong Pukdo, Choson",Tonghae,KP,-,40.85,129.667,2,1998,2009
+GTsMP-4,"GTsMP-4 MO RF, Znamensk (Kapustin Yar), Rossiya",Kapustin Yar,SU,-,48.5,45.8,2,1999,2008
+AND,"Andoya Rocket Range, Andoy, Nordland, Norge",Andoya,N,"Andoya, Nordland",69.294,16.021,2,2025,2026
+ECS,East China Sea launch zone,East China Sea,CN,-,31.2,123.7,2,2026,2026
+TRAN,"LM 5 DS, Tranquility Base, Mare Tranquillitatis, Julius Caesar C4",TRAN  LM5-DS,LUNA,Luna,0.69,23.43,1,1969,1969
+SV3,"LM6 Descent Stage, Surveyor 3 Site, Mare Insularum, Montes Riphaeus A2",SV3   LM6-DS,LUNA,Luna,-3.2,23.38,1,1969,1969
+FEC,"KT No. 406, Luna-16 Site, Mare Fecunditatis, Langrenus A2",FEC   KT-406,LUNA,Luna,-0.68,56.3,1,1970,1970
+FMR,"LM 8 Descent Stage, Fra Mauro Base, Fra Mauro, Montes Riphaeus B1",FMR   LM8-DS,LUNA,Luna,-3.67,-19.27,1,1971,1971
+HAD,"LM 10 Descent Stage, Hadley Base, Montes Apenninus, Montes Apenninus B4",HAD   LM10-DS,LUNA,Luna,26.08,3.66,1,1971,1971
+APC,"KT No. 408, Luna-20 Site, Apollonius C, Mare Undarum B3",Apollonius C,LUNA,Luna,3.53,56.55,1,1972,1972
+DES,"LM 11 Descent Stage, Descartes Base, Descartes Plain, Theophilus D2",DES   LM11-DS,LUNA,Luna,-8.9,15.51,1,1972,1972
+LIT,"LM 12 Descent Stage, Taurus-Littrow Base, Littrow Valley, Macrobius B1",LIT   LM12-DS,LUNA,Luna,20.16,30.75,1,1972,1972
+CRI24,"KT No. 413, Luna-24 Site, Mare Crisium, Mare Undarum B1",CRI24 KT-413,LUNA,Luna,12.75,62.2,1,1976,1976
+GANC,"Base Aerea de Gando, Gran Canaria",Gando,ESCN,-,27.92,-15.32,1,1997,1997
+KAU,"Kauai Test Facility (KTF), Barking Sands, Kauai",Kauai,US,-,22.058,-159.777,1,2015,2015
+LOMN,"Chang'e-5 Zhuolu Qi, Louville Omega North region, Oceanus Procellarum",Louville Omega,LUNA,Luna,43.081,-51.933,1,2020,2020
+NEWQ,Cornwall Airport Newquay,Newquay,UK,"Newquay, Cornwall",50.441,-5.008,1,2023,2023
+JEJU,"Barge launch site, Jungmun, Jeju I.",Jeju,KR,Jeju I.,33.2,126.4,1,2023,2023
+APBS,"Chang'e-6 Zhuolu Qi, Apollo Basin South",Apollo Basin S,LUNA,Luna,-41.638,-153.986,1,2024,2024
+BOWEN,"Bowen Orbital Spaceport, Queensland",Bowen,AU,"Abbot Point, Queensland",-19.958,148.114,1,2025,2025
+SDSC,"Satish Dhawan Space Ctr, Sriharikota, Andhra Pradesh, India",Sriharikota,IN,-,13.621,80.303,1,2026,2026

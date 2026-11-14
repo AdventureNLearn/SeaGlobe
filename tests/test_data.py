@@ -114,8 +114,11 @@ class Hygiene(unittest.TestCase):
             t = p.read_text(encoding="utf-8", errors="ignore")
             if p.name in {"deeper.js", "texture.js"} or p.parent == FAM:
                 continue
-            for m in re.finditer(r"(src|href)\s*=\s*['\"](https?:)?//", t):
-                self.fail(f"remote src/href in {p.relative_to(ROOT)}")
+            for m in re.finditer(r"(src|href)\s*=\s*['\"]((https?:)?//[^'\"]*)", t):
+                # the one outside link in the interface is the author credit (a plain link, never fetched)
+                if m.group(1) == "href" and m.group(2) == "https://x.com/AdventureNLearn":
+                    continue
+                self.fail(f"remote src/href in {p.relative_to(ROOT)}: {m.group(2)}")
             self.assertNotRegex(t, r"fetch\(\s*['\"]https?://", p.name)
             self.assertNotRegex(t, r"@import\s+url\(\s*['\"]?https?://", p.name)
 

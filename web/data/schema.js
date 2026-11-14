@@ -51,7 +51,9 @@
     { id: "prop-airliner",  name: "Piston-engined airliner",    eras: ["industrial", "modern"],       type: "air" },
     { id: "wright-flyer",   name: "Wright Flyer (1903)",        eras: ["industrial"],                 type: "air" },
     { id: "dc-3",           name: "Douglas DC-3 / C-47",        eras: ["industrial", "modern"],       type: "air" },
+    { id: "comet",          name: "de Havilland Comet",         eras: ["modern"],                     type: "air" },
     { id: "boeing-747",     name: "Boeing 747",                 eras: ["modern"],                     type: "air" },
+    { id: "concorde",       name: "Concorde",                   eras: ["modern"],                     type: "air" },
     { id: "satellite",      name: "Satellite (decorative layer)", eras: ["modern"],                   type: "space" }
   ],
   // Fields every route record carries (see DATA.md).

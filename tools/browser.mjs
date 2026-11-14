@@ -33,14 +33,16 @@ export async function launch(w, h) {
   });
 }
 
-export async function openApp(browser, port, query) {
+export async function openApp(browser, port, query, file) {
   const page = await browser.newPage();
   page.setDefaultTimeout(180000);
   const errors = [];
   page.on("pageerror", (e) => errors.push(String(e)));
   page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });
   page.on("request", (r) => { const u = r.url(); if (!u.startsWith("http://127.0.0.1") && !u.startsWith("data:") && !u.startsWith("blob:")) errors.push("EXTERNAL REQUEST " + u); });
-  await page.goto(`http://127.0.0.1:${actualPort || port}/?${query}`, { waitUntil: "load" });
+  // the read-only version check is the one sanctioned outside request; tests turn it off unless they test it
+  const q = /(^|&)(update|updateurl)=/.test(query || "") ? query : (query ? query + "&" : "") + "update=0";
+  await page.goto(`http://127.0.0.1:${actualPort || port}/${file || ""}?${q}`, { waitUntil: "load" });
   await page.waitForFunction(() => document.documentElement.dataset.ready === "1" || document.documentElement.dataset.ready === "error", { timeout: 180000 });
   page._errors = errors;
   return page;

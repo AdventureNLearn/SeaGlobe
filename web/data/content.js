@@ -389,5 +389,35 @@
    "Wikipedia, “Boeing 747”, https://en.wikipedia.org/wiki/Boeing_747 (accessed 14 Nov 2026), and the sources cited there",
    "Wikipedia, “Qantas”, https://en.wikipedia.org/wiki/Qantas (accessed 14 Nov 2026), and the sources cited there"
   ]
+ },
+ "comet": {
+  "summary": "de Havilland Comet, the first jet airliner.",
+  "history": "The Comet made its maiden flight on 27 July 1949. Its four de Havilland Ghost turbojets were buried in the wing roots. On 2 May 1952 BOAC's Comet G-ALYP flew the world's first jetliner service with fare-paying passengers, London to Johannesburg.",
+  "story": "The model shows the Comet's layout: a swept wing with the engines inside the wing roots and a conventional tail. Proportions follow the published span (35 m) and length (28 m); livery and details are an artistic impression.",
+  "facts": {
+   "Maiden flight": "27 July 1949",
+   "Engines": "four de Havilland Ghost turbojets, in the wing roots",
+   "First jetliner service": "2 May 1952 (BOAC)",
+   "Span / length": "35 m / 28 m"
+  },
+  "content_citations": [
+   "Wikipedia, “De Havilland Comet”, https://en.wikipedia.org/wiki/De_Havilland_Comet (accessed 14 Nov 2026), and the sources cited there"
+  ]
+ },
+ "concorde": {
+  "summary": "Concorde supersonic airliner.",
+  "history": "Concorde first flew on 2 March 1969. It has an ogival delta wing, no horizontal tailplane, and a nose that droops for take-off and landing so the pilots can see the runway. Four Olympus 593 engines sit in pairs under the wing. Twenty aircraft were built, and British Airways and Air France retired it in 2003.",
+  "story": "The model shows the ogival delta, the paired engine nacelles and the hinged droop nose, which lowers near the ground. Proportions follow the published span (25.6 m) and length (61.7 m); livery and details are an artistic impression.",
+  "facts": {
+   "First flight": "2 March 1969",
+   "Wing": "ogival delta, no tailplane",
+   "Engines": "four Olympus 593, in pairs",
+   "Built": "20",
+   "Retired": "2003",
+   "Span / length": "25.6 m / 61.7 m"
+  },
+  "content_citations": [
+   "Wikipedia, “Concorde”, https://en.wikipedia.org/wiki/Concorde (accessed 14 Nov 2026), and the sources cited there"
+  ]
  }
 };

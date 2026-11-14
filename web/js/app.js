@@ -1,5 +1,7 @@
 /* SeaGlobe app: a planet of routes with moving vehicles, 500 BCE to today.
-   Static and offline: every file is local; no network calls. */
+   Static: every file is local. The only outside requests are opt-in or have a fallback: the read-only version check
+   (js/update.js), large files from the R2 base when one is set (js/assets.js), the chat Worker when set (js/chat.js)
+   and feeds the user brings in the BYO edition (js/byo.js). */
 (function () {
   "use strict";
   const THREE = window.SEAGLOBE_THREE;
@@ -11,7 +13,8 @@
   const capture = P.get("capture") === "1";
   const shot = P.get("shot") === "1" || capture;
   const fileMode = location.protocol === "file:";
-  const lite = P.get("lite") === "1" || fileMode;
+  const E = window.SEAGLOBE_EDITION || {};
+  const lite = P.get("lite") === "1" || fileMode || E.lite === true;
   const CAP = parseInt(P.get("cap") || (lite ? "28" : "56"), 10);
   const DAYS_PER_SEC = 3; // at 1x
   const R = 100; // globe.gl radius
@@ -50,7 +53,7 @@
   const GHOST = new THREE.MeshBasicMaterial({ color: 0x9fb4cc, transparent: true, opacity: 0.12, depthWrite: false });
   let satModels = null, scene3 = null;
   let sun = null, bloom = null, globe, routes = [], prepared = [], live = new Map(), earthMat, sunLight, stars, moon, sats, vehGroup;
-  const tmp = { a: new THREE.Vector3(), b: new THREE.Vector3(), n: new THREE.Vector3(), f: new THREE.Vector3(), x: new THREE.Vector3(), m: new THREE.Matrix4(), q: new THREE.Quaternion() };
+  const tmp = { a: new THREE.Vector3(), b: new THREE.Vector3(), n: new THREE.Vector3(), f: new THREE.Vector3(), x: new THREE.Vector3(), m: new THREE.Matrix4(), q: new THREE.Quaternion(), c: new THREE.Vector3() };
 
   // ---------- loading ----------
   function loadScript(src) {
@@ -61,16 +64,22 @@
     for (const k of Object.keys(D)) if (k.indexOf("routes:") === 0) routes = routes.concat(D[k].routes);
     if (lite) await loadScript("data/texture.js");
   }
-  function loadTex(url) {
-    return new Promise((res) => new THREE.TextureLoader().load(url, (t) => res(t), undefined, () => res(null)));
+  function loadTex1(url) {
+    return new Promise((res) => { const L = new THREE.TextureLoader(); if (/^https?:/.test(url)) L.setCrossOrigin("anonymous"); L.load(url, (t) => res(t), undefined, () => res(null)); });
+  }
+  // an asset id goes through the asset manifest (R2 copy first when a base is set, then the repo file); a plain path loads as is
+  async function loadTex(idOrUrl) {
+    const list = window.SeaAssets && SeaAssets.info(idOrUrl) ? SeaAssets.urls(idOrUrl) : [idOrUrl];
+    for (const u of list) { const t = await loadTex1(u); if (t) return t; }
+    return null;
   }
   async function textures() {
-    const day = await loadTex(lite ? D.texture : "textures/hd/earth-day-8k.jpg");
+    const day = await loadTex(lite ? D.texture : "tex-day-8k");
     if (day) { day.colorSpace = THREE.SRGBColorSpace; day.anisotropy = 8; }
     let night = null, water = null;
     if (!lite) {
-      night = await loadTex("textures/hd/earth-night-4k.jpg");
-      water = await loadTex("textures/hd/earth-water-4k.png");
+      night = await loadTex("tex-night-4k");
+      water = await loadTex("tex-water-4k");
       if (night) night.colorSpace = THREE.SRGBColorSpace;
     }
     return { day, night, water };
@@ -305,6 +314,20 @@
         const w = st.now * 1.6 + l.phase;
         tmp.q.setFromAxisAngle(tmp.f, Math.sin(w) * 0.06); l.obj.quaternion.premultiply(tmp.q);
       }
+      if (inst.route.type === "air") { // bank into turns: left turn (heading toward +X) puts the left wing down
+        const c = surfCoords(s.aheadLat, s.aheadLng, 0), d2 = surfCoords(s.ahead2Lat, s.ahead2Lng, 0);
+        tmp.b.set(d2.x - c.x, d2.y - c.y, d2.z - c.z); tmp.b.addScaledVector(tmp.n, -tmp.b.dot(tmp.n));
+        let turn = 0;
+        if (tmp.b.lengthSq() > 1e-12) { tmp.b.normalize(); turn = Math.atan2(tmp.c.crossVectors(tmp.f, tmp.b).dot(tmp.n), tmp.f.dot(tmp.b)); }
+        const target = Math.max(-0.44, Math.min(0.44, -turn * 3));
+        l.bank = l.bank == null ? target : l.bank + (target - l.bank) * Math.min(1, (dtReal || 0.016) * 2);
+        if (Math.abs(l.bank) > 1e-4) { tmp.q.setFromAxisAngle(tmp.f, l.bank); l.obj.quaternion.premultiply(tmp.q); }
+      }
+      const ud = l.obj.userData, near = camAlt < 0.6 || !!(st.selected && st.selected.key === inst.key);
+      if (ud.setDetail && l.detail !== near) { ud.setDetail(near); l.detail = near; }
+      const gearDown = inst.route.type === "air" && (s.frac < 0.03 || s.frac > 0.97);
+      if (ud.setGear && l.gear !== gearDown) { ud.setGear(gearDown); l.gear = gearDown; }
+      if (ud.animate && near) ud.animate(dtReal || 0.016, st.now, 0.7);
       const big = (st.selected && st.selected.key === inst.key) ? 1.35 : 1;
       const typeScale = inst.route.type === "pipeline" ? 0.5 : inst.route.type === "rail" ? 1.1 : inst.route.type === "land" ? 1.0 : 1.0;
       const fa = it.a == null ? 1 : it.a;
@@ -463,6 +486,7 @@
     // v2.2: history, story, facts for the route, the named vessel and the vehicle type, in the existing notes/cite lines
     const c = cardContent(r, inst);
     $("dNotes").innerHTML = c.html;
+    window.dispatchEvent(new CustomEvent("seaglobe:detail", { detail: { route: r, inst } }));
     $("dCite").textContent = c.cites.join(" · ");
     const ids = (D.deeper_by_line || {})[r.line] || [];
     const links = ids.map((id) => (D.deeper || []).find((x) => x.id === id)).filter(Boolean);
@@ -673,7 +697,9 @@
     updateClock();
     updateProgress();
     updateLabels();
+    for (const h of FRAME_HOOKS) { try { h(dt, st.t); } catch (e) { console.error(e); FRAME_HOOKS.splice(FRAME_HOOKS.indexOf(h), 1); } }
   }
+  const FRAME_HOOKS = [];
   let last = performance.now();
   function loop(now) {
     const dt = Math.min(0.1, (now - last) / 1000); last = now;
@@ -927,6 +953,11 @@
 
   // ---------- capture / scripting API ----------
   window.__sg = {
+    // v3 framework hooks (layers, encyclopedia, tools): read-only access plus a per-frame callback list
+    globe: () => globe, three: () => THREE, scene: () => scene3, prepared: () => prepared, edition: E, isLite: lite,
+    onFrame: (fn) => { FRAME_HOOKS.push(fn); },
+    openRouteId: (id) => { const r = prepared.find((x) => x.id === id); if (r) openRoute(r); return !!r; },
+    timeNow: () => st.t,
     // for a live vehicle: lowest and highest point of its mesh relative to the drawn surface below it (units of R)
     waterline: (key) => {
       const l = live.get(key); if (!l) return null;
@@ -981,6 +1012,11 @@
     assist: () => ({ slow: st.slow, govern: st.govern, hoverKey: st.hoverKey, maxPxPerSec: MAX_PX_PER_SEC,
       speeds: [...live.values()].filter((l) => l._pxy && l.obj.visible && screenOf(l)).map((l) => ({ key: l.inst.key, pxPerSec: l._pxy * (st.mode === "idle" ? (st.slots.find((x) => x.key === l.inst.key) || {}).rate || 0 : st.speed * DAYS_PER_SEC / T.DAYS) })) }),
     screenOf: (key) => { const l = live.get(key); return l ? screenOf(l) : null; },
+    // world position, nose (+Z) and up (+Y) of a live vehicle model, plus its level-of-detail state (for orientation tests)
+    pose: (key) => { const l = live.get(key); if (!l) return null; const q = l.obj.quaternion;
+      const f = new THREE.Vector3(0, 0, 1).applyQuaternion(q), u = new THREE.Vector3(0, 1, 0).applyQuaternion(q), p = l.obj.position;
+      return { vehicle: l.inst.route.vehicle, type: l.inst.route.type, pos: [p.x, p.y, p.z], fwd: [f.x, f.y, f.z], up: [u.x, u.y, u.z], bank: l.bank || 0, detail: !!l.detail, gear: !!l.gear, visible: l.obj.visible }; },
+    poses: () => [...live.keys()],
     state: () => ({ t: st.t, date: T.dateLabel(st.t), speed: st.speed, playing: st.playing, selected: st.selected && st.selected.key, follow: st.follow, live: live.size, routes: prepared.length }),
     sunAngle: (a) => { st.sunAng = a; },
     gold: (on) => { st.allGold = !!on; refreshRoutes(); },
@@ -1039,6 +1075,7 @@
     if (st.follow && !st.selected) window.__sg.selectFirst();
     if (P.get("cinema") === "1") window.__sg.cinema(true);
     requestAnimationFrame(loop);
+    window.dispatchEvent(new CustomEvent("seaglobe:ready"));
     setTimeout(() => { document.documentElement.dataset.ready = "1"; }, shot ? 600 : 50);
   }).catch((err) => {
     console.error(err);

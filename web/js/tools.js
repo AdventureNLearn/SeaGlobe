@@ -1,0 +1,106 @@
+/* SeaTools: atlas tools on the shared globe — point layers (air hubs, launch sites, bring-your-own feeds),
+   cursor coordinates, great-circle measuring and a printable view. */
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const layers = {};       // id -> { on, items: [{lat, lon, color, r, label, id}] }
+  const KM = 6371.0088;    // mean Earth radius (IUGG)
+  const st = { coords: false, measure: false, pts: [], key: "" };
+  function g() { return window.__sg && window.__sg.globe && window.__sg.globe(); }
+  function points(id, items, on) {
+    layers[id] = layers[id] || { on: false, items: [] };
+    if (items) layers[id].items = items;
+    if (on != null) layers[id].on = !!on;
+    redraw();
+  }
+  function layer(id, on) {
+    if (id === "hubs" && on && !(layers.hubs && layers.hubs.items.length)) hubs();
+    points(id, null, on);
+    const cb = $("t" + id[0].toUpperCase() + id.slice(1)); if (cb) cb.checked = !!(layers[id] && layers[id].on);
+  }
+  function redraw() {
+    const G = g(); if (!G) return;
+    const all = []; Object.keys(layers).forEach((k) => { if (layers[k].on) layers[k].items.forEach((p) => all.push(p)); });
+    const key = all.length + ":" + Object.keys(layers).filter((k) => layers[k].on).join(",") + ":" + (all[0] ? all[0].lat + "," + all[all.length - 1].lat : "");
+    if (key === st.key) return;
+    st.key = key;
+    G.pointsData(all).pointLat((d) => d.lat).pointLng((d) => d.lon).pointColor((d) => d.color).pointRadius((d) => d.r || 0.12)
+      .pointAltitude((d) => d.alt || 0.003).pointsMerge(all.length > 300).pointsTransitionDuration(0).pointLabel((d) => d.label || "");
+  }
+  function hubs() {
+    const A = (window.SEAGLOBE_DATA || {}).airports || [];
+    points("hubs", A.map((a) => ({ lat: a[2], lon: a[3], color: a[7] === "large_airport" ? "#b8f3ff" : "#ffe08a", r: 0.11, label: "<b>" + esc(a[1]) + "</b><div>" + esc(a[0]) + (a[6] ? " · " + esc(a[6]) : "") + " · OurAirports</div>", id: "place:airport-" + a[0].toLowerCase() })));
+  }
+  // great-circle distance (haversine on the mean sphere)
+  function distance(a, b) {
+    const r = Math.PI / 180, dl = (b.lat - a.lat) * r, dn = (b.lon - a.lon) * r;
+    const h = Math.sin(dl / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dn / 2) ** 2;
+    return 2 * KM * Math.asin(Math.min(1, Math.sqrt(h)));
+  }
+  function at(x, y) { const G = g(); if (!G) return null; const c = G.toGlobeCoords(x, y); return c ? { lat: c.lat, lon: c.lng } : null; }
+  function chip(html) { const el = $("toolChip"); el.hidden = !html; if (html) el.innerHTML = html; }
+  function fmt(p) { return Math.abs(p.lat).toFixed(3) + "° " + (p.lat >= 0 ? "N" : "S") + ", " + Math.abs(p.lon).toFixed(3) + "° " + (p.lon >= 0 ? "E" : "W"); }
+  function measureShow() {
+    const G = g(); const [a, b] = st.pts;
+    G.arcsData(a && b ? [{ a, b }] : []).arcStartLat((d) => d.a.lat).arcStartLng((d) => d.a.lon).arcEndLat((d) => d.b.lat).arcEndLng((d) => d.b.lon)
+      .arcColor(() => ["#e7c766", "#5ee7ff"]).arcStroke(0.35).arcAltitude(0).arcsTransitionDuration(0);
+    if (!a) return chip(st.measure ? "<span class='kicker'>Measure</span> Click a start point on the globe" : "");
+    if (!b) return chip("<span class='kicker'>Measure</span> From " + fmt(a) + " · click an end point");
+    const km = distance(a, b);
+    chip("<span class='kicker'>Measure</span> " + km.toFixed(km < 100 ? 1 : 0) + " km · " + (km / 1.609344).toFixed(0) + " mi · " + (km / 1.852).toFixed(0) + " nmi<div class='small'>Great circle on a sphere of radius 6,371 km (mean Earth radius); a ship or plane route is usually longer.</div>");
+  }
+  function measure(on) {
+    st.measure = on == null ? !st.measure : !!on; st.pts = [];
+    const b = $("measureBtn"); if (b) b.setAttribute("aria-pressed", String(st.measure));
+    document.body.classList.toggle("measuring", st.measure);
+    measureShow();
+  }
+  function coords(on) { st.coords = !!on; const cb = $("tCoords"); if (cb) cb.checked = st.coords; if (!st.coords && !st.measure) chip(""); }
+  function snapshot() {
+    const G = g(); if (!G) return null;
+    try { G.renderer().render(G.scene(), G.camera()); return G.renderer().domElement.toDataURL("image/jpeg", 0.9); } catch (e) { return null; }
+  }
+  function print(entity) {
+    const img = snapshot(), V = window.SEAGLOBE_VERSION || {};
+    const s = window.__sg ? window.__sg.state() : {};
+    let pv = $("printView"); if (!pv) { pv = document.createElement("div"); pv.id = "printView"; document.body.appendChild(pv); }
+    const legend = $("legend") ? $("legend").innerHTML : "";
+    const ent = entity ? document.querySelector("#atlasBody .aentry") : null;
+    pv.innerHTML = "<h1>SeaGlobe — " + esc(entity ? entity.title : "map view") + "</h1><div class='pmeta'>" + esc(s.date || "") + " · SeaGlobe v" + esc(V.version || "") + " · printed from " + esc(location.href.split("#")[0]) + "</div>" +
+      (img ? "<img alt='Globe view' src='" + img + "'>" : "<p>[Map image not available in this browser]</p>") + "<div class='plegend'>" + legend + "</div>" + (ent ? ent.outerHTML : "") +
+      "<p class='pfootp'>Every reconstruction is labelled; gaps are marked [UNKNOWN]. Sources: see each entry, DATA.md and SOURCES.md. Made with Natural Earth; Earth imagery NASA (public domain).</p>";
+    document.body.classList.add("printing");
+    const done = () => { document.body.classList.remove("printing"); window.removeEventListener("afterprint", done); };
+    window.addEventListener("afterprint", done);
+    if (!new URLSearchParams(location.search).get("noprint")) window.print();
+    return pv;
+  }
+  function init() {
+    const pane = document.querySelector("[data-pane='layers'] .toggles");
+    if (pane && !$("tHubs")) {
+      pane.insertAdjacentHTML("beforeend", "<label><input type='checkbox' id='tHubs'> Air hubs (" + ((window.SEAGLOBE_DATA || {}).airports || []).length.toLocaleString("en-US") + " airports, OurAirports)</label><label><input type='checkbox' id='tCoords'> Cursor coordinates</label>");
+      $("tHubs").addEventListener("change", (e) => layer("hubs", e.target.checked));
+      $("tCoords").addEventListener("change", (e) => coords(e.target.checked));
+      pane.insertAdjacentHTML("afterend", "<div class='row actions toolrow'><button class='btn' id='measureBtn' aria-pressed='false'>Measure distance</button><button class='btn ghost' id='printBtn'>Print map view</button></div>");
+      $("measureBtn").addEventListener("click", () => measure());
+      $("printBtn").addEventListener("click", () => print(null));
+    }
+    if (!$("toolChip")) { const d = document.createElement("div"); d.className = "toolchip glass"; d.id = "toolChip"; d.hidden = true; d.setAttribute("aria-live", "polite"); document.body.appendChild(d); }
+    const el = $("globe"); let down = null;
+    el.addEventListener("pointermove", (e) => { if (st.coords && !st.measure) { const p = at(e.clientX, e.clientY); chip(p ? "<span class='kicker'>Cursor</span> " + fmt(p) : "<span class='kicker'>Cursor</span> off the globe"); } });
+    el.addEventListener("pointerdown", (e) => { down = { x: e.clientX, y: e.clientY }; });
+    el.addEventListener("pointerup", (e) => {
+      if (!st.measure || !down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 5) return;
+      const p = at(e.clientX, e.clientY); if (!p) return;
+      if (st.pts.length >= 2) st.pts = [];
+      st.pts.push(p); measureShow();
+    });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && st.measure) measure(false); });
+    const P = new URLSearchParams(location.search);
+    if (P.get("hubs") === "1") layer("hubs", true);
+  }
+  window.SeaTools = { points, layer, distance, measure, coords, print, snapshot, at, state: () => ({ measure: st.measure, pts: st.pts.slice(), coords: st.coords, layers: Object.keys(layers).filter((k) => layers[k].on) }),
+    measurePoints: (a, b) => { measure(true); st.pts = [a, b]; measureShow(); return distance(a, b); } };
+  window.addEventListener("seaglobe:ready", init);
+})();

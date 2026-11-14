@@ -1,0 +1,30 @@
+{
+ "currentVersion": 11.5,
+ "mapName": "Places and County Subdivisions",
+ "layers": [
+  {
+   "id": 0,
+   "name": "Estates"
+  },
+  {
+   "id": 1,
+   "name": "County Subdivisions"
+  },
+  {
+   "id": 2,
+   "name": "Subbarrios"
+  },
+  {
+   "id": 3,
+   "name": "Consolidated Cities"
+  },
+  {
+   "id": 4,
+   "name": "Incorporated Places"
+  },
+  {
+   "id": 5,
+   "name": "Census Designated Places"
+  }
+ ]
+}

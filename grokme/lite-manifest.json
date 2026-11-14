@@ -1,0 +1,2005 @@
+{
+ "name": "SeaGlobe Lite",
+ "version": "3.0.0",
+ "commit": "[set at release]",
+ "entry": "lite.html",
+ "root": "web/",
+ "limits": {
+  "total_bytes": 20971520,
+  "file_bytes": 5242880,
+  "files": 600
+ },
+ "limits_note": "Self-imposed; Grok.me size limits are [UNKNOWN].",
+ "excluded": [
+  "index.html",
+  "byo.html",
+  "js/byo.js",
+  "data/edition-byo.js",
+  "vendor/satellite.min.js",
+  "vendor/LICENSE-satellite.js.md",
+  "textures/hd/*",
+  "assets/title-concept.jpg",
+  "assets/eras/title-concept.jpg",
+  "*.map",
+  ".DS_Store"
+ ],
+ "total_bytes": 12545004,
+ "file_count": 395,
+ "files": [
+  {
+   "path": "app.css",
+   "bytes": 22819,
+   "sha256": "7f7645b95440e2aa3334cf3b87be92d1c123d2e96d46adb334cd951a0366c35a"
+  },
+  {
+   "path": "assets.json",
+   "bytes": 4586,
+   "sha256": "63ef8dae0f2830975267ab8e032aa2e123a96b13b1d05e1cf7447eaf3bc703f3"
+  },
+  {
+   "path": "assets/eras/era-age-of-sail.jpg",
+   "bytes": 311049,
+   "sha256": "66f3956dc8dbae32ba7ba158597078330638a6a2dd894af0288c5d34f7335df0"
+  },
+  {
+   "path": "assets/eras/era-classical.jpg",
+   "bytes": 388262,
+   "sha256": "9a1a01ad672e605ba8020c23899efd4707d2d45e12cb0e7eed6460cef4faee7c"
+  },
+  {
+   "path": "data/assets.js",
+   "bytes": 4050,
+   "sha256": "1cea168596ca2f24b8e9c7eaa9211c1768594d2581bf431e0187d9ec7b7c214c"
+  },
+  {
+   "path": "data/content.js",
+   "bytes": 28795,
+   "sha256": "ac9b343d9d5737249c87b545edc997f8419cca69b3d60ff973708e123c67fb9c"
+  },
+  {
+   "path": "data/deeper.js",
+   "bytes": 4420,
+   "sha256": "3d5902599fb179b7d30f81fd55c411869b21fb13070eecf9a45c05eb840be4f8"
+  },
+  {
+   "path": "data/edition-lite.js",
+   "bytes": 194,
+   "sha256": "ed78f443f09366f16ab5eba52861d6bd2f78ebe0b33ff162320e9b7e43bb402b"
+  },
+  {
+   "path": "data/edition.js",
+   "bytes": 1352,
+   "sha256": "b23d9bf719591fa6b985c83e7ddaca229cd9701c814763a60f3d84b1d86bc8cb"
+  },
+  {
+   "path": "data/ne_110m_coastline.geojson",
+   "bytes": 139907,
+   "sha256": "851f581ff5ffb844deed8ae1a9ce22e3c4bb3d74fa342cadb5d8e39b41ae7c3c"
+  },
+  {
+   "path": "data/ne_110m_land.geojson",
+   "bytes": 138160,
+   "sha256": "9e0729ee253ca7d7a5c4ae9395fb1902264c5377c52e224d13dd85010e2835d9"
+  },
+  {
+   "path": "data/places/airports.js",
+   "bytes": 117738,
+   "sha256": "de5794c42ed46f2ed275f21e7f18e4d7cc07cbd7118d855ef8b15f6cf97dd396"
+  },
+  {
+   "path": "data/radio.js",
+   "bytes": 1698,
+   "sha256": "c5764d8333be209cfed9ae3a0dfc9117fde7917fdb159c52963afe327f0bcdc4"
+  },
+  {
+   "path": "data/regions/admin1/AUS.js",
+   "bytes": 39409,
+   "sha256": "5783ff1a8531b74a465546ad25cd1f046924467d9e7dd183eefeff343a965229"
+  },
+  {
+   "path": "data/regions/admin1/BRA.js",
+   "bytes": 99932,
+   "sha256": "37fa633f2459969f3b27afabdd1e356d01c0329f50f6d82a0e1fb73aedf9dbab"
+  },
+  {
+   "path": "data/regions/admin1/CAN.js",
+   "bytes": 243058,
+   "sha256": "64097d05ce94ccfad7c5c7ad2c51385be5f3844757432bc24aaa3b8db3a3f3fb"
+  },
+  {
+   "path": "data/regions/admin1/CHN.js",
+   "bytes": 132476,
+   "sha256": "4259cae01447c91491ca10d3fa6bc3d0a2b1d862a4f9b29d8ac87a210beee182"
+  },
+  {
+   "path": "data/regions/admin1/IDN.js",
+   "bytes": 77022,
+   "sha256": "72ef22908afffc3cb444983764fd39511d32793ffc1f5618457b4f3776ef3ed7"
+  },
+  {
+   "path": "data/regions/admin1/IND.js",
+   "bytes": 75886,
+   "sha256": "60b33a26b0f0c77747508e114c48658f01072af9a8a40e550ae6320828e95e28"
+  },
+  {
+   "path": "data/regions/admin1/RUS.js",
+   "bytes": 280920,
+   "sha256": "6cf542b0efa1cd55f475fd02252166766ecf793acd8648d5c3e7bbe1af487ee7"
+  },
+  {
+   "path": "data/regions/admin1/USA.js",
+   "bytes": 196913,
+   "sha256": "140aba7b598f41e56c28ff2a694c48c5db4dcf981d534c669bef6327a01de076"
+  },
+  {
+   "path": "data/regions/admin1/ZAF.js",
+   "bytes": 21860,
+   "sha256": "8e75a3022d08afdb94b035902adfa39b1ce090943e120c962b9270504edb580a"
+  },
+  {
+   "path": "data/regions/counties/US-AK.js",
+   "bytes": 389801,
+   "sha256": "0231ad75fc9667b428497f11cf56257df182aa75fd8a6de7c4f503b5d69b45fd"
+  },
+  {
+   "path": "data/regions/counties/US-AL.js",
+   "bytes": 59377,
+   "sha256": "3c8633754fa769733cfda8f8a9650bd78e03feaaec165b1c038fb0dbc4dafd2a"
+  },
+  {
+   "path": "data/regions/counties/US-AR.js",
+   "bytes": 54063,
+   "sha256": "f42d244dcdf08d400854b56b22d3b348e08d48ff169457aef3892ef362bf92a2"
+  },
+  {
+   "path": "data/regions/counties/US-AZ.js",
+   "bytes": 26384,
+   "sha256": "7a7a8a32978bbdd550c868cbf550fe728a74ab7e4e528d20a3f20d9f9d8fd115"
+  },
+  {
+   "path": "data/regions/counties/US-CA.js",
+   "bytes": 111593,
+   "sha256": "08f729be6888bdb6f5eb3bc039b1a61daeb52e1b9d1790fb90d27a28c11ebd4f"
+  },
+  {
+   "path": "data/regions/counties/US-CO.js",
+   "bytes": 52169,
+   "sha256": "57f47fc15ce5cb271cb2af3b43a1a2f045b42ba0741c3f9b970dacad0b346d5b"
+  },
+  {
+   "path": "data/regions/counties/US-CT.js",
+   "bytes": 8465,
+   "sha256": "4abb6ddf57cccf537e95b7a2c17e9611119fa402a5b7127b8935f2a40b014583"
+  },
+  {
+   "path": "data/regions/counties/US-DC.js",
+   "bytes": 637,
+   "sha256": "f05926019ca8d8f3b41c9ebbd41cb7a6972e17b12c99f08c8dd9f4e7d6299797"
+  },
+  {
+   "path": "data/regions/counties/US-DE.js",
+   "bytes": 3892,
+   "sha256": "0be452c29109c12f81bf9ba9fa08e7421355ebefdf1d2ecbdee00822d94615b0"
+  },
+  {
+   "path": "data/regions/counties/US-FL.js",
+   "bytes": 78727,
+   "sha256": "5794afb15f596e3975d522c6e2ccbbc9d03d267ab0623ce06e12771a76bf3975"
+  },
+  {
+   "path": "data/regions/counties/US-GA.js",
+   "bytes": 101146,
+   "sha256": "7d8a09f7d9b6951a8d40f49814e9e7f7a7b9ff17315b608c1f2cb2cb95789502"
+  },
+  {
+   "path": "data/regions/counties/US-HI.js",
+   "bytes": 11606,
+   "sha256": "3a4b5c5c41a514b209adfdebf451768ba3ad786ffcf38c4937aee4a062a506dd"
+  },
+  {
+   "path": "data/regions/counties/US-IA.js",
+   "bytes": 31872,
+   "sha256": "f0fac9cc82c94d9e620baefacb1fe1f0a09ba170392fb136f9ba078165e3c0fd"
+  },
+  {
+   "path": "data/regions/counties/US-ID.js",
+   "bytes": 62133,
+   "sha256": "66efa6920b5f50cf16f471ea39d07febd1def8221cca4b8c7211ccadfb895f03"
+  },
+  {
+   "path": "data/regions/counties/US-IL.js",
+   "bytes": 46351,
+   "sha256": "dccd6ba4885b0c9e9e0d1e12e3488308216cec08914eb519036400cad1945f5a"
+  },
+  {
+   "path": "data/regions/counties/US-IN.js",
+   "bytes": 38128,
+   "sha256": "5ae742f9e43fbd1f44158fe6a05d3e29e9e1596d8858f07937d3942704640d8b"
+  },
+  {
+   "path": "data/regions/counties/US-KS.js",
+   "bytes": 33354,
+   "sha256": "415c08fdadbdc874a25e0422c3a4236eeb728c4887f3322410dc445b6003cfed"
+  },
+  {
+   "path": "data/regions/counties/US-KY.js",
+   "bytes": 84642,
+   "sha256": "985e99aa1ead6b8ec31cfde77de3739d3a7b5888221b7e16d040a74a6a2042e5"
+  },
+  {
+   "path": "data/regions/counties/US-LA.js",
+   "bytes": 80429,
+   "sha256": "dd120269d638387f5b25900d92acf02142b8b82fcb08e9220b80981212183dd9"
+  },
+  {
+   "path": "data/regions/counties/US-MA.js",
+   "bytes": 20318,
+   "sha256": "fdc307bd82d7197d0680046db5fb457f78b71fa48d9a8cfa28460b5c2c4b11a2"
+  },
+  {
+   "path": "data/regions/counties/US-MD.js",
+   "bytes": 31737,
+   "sha256": "e06c3e31a2fd0d068dbd1853d33bc3aa2921c9d71c3c47bfffa09901678129af"
+  },
+  {
+   "path": "data/regions/counties/US-ME.js",
+   "bytes": 36030,
+   "sha256": "f20fb9d04bcedbd66d2f66e8bed01084089565c56212763c9cb8cd5b26ce00b0"
+  },
+  {
+   "path": "data/regions/counties/US-MI.js",
+   "bytes": 34291,
+   "sha256": "050224e9ed00b03abd0978d8db842dba4b3167499fe0ad54abbdca3b1c80db1e"
+  },
+  {
+   "path": "data/regions/counties/US-MN.js",
+   "bytes": 44735,
+   "sha256": "894afa984568da2b9abe95b33ecc07a38549cba5ce917ffe7696d3aa27f35f70"
+  },
+  {
+   "path": "data/regions/counties/US-MO.js",
+   "bytes": 59523,
+   "sha256": "4618ee3e05ff601f8bf0896838d7d1229e2dafb777b7da88505c1f6f249a12f8"
+  },
+  {
+   "path": "data/regions/counties/US-MS.js",
+   "bytes": 41802,
+   "sha256": "b09ab887efd413895b5133bd545ac0812971efe7c03e2a6520a09b197941498c"
+  },
+  {
+   "path": "data/regions/counties/US-MT.js",
+   "bytes": 87320,
+   "sha256": "88e09e1b04344626ed456bebffe474ffebe19690de61e05e3b110d9e148c72fb"
+  },
+  {
+   "path": "data/regions/counties/US-NC.js",
+   "bytes": 90664,
+   "sha256": "8be62a8205864f3b2381ea7a7b61c3336f8b261ea82ca32a29a76bf56f408188"
+  },
+  {
+   "path": "data/regions/counties/US-ND.js",
+   "bytes": 28004,
+   "sha256": "37aa85ba90ad4ece71cf86d0c58f1d5381161bf515b822f17adb90a948a3f122"
+  },
+  {
+   "path": "data/regions/counties/US-NE.js",
+   "bytes": 34433,
+   "sha256": "430b316a67305c697ea8fd9762cb3cadca0a80f35c54d69a6af4bf64a75d08fb"
+  },
+  {
+   "path": "data/regions/counties/US-NH.js",
+   "bytes": 10544,
+   "sha256": "1d52e91332f6e5c6e024470eecc123404b2003080fbbc3a88c68f32a37f7a39d"
+  },
+  {
+   "path": "data/regions/counties/US-NJ.js",
+   "bytes": 19034,
+   "sha256": "c1099239b3a2d5fe4233a66a6726b1d10aa1f241bcdb9f679d9199b7e748413e"
+  },
+  {
+   "path": "data/regions/counties/US-NM.js",
+   "bytes": 28973,
+   "sha256": "0af9b4521c1e3ac44d242a0a8a852cc264435737061f796265297983b2dedea2"
+  },
+  {
+   "path": "data/regions/counties/US-NV.js",
+   "bytes": 18616,
+   "sha256": "fb7efba3ec07fda56bdd335da21a21c0a771b9d78a34be8e546f6ad6be816aca"
+  },
+  {
+   "path": "data/regions/counties/US-NY.js",
+   "bytes": 48400,
+   "sha256": "d2a508fff54db530e8856a14ba94ee3237d0f1c93dd4d4944ac911552e852543"
+  },
+  {
+   "path": "data/regions/counties/US-OH.js",
+   "bytes": 37049,
+   "sha256": "56ed5c7659c57dc43104dc24fbbd3a90ec6a1bf985e4f4725d2fb626b5669080"
+  },
+  {
+   "path": "data/regions/counties/US-OK.js",
+   "bytes": 44454,
+   "sha256": "0115936b65d6ac3f7e8adb4f1cefece8de4a80f5e65641df336ad7d81c3fd488"
+  },
+  {
+   "path": "data/regions/counties/US-OR.js",
+   "bytes": 54069,
+   "sha256": "9d7c6f549adb67ada0d54bc7c2c23e3c1c916e23a5aeda80e6fa0ef641ca57b9"
+  },
+  {
+   "path": "data/regions/counties/US-PA.js",
+   "bytes": 47288,
+   "sha256": "bd185c3c0de4474499264e5360f6b6904a61efe4bfab59be6ba417034f0bc944"
+  },
+  {
+   "path": "data/regions/counties/US-PR.js",
+   "bytes": 32238,
+   "sha256": "b2b4f9f00fa2b3e1fec0663349fa402b4588d34b7c6a5a893b2ac530b256bf73"
+  },
+  {
+   "path": "data/regions/counties/US-RI.js",
+   "bytes": 5149,
+   "sha256": "a70649615158572e9593d18b1bc6a4ae976b1b65c8627e84710dfbac0fbb8480"
+  },
+  {
+   "path": "data/regions/counties/US-SC.js",
+   "bytes": 50252,
+   "sha256": "af14288527ae32a90077053732966a4c824a0c95204aeb7564c2926948eb3d60"
+  },
+  {
+   "path": "data/regions/counties/US-SD.js",
+   "bytes": 34698,
+   "sha256": "7e582d796c40072c113be819908bf53230f54c8e069aae0745599c07da4a5d7f"
+  },
+  {
+   "path": "data/regions/counties/US-TN.js",
+   "bytes": 73651,
+   "sha256": "d6f774afb4788bfa89087e503ce32e761c4caaa8a89e125aa091796e8943f4ea"
+  },
+  {
+   "path": "data/regions/counties/US-TX.js",
+   "bytes": 154036,
+   "sha256": "9c7eb9ee6f522ccdcf2df27c42e9033a01d8a42a801ebc9d73f2638daf9793e7"
+  },
+  {
+   "path": "data/regions/counties/US-UT.js",
+   "bytes": 37582,
+   "sha256": "b408ccc3326898b43c3dcef7b318e68f7ea4ea3a57a55b7522e947cbf9f5709f"
+  },
+  {
+   "path": "data/regions/counties/US-VA.js",
+   "bytes": 100879,
+   "sha256": "3bea7afcc8c941dc87e680f2ef2b790cb7bef65b19907f425b4d4313c6a58d01"
+  },
+  {
+   "path": "data/regions/counties/US-VI.js",
+   "bytes": 1620,
+   "sha256": "97558c0ba88c57a6c6e6bfb6b191d5adab94ba3fcf7d50b189543dfea4488608"
+  },
+  {
+   "path": "data/regions/counties/US-VT.js",
+   "bytes": 12106,
+   "sha256": "ee254e4069b8bcd330dba48b2b551d178a02e319792d25e930cf30f25bb8a987"
+  },
+  {
+   "path": "data/regions/counties/US-WA.js",
+   "bytes": 66921,
+   "sha256": "ee09807c13bd38658ba529e46951c4ab771e61f342ab7676dea00c1a2314afe5"
+  },
+  {
+   "path": "data/regions/counties/US-WI.js",
+   "bytes": 35438,
+   "sha256": "e02b478193672fc100ae950ba853d6662095f05291e90fe8ba3906918cf3cf3e"
+  },
+  {
+   "path": "data/regions/counties/US-WV.js",
+   "bytes": 47722,
+   "sha256": "6403ec3039d9c6eaf89fac0f575f42470a9e2f119b7e251ebab0276e98f31de3"
+  },
+  {
+   "path": "data/regions/counties/US-WY.js",
+   "bytes": 21623,
+   "sha256": "0a48a98fe76c699156242a919620e8828c354350cd71e78c8ea42db880a4105a"
+  },
+  {
+   "path": "data/regions/index.js",
+   "bytes": 558846,
+   "sha256": "fe3265eb7c7cba46b7b8b6c805af2da602a38eef27a6c96de9676cc584b93476"
+  },
+  {
+   "path": "data/regions/towns/ABW.js",
+   "bytes": 305,
+   "sha256": "bfad62f59068d43d0e4d55e84bbe9a011342ebe854d7c1c97a266bbba686e1fc"
+  },
+  {
+   "path": "data/regions/towns/AFG.js",
+   "bytes": 3471,
+   "sha256": "0c6ceeb6a25b28e882996a0f436e5c421de12446e8407ea5a88a9b0429cd68cb"
+  },
+  {
+   "path": "data/regions/towns/AGO.js",
+   "bytes": 5021,
+   "sha256": "9db1f450c24676601fc41e982357fd67bf180edff6f1c1fc2523571ee392dca0"
+  },
+  {
+   "path": "data/regions/towns/ALB.js",
+   "bytes": 2768,
+   "sha256": "04dcfe1f4f1f77be14cdfde4b36a26ae07be8b19365cb74b5de647ae4faba4f3"
+  },
+  {
+   "path": "data/regions/towns/ALD.js",
+   "bytes": 311,
+   "sha256": "62bae4231198916e9e470554d48012ec444547115702573c1d2ba74c0bf85bea"
+  },
+  {
+   "path": "data/regions/towns/AND.js",
+   "bytes": 292,
+   "sha256": "4db49e0d51c0429cfc3ba0055fc8a6f2f35fd6f0bc9e221a76dd0273f35b5286"
+  },
+  {
+   "path": "data/regions/towns/ARE.js",
+   "bytes": 1032,
+   "sha256": "bf112ea3b219d28d2dfe9a05161a22121ec210e6652bb4378026e2154885cf99"
+  },
+  {
+   "path": "data/regions/towns/ARG.js",
+   "bytes": 17176,
+   "sha256": "eaf995d0b8ebfe375d1c2a7f129b63e32fa20e36530155d12ab68d13fb2b03f2"
+  },
+  {
+   "path": "data/regions/towns/ARM.js",
+   "bytes": 1005,
+   "sha256": "b35b864b9613385532068fdcf0138e2dfa46500f38a53e517ff81a273b7cb602"
+  },
+  {
+   "path": "data/regions/towns/ASM.js",
+   "bytes": 307,
+   "sha256": "a9311095bc8f4bf9af81b5ccad9798f148f75e4eb5c0873daf86d9edbe82eb2a"
+  },
+  {
+   "path": "data/regions/towns/ATA.js",
+   "bytes": 4391,
+   "sha256": "223f2a5c8414a266ebc01aa001f101239808d658ba59194465da3925a96e3010"
+  },
+  {
+   "path": "data/regions/towns/ATG.js",
+   "bytes": 300,
+   "sha256": "1a46a5c202a3a5a215ed809293e9430c3c41aedb50b78316d7c17d83d5c0ed9a"
+  },
+  {
+   "path": "data/regions/towns/AUS.js",
+   "bytes": 24208,
+   "sha256": "2b0b385eb42f091236e6a1b6d39bac1b0b502f667c44593ca6a5c223cb49c313"
+  },
+  {
+   "path": "data/regions/towns/AUT.js",
+   "bytes": 1123,
+   "sha256": "eb7a90793b7925d8f21bdff934cf96cd1b8f71b66795e5ae15cf9344c4802158"
+  },
+  {
+   "path": "data/regions/towns/AZE.js",
+   "bytes": 1852,
+   "sha256": "bf3ddfc0c6f4fc9741934a65310f6d28e387e8b73a721ef60224de69673c1d68"
+  },
+  {
+   "path": "data/regions/towns/BDI.js",
+   "bytes": 1580,
+   "sha256": "6491356a9d6e648746267e4204e035a013fb2c0bae99f022c077d015f089a0e2"
+  },
+  {
+   "path": "data/regions/towns/BEL.js",
+   "bytes": 1173,
+   "sha256": "8aea7f7426cdcd58c57b6586ae6a55e073618e95b74d03b146185710390433e2"
+  },
+  {
+   "path": "data/regions/towns/BEN.js",
+   "bytes": 1067,
+   "sha256": "a81b8bdf553d8d7a48f53058f54419e0cbdb92dd49e6f36d802122f919da8365"
+  },
+  {
+   "path": "data/regions/towns/BFA.js",
+   "bytes": 3361,
+   "sha256": "a9bf0012cb2a961e797eb7624282c60b5fcc6b97872ea3e8a6b9397d0b0d78a9"
+  },
+  {
+   "path": "data/regions/towns/BGD.js",
+   "bytes": 1784,
+   "sha256": "80508029663fb8db4e591f1298811cf371cba948dc086d8a9db3688e289d79ec"
+  },
+  {
+   "path": "data/regions/towns/BGR.js",
+   "bytes": 1987,
+   "sha256": "13c81e835182ec0c5d4c095b1c7be970845c1f6f67f5a833f06ff85f0f5d8c98"
+  },
+  {
+   "path": "data/regions/towns/BHR.js",
+   "bytes": 295,
+   "sha256": "6bf4096c0624e53e7f758eae45e5fc05f2dae643e97286d442fe46e745c07698"
+  },
+  {
+   "path": "data/regions/towns/BHS.js",
+   "bytes": 389,
+   "sha256": "4ef6526a221fd14eab67f4088a7018b19b465804d5be73ed6085b578870ceb0a"
+  },
+  {
+   "path": "data/regions/towns/BIH.js",
+   "bytes": 831,
+   "sha256": "c8c86016ff87661aa84acbe3488e3a9fd7aa702f680fa391f2a5c8c263d8cc51"
+  },
+  {
+   "path": "data/regions/towns/BLR.js",
+   "bytes": 1686,
+   "sha256": "c5b8aaf46e6e7983779adc17ca545122919f32fc4437dee3fa74494ac7caa95c"
+  },
+  {
+   "path": "data/regions/towns/BLZ.js",
+   "bytes": 906,
+   "sha256": "9bba467ce0407ea53b223c279ed4b9a074424c0be7ca08d988a59efa9b7fb3b5"
+  },
+  {
+   "path": "data/regions/towns/BMU.js",
+   "bytes": 304,
+   "sha256": "c88385d31d1c8e3ee2e863823fd07ffd70a4f0c9ebb616a1d84487e42171868b"
+  },
+  {
+   "path": "data/regions/towns/BOL.js",
+   "bytes": 7165,
+   "sha256": "a0930eeb3cf058e081206c4fdfbee3cba7d8857e09fa123b44442266b5184251"
+  },
+  {
+   "path": "data/regions/towns/BRA.js",
+   "bytes": 41235,
+   "sha256": "2bd6cc4b3ac229ddc25f7f8cc925fc39790ce3da06b6ac550798a7a861a1001a"
+  },
+  {
+   "path": "data/regions/towns/BRB.js",
+   "bytes": 311,
+   "sha256": "8263ce3636528732e5e25d084df7f5300e2dd4e3fe2d44a88e9354c8a92b8fd9"
+  },
+  {
+   "path": "data/regions/towns/BRN.js",
+   "bytes": 322,
+   "sha256": "d87263193438282add322b216dcbf3e383d2836ef2864fe42a442eb52c1e350f"
+  },
+  {
+   "path": "data/regions/towns/BTN.js",
+   "bytes": 609,
+   "sha256": "67a3f71579493821852c3bdd939bf0d4e39ffc0b0ad06ae49518cee4e0eb379a"
+  },
+  {
+   "path": "data/regions/towns/BWA.js",
+   "bytes": 2177,
+   "sha256": "06bf51385b59aad7a7505e4ed76df081b89f2cb2019f7dd1f084b8ea69b76505"
+  },
+  {
+   "path": "data/regions/towns/CAF.js",
+   "bytes": 2296,
+   "sha256": "58a959102b38356cf68309df0ffcfee68b39078da1b63cfdf2c5f2635aecbca5"
+  },
+  {
+   "path": "data/regions/towns/CAN.js",
+   "bytes": 27074,
+   "sha256": "896e94fd710e9a3fb4f956a727e01a478193ada75cce2b1fbbd4d8167bf0f5ec"
+  },
+  {
+   "path": "data/regions/towns/CHE.js",
+   "bytes": 2964,
+   "sha256": "f3b09a0727ff9a7df94623fe1da8a57e10fb9dfea04ac8b4eedf6340d5b162f0"
+  },
+  {
+   "path": "data/regions/towns/CHL.js",
+   "bytes": 9138,
+   "sha256": "a02ffe233a660d3e1171c59d740def32120962c8ff2e66328b3f278f65cc6f2c"
+  },
+  {
+   "path": "data/regions/towns/CHN.js",
+   "bytes": 40317,
+   "sha256": "c35b44190be81587235ecbac885e7fa42e6270f7b9e5c87166d17deed381d8ba"
+  },
+  {
+   "path": "data/regions/towns/CIV.js",
+   "bytes": 2707,
+   "sha256": "800aa4305945e4a0864d09acabb9e045b87334e994e52b93117a6277284e0149"
+  },
+  {
+   "path": "data/regions/towns/CMR.js",
+   "bytes": 3169,
+   "sha256": "9557c74da9db121b38304dd9b5bcc5958fbe71d6caab67234c4791200a3f0b6c"
+  },
+  {
+   "path": "data/regions/towns/COD.js",
+   "bytes": 8939,
+   "sha256": "5ce23133e2c5f82adb681d41ae55a70f26d6231854d19c1a612979855544257f"
+  },
+  {
+   "path": "data/regions/towns/COG.js",
+   "bytes": 1860,
+   "sha256": "59489901ebcb754604a3e0d9013849b450382f31e566a04f2fa0a13d80909e1f"
+  },
+  {
+   "path": "data/regions/towns/COK.js",
+   "bytes": 296,
+   "sha256": "cccd787b1f9197d02826a8300f6ec835a47b08b76ea3fd4e095286103a0bdb1a"
+  },
+  {
+   "path": "data/regions/towns/COL.js",
+   "bytes": 7467,
+   "sha256": "780a502b3f04fb9d43d695b39d5300f8eda71709b857b1e552b67342ab18e055"
+  },
+  {
+   "path": "data/regions/towns/COM.js",
+   "bytes": 295,
+   "sha256": "b7f98bde2f247d7c7d3a33bf79cc5da4e85dedebbdd2f404bf64f1437087dc33"
+  },
+  {
+   "path": "data/regions/towns/CPV.js",
+   "bytes": 388,
+   "sha256": "747d5ed98a59927797704409b0b1d48c30c171bab3563dc4f6182ce7b7959c43"
+  },
+  {
+   "path": "data/regions/towns/CRI.js",
+   "bytes": 1504,
+   "sha256": "2ea143f5a96ba72969fcd800e0d81610165ec2399ccdc5ed14737084023950b1"
+  },
+  {
+   "path": "data/regions/towns/CUB.js",
+   "bytes": 3006,
+   "sha256": "45da0ee9d75f82fefff50aa01bdc004268f5ea59fdd61e881c48c18db0b38f80"
+  },
+  {
+   "path": "data/regions/towns/CUW.js",
+   "bytes": 304,
+   "sha256": "41a5d18d287d932f0b15de2f09791467e5fc07b74f75581939bdb1cca2c58c06"
+  },
+  {
+   "path": "data/regions/towns/CYM.js",
+   "bytes": 304,
+   "sha256": "d3063e513eaea988264ff2fe1398f732f77d5ac6e5e46bb6d67aa10a97561c24"
+  },
+  {
+   "path": "data/regions/towns/CYN.js",
+   "bytes": 390,
+   "sha256": "2c1753d2eaea60624ce7027363c71bdde0d75d384ce26750687c95a7d8eb8936"
+  },
+  {
+   "path": "data/regions/towns/CYP.js",
+   "bytes": 593,
+   "sha256": "a55810d9ade6a020810d4ff09e53f03b2d2722b30a68d53c5d0d083e1a75e2c8"
+  },
+  {
+   "path": "data/regions/towns/CZE.js",
+   "bytes": 1471,
+   "sha256": "3b499b11def52a2052100bf437953304c30c944ca2a537a3a59a2ccadaa04dca"
+  },
+  {
+   "path": "data/regions/towns/DEU.js",
+   "bytes": 6206,
+   "sha256": "937c3d8acfd2af33b754f393ce5154f32f4b36cddee9e038d4ee06b11cc55da9"
+  },
+  {
+   "path": "data/regions/towns/DJI.js",
+   "bytes": 699,
+   "sha256": "32d4795b8c7f24749f77c8d9b0885404c73d6674f7d49813e30e8b09e8bb6e6b"
+  },
+  {
+   "path": "data/regions/towns/DMA.js",
+   "bytes": 305,
+   "sha256": "20b3f87bd89d7e275918877589ba1e5c81640c2a1f51533269ce50115098334c"
+  },
+  {
+   "path": "data/regions/towns/DNK.js",
+   "bytes": 1431,
+   "sha256": "ca5d6ea856db334cc901012351f9cd646ad5119d0a246a8904314461889de580"
+  },
+  {
+   "path": "data/regions/towns/DOM.js",
+   "bytes": 3474,
+   "sha256": "914b743f72e76262b9def5a51fe1c98ab1f147e559034087e9fafb2ff572baf9"
+  },
+  {
+   "path": "data/regions/towns/DZA.js",
+   "bytes": 5233,
+   "sha256": "1c3d3c0bd4c40ca39701e209db416e2fa30d1b87ea631e9fc52ba2a016e921a3"
+  },
+  {
+   "path": "data/regions/towns/ECU.js",
+   "bytes": 3891,
+   "sha256": "62173f04ac453b6649bf5db9bbd1bf2c5a91aa73e0e74dbb08617914aeac04bc"
+  },
+  {
+   "path": "data/regions/towns/EGY.js",
+   "bytes": 4457,
+   "sha256": "dbd01f28e749b506d431f0b7cde1250dc8b506e138b7d4290af70e479280229c"
+  },
+  {
+   "path": "data/regions/towns/ERI.js",
+   "bytes": 918,
+   "sha256": "a04eaa63dc23fa514086053b490860f75e32ec76d3f50fdf1c183ce41837feaf"
+  },
+  {
+   "path": "data/regions/towns/ESP.js",
+   "bytes": 5331,
+   "sha256": "e08bac04c4c7a387b1bcda0d97d65dc3a14c0f07137c633e54f31739e39c247a"
+  },
+  {
+   "path": "data/regions/towns/EST.js",
+   "bytes": 892,
+   "sha256": "401ffac600ba77afe28adbd7f063411091167e3a167727128de1cfd03db1f65a"
+  },
+  {
+   "path": "data/regions/towns/ETH.js",
+   "bytes": 3769,
+   "sha256": "0398468f62952ac0fadcd106b027a9c2e053f8667a0a7b7c8622f439f0a58039"
+  },
+  {
+   "path": "data/regions/towns/FIN.js",
+   "bytes": 2404,
+   "sha256": "5be1ef91ab8985f014c5981ae1a11efb9f8a0ae9ae426cde3ff6c67bfb6972a7"
+  },
+  {
+   "path": "data/regions/towns/FJI.js",
+   "bytes": 598,
+   "sha256": "865bcd2c3e5dbd60c0b56591a571494e868623ca1e11a842c812131f92f3aacb"
+  },
+  {
+   "path": "data/regions/towns/FLK.js",
+   "bytes": 394,
+   "sha256": "9050c98ea1f9a57d010694e1fe3c02633b040f472ae76c0c90ff8207eb68ea84"
+  },
+  {
+   "path": "data/regions/towns/FRA.js",
+   "bytes": 7717,
+   "sha256": "f33d99e16a1fe1a4fb235de1cb01df475ae6840c93fd9abd69e8c0cc69744bdf"
+  },
+  {
+   "path": "data/regions/towns/FRO.js",
+   "bytes": 406,
+   "sha256": "54c0608f9d9091e45d2887e5b20db53435d6aabfea0e4fcf8f50353ac8b34a3a"
+  },
+  {
+   "path": "data/regions/towns/FSM.js",
+   "bytes": 293,
+   "sha256": "127adf46ecfbbcde5c283b3f4a3a64940eca8b1ba573dec25f5e60e1c460738f"
+  },
+  {
+   "path": "data/regions/towns/GAB.js",
+   "bytes": 2244,
+   "sha256": "0fc1244492bcdfdf7ea949edffdecaded619884028afec85d01d03df0be900c6"
+  },
+  {
+   "path": "data/regions/towns/GBR.js",
+   "bytes": 6073,
+   "sha256": "c76e109272a680d2b9aca97af42f7686ddeb9312c833623c4e6fa1add9856c4d"
+  },
+  {
+   "path": "data/regions/towns/GEO.js",
+   "bytes": 928,
+   "sha256": "d5677f620e082262f074881e8f52887415cf2b5b8ce4dc16b0fed77a5864a150"
+  },
+  {
+   "path": "data/regions/towns/GHA.js",
+   "bytes": 1866,
+   "sha256": "9157f5164a63e99eccafc84586f03b7cab9e6cf65f15d367de232426088b3c7e"
+  },
+  {
+   "path": "data/regions/towns/GIB.js",
+   "bytes": 312,
+   "sha256": "208813fe6fcb3bf771db1eec2db77f88800fca84a8f266f52220912a737d5d1b"
+  },
+  {
+   "path": "data/regions/towns/GIN.js",
+   "bytes": 3023,
+   "sha256": "301b74c9667b18c6d160653e66d758f4a538295602c9b77b51798289926585d8"
+  },
+  {
+   "path": "data/regions/towns/GMB.js",
+   "bytes": 936,
+   "sha256": "8a86bb6b6692c45cff15e8ad6cf29ace9fae0f058438eb9b033c9c7cf2ddfcf2"
+  },
+  {
+   "path": "data/regions/towns/GNB.js",
+   "bytes": 983,
+   "sha256": "63adc3e443634389ed5a7d8ef45bc8e5c35703c90923c2dddd1630b11171c057"
+  },
+  {
+   "path": "data/regions/towns/GNQ.js",
+   "bytes": 785,
+   "sha256": "22cb58b8d039bf53f2fafac2feda2ecf991bf66b5bf0b96963903154e216f352"
+  },
+  {
+   "path": "data/regions/towns/GRC.js",
+   "bytes": 3368,
+   "sha256": "230c7900aa20dc2b6fb70d7def8778da0e9f53adcd71a70285eb17e4d2192474"
+  },
+  {
+   "path": "data/regions/towns/GRD.js",
+   "bytes": 303,
+   "sha256": "0b3f38045a85a5591754390410b602040512d2be8d1ec4c62c4e3f71a9d218d9"
+  },
+  {
+   "path": "data/regions/towns/GRL.js",
+   "bytes": 2574,
+   "sha256": "602b1ee7c083f5095ba432c6c954c11fd42812356b30f3edca9287bec1efa713"
+  },
+  {
+   "path": "data/regions/towns/GTM.js",
+   "bytes": 2928,
+   "sha256": "7666d071fdff5ba008b1208df5c2c6262bb7b7808019e05faed91e7846364fa3"
+  },
+  {
+   "path": "data/regions/towns/GUM.js",
+   "bytes": 300,
+   "sha256": "ff2d1953e49fcb9e7a495b5151cff3871335916eb4c20dfca9ca737f95d60fff"
+  },
+  {
+   "path": "data/regions/towns/GUY.js",
+   "bytes": 1317,
+   "sha256": "ffb44159dced17f553915594a6181548fe8f782264a33507a0f7eee4833b0d03"
+  },
+  {
+   "path": "data/regions/towns/HKG.js",
+   "bytes": 307,
+   "sha256": "4f8c6d4ce4e17d8ab872577be86482371e67da83a8ccd16c972613e10c97e5cc"
+  },
+  {
+   "path": "data/regions/towns/HND.js",
+   "bytes": 2190,
+   "sha256": "42ea6ec1f152f508e86144970131827dc712911722d03fe3d9881edc779ec2e4"
+  },
+  {
+   "path": "data/regions/towns/HRV.js",
+   "bytes": 1260,
+   "sha256": "71e1e7feb505c961bb5e0aba704e4cc06379046d32f6982de49507500e630c08"
+  },
+  {
+   "path": "data/regions/towns/HTI.js",
+   "bytes": 1131,
+   "sha256": "0ba09be89518b1fe9bca91f839af38da50022a725a3299a96c422a1ce87f65e6"
+  },
+  {
+   "path": "data/regions/towns/HUN.js",
+   "bytes": 2280,
+   "sha256": "5cf3517f4dc291d5168fa5c5550235a2d02bae10cd17807def77ce00fc2b1496"
+  },
+  {
+   "path": "data/regions/towns/IDN.js",
+   "bytes": 11286,
+   "sha256": "b1ac185382892abe017287e5000292cd0de17bf444344a0b32d67d2bca92be2e"
+  },
+  {
+   "path": "data/regions/towns/IMN.js",
+   "bytes": 300,
+   "sha256": "16f0bfbed87d1639b53cad1decfefe138d955aeed4af30e9e2ec23bdfe6f49d0"
+  },
+  {
+   "path": "data/regions/towns/IND.js",
+   "bytes": 22324,
+   "sha256": "d18b0eeeb972f8becd833c1c8fab970a3678a50c5e32d3ec15e92fcdb761504f"
+  },
+  {
+   "path": "data/regions/towns/IRL.js",
+   "bytes": 1674,
+   "sha256": "0b26be71eb3ca0c93394cb7fc9dc7c5c5c8f6310fd4d23d1a75599e11be14da4"
+  },
+  {
+   "path": "data/regions/towns/IRN.js",
+   "bytes": 6634,
+   "sha256": "669c3c310c018e80a19aa1e081f137074825f777a87b8dc52187856f085cedf0"
+  },
+  {
+   "path": "data/regions/towns/IRQ.js",
+   "bytes": 2937,
+   "sha256": "a431e9afd821207de28b5298eaad476ce72ef717da2d1b3147a75b351017f4d4"
+  },
+  {
+   "path": "data/regions/towns/ISL.js",
+   "bytes": 1174,
+   "sha256": "bf96e2097acd5b8e7342edc460792b1f590d36951c3803472aaef3633a0a9cfa"
+  },
+  {
+   "path": "data/regions/towns/ISR.js",
+   "bytes": 810,
+   "sha256": "e7c2e886d59fa7b4773f9c641c5654dabfb0a1e3fb1af0c0717f1b90d03cab06"
+  },
+  {
+   "path": "data/regions/towns/ITA.js",
+   "bytes": 5914,
+   "sha256": "539efa2cbdd067b846127b9d78a132e97cc295d3e86ad842c72886cbd7d71acf"
+  },
+  {
+   "path": "data/regions/towns/JAM.js",
+   "bytes": 1687,
+   "sha256": "e155242271445330209cb0cfb86dcb316d60c47fdbbd973671767e0e6db75f15"
+  },
+  {
+   "path": "data/regions/towns/JOR.js",
+   "bytes": 1078,
+   "sha256": "3685fa03c0199e9339162dda4a6acc09ec9b0778161c4863af4257ed9da0d75a"
+  },
+  {
+   "path": "data/regions/towns/JPN.js",
+   "bytes": 7179,
+   "sha256": "bd23d99f2abaaa78ad56f5c5e61f6ecd9325046579470064ac4af86b32d5eb56"
+  },
+  {
+   "path": "data/regions/towns/KAZ.js",
+   "bytes": 9879,
+   "sha256": "845f70fab52359c6a948478cdfcd503d1ce98143944716e57ad9cfb9132001c0"
+  },
+  {
+   "path": "data/regions/towns/KEN.js",
+   "bytes": 3708,
+   "sha256": "3069180b5e861f295ccd61257604b32f8f801a72877112e127335f67a801b0d2"
+  },
+  {
+   "path": "data/regions/towns/KGZ.js",
+   "bytes": 1606,
+   "sha256": "952959bb3baeb68de925dfb0b28f5cd4ad502246ac357439088f855757e58a38"
+  },
+  {
+   "path": "data/regions/towns/KHM.js",
+   "bytes": 2234,
+   "sha256": "438e396191b75c3c4cfdc18d119406f632b1b570f5911fa9d2703761e8edad86"
+  },
+  {
+   "path": "data/regions/towns/KIR.js",
+   "bytes": 294,
+   "sha256": "06edd013e50da6cd61485fba7d93392a2a41fdd71b8a70eb810bf4b168ba91a7"
+  },
+  {
+   "path": "data/regions/towns/KNA.js",
+   "bytes": 299,
+   "sha256": "ad2709775e29933dcd7ca904dedb7039e7adca1d9f4be48c536ef77099105908"
+  },
+  {
+   "path": "data/regions/towns/KOR.js",
+   "bytes": 3100,
+   "sha256": "430fdb0db4c8ff68f92b8cdfea02a6154657f252a195e3f6554177f066e248b0"
+  },
+  {
+   "path": "data/regions/towns/KOS.js",
+   "bytes": 499,
+   "sha256": "5a8f1b7d6262329e2a183794cbf0e903e4809bdc0428bd33011d752eae71d0a8"
+  },
+  {
+   "path": "data/regions/towns/KWT.js",
+   "bytes": 612,
+   "sha256": "e9895f33e4f4f1a156d3c41ba9e39c9cd1389292ab1596549d9a6d4bcd801436"
+  },
+  {
+   "path": "data/regions/towns/LAO.js",
+   "bytes": 1671,
+   "sha256": "787c3212f6d831cc85a90edc9868d3384896a2a4e8588c137f311505d37c3807"
+  },
+  {
+   "path": "data/regions/towns/LBN.js",
+   "bytes": 834,
+   "sha256": "a13749944927318e556f171f55a8cb5eacf358d4eb3469b52e0458e12d465529"
+  },
+  {
+   "path": "data/regions/towns/LBR.js",
+   "bytes": 1510,
+   "sha256": "8ec2331dbecc36af23a5e204a63ad6e72648f914db135a2aa40fe06db8712b2a"
+  },
+  {
+   "path": "data/regions/towns/LBY.js",
+   "bytes": 3695,
+   "sha256": "bc90524e8bb6fd19d3bbf27aa8b02a1221eecddf1ce46c77dc08327d3ae87484"
+  },
+  {
+   "path": "data/regions/towns/LCA.js",
+   "bytes": 295,
+   "sha256": "93143a6a484c539e3f6fa1fb56fdf1fe11da409ea9831a6d94568901b20baf2a"
+  },
+  {
+   "path": "data/regions/towns/LIE.js",
+   "bytes": 292,
+   "sha256": "62a50823c2bb6ab7a9bdf19cca875fffff3717d61702248af3e293e651137952"
+  },
+  {
+   "path": "data/regions/towns/LKA.js",
+   "bytes": 1614,
+   "sha256": "bd5822353fef6200c9a8869ae0a01742695e4b7b13e3711e63c62733b635c8b5"
+  },
+  {
+   "path": "data/regions/towns/LSO.js",
+   "bytes": 1016,
+   "sha256": "a7475e9bda57e92ba2ef779371cf7ac11a17001ab77a372fa4afd7f3164ba231"
+  },
+  {
+   "path": "data/regions/towns/LTU.js",
+   "bytes": 706,
+   "sha256": "5c59be4448577198e78fcb445a643998cf2f2b29ae4b039c85bacc6e2a9460b9"
+  },
+  {
+   "path": "data/regions/towns/LUX.js",
+   "bytes": 509,
+   "sha256": "aaf2262d5d12aca81c30fdd914c85b34dbb41052d2bfb31773ac839dbb0c0e4c"
+  },
+  {
+   "path": "data/regions/towns/LVA.js",
+   "bytes": 792,
+   "sha256": "9b12192fa1e6ff72bc5d791dd4b7953a20e5c3c20c31e85e5450b14dfdf11616"
+  },
+  {
+   "path": "data/regions/towns/MAC.js",
+   "bytes": 302,
+   "sha256": "abab2943978d98a42a968b5a4a576214afbbb7854937f911da0e5825a8e52137"
+  },
+  {
+   "path": "data/regions/towns/MAR.js",
+   "bytes": 3146,
+   "sha256": "a447fb32b4f3b68faa7c3277bb8cfa5462bfd80bcb610c806dd57832ad38d6f7"
+  },
+  {
+   "path": "data/regions/towns/MCO.js",
+   "bytes": 292,
+   "sha256": "a323e4a7313150b290f44f30d6b85f45901888d41bd8e85b489a715e60e16df7"
+  },
+  {
+   "path": "data/regions/towns/MDA.js",
+   "bytes": 703,
+   "sha256": "73d47ac09b6e65026a9e3e08b919a30563f9ae4b03c94ad4f77155300ef41449"
+  },
+  {
+   "path": "data/regions/towns/MDG.js",
+   "bytes": 3110,
+   "sha256": "3944a4e387f8ce79e99132a3eeeb6ad19d0ff2bb06648312dc0d53ee72cff90e"
+  },
+  {
+   "path": "data/regions/towns/MDV.js",
+   "bytes": 291,
+   "sha256": "f9597b8aa180fbbef970a700a6ed587bcc37e56d6bc666d1e1b9559d97ade3a6"
+  },
+  {
+   "path": "data/regions/towns/MEX.js",
+   "bytes": 19887,
+   "sha256": "e7569a6fae9575f4b50626e0e0d8fada745c55dcd273e6c57ed3ca699a9fb2ed"
+  },
+  {
+   "path": "data/regions/towns/MHL.js",
+   "bytes": 293,
+   "sha256": "c1f95d0ae7005477500d091071344f3b87ab18fc4d37974fd3b5411afcb5d199"
+  },
+  {
+   "path": "data/regions/towns/MKD.js",
+   "bytes": 490,
+   "sha256": "71d42392aa7345dede51e5b4be1a014ace071f3501cdd280d4b9100c667efda8"
+  },
+  {
+   "path": "data/regions/towns/MLI.js",
+   "bytes": 3086,
+   "sha256": "e67e33f70ffcbb12cb4eb212ad2b9ad3618a28edc23de9cc6ada1bed7564594b"
+  },
+  {
+   "path": "data/regions/towns/MLT.js",
+   "bytes": 295,
+   "sha256": "6b0108c9e52f6e3372993136b6109ef0939e71d746b76ae3bc2799e7ae5a5183"
+  },
+  {
+   "path": "data/regions/towns/MMR.js",
+   "bytes": 3835,
+   "sha256": "a58ed031c96e5d27b3272d773b1cae6b08e14673e04149492650afb1beea2fdc"
+  },
+  {
+   "path": "data/regions/towns/MNE.js",
+   "bytes": 305,
+   "sha256": "3e1976cca4ffedb60fc7efbfe54f6b56e509066595669b8f995f110075847f79"
+  },
+  {
+   "path": "data/regions/towns/MNG.js",
+   "bytes": 2639,
+   "sha256": "30a8a89eeee0088c74f0565e03ce831164ca521d84118a6cadafdcb95f0ce19d"
+  },
+  {
+   "path": "data/regions/towns/MNP.js",
+   "bytes": 300,
+   "sha256": "a4899cb0324952dbfdf8bc3c11f92d5f16ba98b19b184d78f7f9fb27ed9fa0ab"
+  },
+  {
+   "path": "data/regions/towns/MOZ.js",
+   "bytes": 3547,
+   "sha256": "d5e4e4541afdc1ddd1ecc6e63b2aeea095f5e452dd4e7b1edb984144d788fe96"
+  },
+  {
+   "path": "data/regions/towns/MRT.js",
+   "bytes": 2231,
+   "sha256": "6316e08d79e002415143d952ab6fd9bb584898a0167c5249865662f57f0aa302"
+  },
+  {
+   "path": "data/regions/towns/MUS.js",
+   "bytes": 395,
+   "sha256": "e7b0c7d63fb64bd12808767ac23398dddf5ee11f4b8bb595848e72ad654fb6b3"
+  },
+  {
+   "path": "data/regions/towns/MWI.js",
+   "bytes": 2191,
+   "sha256": "31c34414ff149ad765d883641aae9b1100ca26ab4311fbf8939d3f71e89395df"
+  },
+  {
+   "path": "data/regions/towns/MYS.js",
+   "bytes": 3420,
+   "sha256": "5de6f771e493f0802392bb3ac02d750a3d9f66c905f0242ae9d52c20ff7d7f39"
+  },
+  {
+   "path": "data/regions/towns/NAM.js",
+   "bytes": 2911,
+   "sha256": "c51d04636922517dc8f599fe9109f3ab00e79296e1de20565749f3426284f1bf"
+  },
+  {
+   "path": "data/regions/towns/NCL.js",
+   "bytes": 305,
+   "sha256": "520f48f9145178e53fe96c8febe1ac87e94341ccb2d485c117f373e37a0ae114"
+  },
+  {
+   "path": "data/regions/towns/NER.js",
+   "bytes": 1733,
+   "sha256": "551d91959e91f6676ca95f6fd1283d97af22c1307e986978ccc82daf90b74bf9"
+  },
+  {
+   "path": "data/regions/towns/NGA.js",
+   "bytes": 6606,
+   "sha256": "8e2c98f9207f81c61557fcc4028a39e5b9416e77ab5591167152fa3c8a6fe03d"
+  },
+  {
+   "path": "data/regions/towns/NIC.js",
+   "bytes": 2144,
+   "sha256": "fb5bf5a4681282e0dfeb2426a431c2a3dc85cff86e5c663afbfcb125b87e94cb"
+  },
+  {
+   "path": "data/regions/towns/NIU.js",
+   "bytes": 308,
+   "sha256": "d585fad5b35e48deb17941207082a5b16fee084088a5886d3018b1d6d705cae5"
+  },
+  {
+   "path": "data/regions/towns/NLD.js",
+   "bytes": 1643,
+   "sha256": "cd5f533c553cd4d2c269dea2fd14ab63dd0b65f2ca5a4d31deb59a5a91715409"
+  },
+  {
+   "path": "data/regions/towns/NOR.js",
+   "bytes": 3617,
+   "sha256": "8fc528d97d346fad3dad2fb65b92b52ad1fc1952bd87d1a479d70d14ab57a13f"
+  },
+  {
+   "path": "data/regions/towns/NPL.js",
+   "bytes": 1901,
+   "sha256": "5cda90ea8afbe20f2a6d30ad094206a9c53f63ca548b56c75fa36ec2c9aed8af"
+  },
+  {
+   "path": "data/regions/towns/NZL.js",
+   "bytes": 5663,
+   "sha256": "837ac0add48fde0852e879a69f20ec863d3807e297c52a5d40b1663bacfd51db"
+  },
+  {
+   "path": "data/regions/towns/OMN.js",
+   "bytes": 1203,
+   "sha256": "e67ca7bee2781d1b45faaa7d2d2a0fb4fc40f9022d16ea760ac36a831be66b74"
+  },
+  {
+   "path": "data/regions/towns/PAK.js",
+   "bytes": 4315,
+   "sha256": "405049c0efd2e978ebb182829e30c23492ca9ad9f86648b85a8b5e6e51312726"
+  },
+  {
+   "path": "data/regions/towns/PAN.js",
+   "bytes": 1614,
+   "sha256": "9e66603c93810f97d209d42402aebdf9c80b36335fd8834bf9d9bbabb0131981"
+  },
+  {
+   "path": "data/regions/towns/PER.js",
+   "bytes": 9027,
+   "sha256": "5faccec9c5c2ece068dc06e719491b8276c09faa82f6f91e1f6f48438761c1c7"
+  },
+  {
+   "path": "data/regions/towns/PHL.js",
+   "bytes": 4204,
+   "sha256": "0e64ec32b279aa2f19dc07869e88b5538a9a54cdfa28d49d88a34879f3d94724"
+  },
+  {
+   "path": "data/regions/towns/PLW.js",
+   "bytes": 386,
+   "sha256": "814fc077c65860563ccf11ed91247ea12b767101e99e24af1728913ebcb84a05"
+  },
+  {
+   "path": "data/regions/towns/PNG.js",
+   "bytes": 2543,
+   "sha256": "37389a8e77a4e4b703d59455d90f73190433ada62fb2447c37606974add7a69e"
+  },
+  {
+   "path": "data/regions/towns/POL.js",
+   "bytes": 2692,
+   "sha256": "41f01f89347461962a87472d73a90e943fa68f31d7b7663a355370fcc4052082"
+  },
+  {
+   "path": "data/regions/towns/PRI.js",
+   "bytes": 579,
+   "sha256": "f4c0d19b47c554eb2602b366bb1bfa24a1b910009334e81a61a8d175e3d5804d"
+  },
+  {
+   "path": "data/regions/towns/PRK.js",
+   "bytes": 3041,
+   "sha256": "7623f6028e606c6a436f3ede54ba55c85e935a0cac3ed12e53a08d46dfd82608"
+  },
+  {
+   "path": "data/regions/towns/PRT.js",
+   "bytes": 2624,
+   "sha256": "8c008f975f5dead394f6ffdb5ead3e6398336491d9850a72a6d775a8789dcbc8"
+  },
+  {
+   "path": "data/regions/towns/PRY.js",
+   "bytes": 4138,
+   "sha256": "42f664f00313e0b7d49df58a48a17e69046e66aa22482d8dab82ace4c16ed35c"
+  },
+  {
+   "path": "data/regions/towns/PSX.js",
+   "bytes": 597,
+   "sha256": "c6c5afb1d7ea2ad711b1a910ba446e58ce86ca461f0b45fc45d4a8c44af0aad0"
+  },
+  {
+   "path": "data/regions/towns/PYF.js",
+   "bytes": 306,
+   "sha256": "0e2c8300188c1fbaac0d56efe116d7def6e7b66f692c9ee076549cd4215d9701"
+  },
+  {
+   "path": "data/regions/towns/QAT.js",
+   "bytes": 301,
+   "sha256": "bc44c88b331e9dd1344035d949d72f7aa81aed46d8bf2367060e3a0beed72f80"
+  },
+  {
+   "path": "data/regions/towns/ROU.js",
+   "bytes": 4339,
+   "sha256": "3e8d8ca92668eba79d8c244e3fdcf8e0f40d16e6d28ac453c5c5b273950c46ac"
+  },
+  {
+   "path": "data/regions/towns/RUS.js",
+   "bytes": 59956,
+   "sha256": "faa190bb7768b251b533a28f448a7b6e1d95f21afb0c03b26cb6247eb5ed9610"
+  },
+  {
+   "path": "data/regions/towns/RWA.js",
+   "bytes": 1287,
+   "sha256": "a286dee8cf7a9a6ddbc7bbc10d95537d8666b29390e41f2980e2cda3c1e9c6c3"
+  },
+  {
+   "path": "data/regions/towns/SAH.js",
+   "bytes": 300,
+   "sha256": "443dbedc69f6fc0ba5a0cdd3fa5245dc8e6ad337da05b0508960f3a78b912f6b"
+  },
+  {
+   "path": "data/regions/towns/SAU.js",
+   "bytes": 3385,
+   "sha256": "9a72b9a1b487e5055f67f1c331d2aaede30bb059de35569a2af7ed7dd233f008"
+  },
+  {
+   "path": "data/regions/towns/SDN.js",
+   "bytes": 3252,
+   "sha256": "2ea5e2668887a23c26d58408bdfb5d2cbc3a6d2cdad09a268e815644bd7f436d"
+  },
+  {
+   "path": "data/regions/towns/SEN.js",
+   "bytes": 1290,
+   "sha256": "6697f8b9817ca93e5968ac8a0ea929275fde4a1f1a93949d3afcc09f39662c6d"
+  },
+  {
+   "path": "data/regions/towns/SGP.js",
+   "bytes": 299,
+   "sha256": "d776cd03b73ca0fecf948e71a819c08f14fdf4b9e134e86ed352f687386ad779"
+  },
+  {
+   "path": "data/regions/towns/SGS.js",
+   "bytes": 296,
+   "sha256": "52ffaf35fc7dc0bece2896de0448a3f809ab5090de7d29f05f1a5df18fde2c1e"
+  },
+  {
+   "path": "data/regions/towns/SJM.js",
+   "bytes": 311,
+   "sha256": "a395e8959944e680d38c62d871e636a81b7892eaea95376e7965d8de207239e8"
+  },
+  {
+   "path": "data/regions/towns/SLB.js",
+   "bytes": 494,
+   "sha256": "80aa956ce77765a0af78f0cad7457f7ed9269b4c15fd61d8fcbf409578365df2"
+  },
+  {
+   "path": "data/regions/towns/SLE.js",
+   "bytes": 685,
+   "sha256": "2bc0fe6e30ffaef77b25bd0dbc1cb1aeb5aa1545a41a5bbb82cf6f16300e9014"
+  },
+  {
+   "path": "data/regions/towns/SLV.js",
+   "bytes": 1702,
+   "sha256": "52856ccee3787dba92860b5f301ce42d3d8438796891895409ed7a0cad8bce04"
+  },
+  {
+   "path": "data/regions/towns/SMR.js",
+   "bytes": 298,
+   "sha256": "b120ada16192c7e3f9816c619c0cc0078d82a7be433754694505e6f015a0645f"
+  },
+  {
+   "path": "data/regions/towns/SOL.js",
+   "bytes": 857,
+   "sha256": "0c81f9a3ab16ea059a4a454c7d62ead2f31cf0407456866e652eae691902f85c"
+  },
+  {
+   "path": "data/regions/towns/SOM.js",
+   "bytes": 2651,
+   "sha256": "020d71feb4c34aad6e5c1457b718ed01b6a7f7350783a415b225fe570fa7894d"
+  },
+  {
+   "path": "data/regions/towns/SRB.js",
+   "bytes": 935,
+   "sha256": "0dfae4bc6ca872d801a39c802cef3580c962d365dbc3fc7d5812d150ed421d46"
+  },
+  {
+   "path": "data/regions/towns/SSD.js",
+   "bytes": 1715,
+   "sha256": "a271b1d0f990aa87e76c6890c87f9aa86be8d0ca295d52977a1ef1dd4a8621a9"
+  },
+  {
+   "path": "data/regions/towns/STP.js",
+   "bytes": 394,
+   "sha256": "52098cb39343492911b264aa1b0e552660454a42dd11b88a217a46ff455b68bb"
+  },
+  {
+   "path": "data/regions/towns/SUR.js",
+   "bytes": 1212,
+   "sha256": "12b0ab7c00877c3b30daddfc46ccd4558677114076d27cf4d97ca65d44e08273"
+  },
+  {
+   "path": "data/regions/towns/SVK.js",
+   "bytes": 928,
+   "sha256": "13ee011536becb592b76d944a8508c667974e864b04fbd1a9490ff74e75b74e1"
+  },
+  {
+   "path": "data/regions/towns/SVN.js",
+   "bytes": 411,
+   "sha256": "b4170bdf7c0ac16a644d68ed930a3efb99a2a100f9cadd34ca28ce4adb66f6fe"
+  },
+  {
+   "path": "data/regions/towns/SWE.js",
+   "bytes": 3730,
+   "sha256": "ace8528cb14eab89215ee5a48054e2872a839a84ce6461ffcad0d80d67af762d"
+  },
+  {
+   "path": "data/regions/towns/SWZ.js",
+   "bytes": 900,
+   "sha256": "1e68212529a2846cf7fd5b5d47ab5eafc2187e6d2c7d5f606567b061396aa66a"
+  },
+  {
+   "path": "data/regions/towns/SYC.js",
+   "bytes": 295,
+   "sha256": "1ca08caab6487c2b286d1858ca7f7085afdfefc0651f238d88c79b8ef1081fe8"
+  },
+  {
+   "path": "data/regions/towns/SYR.js",
+   "bytes": 2376,
+   "sha256": "99b29c135e1fbc27aee8ff26131c461a1f3725f9d81a08ee67cf9ed4c275ed84"
+  },
+  {
+   "path": "data/regions/towns/TCA.js",
+   "bytes": 305,
+   "sha256": "b40feaa8e2a0f73989e444de1e8d65e1df03e97dedc16cc93bb8835ecc19207c"
+  },
+  {
+   "path": "data/regions/towns/TCD.js",
+   "bytes": 2056,
+   "sha256": "792fbf03a3b1dc3a235e6ffdca7bc947b3d3d7eff1ac25f36459b413f2e07c59"
+  },
+  {
+   "path": "data/regions/towns/TGO.js",
+   "bytes": 875,
+   "sha256": "4b8f1fdb265ac0517dd456f3ea1cbf5319d88dbd2c5395074e6c7c4c87665f19"
+  },
+  {
+   "path": "data/regions/towns/THA.js",
+   "bytes": 8474,
+   "sha256": "a8bbb4331953feb451c3998cc00d0d59fa518ac31b75cff86935b2a3bb9a1842"
+  },
+  {
+   "path": "data/regions/towns/TJK.js",
+   "bytes": 1141,
+   "sha256": "296b0de68d7c055ab44847db3c1d1e22496805636500d409f0c4254e8c0ebf23"
+  },
+  {
+   "path": "data/regions/towns/TKL.js",
+   "bytes": 310,
+   "sha256": "c181f2d2225a1540afe102d6da68f244359bc6d010c1f31b1c61b7a1a974a4fd"
+  },
+  {
+   "path": "data/regions/towns/TKM.js",
+   "bytes": 1477,
+   "sha256": "4f675548ce0917a4388412238a247881caf36d7806be438e3c625f4ab1f73472"
+  },
+  {
+   "path": "data/regions/towns/TLS.js",
+   "bytes": 296,
+   "sha256": "49c0b450141cf201daffde8487cc50f70a7a8f7d0193360d438f0627019c139c"
+  },
+  {
+   "path": "data/regions/towns/TON.js",
+   "bytes": 395,
+   "sha256": "4b7b67b104ce1934c7ab71bff53cf721ad0772beef682c0ac531e57b4c56ba7c"
+  },
+  {
+   "path": "data/regions/towns/TTO.js",
+   "bytes": 424,
+   "sha256": "666f06a0df28729e5386c1b2bf3d2553eda3319460e748b1dab2ba5c9441bf4b"
+  },
+  {
+   "path": "data/regions/towns/TUN.js",
+   "bytes": 2740,
+   "sha256": "52e8d22128b98ee206b23b732201ac53131a0a43a88c33f839e57257701c4a1d"
+  },
+  {
+   "path": "data/regions/towns/TUR.js",
+   "bytes": 8376,
+   "sha256": "84eec6dbe8476c16520527d312766d19556ff47d1e131f1d1b2105d43b5bfeb1"
+  },
+  {
+   "path": "data/regions/towns/TUV.js",
+   "bytes": 296,
+   "sha256": "9ee5147a807710d6655d8dac26f1c6c6d31c8340aea17d6d6269e1481f570101"
+  },
+  {
+   "path": "data/regions/towns/TWN.js",
+   "bytes": 2746,
+   "sha256": "9a76aafe27b19540fd4b949d913f4ddb2ae9df907a020931605967a1820e32cc"
+  },
+  {
+   "path": "data/regions/towns/TZA.js",
+   "bytes": 5925,
+   "sha256": "0aaa6d04054aa1cc921e77299f7a30a972534b5c51ee648ad970c173f307a53f"
+  },
+  {
+   "path": "data/regions/towns/UGA.js",
+   "bytes": 4398,
+   "sha256": "0680f72b70db2ce84d8821f3a73cd6f722a4b2a5131a9ca4b15bbd703a822446"
+  },
+  {
+   "path": "data/regions/towns/UKR.js",
+   "bytes": 5195,
+   "sha256": "8546f009318ee2d301c0aabbb1939dc0ca20c115a9e01c11f9c69118e43c5199"
+  },
+  {
+   "path": "data/regions/towns/URY.js",
+   "bytes": 3509,
+   "sha256": "85cdbc4fab74e314dc1d2133840b3454666e44ce02debe126a07164975e18676"
+  },
+  {
+   "path": "data/regions/towns/USA.js",
+   "bytes": 79025,
+   "sha256": "e777db7d0d311676dec0e248473a5eb62f0518895a17365174dbabeba89cd5ae"
+  },
+  {
+   "path": "data/regions/towns/UZB.js",
+   "bytes": 3132,
+   "sha256": "80cf9067ef83f8af655c5246345545a2caea38a56995c1973fd955c8d287839c"
+  },
+  {
+   "path": "data/regions/towns/VAT.js",
+   "bytes": 301,
+   "sha256": "1623be19cea2cddb396cd61a1437f428a4c9c55db359f3e621dd97084cbbf332"
+  },
+  {
+   "path": "data/regions/towns/VCT.js",
+   "bytes": 298,
+   "sha256": "ff7646d66cad39307d09dc6a7925e6a7ad28300a8eb0075a077a761421fe968e"
+  },
+  {
+   "path": "data/regions/towns/VEN.js",
+   "bytes": 5339,
+   "sha256": "2e512341a9e3da8cbcb2bcc13600da567bb466407ca546123c09a511a1e4713d"
+  },
+  {
+   "path": "data/regions/towns/VIR.js",
+   "bytes": 300,
+   "sha256": "b3dd2b31499b59f5316dc700e00050296303713cb9cbea799bc3749e5bf561c8"
+  },
+  {
+   "path": "data/regions/towns/VNM.js",
+   "bytes": 6488,
+   "sha256": "a386035166c2920a839b0e287f95628e06b7fdf7969d1fc14a9a2bbc9649ae1c"
+  },
+  {
+   "path": "data/regions/towns/VUT.js",
+   "bytes": 404,
+   "sha256": "efe6d37728a87f116d3f309e33839e62d7dae507f6ebd2e244b2185d0791bd5f"
+  },
+  {
+   "path": "data/regions/towns/WSM.js",
+   "bytes": 295,
+   "sha256": "9e6cbf459e3939902aad365993f019caf06ccea1eb1c79c392b9cdfc0862e0ff"
+  },
+  {
+   "path": "data/regions/towns/YEM.js",
+   "bytes": 2201,
+   "sha256": "9aa49e139ef9d74e9237dba3a38cd9ac0b806aa3edd0fc5e2ad613df6cb3392a"
+  },
+  {
+   "path": "data/regions/towns/ZAF.js",
+   "bytes": 7786,
+   "sha256": "c1d6b6e16061cd0e4e5cea5179c8b1a68df659ae7dd1bd23c325935124b9ce20"
+  },
+  {
+   "path": "data/regions/towns/ZMB.js",
+   "bytes": 3589,
+   "sha256": "975123bcdd6db13247293aaaf91ca22564fafcc7321ecc6cf51b37080279b534"
+  },
+  {
+   "path": "data/regions/towns/ZWE.js",
+   "bytes": 2293,
+   "sha256": "a8d12c53906dd741cf01038af99109be007f92d32e0121b493c22fc770fabd2b"
+  },
+  {
+   "path": "data/regions/world.js",
+   "bytes": 164406,
+   "sha256": "229866eef3d55450206624a7101a9d42b8edeb2d8edc5ce0e31565463740d08b"
+  },
+  {
+   "path": "data/routes.json",
+   "bytes": 22649,
+   "sha256": "1e7a226b5437f28da7af095982337cc74a1a576e462fc2b85fba7404cf6debf7"
+  },
+  {
+   "path": "data/routes/air-interwar.js",
+   "bytes": 33176,
+   "sha256": "85b9f7c7adb93244960392903e92f3bacdbaa33f3c17225e737db3e9990ba3cc"
+  },
+  {
+   "path": "data/routes/air-interwar.json",
+   "bytes": 32978,
+   "sha256": "f864efda07ad8b3dd78887bacee3860d0829aa686e9eabe00f8fdb1943551ef0"
+  },
+  {
+   "path": "data/routes/air-jet-age.js",
+   "bytes": 40208,
+   "sha256": "3734145a4087770369b405bbded732ab6219627b00b05e0a4401e7b410663f51"
+  },
+  {
+   "path": "data/routes/air-jet-age.json",
+   "bytes": 40012,
+   "sha256": "f8e68e014094f22c34ca825c68aa5e2ec0dca362e5c5d9ec4e1b60e9da04b34d"
+  },
+  {
+   "path": "data/routes/air-pioneers.js",
+   "bytes": 19597,
+   "sha256": "5f86f38576b0bb79ba1a41edce357038a55b82a8da45c5b3b67fdb72f85e8a9f"
+  },
+  {
+   "path": "data/routes/air-pioneers.json",
+   "bytes": 19399,
+   "sha256": "edbe20714e41e14ee895086c391c2da61178872658a676ecfe15860075c50839"
+  },
+  {
+   "path": "data/routes/air.js",
+   "bytes": 36944,
+   "sha256": "aa34da26cebb5037c4cb33c3a882456e44643a46de2107d8b223c54a766c4645"
+  },
+  {
+   "path": "data/routes/air.json",
+   "bytes": 36764,
+   "sha256": "3b248306cdeb9b3c3691a478650f278d884babe33c052e50d362e08ccd41c7dd"
+  },
+  {
+   "path": "data/routes/amber-road.js",
+   "bytes": 3464,
+   "sha256": "71c56a9e73be157d07f4c57f7c6913657d7d4c9c3d11f39a9c0e06529decfa19"
+  },
+  {
+   "path": "data/routes/amber-road.json",
+   "bytes": 3270,
+   "sha256": "01836750d474aaaa1987a9aeae9ffe614bfe46276dad331fe395a5986a9fc60c"
+  },
+  {
+   "path": "data/routes/atlantic.js",
+   "bytes": 9259,
+   "sha256": "e3edc99f078f7edc1bab2f355db66858fdd1c0e7c23c1def23ac27312fe0edfb"
+  },
+  {
+   "path": "data/routes/atlantic.json",
+   "bytes": 9069,
+   "sha256": "4fc7876600fbfcddf32a9212fddf0e0cfe0cd56aa334b7bd10c2c70edf551710"
+  },
+  {
+   "path": "data/routes/canals.js",
+   "bytes": 6056,
+   "sha256": "b5aeba5c50605ad2e2f805724a859fb9938f72137c97b614bf015f542dc10bd5"
+  },
+  {
+   "path": "data/routes/canals.json",
+   "bytes": 5870,
+   "sha256": "60b0975c0701fbb6cbe7e19e136094c7fb03c9994ace2e06cd9be33447c5258f"
+  },
+  {
+   "path": "data/routes/cliwoc-logbooks.js",
+   "bytes": 9772,
+   "sha256": "3e6af080c97448522bdc951bc8ffb6cd87d0e592930d69cc3227cabfd91ec1a7"
+  },
+  {
+   "path": "data/routes/cliwoc-logbooks.json",
+   "bytes": 9568,
+   "sha256": "4659375c39d24d58fbf32e3237df4522815e753842d7d4c676999a5ff106ecad"
+  },
+  {
+   "path": "data/routes/container-lanes.js",
+   "bytes": 10301,
+   "sha256": "b6ddae232b16efb72095aef93ca57df3aac021834967ef10fcf8f2fe1bf40cdd"
+  },
+  {
+   "path": "data/routes/container-lanes.json",
+   "bytes": 10097,
+   "sha256": "05778fffb5d4cdaac89738ee14584c6c69e0ddf91a409d114d8569e6d11a0fff"
+  },
+  {
+   "path": "data/routes/grand-canal.js",
+   "bytes": 3465,
+   "sha256": "b8b6b37b0c165a82dc7e119de38415f1ecbbf31af25d307275fe9a3a18e40baf"
+  },
+  {
+   "path": "data/routes/grand-canal.json",
+   "bytes": 3269,
+   "sha256": "b6bfeb09887dea3c64415697245581f904b5bc2534f51bea1297a72f099d1437"
+  },
+  {
+   "path": "data/routes/greek-roman-sea.js",
+   "bytes": 11915,
+   "sha256": "523484d364bedb321c374b9f5e0cfcb8836d054ca17946725dc1908a19518351"
+  },
+  {
+   "path": "data/routes/greek-roman-sea.json",
+   "bytes": 11711,
+   "sha256": "6321144a55eebc4aaeec32a090877dbf045da556e3ac3356d38d7ee518e5eaba"
+  },
+  {
+   "path": "data/routes/hanseatic.js",
+   "bytes": 8204,
+   "sha256": "3a1532f486aff6171ca1a4d70492faee536a3446fdf161fa37cfffb30c32270a"
+  },
+  {
+   "path": "data/routes/hanseatic.json",
+   "bytes": 8012,
+   "sha256": "8e7d619c90061159a6a1d18c81411c30980940655d11d5fa0ea4327a3b4a9538"
+  },
+  {
+   "path": "data/routes/inca-roads.js",
+   "bytes": 3557,
+   "sha256": "56c441021d2d3be48ddab2c5e29d796a9b8b8e9e2d248c2cf7639c8af5d8a9e0"
+  },
+  {
+   "path": "data/routes/inca-roads.json",
+   "bytes": 3363,
+   "sha256": "ba2dfcb283ce1bd9d41c304c75d8cdd8cd673d63fc992e5521976eb81f908d1f"
+  },
+  {
+   "path": "data/routes/incense-route.js",
+   "bytes": 3288,
+   "sha256": "552f54cefe8af305e00c73e4af6676127b81c8504b0adecfa367015051207c70"
+  },
+  {
+   "path": "data/routes/incense-route.json",
+   "bytes": 3088,
+   "sha256": "036551eaa0cab0a5d83e228d462ccdd883df6e4ef405d5e9bfac3670b4dfc4b6"
+  },
+  {
+   "path": "data/routes/index.js",
+   "bytes": 971,
+   "sha256": "9f7f88ce9d66efe520b2a0b74b0a1888030b54ffd609ce907db00160735f3500"
+  },
+  {
+   "path": "data/routes/indian-ocean.js",
+   "bytes": 8300,
+   "sha256": "d4481f67b8fcb70d1b480d2ee82ab5c0455642192275b6ff7e375e09a0e2a392"
+  },
+  {
+   "path": "data/routes/indian-ocean.json",
+   "bytes": 8102,
+   "sha256": "a6c673f68f629fe352bedee5cd570415309e9a20e83d59d94fe1d052644fcee9"
+  },
+  {
+   "path": "data/routes/manila-galleon.js",
+   "bytes": 5753,
+   "sha256": "74abc6c2c2b399a4142ce96524252c723c0d83ed509f6abc5adc9f23698dd01e"
+  },
+  {
+   "path": "data/routes/manila-galleon.json",
+   "bytes": 5551,
+   "sha256": "742c69559cfef87423c09279e5b6a8681ae53617e8a28ee98cd41a978db69482"
+  },
+  {
+   "path": "data/routes/ming-treasure-fleets.js",
+   "bytes": 6319,
+   "sha256": "baea28204f456768e5cdcc230b4bf60a481f058def5aa525193aae9cbf8ee210"
+  },
+  {
+   "path": "data/routes/ming-treasure-fleets.json",
+   "bytes": 6105,
+   "sha256": "9bb9d336a3c049832b2dd0333856c241cf51dd0f8667bb6f325fe58510cd7e67"
+  },
+  {
+   "path": "data/routes/pipelines.js",
+   "bytes": 7832,
+   "sha256": "3b41316605efba7132ce17f664fbaffeaa0b121869acca3c7e22390835da1242"
+  },
+  {
+   "path": "data/routes/pipelines.json",
+   "bytes": 7640,
+   "sha256": "d524d13a4b89b726e750e83ab373e5e4d4871dfefa25617a455ddd7215e2f9ca"
+  },
+  {
+   "path": "data/routes/railways.js",
+   "bytes": 8159,
+   "sha256": "dda415df6ef94456f9012a759f12b141077501513eab061c64bc6ebc7ab52519"
+  },
+  {
+   "path": "data/routes/railways.json",
+   "bytes": 7969,
+   "sha256": "76f9a414cbc71db5964d7e9fd21a5d7f693d5e2fa21bbdd78e3b48646af05f1f"
+  },
+  {
+   "path": "data/routes/roman-roads.js",
+   "bytes": 6052,
+   "sha256": "9581627ade5c16dacdb79681b770c068e7a5e80accc4c42692e5488d584b5326"
+  },
+  {
+   "path": "data/routes/roman-roads.json",
+   "bytes": 5856,
+   "sha256": "fc46c1ad62a66481ab4be083f4481b344ff132ae6b5ea1b15934fede35490c68"
+  },
+  {
+   "path": "data/routes/royal-road.js",
+   "bytes": 3409,
+   "sha256": "9277805902648d0a2e0c105f4caa789d45005a907e7b5df829f96e2df6d69962"
+  },
+  {
+   "path": "data/routes/royal-road.json",
+   "bytes": 3215,
+   "sha256": "e84e383ea7891fdd3caa87f20486ae98d3608105ad4b8075ef361d2666b79ad1"
+  },
+  {
+   "path": "data/routes/silk-roads.js",
+   "bytes": 11985,
+   "sha256": "43ca84964f212036563f85ce7fdb3de3e70ea1126f29cb1d55e5598eb9fb12ad"
+  },
+  {
+   "path": "data/routes/silk-roads.json",
+   "bytes": 11791,
+   "sha256": "bdc78e9703c46e8aee79342aa6012203a9bcc52afad98afc0bc31daae021bb29"
+  },
+  {
+   "path": "data/routes/steamships.js",
+   "bytes": 7322,
+   "sha256": "85212d074a5a68cd52d4c06123aff1a47f2defa48117f882ffb947617436266b"
+  },
+  {
+   "path": "data/routes/steamships.json",
+   "bytes": 7128,
+   "sha256": "ccb77846ba6240594b5514d4a76e48b397bc29706a7f4c4d8517959c2bff88d6"
+  },
+  {
+   "path": "data/routes/trans-saharan.js",
+   "bytes": 3058,
+   "sha256": "5c956a80bf194d51970ba2b65e83484e332a0fdd0c84113c5a7de00207c6120d"
+  },
+  {
+   "path": "data/routes/trans-saharan.json",
+   "bytes": 2858,
+   "sha256": "2d820d74db1660c90d6f1cf8cda62f52c1272595d1e52379ecaeafeeafefd444"
+  },
+  {
+   "path": "data/routes/venice-genoa.js",
+   "bytes": 14028,
+   "sha256": "f471f38e5a3f44f44b45582c9c76079c2ca268930012b654031ff11411bf2c5a"
+  },
+  {
+   "path": "data/routes/venice-genoa.json",
+   "bytes": 13830,
+   "sha256": "ad4b1b4b3f9327567d3227d5d3331c4d34ff80e66ec2fbd3a7c6d5e9785a96c1"
+  },
+  {
+   "path": "data/routes/viking.js",
+   "bytes": 8808,
+   "sha256": "3d9220656aa68e05d98cc2b960612cc48dbfda5b18c55b4aa612b2868e546a9f"
+  },
+  {
+   "path": "data/routes/viking.json",
+   "bytes": 8622,
+   "sha256": "a6159cb3628d41ee5aaaa6cc06e9dca10900f04cad0755644d15cde515fdfe44"
+  },
+  {
+   "path": "data/routes/voc-eic.js",
+   "bytes": 20241,
+   "sha256": "b9438e790b8b7b77e6c243fe53d89b4c798158fb9c0b6cbdce7b1a1e1c4b5d37"
+  },
+  {
+   "path": "data/routes/voc-eic.json",
+   "bytes": 20053,
+   "sha256": "0756861291fbad2777562cc3cee9af186389a345daaec0d879d948056cea29c5"
+  },
+  {
+   "path": "data/schema.js",
+   "bytes": 6358,
+   "sha256": "a15262f8b33141d41864675bfdc93aff0735e9cc5da2371f66b0a0e390467f02"
+  },
+  {
+   "path": "data/space/content.js",
+   "bytes": 7074,
+   "sha256": "9cbc04240f3dda62ba6ab769752eb9460d273bcff6800b649ed1e56fa66f868e"
+  },
+  {
+   "path": "data/space/gcat.js",
+   "bytes": 18609,
+   "sha256": "1aa2f7eab14362bbb0e4b7957e266d09dc33b1d6161a89617cf94af7f6fbf801"
+  },
+  {
+   "path": "data/texture.js",
+   "bytes": 417901,
+   "sha256": "3d1137caaebd0b47274b0cf0ce81cc14ea45271b2511160ad60f5c5ccdbf69e2"
+  },
+  {
+   "path": "data/tours.js",
+   "bytes": 1083,
+   "sha256": "7c69c365000b3be4b8e09479d74ac2428fdf195af89cd59fdb49ae1038294ae0"
+  },
+  {
+   "path": "data/wind.js",
+   "bytes": 14973,
+   "sha256": "6896923405d8293592634d0641a545509156375f7449c1252a38f4385f0082d1"
+  },
+  {
+   "path": "data/wind.json",
+   "bytes": 16220,
+   "sha256": "174bdda2e021845506cc4c67a20c71520a56343d4b50b13d8f0635f82a512994"
+  },
+  {
+   "path": "favicon.svg",
+   "bytes": 408,
+   "sha256": "cd04b8a3f0d1d66695398ff6ba770650811bd548cf1a764b5fa5fd5c38bb4805"
+  },
+  {
+   "path": "fonts/Inter-OFL.txt",
+   "bytes": 4380,
+   "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+  },
+  {
+   "path": "fonts/InterVariable.woff2",
+   "bytes": 352240,
+   "sha256": "693b77d4f32ee9b8bfc995589b5fad5e99adf2832738661f5402f9978429a8e3"
+  },
+  {
+   "path": "fonts/fonts.css",
+   "bytes": 241,
+   "sha256": "f011e182b5ce5e4bd1740246f196f3c04026b06c282e44881a084e1d96af89ae"
+  },
+  {
+   "path": "js/app.js",
+   "bytes": 69930,
+   "sha256": "34672cc02d87374d68bb7cabf3dca5147c089d3570612ad1d2cf3ec7c3b50a3e"
+  },
+  {
+   "path": "js/assets.js",
+   "bytes": 2402,
+   "sha256": "c12c3eeb3c7558305bedd970e5e0ad75b25ba071edac476afda55193ac01e1e6"
+  },
+  {
+   "path": "js/atlas.js",
+   "bytes": 18382,
+   "sha256": "388e24c32308d5015e7e93c0342be6b1d9b0806bd2a39a353ef27c411dc2499d"
+  },
+  {
+   "path": "js/chat.js",
+   "bytes": 9543,
+   "sha256": "ca1ef06026a43721f98f1f43b14a7fffd62131872deccf5c35daf799e820b9db"
+  },
+  {
+   "path": "js/encyclopedia.js",
+   "bytes": 23453,
+   "sha256": "4d142d4a30e801436efa9c2335cdfe492783eb144dded918394ea453bf3356c5"
+  },
+  {
+   "path": "js/listen.js",
+   "bytes": 5459,
+   "sha256": "9572fb067d423f875efc1973e2b4dbc34add0bf372801c36ae6a4d45dfa70082"
+  },
+  {
+   "path": "js/mobile.js",
+   "bytes": 4977,
+   "sha256": "1723a9b25baa4f90c9f6ea05fb0c2b0215558295102c353f97fe90bd1a704e38"
+  },
+  {
+   "path": "js/planet.js",
+   "bytes": 10936,
+   "sha256": "35f1dc647eb9b44f8398b40fc88f9240b39e811c785885a8efc453c8271e3001"
+  },
+  {
+   "path": "js/radio.js",
+   "bytes": 7084,
+   "sha256": "828eb3b7402f7f70ba59b6b1a847701ec77da1b34a70729c5313feddcc79d20a"
+  },
+  {
+   "path": "js/regions.js",
+   "bytes": 11031,
+   "sha256": "8560b1cc3ad4fd71b1d1916294f53c651803ffe486e39c13bdbdc1e017ec9fc9"
+  },
+  {
+   "path": "js/sky.js",
+   "bytes": 5158,
+   "sha256": "688684af7c972a4dcfdbaccbea7fa71f3807cfe19af836bb07c8d7d7cc008c09"
+  },
+  {
+   "path": "js/timemodel.js",
+   "bytes": 2015,
+   "sha256": "8075e8635be1e7159b4d7acdf7b4fdf9076a04a5c92afc773df77d45a5173947"
+  },
+  {
+   "path": "js/tools.js",
+   "bytes": 8169,
+   "sha256": "08e751f7de9d7cd02d02eed843e2b4f59901b7b745b919b1475dc28298fed659"
+  },
+  {
+   "path": "js/update.js",
+   "bytes": 4070,
+   "sha256": "2b4be2b940c7e2e7b380028194a4739b1e4ddf93fd2b91a4ddc79b96eefea779"
+  },
+  {
+   "path": "js/vehicles.js",
+   "bytes": 69216,
+   "sha256": "90199a29b15e2535a0463c5cf3ce511251c6607d674a89694c565f92e18688fd"
+  },
+  {
+   "path": "js/version.js",
+   "bytes": 492,
+   "sha256": "8cab9bed214737a30657f56efa6636d528c12197c76dbc41df6b2148fbd82630"
+  },
+  {
+   "path": "js/voyages.js",
+   "bytes": 12487,
+   "sha256": "09a1e453cbb004537c705da41bd69916fb0009b51d294be0d34c407f9d1d25ea"
+  },
+  {
+   "path": "lite.html",
+   "bytes": 10321,
+   "sha256": "4c661fbb165a4f3fc0d37839379e0c2945feae5f22768d9424cfdce11c909a2b"
+  },
+  {
+   "path": "textures/earth-navy.png",
+   "bytes": 92542,
+   "sha256": "902e33743022a4bf8cd1472c5b303f5c14980bafb4d915f40ab06faa83380623"
+  },
+  {
+   "path": "v3.css",
+   "bytes": 7137,
+   "sha256": "4b48fdf2b458ae3a0dc3573e0df8d1face204a5710d3ab4e76caac7e716b2a93"
+  },
+  {
+   "path": "vendor/README.md",
+   "bytes": 100,
+   "sha256": "0be6fa898fec1d8dcacefff912c51e347744ab95f7c1c39bfb7746f7ea1bdea4"
+  },
+  {
+   "path": "vendor/VERSION-globe.gl.txt",
+   "bytes": 7,
+   "sha256": "8c9c096a64f6b80b8ba9686878727a174f3ed1ee8a467b50733696f17f55d129"
+  },
+  {
+   "path": "vendor/globe.gl.min.js",
+   "bytes": 1885160,
+   "sha256": "2c3e445c04d121215910a89688b96091c8a72071c122a4f830081a39b636c94c"
+  },
+  {
+   "path": "vendor/three-addons.global.js",
+   "bytes": 38424,
+   "sha256": "192912e3809c2cdb30787a129702b27a91b1002533ab3c18a3ec6dceb4f59259"
+  },
+  {
+   "path": "vendor/three.global.js",
+   "bytes": 2150902,
+   "sha256": "854a9226c9685911e95eb2b75f21acf226356a23acdf1ff493e6e7d1773aecf0"
+  },
+  {
+   "path": "version.json",
+   "bytes": 352,
+   "sha256": "092d0357add987e224a0c1d0102c44d6d3dd7489def9952325e455678de7e481"
+  }
+ ]
+}
