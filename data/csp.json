@@ -1,13 +1,13 @@
 {
-  "comment": "Content-Security-Policy for the app pages, written into index.html, lite.html and byo.html by tools/make_editions.py. Each outside host is here for one stated reason. When a chat Worker URL or an R2 base URL is set in web/data/edition.js, add its origin under 'connect' (chat) or 'media' and 'img' (R2), then run tools/make_editions.py. 127.0.0.1/localhost are for local tests and the R2 mock (the app only accepts those overrides on a local copy).",
+  "comment": "Content-Security-Policy for the app pages, written into index.html, lite.html and byo.html by tools/make_editions.py. Each outside host is here for one stated reason. 'chat' is the xAI API, called from the browser with the visitor's own key. When an R2 base URL is set in web/data/edition.js, add its origin under 'r2', then run tools/make_editions.py. 127.0.0.1/localhost are for local tests and the R2 mock (the app only accepts those overrides on a local copy).",
   "hosts": {
     "version": ["https://adventurenlearn.github.io"],
     "tigerweb": ["https://tigerweb.geo.census.gov"],
     "radio_player": ["https://www.youtube-nocookie.com", "https://www.youtube.com"],
     "radio_api_script": ["https://www.youtube.com"],
-    "chat": [],
+    "chat": ["https://api.x.ai"],
     "r2": [],
     "local_tests": ["http://127.0.0.1:*", "http://localhost:*"]
   },
-  "byo_extra_connect": ["https://api.x.ai", "https:", "http:"]
+  "byo_extra_connect": ["https:", "http:"]
 }

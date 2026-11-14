@@ -6,7 +6,7 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const A = () => window.SeaAtlas;
-  const KIND = { route: "Route", vessel: "Ship", aircraft: "Aircraft", vehicle: "Vehicle type", spacecraft: "Spacecraft", place: "Place", region: "Region", era: "Era", topic: "Topic" };
+  const KIND = { route: "Route", vessel: "Ship", aircraft: "Aircraft", vehicle: "Vehicle type", spacecraft: "Spacecraft", "launch-year": "Launch year", place: "Place", region: "Region", level: "Drill-down level", era: "Era", topic: "Topic", tour: "Tour", link: "Outside project", app: "SeaGlobe feature", source: "Source" };
   const compareSet = [];
   let panel, body, q, last = "";
 
@@ -44,7 +44,7 @@
     panel.hidden = !on;
     document.body.classList.toggle("atlas-open", !!on);
     $("atlasBtn").setAttribute("aria-pressed", String(!!on));
-    if (on && window.SeaRegions) window.SeaRegions.loadIndex().then(() => { if (A().addRegions()) count(); });   // region entries join search on first open
+    if (on && A().ensureAll) A().ensureAll().then(count);   // region and town entries join search on first open
     if (on) { if (window.__sg && window.__sg.log) window.__sg.log(false); if (!/^#\//.test(location.hash)) go("#/browse"); else route(); setTimeout(() => q.focus(), 0); }
     else if (/^#\//.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
   }

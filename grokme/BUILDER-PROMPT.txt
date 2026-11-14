@@ -10,7 +10,7 @@ Do not:
 - add, remove or edit content, data, text, credits, licences or styles;
 - fetch any file from a CDN or another site; everything the app needs is in the manifest;
 - change the Content-Security-Policy in lite.html;
-- add a chat key, API key or any secret. Chat stays offline in this build.
+- add a chat key, API key or any secret. Chat stays offline until a visitor pastes their own xAI key in chat settings (kept in their browser only).
 
 Keep:
 - the credit "Built by AdventureNLearn" linking to https://x.com/AdventureNLearn in the footer and the About tab;

@@ -23,8 +23,8 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 12545004,
- "file_count": 395,
+ "total_bytes": 13065826,
+ "file_count": 396,
  "files": [
   {
    "path": "app.css",
@@ -63,13 +63,13 @@
   },
   {
    "path": "data/edition-lite.js",
-   "bytes": 194,
-   "sha256": "ed78f443f09366f16ab5eba52861d6bd2f78ebe0b33ff162320e9b7e43bb402b"
+   "bytes": 179,
+   "sha256": "3022ec11203e6181ec1528aaa75ca37ee9ffb96e2323c2773fb2c088c9f7b389"
   },
   {
    "path": "data/edition.js",
-   "bytes": 1352,
-   "sha256": "b23d9bf719591fa6b985c83e7ddaca229cd9701c814763a60f3d84b1d86bc8cb"
+   "bytes": 1009,
+   "sha256": "a86082bd843be19b0616f32e8aba89804027e811343b4d60278a59578c1826bc"
   },
   {
    "path": "data/ne_110m_coastline.geojson",
@@ -405,6 +405,11 @@
    "path": "data/regions/index.js",
    "bytes": 558846,
    "sha256": "fe3265eb7c7cba46b7b8b6c805af2da602a38eef27a6c96de9676cc584b93476"
+  },
+  {
+   "path": "data/regions/towns-index.js",
+   "bytes": 509586,
+   "sha256": "0b7d8d79eac6425fc24958caf4e15a37079c0b7b11b51004fcdf8bf0d43dd839"
   },
   {
    "path": "data/regions/towns/ABW.js",
@@ -1883,18 +1888,18 @@
   },
   {
    "path": "js/atlas.js",
-   "bytes": 18382,
-   "sha256": "388e24c32308d5015e7e93c0342be6b1d9b0806bd2a39a353ef27c411dc2499d"
+   "bytes": 27292,
+   "sha256": "77874bb39204c5eedcb972dbe0b83dab1bf18c8a2167fd4062f0d269b2c58635"
   },
   {
    "path": "js/chat.js",
-   "bytes": 9543,
-   "sha256": "ca1ef06026a43721f98f1f43b14a7fffd62131872deccf5c35daf799e820b9db"
+   "bytes": 12132,
+   "sha256": "3bb66d17cc71929333c785fee9b9340c4f0312d78c0d01002e924a51009c718d"
   },
   {
    "path": "js/encyclopedia.js",
-   "bytes": 23453,
-   "sha256": "4d142d4a30e801436efa9c2335cdfe492783eb144dded918394ea453bf3356c5"
+   "bytes": 23548,
+   "sha256": "f3ab868758d0b058cf5328c3d804f41de88070ca4ef3267b8cf33b00ab12518a"
   },
   {
    "path": "js/listen.js",
@@ -1959,7 +1964,7 @@
   {
    "path": "lite.html",
    "bytes": 10321,
-   "sha256": "4c661fbb165a4f3fc0d37839379e0c2945feae5f22768d9424cfdce11c909a2b"
+   "sha256": "f3a6caf976e5800e3d356186b0e43ad5db6b713465440de544a36437afb7d5f1"
   },
   {
    "path": "textures/earth-navy.png",

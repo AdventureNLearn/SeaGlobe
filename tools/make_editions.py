@@ -13,7 +13,7 @@ def csp(byo=False):
     c = json.load(open(os.path.join(ROOT, "data", "csp.json")))["hosts"]
     extra = json.load(open(os.path.join(ROOT, "data", "csp.json")))["byo_extra_connect"] if byo else []
     loc = c["local_tests"]
-    connect = ["'self'", "data:", "blob:"] + c["version"] + c["tigerweb"] + c["chat"] + loc + (["https://api.x.ai"] if not byo else []) + extra
+    connect = ["'self'", "data:", "blob:"] + c["version"] + c["tigerweb"] + c["chat"] + loc + extra
     parts = [
         "default-src 'self'",
         "script-src 'self' " + " ".join(c["radio_api_script"] + loc),

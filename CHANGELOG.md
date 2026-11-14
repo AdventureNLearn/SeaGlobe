@@ -14,8 +14,9 @@
 - **Guided tours with narration**: eras, air and space tours read from the entries' own text by the browser's speech
   voice, with captions; `?mute=1` gives captions only.
 - **Grounded chat (Ask)**: answers only from the atlas entries it retrieves and cites them; anything it cannot ground
-  is [UNKNOWN]. Runs through an optional chat Worker (not deployed), the owner's own key on a PC (BYO edition), or is
-  shown as offline.
+  is [UNKNOWN]. Written answers need the visitor's own xAI API key (chat settings; kept in this tab by default, or
+  on this device if they tick "Remember"; "Forget key" clears it). The browser calls the xAI API directly; the
+  visitor pays xAI for their own use. Without a key the chat is offline and shows the matching entries.
 - **Creedence Clearwater Revival Radio**: the official "Chronicle: The 20 Greatest Hits" YouTube playlist in a
   standard embed that loads only when you click, plus two outside-site links. SeaGlobe hosts no audio.
 - **Editions**: full (`index.html`), lite (`lite.html`, the Grok.me build) and BYO (`byo.html`, PC only, your own TLE
@@ -29,6 +30,17 @@
   detail is a separate level of detail; the lite build leaves it out. Routes round their corners over 20 km so the nose
   follows the course (tests/test_models.mjs checks every moving model within 5 degrees).
 - **Credit**: "Built by AdventureNLearn" in the footer, the About tab and the README.
+
+### Encyclopedia coverage
+
+- Every entity in the app now has an entry, and the chat indexes all of them: routes, ships and aircraft, vehicle
+  types, eras, route families, air hubs, launch sites, spacecraft, yearly launch counts, regions at every drill-down
+  level, every town label (7,342), the drill-down levels, tours, outside projects, the radio, the three editions,
+  the chat, the version check, the background starfield, the credit, and every cited source (12,857 entries in all).
+  Entries are built only from the bundled data and its cited sources; where no history has been written, the entry
+  says [UNKNOWN]. `tests/test_coverage.mjs` fails if any data entity has no entry or the chat index misses one.
+- `tools/build_town_index.py` writes one small town list (`web/data/regions/towns-index.js`) so search does not
+  need the 225 town packs.
 
 ### Known gaps in v3.0.0
 

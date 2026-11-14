@@ -26,15 +26,15 @@ const fixSrv = http.createServer((q, s) => {
   fs.createReadStream(p).pipe(s);
 });
 const fport = await listen(fixSrv);
-// mock chat Worker
-let chatSeen = null;
+// local stand-in for the xAI chat completions endpoint (no real key, no network)
+let chatSeen = null, chatAuth = null;
 const chatSrv = http.createServer((q, s) => {
-  if (q.method === "OPTIONS") { s.writeHead(204, { "access-control-allow-origin": "*", "access-control-allow-headers": "content-type", "access-control-allow-methods": "POST" }); s.end(); return; }
+  if (q.method === "OPTIONS") { s.writeHead(204, { "access-control-allow-origin": "*", "access-control-allow-headers": "*", "access-control-allow-methods": "*" }); s.end(); return; }
   let b = ""; q.on("data", (c) => (b += c)); q.on("end", () => {
-    chatSeen = JSON.parse(b);
-    const id = chatSeen.context[0] && chatSeen.context[0].id;
+    chatSeen = JSON.parse(b); chatAuth = q.headers.authorization || "";
+    const m = /\[([a-z]+:[^\]\s]+)\]/.exec(chatSeen.messages[1].content);
     s.writeHead(200, { "access-control-allow-origin": "*", "content-type": "application/json" });
-    s.end(JSON.stringify({ answer: "From the atlas: " + (id ? "[" + id + "]" : "[UNKNOWN]") + " and an invented [route:not-sent]." }));
+    s.end(JSON.stringify({ choices: [{ message: { content: "From the atlas: " + (m ? "[" + m[1] + "]" : "[UNKNOWN]") + " and an invented [route:not-sent]." } }] }));
   });
 });
 const cport = await listen(chatSrv);
@@ -42,7 +42,8 @@ const cport = await listen(chatSrv);
 const r2dir = fs.mkdtempSync(path.join(os.tmpdir(), "sg-r2-"));
 fs.mkdirSync(path.join(r2dir, "textures", "hd"), { recursive: true });
 for (const f of ["earth-day-8k.jpg", "earth-night-4k.jpg", "earth-water-4k.png"]) fs.copyFileSync(path.join(root, "web", "textures", "hd", f), path.join(r2dir, "textures", "hd", f));
-const r2port = 8700 + Math.floor(Math.random() * 90);
+// a port nothing else is listening on (a busy port would hand the test some other server)
+const r2port = await (async () => { const t = http.createServer(); const pt = await listen(t); await new Promise((r) => t.close(r)); return pt; })();
 const r2 = spawn("python3", [path.join(root, "tools", "mock_r2.py"), r2dir, "--port", String(r2port)], { stdio: "ignore" });
 await sleep(800);
 const local = (errs, extra = []) => errs.filter((e) => !extra.some((x) => x.test(e)));
@@ -170,23 +171,64 @@ try {
     await p.close();
   });
 
-  await check("chat: offline shows matching entries; no match is [UNKNOWN]; a Worker reply is linked and unsent citations are flagged", async () => {
+  await check("chat: offline shows matching entries; no match is [UNKNOWN]; with the visitor's own key the reply is linked and unsent citations are flagged", async () => {
     let p = await openApp(browser, port, "capture=1");
     await p.evaluate(() => { location.hash = "#/ask"; }); await p.waitForSelector("#chatForm");
     assert.equal(await p.evaluate(() => document.getElementById("chatStatus").dataset.mode), "offline");
+    assert.ok(await p.$("#chatKey") && await p.$("#chatForget") && await p.$("#chatRemember"), "key settings, Forget key and Remember are shown");
+    const txt = await p.evaluate(() => document.getElementById("chatSettings").innerText);
+    assert.match(txt, /you pay xAI for your own use/i);
+    assert.equal(await p.evaluate(() => { const a = document.querySelector("#chatSettings a[href^='https://console.x.ai']"); return a && a.target === "_blank" && /noopener/.test(a.rel); }), true, "console link opens in a new tab");
     const off = await p.evaluate(() => window.SeaChat.ask("Concorde London New York"));
     assert.equal(off.mode, "offline"); assert.ok(off.ctx.some((c) => /concorde/.test(c.id)));
     assert.match(await p.evaluate(() => document.getElementById("chatLog").innerText), /Chat is offline/);
     const none = await p.evaluate(() => window.SeaChat.ask("zzqx unicorn submarine"));
     assert.match(none.answer, /^\[UNKNOWN\]/);
     assert.deepEqual(p._errors, []); await p.close();
-    p = await openApp(browser, port, `capture=1&chaturl=${encodeURIComponent(`http://127.0.0.1:${cport}/chat`)}`);
+  });
+
+  await check("chat key: session-only unless Remember is ticked; Forget clears it; the key goes only to the xAI endpoint, never in a URL, another request, storage without consent or the console", async () => {
+    const KEY = "xai-TESTONLY-" + Math.random().toString(36).slice(2) + "-notarealkey";
+    const ep = `http://127.0.0.1:${cport}/v1/chat/completions`;
+    const p = await openApp(browser, port, `capture=1&xaiurl=${encodeURIComponent(ep)}`);
+    const reqs = [], logs = [];
+    p.on("request", (r) => reqs.push({ url: r.url(), headers: r.headers(), body: r.postData() || "" }));
+    p.on("console", (m) => logs.push(m.text()));
+    await p.evaluate(() => { location.hash = "#/ask"; }); await p.waitForSelector("#chatKey");
+    const stores = () => p.evaluate((k) => ({ s: Object.keys(sessionStorage).filter((x) => sessionStorage.getItem(x).includes(k)), l: Object.keys(localStorage).filter((x) => localStorage.getItem(x).includes(k)), url: location.href.includes(k), dom: document.documentElement.outerHTML.includes(k) }), KEY);
+    // typing alone stores nothing
+    await p.type("#chatKey", KEY);
+    let st = await stores(); assert.deepEqual([st.s, st.l], [[], []], "nothing stored before Save");
+    // Save without Remember: sessionStorage only
+    await p.click("#chatSave"); await p.waitForSelector("#chatStatus[data-mode='key']");
+    st = await stores(); assert.equal(st.s.length, 1); assert.deepEqual(st.l, [], "not in localStorage without consent"); assert.equal(st.url, false); assert.equal(st.dom, false, "key not shown again");
+    // a question goes to the xAI endpoint with the key as a Bearer header
     const on = await p.evaluate(() => window.SeaChat.ask("When did the Comet fly to Johannesburg?"));
-    assert.equal(on.mode, "worker"); assert.ok(chatSeen && chatSeen.context.length > 0 && chatSeen.question);
+    assert.equal(on.mode, "key"); assert.equal(chatAuth, "Bearer " + KEY); assert.ok(chatSeen.messages.length === 2 && /Question:/.test(chatSeen.messages[1].content));
     assert.ok(on.check.bad.includes("route:not-sent") && !on.check.grounded, "unsent citation flagged");
-    await p.evaluate(() => { location.hash = "#/ask"; }); await p.waitForSelector("#chatLog");
     assert.match(await p.evaluate(() => document.getElementById("chatLog").innerText), /Warning: this reply cites/);
+    // Remember on this device: moves to localStorage only
+    await p.click("#chatSettings summary").catch(() => {});
+    await p.evaluate(() => { document.getElementById("chatSettings").open = true; document.getElementById("chatRemember").checked = true; });
+    await p.click("#chatSave");
+    st = await stores(); assert.deepEqual(st.s, []); assert.equal(st.l.length, 1);
+    assert.equal(await p.evaluate(() => window.SeaChat.remembered()), true);
+    // Forget key clears both stores and chat goes offline
+    await p.evaluate(() => { document.getElementById("chatSettings").open = true; }); await p.click("#chatForget");
+    st = await stores(); assert.deepEqual([st.s, st.l], [[], []]);
+    assert.equal(await p.evaluate(() => window.SeaChat.mode()), "offline");
+    // the key appears only in the Authorization header of requests to the xAI endpoint
+    const leaks = reqs.filter((r) => (r.url.includes(KEY) || r.body.includes(KEY) || Object.values(r.headers).some((v) => String(v).includes(KEY))) && !(r.url === ep && r.headers.authorization === "Bearer " + KEY && !r.body.includes(KEY)));
+    assert.deepEqual(leaks.map((r) => r.url), [], "key only goes to the xAI endpoint");
+    assert.ok(reqs.some((r) => r.url === ep), "the xAI endpoint was called");
+    assert.deepEqual(logs.filter((t) => t.includes(KEY)), [], "key never logged");
     assert.deepEqual(p._errors, []); await p.close();
+  });
+
+  await check("chat: the endpoint override is for local test copies only; the shipped endpoint is api.x.ai", async () => {
+    const p = await openApp(browser, port, "capture=1&xaiurl=" + encodeURIComponent("https://evil.example/v1/chat/completions"));
+    assert.equal(await p.evaluate(() => window.SeaChat.endpoint()), "https://api.x.ai/v1/chat/completions");
+    await p.close();
   });
 
   await check("radio: nothing loads until pressed; one ≥200×200 player, no autoplay; blocked track skipped; offline says Radio needs internet", async () => {

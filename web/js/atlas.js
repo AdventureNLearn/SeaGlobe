@@ -131,11 +131,89 @@
       add({ id: "topic:space", kind: "topic", title: "Space age: satellites, stations and launch sites (1957–today)", layer: "space",
         summary: "Spacecraft and launch sites from GCAT. Yearly counts of payloads launched and of orbital launch attempts drive the space layer.", citations: cite(g.citation) });
     }
+    // launch years (GCAT yearly counts that drive the space layer)
+    if (g && g.launches) Object.keys(g.launches).forEach((y) => add({ id: "launches:" + y, kind: "launch-year", title: "Space launches in " + y, layer: "space",
+      time: { start: +y, end: +y + 0.999, precision: "year" },
+      summary: "In " + y + " the GCAT launch log lists " + g.launches[y] + " orbital launch attempts" + (g.years && g.years[y] != null ? ", and GCAT lists " + g.years[y] + " payloads launched that year" : "") + ".",
+      facts: { Year: y, "Orbital launch attempts (GCAT)": g.launches[y], "Payloads launched (GCAT)": g.years && g.years[y] != null ? g.years[y] : "[UNKNOWN]" },
+      citations: cite(g.citation), evidence: { basis: "dataset", gaps: [] }, related: [{ id: "topic:space", rel: "part of" }] }));
+    // guided tours
+    (data.tours || []).forEach((t) => add({ id: "tour:" + t.id, kind: "tour", title: "Tour: " + t.title, layer: "app",
+      summary: "A guided tour with " + t.stops.length + " stops. It reads each stop's own encyclopedia summary aloud with captions (the browser's speech voice).",
+      sections: [{ label: "Stops", text: t.stops.join(", ") }], related: t.stops.map((id) => ({ id, rel: "stop" })), citations: [], evidence: { basis: "our-reconstruction", gaps: [] } }));
+    // "Go deeper" projects (links only; their data is not bundled)
+    (data.deeper || []).forEach((d) => add({ id: "link:" + d.id, kind: "link", title: d.name, layer: "app", aliases: [d.credit].filter(Boolean),
+      summary: d.desc + " Outside site, linked only: nothing from it is embedded or bundled in SeaGlobe.",
+      facts: { Website: d.url, Credit: d.credit || "[UNKNOWN]" }, citations: cite(d.name + ", " + d.url), evidence: { basis: "secondary", gaps: [] } }));
+    // radio
+    if (data.radio) {
+      const rd = data.radio;
+      add({ id: "app:radio", kind: "app", title: rd.title, layer: "app", aliases: ["radio", "CCR", "Creedence"],
+        summary: "An optional radio panel. It embeds the playlist \"" + rd.player.title + "\" from " + rd.player.channelName + " with YouTube's own player, loaded only when you press it, and links to " + rd.links.length + " outside radio sites. SeaGlobe hosts no audio and it needs internet.",
+        sections: rd.links.map((l) => ({ label: l.title + " (" + l.site + ")", text: l.note })).concat([{ label: "Embedding", text: rd.player.embeddable }]),
+        facts: { Playlist: rd.player.playlistUrl, Channel: rd.player.channel }, citations: cite([rd.player.playlistUrl].concat(rd.links.map((l) => l.url))), evidence: { basis: "secondary", gaps: gapsIn(rd.player.embeddable, rd.links.map((l) => l.note)) } });
+    }
+    // the app itself: editions, chat, version check, starfield, credit
+    const APP = [
+      ["edition-web", "Full edition (web)", "The full edition, as published on GitHub Pages: every layer, full model detail, the encyclopedia, regions, tools, space, tours, radio and the version check. Large files can come from an asset store, with bundled copies as the fallback."],
+      ["edition-lite", "Lite edition", "A smaller, lighter edition for small hosts and slow devices (and the Grok.me build): lower model detail and none of the bring-your-own pieces. Otherwise the same features."],
+      ["edition-byo", "Bring-your-own edition (this computer only)", "An edition for your own computer only. You can paste satellite element sets or point it at your own aircraft receiver; nothing is fetched until you press Start, and SeaGlobe ships no live data. It is left out of the published site."],
+      ["chat", "Ask the atlas (chat)", "The Ask tab answers only from encyclopedia entries and links them; anything they do not cover is [UNKNOWN]. Without a key it is offline and shows the matching entries. With your own xAI API key it sends the question and those entries from your browser to the xAI API; you pay xAI for your own use. The key stays in this browser (this tab, or this device if you choose) and Forget key removes it."],
+      ["version-check", "Version check", "Each copy reads the published version file once, read only, with a short timeout, and shows a notice with a link to the changelog when a newer version exists. Offline it stays silent; ?update=0 turns it off."],
+      ["starfield", "Stars and the Moon (background)", "The stars behind the globe are seeded random points made in code, not a star catalogue, and the Moon texture is procedural too. [UNKNOWN] whether a licensed star catalogue will be added."],
+      ["credit", "Credit: Built by AdventureNLearn", "SeaGlobe was built by AdventureNLearn (@AdventureNLearn on X). The credit is in the footer and the About tab, with the version and the changelog."],
+    ];
+    APP.forEach(([id, title, text]) => add({ id: "app:" + id, kind: "app", title, layer: "app", summary: text, citations: [], evidence: { basis: "our-reconstruction", gaps: gapsIn(text) } }));
+    // drill-down levels
+    const levels = [["world", "World", "The whole globe, the top of the region tree."], ["country", "Countries", "Natural Earth admin-0 countries; zoom in to see borders and names."],
+      ["state", "States and provinces", "Natural Earth admin-1 states and provinces, loaded per country as you zoom in."], ["county", "US counties", "US counties, loaded per state as you zoom in further."],
+      ["town", "Towns", "Natural Earth populated places, shown as labels at the closest zoom."]];
+    levels.forEach(([id, title, text]) => add({ id: "level:" + id, kind: "level", title: "Drill-down level: " + title, layer: "regions", summary: text + " Boundaries and names from Natural Earth (public domain).",
+      citations: cite("Natural Earth (public domain)"), evidence: { basis: "dataset", gaps: [] } }));
     // regions index (loaded lazily by the drill-down; added when present)
     addRegions();
+    addTowns();
+    addSources();
     // back-links
     for (const e of entities.values()) e.related.forEach((r) => { const t = entities.get(r.id); if (t && !t.related.some((x) => x.id === e.id)) t.related.push({ id: e.id, rel: "see also" }); });
     buildIndex();
+  }
+  // every cited work and dataset is an entry too
+  function addSources() {
+    for (const src of sources.values()) {
+      if (entities.has("source:" + src.id)) continue;
+      add({ id: "source:" + src.id, kind: "source", title: src.title, layer: "sources", aliases: [src.publisher, src.author].filter(Boolean),
+        summary: (src.type ? src.type.charAt(0).toUpperCase() + src.type.slice(1) + " source" : "Source") + (src.publisher ? " from " + src.publisher : src.author ? " by " + src.author : "") + ". Licence: " + (src.licence || "[UNKNOWN]") + ". Cited by " + src.cites.length + " entries.",
+        facts: { URL: src.url || "[UNKNOWN]", Licence: src.licence || "[UNKNOWN]", Accessed: src.accessed || "[UNKNOWN]", Hosting: src.host || "[UNKNOWN]" },
+        related: src.cites.slice(0, 40).map((id) => ({ id, rel: "cited by" })), citations: [], evidence: { basis: "dataset", gaps: src.url ? [] : ["URL [UNKNOWN]"] } });
+    }
+  }
+  let townsAdded = false;
+  function addTowns() {
+    const ti = (window.SEAGLOBE_REGIONS || {})["towns-index"];
+    if (!ti || townsAdded) return false;
+    townsAdded = true;
+    const seen = new Map();
+    ti.towns.forEach(([name, a3, adm1, lat, lon, kind, pop]) => {
+      const base = "place:town-" + String(a3).toLowerCase() + "-" + norm(name).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      const n = (seen.get(base) || 0) + 1; seen.set(base, n);
+      add({ id: n > 1 ? base + "-" + n : base, kind: "place", title: name, aliases: [adm1].filter(Boolean), layer: "regions", level: "town", geo: { lat, lon },
+        parent: "region:country-" + String(a3).toLowerCase(),
+        summary: name + (adm1 ? ", " + adm1 : "") + " (" + a3 + "): " + (kind ? kind.toLowerCase() : "populated place") + " in Natural Earth's populated places" + (pop ? ", population about " + pop.toLocaleString("en-US") + " as listed there" : "") + ".",
+        sections: [{ label: "History", text: "[UNKNOWN] — no town history has been written and checked yet." }],
+        facts: { Country: a3, "State / province": adm1 || "[UNKNOWN]", Coordinates: lat + ", " + lon, "Population (Natural Earth)": pop || "[UNKNOWN]" },
+        citations: cite("Natural Earth (public domain)"), evidence: { basis: "dataset", gaps: ["Town history [UNKNOWN]"] }, related: [] });
+    });
+    if (built) { addSources(); buildIndex(); }
+    return true;
+  }
+  // load everything that is lazy (region tree and towns) so the encyclopedia and chat cover the whole app
+  let allLoading = null;
+  function ensureAll() {
+    build();
+    if (!allLoading) allLoading = (window.SeaRegions ? Promise.all([window.SeaRegions.loadIndex(), window.SeaRegions.loadPack("towns-index")]) : Promise.resolve())
+      .then(() => { const a = addRegions(), b = addTowns(); if (a || b) { addSources(); buildIndex(); } return entities.size; });
+    return allLoading;
   }
   let regionsAdded = false;
   function addRegions() {
@@ -149,7 +227,7 @@
       sections: [{ label: "History", text: "[UNKNOWN] — no region history has been written and checked yet." }],
       facts: { Level: r.level, Code: r.a3 || r.iso || r.fips || "—", Continent: r.continent || undefined },
       citations: cite("Natural Earth (public domain)"), evidence: { basis: "dataset", gaps: ["Region history [UNKNOWN]"] }, related: [] }));
-    if (built) buildIndex();
+    if (built) { addSources(); buildIndex(); }
     return true;
   }
 
@@ -204,10 +282,12 @@
     return "SeaGlobe" + (v ? " v" + v : "") + ", \"" + e.title + "\" (" + e.kind + " entry " + e.id + "), https://adventurenlearn.github.io/SeaGlobe/#/entry/" + encodeURIComponent(e.id) + ". Built from the sources listed in the entry.";
   }
   window.SeaAtlas = {
-    build, get: (id) => { build(); return entities.get(id) || null; }, all, az, search, timeline, citeThis, archiveLookup, addRegions,
+    build, get: (id) => { build(); return entities.get(id) || null; }, all, az, search, timeline, citeThis, archiveLookup, addRegions, addTowns, ensureAll,
+    ids: () => { build(); return [...entities.keys()]; },
+    indexed: () => { build(); const out = new Set(); for (const m of index.values()) m.forEach((sc, id) => out.add(id)); return [...out]; },
     sources: () => { build(); return [...sources.values()].sort((a, b) => a.type.localeCompare(b.type) || a.title.localeCompare(b.title)); },
     source: (id) => sources.get(id) || null, datasets: () => DATASETS.map((d) => Object.assign({}, d, { match: undefined })),
     count: () => { build(); const c = {}; for (const e of entities.values()) c[e.kind] = (c[e.kind] || 0) + 1; return c; },
-    kinds: ["route", "vessel", "aircraft", "vehicle", "spacecraft", "place", "region", "era", "topic"],
+    kinds: ["route", "vessel", "aircraft", "vehicle", "spacecraft", "launch-year", "place", "region", "level", "era", "topic", "tour", "link", "app", "source"],
   };
 })();

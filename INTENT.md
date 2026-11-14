@@ -17,7 +17,7 @@ rather than read off a map. It is a showcase and a learning tool, not a research
 - **Self-contained.** Static files, relative paths, no CDN, no tiles. Works with no network from a local server,
   from a file (lite), or on a static host. Since v3.0 a few runtime requests are allowed, each optional and each
   failing quietly: the read-only version check, the opt-in live TIGERweb layer, the radio's YouTube player (on
-  click), the chat Worker (only when configured), an R2 asset base (with bundled fallbacks), and the PC-only BYO
+  click), the xAI API (only with the visitor's own key), an R2 asset base (with bundled fallbacks), and the PC-only BYO
   feeds. The Content-Security-Policy allows only those hosts.
 - **Extensible.** One data file per route family with a shared schema (sea, land, river, canal, rail, air,
   pipeline), validated by tests.

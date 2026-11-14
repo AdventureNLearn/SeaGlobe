@@ -10,8 +10,8 @@ Built by AdventureNLearn — [@AdventureNLearn](https://x.com/AdventureNLearn)
     `?update=0` turns it off);
   - the **live US town boundaries** layer (US Census TIGERweb), only when you switch it on;
   - **Creedence Clearwater Revival Radio**: the YouTube player loads only after you click "Load the player";
-  - the **Ask** chat, only when a chat Worker address is configured (none is in this build), or, in the PC-only
-    BYO edition, with your own key straight to the xAI API;
+  - the **Ask** chat, only after you paste **your own** xAI API key in chat settings: questions then go straight
+    from your browser to the xAI API (api.x.ai), and you pay xAI for your own use. Without a key it stays offline;
   - an optional **R2 asset base** for large files, with the bundled copy as the fallback (none is set in this build);
   - in the PC-only BYO edition, the TLE and receiver feeds you type in yourself.
   The page's Content-Security-Policy (from `data/csp.json`) allows only these hosts.
@@ -68,6 +68,30 @@ leaving a fading wake.
 - Earth from NASA Blue Marble / Black Marble (public domain) with ocean shine, atmosphere, a day/night
   terminator, city lights from the industrial era on, starfield, a moon and a decorative satellite layer
   for the space age.
+
+## Chat with your own xAI key
+
+SeaGlobe has no chat server, no key and no account. The Ask tab works in two ways:
+
+- **No key (default):** offline. It answers from the encyclopedia entries it finds and links them.
+- **Your own key:** paste your xAI API key in *Chat settings* (get one in the xAI console, https://console.x.ai/).
+  The question and the matching entries go straight from your browser to `https://api.x.ai/v1/chat/completions`,
+  and the reply must cite those entries. **You pay xAI for your own use**, at xAI's prices.
+  - The key is kept in `sessionStorage` (this tab only) unless you tick *Remember on this device*
+    (`localStorage`). *Forget key* removes it from both.
+  - It is never put in a link, a file or a log, never shown again after saving, and never sent anywhere except the
+    xAI API. `tests/test_framework.mjs` checks this.
+
+**Browser calls (CORS).** Checked 14 November 2026 with a preflight and a keyless request (no key sent):
+`api.x.ai` answered `OPTIONS /v1/chat/completions` with `access-control-allow-origin: *` and allowed the
+`authorization` and `content-type` headers, and a keyless POST came back 400 with `access-control-allow-origin: *`.
+So the app calls the API directly. Whether xAI documents browser calls as supported, and whether this stays so, is
+[UNKNOWN]; an authenticated reply was not tested from here (no key was used).
+
+**If browser calls ever stop working,** the only fallback is to run the included pass-through
+(`worker/chat/`) on **your own** Cloudflare account. It holds no key, stores nothing and forwards your own
+`Authorization` header to the xAI API for the origins you list. The app as shipped does not use it; pointing the app
+at it would need a code change.
 
 ## Run it locally
 
@@ -139,8 +163,9 @@ node tests/test_mobile.mjs            # phone layout (390x844, 360x800, touch) +
 node tests/test_air.mjs               # air layer: corridors, Wright Flyer / DC-3 / 747 cards, Type = air
 node tests/test_framework.mjs         # v3: encyclopedia, drill-down, tools, space, listen, chat, radio, R2, BYO, phone
 node tests/test_models.mjs            # every model's nose follows its travel; fins, lights, engines, LOD
+node tests/test_coverage.mjs          # every data entity has an encyclopedia entry; the chat index holds every entry
 node tests/test_update.mjs            # version compare and the cross-origin version check
-cd worker/chat && npm test            # chat Worker (mocked upstream; never deployed from here)
+cd worker/chat && npm test            # optional pass-through Worker you can run on your own account (mocked upstream)
 node tools/check_grokme_lite.mjs      # lite build: manifest, size budget, credit, offline chat
 node tools/vehicle_sheet.mjs         # contact sheet of every vehicle model; fails on a placeholder
 node tools/closeup_check.mjs         # in-app close-ups: hulls at the waterline, wheels on the ground

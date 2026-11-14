@@ -1,27 +1,10 @@
-# SeaGlobe chat Worker. NOT deployed. No secrets in this file.
-# Before any deploy (owner's YES needed):
-#   wrangler secret put XAI_API_KEY        (typed at the prompt; never stored in the repo)
-#   wrangler kv namespace create USAGE      then put its id below
-name = "seaglobe-chat"
+# SeaGlobe chat pass-through: OPTIONAL, for a visitor to run on THEIR OWN Cloudflare account.
+# The app as shipped does not use it (it calls api.x.ai directly from the browser with the visitor's own key).
+# The Worker holds no key and stores nothing; callers send their own key in the Authorization header.
+# No secrets in this file. Set ALLOWED_ORIGINS to the site(s) you open SeaGlobe from.
+name = "seaglobe-chat-passthrough"
 main = "src/index.js"
 compatibility_date = "2026-11-01"
 
 [vars]
 ALLOWED_ORIGINS = "https://adventurenlearn.github.io"
-XAI_MODEL = "grok-4.20-0309-non-reasoning"
-MAX_TOKENS = "400"
-DAILY_CAP = "500"
-RATE_PER_MINUTE = "6"
-
-# Per-client rate limit (Workers Rate Limiting binding): 6 requests per 60 s per IP.
-[[ratelimits]]
-name = "RATE_LIMITER"
-namespace_id = "1001"
-  [ratelimits.simple]
-  limit = 6
-  period = 60
-
-# Daily cap counter. Fill in the id from `wrangler kv namespace create USAGE` before deploying.
-# [[kv_namespaces]]
-# binding = "USAGE"
-# id = "<set at deploy>"

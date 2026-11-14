@@ -14,7 +14,7 @@ repository uploads, publishes or signs in anywhere by itself.
   `vendor/satellite.min.js`), the full-size textures (`textures/hd/*`; lite uses the embedded 2k texture) and one unused
   concept image.
 - Same features as the full edition apart from those: routes and vehicles (lite level of detail), encyclopedia,
-  regions, tools, space, tours, radio, version check. Chat shows as offline (no Worker address is set).
+  regions, tools, space, tours, radio, version check. Chat is offline until a visitor pastes their own xAI key in chat settings.
 - Credit "Built by AdventureNLearn" with a link to https://x.com/AdventureNLearn in the footer and the About tab.
 
 ## Size budget
@@ -33,7 +33,7 @@ node tools/check_grokme_lite.mjs --clean        # same, from a clean git archive
 The check serves the listed files alone and puts `version.json` on a different origin, then runs three cases (same
 version, newer version, version host down). Each must boot the lite edition with 0 console errors, 0 failed requests
 (apart from the deliberately-down host), no request to any other host, the credit in the footer and About, no BYO
-pieces and chat offline.
+pieces and chat offline (no visitor key set).
 
 ## Requests the lite build may make
 

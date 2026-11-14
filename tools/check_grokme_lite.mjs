@@ -82,7 +82,7 @@ async function run(label, expect, opts = {}) {
     ready: document.documentElement.dataset.ready, lite: !!(window.__sg && window.__sg.isLite), edition: (window.SEAGLOBE_EDITION || {}).id,
     ver: [...document.querySelectorAll("[data-sg-version]")].map((x) => x.textContent), notice: !document.getElementById("updateNotice").hidden,
     credit: /Built by AdventureNLearn/.test(document.getElementById("pfoot").textContent), byo: !!window.SeaBYO || !!document.getElementById("byoBox"),
-    chat: window.SeaChat ? window.SeaChat.mode() : "missing", byoKey: !!(window.SEAGLOBE_EDITION || {}).byoKey,
+    chat: window.SeaChat ? window.SeaChat.mode() : "missing",
   }));
   // About panel shows the credit and version too
   await page.evaluate(() => { location.hash = "#/about"; });
@@ -95,8 +95,8 @@ async function run(label, expect, opts = {}) {
   ok(r.ver.some((t) => t.includes(expect)), label + `: shows "${expect}"`);
   ok(r.notice === !!opts.notice, label + ": update notice " + (opts.notice ? "shown" : "hidden"));
   ok(r.credit && /Built by AdventureNLearn/.test(about) && about.includes(version), label + ": credit in footer and About, version in About");
-  ok(!r.byo && !r.byoKey, label + ": no bring-your-own pieces");
-  ok(r.chat === "offline", label + ": chat offline (no Worker URL set)");
+  ok(!r.byo, label + ": no bring-your-own pieces");
+  ok(r.chat === "offline", label + ": chat offline until the visitor adds their own xAI key");
   ok(errors.filter((e) => !ignore(e)).length === 0, label + ": 0 console errors" + (errors.length ? " (" + errors.join(" | ").slice(0, 300) + ")" : ""));
   ok((opts.offline ? failed.filter((u) => !u.includes(`localhost:${pv}`)) : failed).length === 0, label + ": 0 failed requests" + (failed.length ? " (" + failed.join(", ").slice(0, 300) + ")" : ""));
   ok(outside.length === 0, label + ": no request outside the two local origins" + (outside.length ? " (" + outside[0] + ")" : ""));
