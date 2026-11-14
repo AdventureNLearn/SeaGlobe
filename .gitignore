@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+node_modules/
+tmp/
+.parts*/
+# raw third-party pages saved during license research (not ours to redistribute)
+research/raw/
+# restricted-license source extracts kept only for provenance on the build machine
+data/sources/das/
+.DS_Store
+Thumbs.db
+*.log
+# original PANGAEA metadata contains a contact email; the repo ships the redacted copy
+data/sources/cliwoc/pangaea-750354.metadata.json
+
+# local GitHub Pages assembly (tools/assemble_pages.sh)
+_site/

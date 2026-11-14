@@ -1,0 +1,163 @@
+{
+ "family": "manila-galleon",
+ "title": "Manila galleon",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "manila-galleon-outbound",
+   "type": "sea",
+   "name": "Manila galleon outbound (Acapulco to Manila)",
+   "line": "manila",
+   "color": "#5ee7ff",
+   "start_date": "1565",
+   "end_date": "1815",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "William Lytle Schurz, The Manila Galleon (New York: E. P. Dutton, 1939).",
+   "notes": "Westbound crossing on the northeast trades at about 13°N, via the Marianas and the San Bernardino Strait. Geometry reconstructed from the standard itinerary in Schurz, not a single ship's log. The 1565–1815 span is the conventional life of the line.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     16.85,
+     -99.9
+    ],
+    [
+     14.0,
+     -110.0
+    ],
+    [
+     13.0,
+     -130.0
+    ],
+    [
+     13.0,
+     -150.0
+    ],
+    [
+     13.0,
+     170.0
+    ],
+    [
+     13.44,
+     144.79
+    ],
+    [
+     12.58,
+     124.22
+    ],
+    [
+     14.58,
+     120.98
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "age-of-sail",
+   "vehicle": "galleon",
+   "goods": [
+    "silver"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "years",
+    "label": "Manila galleon",
+    "every_year": true,
+    "start_day": 75,
+    "duration_days": 95,
+    "years_source": "One sailing a year, the usual pattern in Schurz (1939); dates reconstructed"
+   },
+   "region": "Intercontinental",
+   "family": "manila-galleon",
+   "reconstruction": true,
+   "citations": [
+    "William Lytle Schurz, The Manila Galleon (New York: E. P. Dutton, 1939)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "manila-galleon-return",
+   "type": "sea",
+   "name": "Manila galleon return (Manila to Acapulco)",
+   "line": "manila",
+   "color": "#5ee7ff",
+   "start_date": "1565",
+   "end_date": "1815",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "William Lytle Schurz, The Manila Galleon (New York: E. P. Dutton, 1939).",
+   "notes": "Eastbound return via the Kuroshio and the North Pacific westerlies, then down the California coast to Acapulco. Geometry reconstructed from the standard itinerary in Schurz, not a single ship's log.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     14.58,
+     120.98
+    ],
+    [
+     18.0,
+     125.0
+    ],
+    [
+     25.0,
+     135.0
+    ],
+    [
+     34.0,
+     145.0
+    ],
+    [
+     38.0,
+     170.0
+    ],
+    [
+     38.0,
+     -150.0
+    ],
+    [
+     36.0,
+     -130.0
+    ],
+    [
+     32.0,
+     -117.0
+    ],
+    [
+     16.85,
+     -99.9
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "age-of-sail",
+   "vehicle": "galleon",
+   "goods": [
+    "silk",
+    "porcelain",
+    "spices"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "years",
+    "label": "Manila galleon",
+    "every_year": true,
+    "start_day": 185,
+    "duration_days": 165,
+    "years_source": "One sailing a year, the usual pattern in Schurz (1939); dates reconstructed"
+   },
+   "region": "Intercontinental",
+   "family": "manila-galleon",
+   "reconstruction": true,
+   "citations": [
+    "William Lytle Schurz, The Manila Galleon (New York: E. P. Dutton, 1939)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}

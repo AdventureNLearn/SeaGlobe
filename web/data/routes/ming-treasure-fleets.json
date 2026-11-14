@@ -1,0 +1,168 @@
+{
+ "family": "ming-treasure-fleets",
+ "title": "Ming treasure fleets",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "zheng-he-trunk",
+   "type": "sea",
+   "name": "Zheng He treasure-fleet trunk (Liujiagang to Calicut)",
+   "line": "zheng-he",
+   "color": "#ff8a5e",
+   "start_date": "1405",
+   "end_date": "1433",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006).",
+   "notes": "Composite trunk of the seven Ming voyages, 1405–1433. Not every voyage called at every port. Geometry reconstructed from the commonly listed itinerary in Dreyer and related accounts, not from a surviving point-by-point log.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     31.63,
+     121.42
+    ],
+    [
+     20.0,
+     114.0
+    ],
+    [
+     13.77,
+     109.23
+    ],
+    [
+     -7.16,
+     112.65
+    ],
+    [
+     -2.99,
+     104.76
+    ],
+    [
+     2.19,
+     102.25
+    ],
+    [
+     5.55,
+     95.32
+    ],
+    [
+     6.03,
+     80.22
+    ],
+    [
+     11.25,
+     75.77
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "treasure-ship",
+   "goods": [
+    "silk",
+    "porcelain",
+    "tribute gifts"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "years",
+    "label": "Ming treasure ship",
+    "years": [
+     1405,
+     1407,
+     1409,
+     1413,
+     1417,
+     1421,
+     1431
+    ],
+    "start_day": 15,
+    "speed_km_day": 60,
+    "convoy": 3,
+    "years_source": "Voyage years from Dreyer (2006); months and pace reconstructed"
+   },
+   "region": "East & Southeast Asia",
+   "family": "ming-treasure-fleets",
+   "reconstruction": true,
+   "citations": [
+    "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "zheng-he-west",
+   "type": "sea",
+   "name": "Zheng He later voyages, Calicut to East Africa",
+   "line": "zheng-he",
+   "color": "#ff8a5e",
+   "start_date": "1413",
+   "end_date": "1433",
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006).",
+   "notes": "Extension of later treasure-fleet voyages to Hormuz, Aden, and the East African coast. Not every later voyage reached every port. Start year is approximate (western legs become prominent from the fourth voyage). Geometry reconstructed.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     11.25,
+     75.77
+    ],
+    [
+     27.1,
+     56.45
+    ],
+    [
+     12.79,
+     45.02
+    ],
+    [
+     2.05,
+     45.35
+    ],
+    [
+     -3.22,
+     40.12
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "treasure-ship",
+   "goods": [
+    "silk",
+    "porcelain",
+    "tribute gifts"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "years",
+    "label": "Ming treasure ship (detached squadron)",
+    "years": [
+     1413,
+     1417,
+     1421,
+     1431
+    ],
+    "start_day": 200,
+    "speed_km_day": 60,
+    "convoy": 2,
+    "years_source": "Voyage years from Dreyer (2006); months and pace reconstructed"
+   },
+   "region": "Indian Ocean & South Asia",
+   "family": "ming-treasure-fleets",
+   "reconstruction": true,
+   "citations": [
+    "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405–1433 (New York: Pearson Longman, 2006)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}

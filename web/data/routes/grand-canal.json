@@ -1,0 +1,102 @@
+{
+ "family": "grand-canal",
+ "title": "Grand Canal",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "grand-canal-yuan-ming",
+   "type": "river",
+   "family": "grand-canal",
+   "line": "grand-canal",
+   "era": "medieval",
+   "color": "#7fe0c7",
+   "name": "Grand Canal, Hangzhou to Beijing",
+   "start_date": "1293",
+   "end_date": "1855",
+   "vehicle": "barge",
+   "goods": [
+    "tax grain",
+    "salt",
+    "silk",
+    "timber"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "Marco Polo, The Book of Ser Marco Polo, trans. and ed. Henry Yule, 3rd ed. rev. H. Cordier (London: John Murray, 1903) [public domain], book 2",
+    "Jane Kate Leonard, Controlling from Afar: The Daoguang Emperor's Management of the Grand Canal Crisis (Ann Arbor, 1996)"
+   ],
+   "path": [
+    [
+     30.27,
+     120.15
+    ],
+    [
+     31.3,
+     120.6
+    ],
+    [
+     31.78,
+     119.95
+    ],
+    [
+     32.39,
+     119.41
+    ],
+    [
+     33.6,
+     119.0
+    ],
+    [
+     34.5,
+     117.9
+    ],
+    [
+     35.41,
+     116.59
+    ],
+    [
+     36.45,
+     116.0
+    ],
+    [
+     36.84,
+     115.7
+    ],
+    [
+     38.3,
+     116.85
+    ],
+    [
+     39.13,
+     117.2
+    ],
+    [
+     39.9,
+     116.66
+    ]
+   ],
+   "notes": "The Yuan route across Shandong to Dadu (Beijing), completed 1293, used for grain transport until the Yellow River shifted in 1855. Polo describes canal traffic.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Grain barge",
+    "speed_km_day": 35,
+    "active": 4,
+    "both_directions": true
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "Marco Polo, The Book of Ser Marco Polo, trans. and ed. Henry Yule, 3rd ed. rev. H. Cordier (London: John Murray, 1903) [public domain], book 2",
+   "reconstruction": true,
+   "region": "East & Southeast Asia",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}

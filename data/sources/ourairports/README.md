@@ -1,0 +1,1 @@
+Subset of OurAirports `airports.csv` (downloaded 13 Nov 2026 from https://davidmegginson.github.io/ourairports-data/airports.csv). OurAirports data is released to the Public Domain. Only the 17 hub rows used for air routes are kept here.

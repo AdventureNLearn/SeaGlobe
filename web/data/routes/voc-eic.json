@@ -1,0 +1,439 @@
+{
+ "family": "voc-eic",
+ "title": "VOC and EIC",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "This is a small seed, not a complete atlas. Pre-1500 and most early-modern tracks are historical reconstructions with a citation each. The only logbook track is the CLIWOC LAUNCESTON cruise of 1769. DAS contributes two real voyage records; their paths are reconstructed. The full CLIWOC and DAS corpora were not drawn.",
+ "routes": [
+  {
+   "id": "das-amsterdam-1595",
+   "type": "sea",
+   "name": "DAS 0001.1 Amsterdam (Texel to Enggano, 1595–1596)",
+   "line": "voc",
+   "color": "#6fa8ff",
+   "start_date": "1595-04-02",
+   "end_date": "1596-06-06",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries, 3 vols. (The Hague: Martinus Nijhoff, 1979-1987), voyages 0001.1-0004.1. Dates typed from the published compilation; the online DAS database is not bundled.",
+   "notes": "Real voyage dates: the first Dutch fleet to the East Indies (Houtman), Texel 1595-04-02 to Enggano 1596-06-06. Track reconstructed along the pre-Brouwer route; not daily positions. The four ships of this first fleet (DAS 0001.1-0004.1) sail together on their recorded dates; the spacing between them is only for visibility.",
+   "sample": true,
+   "partial": true,
+   "path": [
+    [
+     53.05,
+     4.77
+    ],
+    [
+     50.0,
+     -2.0
+    ],
+    [
+     43.0,
+     -10.0
+    ],
+    [
+     16.0,
+     -25.0
+    ],
+    [
+     0.0,
+     -20.0
+    ],
+    [
+     -20.0,
+     -10.0
+    ],
+    [
+     -34.36,
+     18.5
+    ],
+    [
+     -34.0,
+     30.0
+    ],
+    [
+     -28.0,
+     43.0
+    ],
+    [
+     -10.0,
+     52.0
+    ],
+    [
+     -5.39,
+     102.27
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "age-of-sail",
+   "vehicle": "east-indiaman",
+   "goods": [],
+   "goods_source": "[UNKNOWN]: cargo not bundled (the online DAS cargo fields are CC BY-NC-SA)",
+   "schedule": {
+    "kind": "dated",
+    "voyages": [
+     {
+      "id": "das-0001.1",
+      "ship": "Amsterdam",
+      "record": "Voyage 0001.1 in Bruijn, Gaastra and Schöffer (published)",
+      "url": null,
+      "start": "1595-04-02",
+      "end": "1596-06-06",
+      "anchors": [],
+      "lateral_km": -90.0
+     },
+     {
+      "id": "das-0002.1",
+      "ship": "Duifje",
+      "record": "Voyage 0002.1 in Bruijn, Gaastra and Schöffer (published)",
+      "url": null,
+      "start": "1595-04-02",
+      "end": "1596-06-06",
+      "anchors": [],
+      "lateral_km": -30.0
+     },
+     {
+      "id": "das-0003.1",
+      "ship": "Hollandia",
+      "record": "Voyage 0003.1 in Bruijn, Gaastra and Schöffer (published)",
+      "url": null,
+      "start": "1595-04-02",
+      "end": "1596-06-06",
+      "anchors": [],
+      "lateral_km": 30.0
+     },
+     {
+      "id": "das-0004.1",
+      "ship": "Mauritius",
+      "record": "Voyage 0004.1 in Bruijn, Gaastra and Schöffer (published)",
+      "url": null,
+      "start": "1595-04-02",
+      "end": "1596-06-06",
+      "anchors": [],
+      "lateral_km": 90.0
+     }
+    ]
+   },
+   "region": "Intercontinental",
+   "family": "voc-eic",
+   "reconstruction": true,
+   "citations": [
+    "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries, 3 vols. (The Hague: Martinus Nijhoff, 1979-1987), voyages 0001.1-0004.1. Dates typed from the published compilation; the online DAS database is not bundled."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "das-patriot-1780",
+   "type": "sea",
+   "name": "DAS 4367.3 Patriot (Texel to Batavia via the Cape, 1780)",
+   "line": "voc",
+   "color": "#6fa8ff",
+   "start_date": "1780-01-04",
+   "end_date": "1780-07-22",
+   "years_approximate": false,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries, 3 vols. (The Hague: Martinus Nijhoff, 1979-1987), voyage 4367.3. Dates typed from the published compilation; the online DAS database is not bundled.",
+   "notes": "Real voyage dates: Patriot, Texel 1780-01-04, at the Cape 1780-04-16 to 1780-05-15, Batavia 1780-07-22. Track reconstructed along the Cape / Brouwer route, not daily positions.",
+   "sample": true,
+   "partial": true,
+   "path": [
+    [
+     53.05,
+     4.77
+    ],
+    [
+     50.0,
+     -2.0
+    ],
+    [
+     43.0,
+     -10.0
+    ],
+    [
+     16.0,
+     -25.0
+    ],
+    [
+     0.0,
+     -15.0
+    ],
+    [
+     -20.0,
+     -5.0
+    ],
+    [
+     -34.36,
+     18.5
+    ],
+    [
+     -36.0,
+     40.0
+    ],
+    [
+     -38.0,
+     70.0
+    ],
+    [
+     -35.0,
+     100.0
+    ],
+    [
+     -8.0,
+     104.0
+    ],
+    [
+     -6.13,
+     106.81
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "age-of-sail",
+   "vehicle": "east-indiaman",
+   "goods": [],
+   "goods_source": "[UNKNOWN]: cargo not bundled (the online DAS cargo fields are CC BY-NC-SA)",
+   "schedule": {
+    "kind": "dated",
+    "voyages": [
+     {
+      "id": "das-4367.3",
+      "ship": "Patriot",
+      "record": "Voyage 4367.3 in Bruijn, Gaastra and Schöffer (published)",
+      "url": null,
+      "start": "1780-01-04",
+      "end": "1780-07-22",
+      "anchors": [
+       {
+        "date": "1780-04-16",
+        "index": 6
+       },
+       {
+        "date": "1780-05-15",
+        "index": 6
+       }
+      ],
+      "lateral_km": 0
+     }
+    ]
+   },
+   "region": "Intercontinental",
+   "family": "voc-eic",
+   "reconstruction": true,
+   "citations": [
+    "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries, 3 vols. (The Hague: Martinus Nijhoff, 1979-1987), voyage 4367.3. Dates typed from the published compilation; the online DAS database is not bundled."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "voc-return-fleet",
+   "type": "sea",
+   "family": "voc-eic",
+   "line": "voc",
+   "era": "age-of-sail",
+   "color": "#6fa8ff",
+   "name": "VOC return fleets, Batavia to Texel",
+   "start_date": "1620",
+   "end_date": "1795",
+   "vehicle": "east-indiaman",
+   "goods": [
+    "pepper",
+    "nutmeg and cloves",
+    "textiles",
+    "tea (later)"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)"
+   ],
+   "path": [
+    [
+     -6.13,
+     106.81
+    ],
+    [
+     -6.8,
+     105.2
+    ],
+    [
+     -12.0,
+     100.0
+    ],
+    [
+     -25.0,
+     75.0
+    ],
+    [
+     -35.0,
+     40.0
+    ],
+    [
+     -34.36,
+     18.5
+    ],
+    [
+     -20.0,
+     0.0
+    ],
+    [
+     -15.9,
+     -5.7
+    ],
+    [
+     -7.9,
+     -14.4
+    ],
+    [
+     10.0,
+     -25.0
+    ],
+    [
+     30.0,
+     -35.0
+    ],
+    [
+     45.0,
+     -25.0
+    ],
+    [
+     60.0,
+     -5.0
+    ],
+    [
+     53.05,
+     4.77
+    ]
+   ],
+   "notes": "Homeward fleets via the Cape, St Helena and Ascension, then north-about around Scotland in wartime. Our line; illustrative traffic.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "VOC retourschip",
+    "speed_km_day": 115,
+    "active": 3,
+    "both_directions": false,
+    "convoy": 2
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "J. R. Bruijn, F. S. Gaastra and I. Schöffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague: Martinus Nijhoff, 1979-1987)",
+   "reconstruction": true,
+   "region": "Intercontinental",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "eic-london-madras",
+   "type": "sea",
+   "family": "voc-eic",
+   "line": "eic",
+   "era": "age-of-sail",
+   "color": "#e85d75",
+   "name": "English East India Company, London to Madras",
+   "start_date": "1640",
+   "end_date": "1833",
+   "vehicle": "east-indiaman",
+   "goods": [
+    "silver bullion (outward)",
+    "cotton textiles",
+    "pepper",
+    "saltpetre"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "K. N. Chaudhuri, The Trading World of Asia and the English East India Company, 1660-1760 (Cambridge: Cambridge University Press, 1978)"
+   ],
+   "path": [
+    [
+     51.45,
+     0.6
+    ],
+    [
+     50.6,
+     0.5
+    ],
+    [
+     49.6,
+     -5.5
+    ],
+    [
+     40.0,
+     -14.0
+    ],
+    [
+     32.6,
+     -17.5
+    ],
+    [
+     15.0,
+     -25.0
+    ],
+    [
+     0.0,
+     -22.0
+    ],
+    [
+     -20.0,
+     -10.0
+    ],
+    [
+     -34.8,
+     18.0
+    ],
+    [
+     -35.0,
+     25.0
+    ],
+    [
+     -28.0,
+     42.0
+    ],
+    [
+     -15.0,
+     60.0
+    ],
+    [
+     0.0,
+     76.0
+    ],
+    [
+     5.5,
+     82.5
+    ],
+    [
+     13.08,
+     80.35
+    ]
+   ],
+   "notes": "Outward Indiamen via Madeira, the Cape and the Indian Ocean to the Coromandel coast. Our line; illustrative traffic.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "East Indiaman",
+    "speed_km_day": 120,
+    "active": 3,
+    "both_directions": true
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "K. N. Chaudhuri, The Trading World of Asia and the English East India Company, 1660-1760 (Cambridge: Cambridge University Press, 1978)",
+   "reconstruction": true,
+   "region": "Intercontinental",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}

@@ -1,0 +1,849 @@
+{
+  "title": "SeaGlobe route sample",
+  "slider": {
+    "min": 1200,
+    "max": 1899,
+    "step": 10
+  },
+  "partial_sample": true,
+  "notes": "This is a small seed, not a complete atlas. Pre-1500 and most early-modern tracks are historical reconstructions with a citation each. The only logbook track is the CLIWOC LAUNCESTON cruise of 1769. DAS contributes two real voyage records; their paths are reconstructed. The full CLIWOC and DAS corpora were not drawn.",
+  "ports_note": "Port coordinates are modern approximations of historic places, rounded to two decimal degrees. They do not come from CLIWOC or DAS.",
+  "routes": [
+    {
+      "id": "venetian-alexandria-muda",
+      "name": "Venetian Alexandria muda",
+      "era": "medieval",
+      "color": "#e7c766",
+      "year_start": 1250,
+      "year_end": 1510,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973). See also Lane, \u201cVenetian Merchant Galleys, 1300\u20131334,\u201d Speculum 38, no. 2 (1963): 179\u2013205.",
+      "path": [
+        [
+          45.44,
+          12.34
+        ],
+        [
+          36.82,
+          21.7
+        ],
+        [
+          35.34,
+          25.13
+        ],
+        [
+          31.2,
+          29.89
+        ]
+      ],
+      "notes": "State-organized muda convoy to Alexandria. Port-to-port geometry is a reconstruction from the well-known call sequence, not a logbook track. Active years are approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "venetian-constantinople",
+      "name": "Venetian galleys to Constantinople",
+      "era": "medieval",
+      "color": "#e7c766",
+      "year_start": 1250,
+      "year_end": 1453,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973).",
+      "path": [
+        [
+          45.44,
+          12.34
+        ],
+        [
+          36.82,
+          21.7
+        ],
+        [
+          41.02,
+          28.98
+        ]
+      ],
+      "notes": "Regular Venetian line into the Bosporus, ending with the Ottoman capture of Constantinople in 1453. Geometry reconstructed from ports. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "venetian-flanders-galleys",
+      "name": "Venetian Flanders galleys",
+      "era": "medieval",
+      "color": "#e7c766",
+      "year_start": 1315,
+      "year_end": 1530,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Frederic C. Lane, Venice: A Maritime Republic (Baltimore: Johns Hopkins University Press, 1973); Lane, \u201cVenetian Merchant Galleys, 1300\u20131334,\u201d Speculum 38, no. 2 (1963): 179\u2013205.",
+      "path": [
+        [
+          45.44,
+          12.34
+        ],
+        [
+          38.19,
+          15.55
+        ],
+        [
+          39.57,
+          2.65
+        ],
+        [
+          36.14,
+          -5.35
+        ],
+        [
+          36.53,
+          -6.29
+        ],
+        [
+          38.72,
+          -9.14
+        ],
+        [
+          50.9,
+          -1.4
+        ],
+        [
+          51.31,
+          3.39
+        ]
+      ],
+      "notes": "State galleys west through the Strait of Messina and Gibraltar, then up the Atlantic coast to Southampton and the Zwyn (Sluis/Bruges). Geometry reconstructed. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "genoese-black-sea",
+      "name": "Genoese line to Pera and Caffa",
+      "era": "medieval",
+      "color": "#c9a24a",
+      "year_start": 1266,
+      "year_end": 1475,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Steven A. Epstein, Genoa and the Genoese, 958\u20131528 (Chapel Hill: University of North Carolina Press, 1996). Colony dates: Caffa from the late thirteenth century until the Ottoman capture in 1475; Pera (Galata) as the Genoese suburb of Constantinople until 1453.",
+      "path": [
+        [
+          44.41,
+          8.93
+        ],
+        [
+          41.02,
+          28.98
+        ],
+        [
+          45.03,
+          35.38
+        ]
+      ],
+      "notes": "Trunk line from Genoa through Pera to the Crimean colony of Caffa. A short spur to Trebizond is listed separately. Geometry reconstructed from colony ports, not a plotted itinerary taken from a specific page of Epstein. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "genoese-trebizond",
+      "name": "Genoese Black Sea spur to Trebizond",
+      "era": "medieval",
+      "color": "#c9a24a",
+      "year_start": 1266,
+      "year_end": 1461,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Steven A. Epstein, Genoa and the Genoese, 958\u20131528 (Chapel Hill: University of North Carolina Press, 1996).",
+      "path": [
+        [
+          45.03,
+          35.38
+        ],
+        [
+          41.01,
+          39.72
+        ]
+      ],
+      "notes": "Black Sea connection between Caffa and Trebizond. Geometry reconstructed. End year follows the fall of Trebizond (1461) and is approximate for this spur.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "hanseatic-baltic-trunk",
+      "name": "Hanseatic Baltic trunk (L\u00fcbeck\u2013Visby\u2013Reval)",
+      "era": "medieval",
+      "color": "#9ad0a8",
+      "year_start": 1250,
+      "year_end": 1550,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970).",
+      "path": [
+        [
+          53.87,
+          10.68
+        ],
+        [
+          57.64,
+          18.3
+        ],
+        [
+          59.44,
+          24.75
+        ]
+      ],
+      "notes": "Core Baltic sea route of the German Hansa. The Novgorod trade continued overland and by river from the Gulf of Finland; that inland leg is not drawn. Geometry reconstructed. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "hanseatic-bergen",
+      "name": "Hanseatic route to the Bergen Kontor",
+      "era": "medieval",
+      "color": "#9ad0a8",
+      "year_start": 1250,
+      "year_end": 1550,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970).",
+      "path": [
+        [
+          53.87,
+          10.68
+        ],
+        [
+          57.72,
+          10.58
+        ],
+        [
+          60.39,
+          5.32
+        ]
+      ],
+      "notes": "Sea route to the Bergen Kontor (stockfish). Geometry reconstructed. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "hanseatic-bruges-london",
+      "name": "Hanseatic routes to the Bruges and London Kontors",
+      "era": "medieval",
+      "color": "#9ad0a8",
+      "year_start": 1250,
+      "year_end": 1550,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970).",
+      "path": [
+        [
+          53.87,
+          10.68
+        ],
+        [
+          57.72,
+          10.58
+        ],
+        [
+          51.31,
+          3.39
+        ],
+        [
+          51.51,
+          -0.08
+        ]
+      ],
+      "notes": "Westward sea route to the Bruges Kontor (drawn at Sluis, the Zwyn outport) and on to the London Steelyard. Geometry reconstructed. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "indian-ocean-aden-calicut-malacca",
+      "name": "Indian Ocean monsoon trunk (Aden\u2013Calicut\u2013Malacca)",
+      "era": "indian-ocean",
+      "color": "#ffbf5e",
+      "year_start": 1200,
+      "year_end": 1700,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985).",
+      "path": [
+        [
+          12.79,
+          45.02
+        ],
+        [
+          11.25,
+          75.77
+        ],
+        [
+          2.19,
+          102.25
+        ]
+      ],
+      "notes": "Long-lived monsoon emporia route. Ships used the seasonal reversal of the monsoon; the line is a schematic trunk, not a single year's itinerary. Years approximate and extend beyond 1500 because the system continued.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "indian-ocean-east-africa-india",
+      "name": "Indian Ocean monsoon (Kilwa and Sofala to Calicut)",
+      "era": "indian-ocean",
+      "color": "#ffbf5e",
+      "year_start": 1200,
+      "year_end": 1500,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985).",
+      "path": [
+        [
+          -20.15,
+          34.73
+        ],
+        [
+          -8.96,
+          39.51
+        ],
+        [
+          11.25,
+          75.77
+        ]
+      ],
+      "notes": "East African coast to the Malabar emporia under the monsoon. Geometry reconstructed. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "indian-ocean-hormuz-calicut",
+      "name": "Indian Ocean monsoon (Hormuz\u2013Calicut)",
+      "era": "indian-ocean",
+      "color": "#ffbf5e",
+      "year_start": 1200,
+      "year_end": 1600,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985).",
+      "path": [
+        [
+          27.1,
+          56.45
+        ],
+        [
+          11.25,
+          75.77
+        ]
+      ],
+      "notes": "Persian Gulf\u2013Malabar monsoon link. Geometry reconstructed. Years approximate.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "zheng-he-trunk",
+      "name": "Zheng He treasure-fleet trunk (Liujiagang to Calicut)",
+      "era": "zheng-he",
+      "color": "#ff8a5e",
+      "year_start": 1405,
+      "year_end": 1433,
+      "years_approximate": false,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405\u20131433 (New York: Pearson Longman, 2006).",
+      "path": [
+        [
+          31.63,
+          121.42
+        ],
+        [
+          20.0,
+          114.0
+        ],
+        [
+          13.77,
+          109.23
+        ],
+        [
+          -7.16,
+          112.65
+        ],
+        [
+          -2.99,
+          104.76
+        ],
+        [
+          2.19,
+          102.25
+        ],
+        [
+          5.55,
+          95.32
+        ],
+        [
+          6.03,
+          80.22
+        ],
+        [
+          11.25,
+          75.77
+        ]
+      ],
+      "notes": "Composite trunk of the seven Ming voyages, 1405\u20131433. Not every voyage called at every port. Geometry reconstructed from the commonly listed itinerary in Dreyer and related accounts, not from a surviving point-by-point log.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "zheng-he-west",
+      "name": "Zheng He later voyages, Calicut to East Africa",
+      "era": "zheng-he",
+      "color": "#ff8a5e",
+      "year_start": 1413,
+      "year_end": 1433,
+      "years_approximate": true,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "Edward L. Dreyer, Zheng He: China and the Oceans in the Early Ming Dynasty, 1405\u20131433 (New York: Pearson Longman, 2006).",
+      "path": [
+        [
+          11.25,
+          75.77
+        ],
+        [
+          27.1,
+          56.45
+        ],
+        [
+          12.79,
+          45.02
+        ],
+        [
+          2.05,
+          45.35
+        ],
+        [
+          -3.22,
+          40.12
+        ]
+      ],
+      "notes": "Extension of later treasure-fleet voyages to Hormuz, Aden, and the East African coast. Not every later voyage reached every port. Start year is approximate (western legs become prominent from the fourth voyage). Geometry reconstructed.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "das-amsterdam-1595",
+      "name": "DAS 0001.1 Amsterdam (Texel to Enggano, 1595\u20131596)",
+      "era": "voc",
+      "color": "#6fa8ff",
+      "year_start": 1595,
+      "year_end": 1596,
+      "years_approximate": false,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "J. R. Bruijn, F. S. Gaastra and I. Sch\u00f6ffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague, 1979\u20131987), voyage 0001.1. The online DAS data is not bundled.",
+      "path": [
+        [
+          53.05,
+          4.77
+        ],
+        [
+          50.0,
+          -2.0
+        ],
+        [
+          43.0,
+          -10.0
+        ],
+        [
+          16.0,
+          -25.0
+        ],
+        [
+          0.0,
+          -20.0
+        ],
+        [
+          -20.0,
+          -10.0
+        ],
+        [
+          -34.36,
+          18.5
+        ],
+        [
+          -34.0,
+          30.0
+        ],
+        [
+          -28.0,
+          43.0
+        ],
+        [
+          -10.0,
+          52.0
+        ],
+        [
+          -5.39,
+          102.27
+        ]
+      ],
+      "notes": "Real DAS voyage: ship Amsterdam, departed Texel 1595-04-02, arrived Pulau Enggano 1596-06-06 (no Cape dates in this record). The track itself is a reconstruction of the pre-Brouwer Indian Ocean approach to Sumatra, not daily positions. Dates from the published compilation; the online DAS database is not bundled.",
+      "sample": true,
+      "partial": true
+    },
+    {
+      "id": "das-patriot-1780",
+      "name": "DAS 4367.3 Patriot (Texel to Batavia via the Cape, 1780)",
+      "era": "voc",
+      "color": "#6fa8ff",
+      "year_start": 1780,
+      "year_end": 1780,
+      "years_approximate": false,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "J. R. Bruijn, F. S. Gaastra and I. Sch\u00f6ffer, Dutch-Asiatic Shipping in the 17th and 18th Centuries (The Hague, 1979\u20131987), voyage 4367.3. The online DAS data is not bundled.",
+      "path": [
+        [
+          53.05,
+          4.77
+        ],
+        [
+          50.0,
+          -2.0
+        ],
+        [
+          43.0,
+          -10.0
+        ],
+        [
+          16.0,
+          -25.0
+        ],
+        [
+          0.0,
+          -15.0
+        ],
+        [
+          -20.0,
+          -5.0
+        ],
+        [
+          -34.36,
+          18.5
+        ],
+        [
+          -36.0,
+          40.0
+        ],
+        [
+          -38.0,
+          70.0
+        ],
+        [
+          -35.0,
+          100.0
+        ],
+        [
+          -8.0,
+          104.0
+        ],
+        [
+          -6.13,
+          106.81
+        ]
+      ],
+      "notes": "Real DAS voyage: ship Patriot, Texel 1780-01-04, Cape 1780-04-16 to 1780-05-15, Jakarta 1780-07-22. Track reconstructed along the later Cape / southern-ocean / Sunda Strait pattern (Brouwer route), not daily positions. Sample only.",
+      "sample": true,
+      "partial": true
+    },
+    {
+      "id": "manila-galleon-outbound",
+      "name": "Manila galleon outbound (Acapulco to Manila)",
+      "era": "manila",
+      "color": "#5ee7ff",
+      "year_start": 1565,
+      "year_end": 1815,
+      "years_approximate": false,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "William Lytle Schurz, The Manila Galleon (New York: E. P. Dutton, 1939).",
+      "path": [
+        [
+          16.85,
+          -99.9
+        ],
+        [
+          14.0,
+          -110.0
+        ],
+        [
+          13.0,
+          -130.0
+        ],
+        [
+          13.0,
+          -150.0
+        ],
+        [
+          13.0,
+          170.0
+        ],
+        [
+          13.44,
+          144.79
+        ],
+        [
+          12.58,
+          124.22
+        ],
+        [
+          14.58,
+          120.98
+        ]
+      ],
+      "notes": "Westbound crossing on the northeast trades at about 13\u00b0N, via the Marianas and the San Bernardino Strait. Geometry reconstructed from the standard itinerary in Schurz, not a single ship's log. The 1565\u20131815 span is the conventional life of the line.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "manila-galleon-return",
+      "name": "Manila galleon return (Manila to Acapulco)",
+      "era": "manila",
+      "color": "#5ee7ff",
+      "year_start": 1565,
+      "year_end": 1815,
+      "years_approximate": false,
+      "confidence": "historical reconstruction",
+      "source": "published history",
+      "citation": "William Lytle Schurz, The Manila Galleon (New York: E. P. Dutton, 1939).",
+      "path": [
+        [
+          14.58,
+          120.98
+        ],
+        [
+          18.0,
+          125.0
+        ],
+        [
+          25.0,
+          135.0
+        ],
+        [
+          34.0,
+          145.0
+        ],
+        [
+          38.0,
+          170.0
+        ],
+        [
+          38.0,
+          -150.0
+        ],
+        [
+          36.0,
+          -130.0
+        ],
+        [
+          32.0,
+          -117.0
+        ],
+        [
+          16.85,
+          -99.9
+        ]
+      ],
+      "notes": "Eastbound return via the Kuroshio and the North Pacific westerlies, then down the California coast to Acapulco. Geometry reconstructed from the standard itinerary in Schurz, not a single ship's log.",
+      "sample": false,
+      "partial": false
+    },
+    {
+      "id": "cliwoc-launceston-1769",
+      "name": "HMS Launceston, Halifax to Plymouth, 1769",
+      "era": "logbook",
+      "color": "#4ff0a8",
+      "year_start": 1769,
+      "year_end": 1769,
+      "years_approximate": false,
+      "confidence": "logbook record",
+      "source": "CLIWOC 2.1 (PANGAEA)",
+      "citation": "Ricardo Garc\u00eda-Herrera, Gunther P. K\u00f6nnen, Dennis A. Wheeler, Maria del Rosario Prieto, Philip D. Jones and Frits B. Koek, \u201cMeteorological observations during LAUNCESTON cruise from Halifax to Plymouth started at 1769-09-07,\u201d PANGAEA (2010), https://doi.org/10.1594/PANGAEA.750354, CC BY 3.0. In: Jones et al., \u201cClimatological observations from ship logbooks between 1750 and 1854 (release 2.1),\u201d PANGAEA (2007), https://doi.org/10.1594/PANGAEA.611088. Logbook source: National Maritime Museum, Greenwich, ADM/L/L53.",
+      "path": [
+        [
+          42.0,
+          -61.78
+        ],
+        [
+          42.0,
+          -59.2
+        ],
+        [
+          42.72,
+          -57.1
+        ],
+        [
+          43.6,
+          -53.65
+        ],
+        [
+          43.87,
+          -51.58
+        ],
+        [
+          43.5,
+          -49.65
+        ],
+        [
+          42.65,
+          -47.96
+        ],
+        [
+          43.77,
+          -47.1
+        ],
+        [
+          44.0,
+          -45.65
+        ],
+        [
+          44.4,
+          -42.65
+        ],
+        [
+          44.6,
+          -39.08
+        ],
+        [
+          44.58,
+          -35.83
+        ],
+        [
+          45.0,
+          -33.9
+        ],
+        [
+          45.72,
+          -30.93
+        ],
+        [
+          45.78,
+          -29.06
+        ],
+        [
+          46.42,
+          -25.58
+        ],
+        [
+          46.87,
+          -22.96
+        ],
+        [
+          47.87,
+          -21.2
+        ],
+        [
+          48.0,
+          -19.97
+        ],
+        [
+          49.0,
+          -17.92
+        ],
+        [
+          49.5,
+          -14.42
+        ],
+        [
+          49.35,
+          -11.17
+        ],
+        [
+          49.17,
+          -8.41
+        ],
+        [
+          49.73,
+          -7.48
+        ],
+        [
+          49.73,
+          -7.58
+        ],
+        [
+          49.92,
+          -7.68
+        ],
+        [
+          49.0,
+          -8.24
+        ],
+        [
+          49.0,
+          -7.98
+        ],
+        [
+          49.45,
+          -8.24
+        ],
+        [
+          49.25,
+          -8.93
+        ],
+        [
+          49.37,
+          -6.86
+        ],
+        [
+          49.28,
+          -6.0
+        ]
+      ],
+      "notes": "Daily positions taken unchanged from the downloaded CLIWOC cruise file (32 position days, 7 Sep\u20138 Oct 1769, 5th-rate frigate Launceston, Royal Navy, Halifax to Plymouth). This is a sample of CLIWOC 2.1 (287,114 records). The full database was not downloaded.",
+      "sample": true,
+      "partial": true,
+      "point_dates": [
+        "1769-09-07T16:00",
+        "1769-09-08T16:00",
+        "1769-09-09T16:00",
+        "1769-09-10T16:00",
+        "1769-09-11T15:00",
+        "1769-09-12T15:00",
+        "1769-09-13T15:00",
+        "1769-09-14T15:00",
+        "1769-09-15T15:00",
+        "1769-09-16T15:00",
+        "1769-09-17T15:00",
+        "1769-09-18T14:00",
+        "1769-09-19T14:00",
+        "1769-09-20T14:00",
+        "1769-09-21T14:00",
+        "1769-09-22T14:00",
+        "1769-09-23T14:00",
+        "1769-09-24T13:00",
+        "1769-09-25T13:00",
+        "1769-09-26T13:00",
+        "1769-09-27T13:00",
+        "1769-09-28T13:00",
+        "1769-09-29T13:00",
+        "1769-09-30T12:00",
+        "1769-10-01T13:00",
+        "1769-10-02T13:00",
+        "1769-10-03T13:00",
+        "1769-10-04T13:00",
+        "1769-10-05T13:00",
+        "1769-10-06T13:00",
+        "1769-10-07T12:00",
+        "1769-10-08T12:00"
+      ]
+    }
+  ]
+}

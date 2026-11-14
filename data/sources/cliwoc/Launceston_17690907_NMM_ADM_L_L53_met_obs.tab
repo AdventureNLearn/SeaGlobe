@@ -1,0 +1,70 @@
+/* DATA DESCRIPTION:
+Citation:	García-Herrera, Ricardo; Können, Gunther P; Wheeler, Dennis A; Prieto, Maria del Rosario; Jones, Philip D; Koek, Frits B (2010): Meteorological observations during LAUNCESTON cruise from Halifax to Plymouth started at 1769-09-07 [dataset]. National Maritime Museum, Greenwich, United Kingdom, PANGAEA, https://doi.org/10.1594/PANGAEA.750354, 
+	In: Jones, Philip D; Wheeler, Dennis A; Können, Gunther P; Koek, Frits B; Prieto, Maria del Rosario; García-Herrera, Ricardo (2007): Climatological observations from ship logbooks between 1750 and 1854 (release 2.1) [dataset publication series]. PANGAEA, https://doi.org/10.1594/PANGAEA.611088
+Related to:	García-Herrera, Ricardo; Können, Gunther P; Wheeler, Dennis A; Prieto, Maria del Rosario; Jones, Philip D; Koek, Frits B (2005): CLIWOC: A Climatological Database for the World's Oceans 1750–1854 (and 10 more publications about CLIWOC results in the same volume). Climatic Change, 73(1-2), 1-12ff, https://doi.org/10.1007/s10584-005-6952-6
+Project(s):	Climatological Database for the Worlds Oceans: 1750-1854 (CLIWOC) (URI: https://en.wikipedia.org/wiki/CLIWOC)
+Funding:	Fifth Framework Programme (FP5), grant/award no. EVK2-CT-2000-00090: Climatological Database for the Worlds Oceans: 1750-1854 (URI: https://cordis.europa.eu/project/id/EVK2-CT-2000-00090)
+Coverage:	MEDIAN LATITUDE: 46.534375 * MEDIAN LONGITUDE: -27.991875 * SOUTH-BOUND LATITUDE: 42.000000 * WEST-BOUND LONGITUDE: -61.780000 * NORTH-BOUND LATITUDE: 49.920000 * EAST-BOUND LONGITUDE: -6.000000
+	DATE/TIME START: 1769-09-07T16:00:00 * DATE/TIME END: 1769-10-08T12:00:00
+Event(s):	Launceston_17690907_NMM_ADM/L/L53 * LATITUDE START: 43.400000 * LONGITUDE START: -63.030000 * LATITUDE END: 50.299000 * LONGITUDE END: -4.150000 * DATE/TIME START: 1769-09-07T00:00:00 * DATE/TIME END: 1769-10-08T00:00:00 * CAMPAIGN: Cliwoc_cruise * METHOD/DEVICE: Underway cruise track measurements (CT) * COMMENT: Ship: Launceston (5th Rate Frigate), Voyage: Halifax - Plymouth, 1st Observer: Robert Kerr (Captain), 2nd Observer: William Hunter (2nd Officer/Lieutenant), Company: Royal Navy, Other ship information: 44G 678BM
+Parameter(s):	DATE/TIME (Date/Time) * GEOCODE
+	LATITUDE (Latitude) * GEOCODE
+	LONGITUDE (Longitude) * GEOCODE
+	Wind direction [deg] (dd) * COMMENT: Wind direction (from which the wind is blowing) in whole degrees from: 1-360; 361 = calm, 362 = variable. It is not clear from many logbook entries whether the wind direction has been corrected for the magnetic variation (or declination). To avoid any misunderstanding, all winds from reports that included a valid position in the period 1750-1854 were corrected. All other wind directions are given without being corrected.
+	Wind speed [m/s] (ff) * COMMENT: calculated from the descriptive terms of wind force given in the observations
+	Landmark (Landmark) * COMMENT: Name of first landmark
+	Bearing (Bearing) * COMMENT: Bearing of the first landmark
+	Distance to landmark [arbitrary units] (Distance) * COMMENT: Distance to the first landmark
+	Course (Course) * COMMENT: Course of the ship during the past 24 hours
+	Distance [arbitrary units] (Distance) * COMMENT: Distance travelled during the previous 24 hours
+	Declination [deg] (Decl) * COMMENT: It is generally accepted by the CLIWOC team that the wind directions, reported by the ships officers, were relative to the magnetic North direction. Navigators were well aware of the difference between the true and magnetic north direction, but the compasses (we assumed that the bearing-compasses were mostly used for determining the wind direction) were not always adjusted. Therefore the wind direction has to be corrected. The magnetic declination (or variation, as it is known on board ships) is given for the whole CLIWOC period (1750-1850) for every 5x5 degree square. The number was added to the wind direction to get the true wind direction.
+	Wind direction description (Wind dir descr) * COMMENT: All reported wind directions on this day. The wind direction is the direction that points to where the wind comes from.
+	Wind force description (Wind force descr) * COMMENT: All reported wind forces on this day
+	Present weather (ww) * COMMENT: Weather description
+	Precipitation description (Precip descr)
+	State of the sea description (State sea descr)
+	Clearness (Clearness)
+	Gusts (Gusts) * COMMENT: 1 If wind gusts are reported
+	Precipitation/Rain (Rain) * COMMENT: 1 If rain was reported
+	Fog (Fog) * COMMENT: 1 If fog was reported
+	Snow type (Snow) * COMMENT: 1 If snow was reported
+	Thunder (Thunder) * COMMENT: 1 If thunder and or lightning was reported
+	Hail (Hail) * COMMENT: 1 If hail was reported
+	Sea ice (Sea ice) * COMMENT: 1 If sea-ice or icebergs were reported
+	Identification (ID) * COMMENT: CLIWOC 2.1 line number
+License:	Creative Commons Attribution 3.0 Unported (CC-BY-3.0) (URI: https://creativecommons.org/licenses/by/3.0/)
+Size:	603 data points
+*/
+Date/Time	Latitude	Longitude	dd [deg] (Wind direction (from which th...)	ff [m/s] (calculated from the descripti...)	Landmark (Name of first landmark)	Bearing (Bearing of the first landmark)	Distance [arbitrary units] (Distance to the first landmark)	Course (Course of the ship during the...)	Distance [arbitrary units] (Distance travelled during the...)	Decl [deg] (It is generally accepted by t...)	Wind dir descr (All reported wind directions ...)	Wind force descr (All reported wind forces on t...)	ww (Weather description)	Precip descr	State sea descr	Clearness	Gusts (1 If wind gusts are reported)	Rain (1 If rain was reported)	Fog (1 If fog was reported)	Snow (1 If snow was reported)	Thunder (1 If thunder and or lightning...)	Hail (1 If hail was reported)	Sea ice (1 If sea-ice or icebergs were...)	ID (CLIWOC 2.1 line number)
+1769-09-07T16:00	42.00	-61.78	59		CAPE SAMBRO	N59E	55	S31E	63.00	-9	E, ENE					HAZY	0	0	0	0	0	0	0	145337
+1769-09-08T16:00	42.00	-59.20	306	6.7	CAPE SAMBRO	N59W	80	N85E	136.00	-9	NE, N, NW	FIRST AND LATTER PARTS MODERATE, MIDDLE FRESH GALES AND SQUALLY				FIRST AND LATTER PARTS FAIR, MIDDLE HAZY	0	0	0	0	0	0	0	145338
+1769-09-09T16:00	42.72	-57.10	164	9.3	CAPE SAMBRO	N78E	104	N73E	90.00	-16	NW, SSW, S	FIRST AND MIDDLE PARTS MODERATE, LATTER FRESH BREEZES				FIRST AND MIDDLE PARTS FAIR, LATTER HAZY	0	0	0	0	0	0	0	145339
+1769-09-10T16:00	43.60	-53.65	209	9.3	CAPE SAMBRO	N82W	143	N75E	168.00	-16	SBW, SWBS, SW	FRESH BREEZES				HAZY	0	0	0	0	0	0	0	145340
+1769-09-11T15:00	43.87	-51.58	6	6.7	CAPE SAMBRO	N86W	172	N86E	93.00	-17	SW, NBE, NNE	MODERATE				HAZY	0	0	0	0	0	0	0	145341
+1769-09-12T15:00	43.50	-49.65	62	6.7	CAPE SAMBRO	N85W	199	S75E	76.00	-17	NE, NBE, EBN	MODERATE				CLOUDY	0	0	0	0	0	0	0	145342
+1769-09-13T15:00	42.65	-47.96	73	6.7	CAPE SAMBRO	N82W	231	S53E	86.00	-17	EBN, NE, E	FIRST PARTS LITTLE WINDS, MIDDLE AND LATTER MODERATE				FIRST PART FAIR, MIDDLE AND LATTER CLOUDY	0	0	0	0	0	0	0	145343
+1769-09-14T15:00	43.77	-47.10	118	9.3	CAPE SAMBRO	N85W	239	N32E	75.00	-17	E, ESE, SEBS, SE	FIRST AND MIDDLE PARTS MODERATE, LATTER FRESH BREEZES				FIRST AND MIDDLE PARTS CLEAR, LATTER FAIR	0	0	0	0	0	0	0	145344
+1769-09-15T15:00	44.00	-45.65	343	22.6	CAPE SAMBRO	N87W	272	N75E	64.00	-17	SE, S, NBW, N	MOST PART STRONG GALES AND SQUALLY					0	0	0	0	0	0	0	145345
+1769-09-16T15:00	44.40	-42.65	287	22.6	CAPE SAMBRO	W1/4N	310	N83E	124.00	-17	NBW, NWBN, NWBW	STRONG GALES AND SQUALLY					0	0	0	0	0	0	0	145346
+1769-09-17T15:00	44.60	-39.08	298	22.6	CAPE SAMBRO	W1/4S	360	N85E	160.00	-17	NW, WNW, NW	STRONG GALES AND SQUALLY					0	0	0	0	0	0	0	145347
+1769-09-18T14:00	44.58	-35.83	297	19.0	LIZARD	N77E	420	N86E	140.00	-18	NW	FRESH GALES				CLOUDY	0	0	0	0	0	0	0	145348
+1769-09-19T14:00	45.00	-33.90	207	9.3	LIZARD	N73E	387	N85E	85.00	-18	SW, NWBW, SW	FIRST AND MIDDLE PARTS MODERATE, THEN FRESH BREEZES			LARGE SWELL FROM NW	CLOUDY	0	0	0	0	0	0	0	145349
+1769-09-20T14:00	45.72	-30.93	5	2.6	LIZARD	N76E	350	N76E	130.00	-18	SW, SSW, VARIABLE, SWBW, NNE	FIRST PART FRESH GALES AND SQUALLY, MIDDLE AND LATTER LIGHT BREEZES	FIRST PART THUNDER AND LIGHTNING	FIRST PART HARD RAIN		MIDDLE AND LATTER FAIR	0	1	0	0	1	0	0	145350
+1769-09-21T14:00	45.78	-29.06	241	6.7	LIZARD	N75E	328	N87E	76.00	-18	NNE, NWBN, WBS	MODERATE BREEZES				FAIR	0	0	0	0	0	0	0	145351
+1769-09-22T14:00	46.42	-25.58	296	6.7	LIZARD	N75E	237	N76E	158.00	-19	WSW, W, NW	FIRST AND MIDDLE PARTS FRESH BREEZES, LATTER MODERATE				LATTER FAIR	0	0	0	0	0	0	0	145352
+1769-09-23T14:00	46.87	-22.96	330	6.7	LIZARD	N75E	235	N78E	111.00	-19	NWBW, WSW, NBW	MODERATE				FAIR	0	0	0	0	0	0	0	145353
+1769-09-24T13:00	47.87	-21.20	259	19.0	LIZARD	N78E	199	N55E	92.00	-22	NBW, WBS, WBN	FIRST PART LITTLE WINDS, MIDDLE AND LATTER FRESH GALES			LARGE SWELL FROM N	MIDDLE AND LATTER CLOUDY	0	0	0	0	0	0	0	145354
+1769-09-25T13:00	48.00	-19.97	124	2.6	LIZARD	N79E	180	N75E	57.00	-22	NW, NNE, SEBS	FIRST PART FRESH GALES, MIDDLE AND LATTER LITTLE WINDS				FIRST PART HAZY, MIDDLE AND LATTER CLEAR	0	0	0	0	0	0	0	145355
+1769-09-26T13:00	49.00	-17.92	237	19.0	LIZARD	N83E	153	N64E	92.00	-22	SE, WSW, WBS	FIRST PART LITTLE WINDS, MIDDLE AND LATTER FRESH GALES				CLOUDY	0	0	0	0	0	0	0	145356
+1769-09-27T13:00	49.50	-14.42	237	19.0	CAPE CLEAR	N73E	114	N82E	146.00	-22	WSW, SWBS, WBS	FIRST PART FRESH BREEZES, MIDDLE AND LATTER FRESH GALES AND SQUALLY					0	0	0	0	0	0	0	145357
+1769-09-28T13:00	49.35	-11.17	238	6.7	LIZARD	N79E	58	S84E	134.00	-21	WBS	MODERATE BREEZES				CLOUDY	0	0	0	0	0	0	0	145358
+1769-09-29T13:00	49.17	-8.41	24	6.7	LIZARD	N66E	28	S85E	107.00	-21	WBS, NBE, NE	FIRST PART FRESH BREEZES, MIDDLE AND LATTER MODERATE				MIDDLE AND LATTER FAIR	0	0	0	0	0	0	0	145359
+1769-09-30T12:00	49.73	-7.48	103	6.7	SCILLY	N74E	16	N13E	32.00	-21	CALM, E, SEBE	FIRST PART CALM, MIDDLE AND LATTER MODERATE				MIDDLE AND LATTER CLOUDY	0	0	0	0	0	0	0	145360
+1769-10-01T13:00	49.73	-7.58	114		SCILLY	N61E	8	N76E	22.00	-21	SEBE, SE					FAIR	0	0	0	0	0	0	0	145361
+1769-10-02T13:00	49.92	-7.68	80	6.7	SCILLY	EBS1/2S	9	N74E	19.00	-21	SE, SEBE, EBS	MODERATE BREEZES				CLOUDY	0	0	0	0	0	0	0	145362
+1769-10-03T13:00	49.00	-8.24	69	19.0	SCILLY	N29E	19	N23W	54.00	-21	ESE, EBS, E	FRESH GALES THE MOST PART				CLOUDY	0	0	0	0	0	0	0	145363
+1769-10-04T13:00	49.00	-7.98	24	6.7	SCILLY	N12E	17	N67E	17.00	-21	EBN, NE	MODERATE BREEZES				HAZY	0	0	0	0	0	0	0	145364
+1769-10-05T13:00	49.45	-8.24	47	6.7	SCILLY	N16W	11	N46E	26.00	-21	NEBN, E, ENE	MODERATE BREEZES				FAIR	0	0	0	0	0	0	0	145365
+1769-10-06T13:00	49.25	-8.93	24	19.0	SCILLY	N43W	19	S71E	32.00	-21	NEBE, NE	FRESH GALES AND SQUALLY					0	0	0	0	0	0	0	145366
+1769-10-07T12:00	49.37	-6.86	24	19.0	SCILLY	N54W	20	N69E	13.00	-21	NEBN, NE	FIRST PART MODERATE, MIDDLE SQUALLY, LATTER FRESH GALES				LATTER CLOUDY	0	0	0	0	0	0	0	145367
+1769-10-08T12:00	49.28	-6.00	13	6.7	LIZARD	N32E	16	S85E	35.00	-21	NBE, NEBN	MODERATE BREEZES				FAIR	0	0	0	0	0	0	0	145368

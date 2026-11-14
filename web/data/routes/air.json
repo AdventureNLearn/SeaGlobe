@@ -1,0 +1,750 @@
+{
+ "family": "air",
+ "title": "Air routes",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "pan-am-707-1958",
+   "type": "air",
+   "era": "modern",
+   "line": "air",
+   "color": "#e8f1ff",
+   "name": "Pan Am Boeing 707, New York to Paris, 1958",
+   "start_date": "1958-10-26",
+   "end_date": "1958-10-27",
+   "vehicle": "jet",
+   "goods": [
+    "passengers"
+   ],
+   "goods_source": "general history",
+   "source": "published history",
+   "citation": "Marilyn Bender and Selig Altschul, The Chosen Instrument: Pan Am, Juan Trippe (New York, 1982).",
+   "path": [
+    [
+     40.64,
+     -73.78
+    ],
+    [
+     48.95,
+     -54.6
+    ],
+    [
+     48.97,
+     2.44
+    ]
+   ],
+   "notes": "The first transatlantic 707 service, with a fuel stop at Gander. Shown at a slowed display pace so it can be seen; the real flight took hours. Dates and route from general history; check against the cited work before publishing.",
+   "schedule": {
+    "kind": "dated",
+    "voyages": [
+     {
+      "id": "pan-am-707-1958",
+      "ship": "Pan Am Clipper America (Boeing 707)",
+      "record": "First 707 transatlantic service (general history)",
+      "url": null,
+      "start": "1958-10-26",
+      "end": "1958-10-27",
+      "anchors": [],
+      "lateral_km": 0,
+      "min_display_days": 30
+     }
+    ]
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": true,
+   "citation_check": true,
+   "region": "Intercontinental",
+   "family": "air",
+   "reconstruction": true,
+   "citations": [
+    "Marilyn Bender and Selig Altschul, The Chosen Instrument: Pan Am, Juan Trippe (New York, 1982)."
+   ],
+   "confidence_level": "low",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "london-new-york-jets",
+   "type": "air",
+   "era": "modern",
+   "line": "air",
+   "color": "#e8f1ff",
+   "name": "Jet traffic, London to New York",
+   "start_date": "1958",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "source": "published history",
+   "citation": "General history of jet airline service; citation to be added [UNKNOWN].",
+   "path": [
+    [
+     51.47,
+     -0.45
+    ],
+    [
+     53.5,
+     -10.0
+    ],
+    [
+     55.0,
+     -30.0
+    ],
+    [
+     51.0,
+     -50.0
+    ],
+    [
+     44.5,
+     -66.0
+    ],
+    [
+     40.64,
+     -73.78
+    ]
+   ],
+   "notes": "Illustrative great-circle traffic. Display pace is slowed so aircraft can be seen. Dates and route from general history; check against the cited work before publishing.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 3,
+    "both_directions": true,
+    "min_display_days": 28
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": true,
+   "citation_check": true,
+   "region": "Intercontinental",
+   "family": "air",
+   "reconstruction": true,
+   "citations": [
+    "General history of jet airline service; citation to be added [UNKNOWN]."
+   ],
+   "confidence_level": "low",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "air-lhr-jfk",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route London (LHR) to New York (JFK)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     51.471,
+     -0.46
+    ],
+    [
+     40.639,
+     -73.779
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-dxb-lhr",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Dubai (DXB) to London (LHR)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     25.25,
+     55.371
+    ],
+    [
+     51.471,
+     -0.46
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-sin-lhr",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Singapore (SIN) to London (LHR)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     1.35,
+     103.994
+    ],
+    [
+     51.471,
+     -0.46
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-hnd-lax",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Tokyo (HND) to Los Angeles (LAX)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     35.55,
+     139.787
+    ],
+    [
+     33.943,
+     -118.408
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-hkg-syd",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Hong Kong (HKG) to Sydney (Mascot) (SYD)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     22.312,
+     113.915
+    ],
+    [
+     -33.946,
+     151.177
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-fra-ord",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Frankfurt am Main (FRA) to Chicago (ORD)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     50.027,
+     8.558
+    ],
+    [
+     41.979,
+     -87.905
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-pek-fra",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Beijing (PEK) to Frankfurt am Main (FRA)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     40.077,
+     116.597
+    ],
+    [
+     50.027,
+     8.558
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-del-dxb",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route New Delhi (DEL) to Dubai (DXB)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     28.556,
+     77.095
+    ],
+    [
+     25.25,
+     55.371
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Middle East & Central Asia"
+  },
+  {
+   "id": "air-gru-jnb",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route São Paulo (GRU) to Johannesburg (JNB)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     -23.431,
+     -46.47
+    ],
+    [
+     -26.14,
+     28.247
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-ist-dxb",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Istanbul (IST) to Dubai (DXB)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     41.275,
+     28.732
+    ],
+    [
+     25.25,
+     55.371
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Middle East & Central Asia"
+  },
+  {
+   "id": "air-pvg-lax",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Shanghai (Pudong) (PVG) to Los Angeles (LAX)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     31.143,
+     121.805
+    ],
+    [
+     33.943,
+     -118.408
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  },
+  {
+   "id": "air-cdg-jfk",
+   "type": "air",
+   "family": "air",
+   "line": "air",
+   "era": "modern",
+   "color": "#e8f1ff",
+   "name": "Jet route Paris (Roissy-en-France, Val-d'Oise) (CDG) to New York (JFK)",
+   "start_date": "1980",
+   "end_date": "2026",
+   "vehicle": "jet",
+   "goods": [
+    "passengers",
+    "air freight"
+   ],
+   "goods_source": "general description",
+   "confidence_level": "low",
+   "source": "dataset (endpoints) + great circle",
+   "derived_from": "OurAirports hub coordinates (public domain)",
+   "citations": [
+    "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026"
+   ],
+   "reconstruction": true,
+   "path": [
+    [
+     49.009,
+     2.554
+    ],
+    [
+     40.639,
+     -73.779
+    ]
+   ],
+   "notes": "Great circle between two hubs. Start year is illustrative [UNKNOWN]; real services and paths vary. Display pace slowed so aircraft can be seen.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Jet airliner",
+    "speed_km_day": 20000,
+    "active": 2,
+    "both_directions": true,
+    "min_display_days": 24
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "citation": "OurAirports, airports.csv (public domain), hub coordinates; downloaded 13 Nov 2026",
+   "region": "Intercontinental"
+  }
+ ]
+}

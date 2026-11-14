@@ -1,0 +1,354 @@
+{
+ "family": "silk-roads",
+ "title": "Silk Roads",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "silk-road-changan-samarkand",
+   "type": "land",
+   "era": "classical",
+   "line": "silk-road",
+   "color": "#f2d18b",
+   "name": "Silk Road caravans, Chang'an to Samarkand",
+   "start_date": "-0129",
+   "end_date": "1400",
+   "vehicle": "camel-caravan",
+   "goods": [
+    "silk",
+    "paper",
+    "glassware",
+    "horses"
+   ],
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "Valerie Hansen, The Silk Road: A New History (Oxford, 2012).",
+   "path": [
+    [
+     34.26,
+     108.94
+    ],
+    [
+     36.06,
+     103.83
+    ],
+    [
+     39.75,
+     98.5
+    ],
+    [
+     40.14,
+     94.66
+    ],
+    [
+     42.95,
+     89.19
+    ],
+    [
+     41.7,
+     82.9
+    ],
+    [
+     39.47,
+     75.99
+    ],
+    [
+     40.3,
+     71.8
+    ],
+    [
+     39.65,
+     66.96
+    ]
+   ],
+   "notes": "Northern Tarim route via Dunhuang, Turpan and Kashgar. Caravans mostly worked shorter relay segments; one marker crossing the whole line is a simplification. Dates and route from general history; check against the cited work before publishing.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Bactrian camel caravan",
+    "speed_km_day": 28,
+    "active": 3,
+    "both_directions": true
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": true,
+   "citation_check": true,
+   "region": "Intercontinental",
+   "family": "silk-roads",
+   "reconstruction": true,
+   "citations": [
+    "Valerie Hansen, The Silk Road: A New History (Oxford, 2012)."
+   ],
+   "confidence_level": "low",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "silk-road-samarkand-antioch",
+   "type": "land",
+   "family": "silk-roads",
+   "line": "silk-road",
+   "era": "classical",
+   "color": "#f2d18b",
+   "name": "Silk Road west, Samarkand to Antioch",
+   "start_date": "-0129",
+   "end_date": "1400",
+   "vehicle": "camel-caravan",
+   "goods": [
+    "silk",
+    "spices",
+    "glass",
+    "silver"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "Isidore of Charax, Parthian Stations, trans. W. H. Schoff (Philadelphia: Commercial Museum, 1914) [public domain]",
+    "Valerie Hansen, The Silk Road: A New History (Oxford: Oxford University Press, 2012)"
+   ],
+   "path": [
+    [
+     39.65,
+     66.96
+    ],
+    [
+     37.66,
+     62.19
+    ],
+    [
+     36.3,
+     59.6
+    ],
+    [
+     35.6,
+     53.4
+    ],
+    [
+     34.8,
+     48.5
+    ],
+    [
+     34.31,
+     47.07
+    ],
+    [
+     33.09,
+     44.58
+    ],
+    [
+     34.4,
+     40.9
+    ],
+    [
+     35.5,
+     38.5
+    ],
+    [
+     36.2,
+     36.16
+    ]
+   ],
+   "notes": "Via Merv, the Parthian road through Hecatompylos and Ecbatana, Ctesiphon and the Euphrates to Antioch. Isidore of Charax lists the Parthian stations of the middle section.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Bactrian camel caravan",
+    "speed_km_day": 28,
+    "active": 3,
+    "both_directions": true
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "Isidore of Charax, Parthian Stations, trans. W. H. Schoff (Philadelphia: Commercial Museum, 1914) [public domain]",
+   "reconstruction": true,
+   "region": "Middle East & Central Asia",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "maritime-silk-road-polo-1291",
+   "type": "sea",
+   "family": "silk-roads",
+   "line": "silk-road",
+   "era": "medieval",
+   "color": "#ffcf7a",
+   "name": "Marco Polo's return voyage, Quanzhou to Hormuz, 1291-1293",
+   "start_date": "1291",
+   "end_date": "1293",
+   "vehicle": "junk",
+   "goods": [
+    "escort of the princess Kököchin",
+    "silk",
+    "porcelain"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "Marco Polo, The Book of Ser Marco Polo, trans. and ed. Henry Yule, 3rd ed. rev. H. Cordier (London: John Murray, 1903) [public domain]"
+   ],
+   "path": [
+    [
+     24.87,
+     118.68
+    ],
+    [
+     21.0,
+     113.5
+    ],
+    [
+     15.0,
+     110.0
+    ],
+    [
+     8.0,
+     106.0
+    ],
+    [
+     2.5,
+     104.5
+    ],
+    [
+     2.6,
+     101.3
+    ],
+    [
+     5.3,
+     97.0
+    ],
+    [
+     6.0,
+     81.5
+    ],
+    [
+     8.5,
+     76.8
+    ],
+    [
+     15.0,
+     72.5
+    ],
+    [
+     22.0,
+     63.0
+    ],
+    [
+     26.4,
+     57.0
+    ],
+    [
+     27.1,
+     56.45
+    ]
+   ],
+   "notes": "Polo's account of the fleet that carried a Mongol bride from Zaiton (Quanzhou) via Sumatra, Ceylon and India to Hormuz. Years from Yule's edition; months and pace reconstructed.",
+   "schedule": {
+    "kind": "years",
+    "label": "Yuan fleet junk",
+    "years": [
+     1291
+    ],
+    "start_day": 30,
+    "duration_days": 640,
+    "convoy": 2,
+    "years_source": "Years from Polo (Yule ed. 1903); months and pace reconstructed"
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "Marco Polo, The Book of Ser Marco Polo, trans. and ed. Henry Yule, 3rd ed. rev. H. Cordier (London: John Murray, 1903) [public domain]",
+   "reconstruction": true,
+   "region": "Intercontinental",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "ibn-battuta-calicut-quanzhou",
+   "type": "sea",
+   "family": "silk-roads",
+   "line": "silk-road",
+   "era": "medieval",
+   "color": "#ffcf7a",
+   "name": "Ibn Battuta's passage toward China, c. 1345-1346",
+   "start_date": "1345",
+   "end_date": "1346",
+   "vehicle": "junk",
+   "goods": [
+    "passengers",
+    "pepper"
+   ],
+   "confidence_level": "low",
+   "citations": [
+    "Ibn Battuta, Voyages d'Ibn Batoutah, ed. and trans. C. Defrémery and B. R. Sanguinetti (Paris, 1853-1858) [public domain]"
+   ],
+   "path": [
+    [
+     11.25,
+     75.77
+    ],
+    [
+     7.2,
+     79.5
+    ],
+    [
+     5.8,
+     82.0
+    ],
+    [
+     5.5,
+     95.3
+    ],
+    [
+     2.6,
+     101.3
+    ],
+    [
+     1.3,
+     104.2
+    ],
+    [
+     10.0,
+     109.5
+    ],
+    [
+     21.0,
+     113.5
+    ],
+    [
+     24.87,
+     118.68
+    ]
+   ],
+   "notes": "Ibn Battuta's own narrative of sailing from the Malabar coast via Sumatra to Zaitun. His chronology here is disputed; years approximate.",
+   "schedule": {
+    "kind": "years",
+    "label": "Chinese junk",
+    "years": [
+     1345
+    ],
+    "start_day": 250,
+    "duration_days": 220,
+    "years_source": "Approximate years from Ibn Battuta's narrative (Defrémery and Sanguinetti ed.); months reconstructed"
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "Ibn Battuta, Voyages d'Ibn Batoutah, ed. and trans. C. Defrémery and B. R. Sanguinetti (Paris, 1853-1858) [public domain]",
+   "reconstruction": true,
+   "region": "Indian Ocean & South Asia",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "family": "royal-road",
+ "title": "Persian Royal Road",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "persian-royal-road",
+   "type": "land",
+   "family": "royal-road",
+   "line": "royal-road",
+   "era": "classical",
+   "color": "#d9a441",
+   "name": "Persian Royal Road, Sardis to Susa",
+   "start_date": "-0499",
+   "end_date": "-0329",
+   "vehicle": "horse-rider",
+   "goods": [
+    "royal dispatches",
+    "tribute"
+   ],
+   "confidence_level": "medium",
+   "citations": [
+    "Herodotus, Histories 5.52-54 and 8.98, trans. G. C. Macaulay (London: Macmillan, 1890) [public domain]",
+    "Pierre Briant, From Cyrus to Alexander: A History of the Persian Empire (Winona Lake: Eisenbrauns, 2002)"
+   ],
+   "path": [
+    [
+     38.49,
+     28.04
+    ],
+    [
+     39.0,
+     30.5
+    ],
+    [
+     39.2,
+     33.2
+    ],
+    [
+     38.73,
+     35.48
+    ],
+    [
+     37.9,
+     38.3
+    ],
+    [
+     37.15,
+     40.6
+    ],
+    [
+     36.36,
+     43.15
+    ],
+    [
+     35.47,
+     44.39
+    ],
+    [
+     34.0,
+     45.8
+    ],
+    [
+     32.19,
+     48.25
+    ]
+   ],
+   "notes": "Herodotus describes 111 staging posts on a road of about three months' travel from Sardis to Susa, and royal couriers who rode it in relays. The line is our sketch through Anatolia, the upper Tigris and down to Susa.",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Royal courier (angarium relay)",
+    "speed_km_day": 300,
+    "active": 3,
+    "both_directions": true
+   },
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "sample": true,
+   "partial": true,
+   "demo_seed": false,
+   "citation_check": false,
+   "goods_source": "general history; not from a cargo manifest",
+   "source": "published history",
+   "citation": "Herodotus, Histories 5.52-54 and 8.98, trans. G. C. Macaulay (London: Macmillan, 1890) [public domain]",
+   "reconstruction": true,
+   "region": "Middle East & Central Asia",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}

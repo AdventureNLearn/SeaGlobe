@@ -1,0 +1,173 @@
+{
+ "family": "indian-ocean",
+ "title": "Indian Ocean monsoon routes",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "indian-ocean-aden-calicut-malacca",
+   "type": "sea",
+   "name": "Indian Ocean monsoon trunk (Aden–Calicut–Malacca)",
+   "line": "indian-ocean",
+   "color": "#ffbf5e",
+   "start_date": "1200",
+   "end_date": "1700",
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985).",
+   "notes": "Long-lived monsoon emporia route. Ships used the seasonal reversal of the monsoon; the line is a schematic trunk, not a single year's itinerary. Years approximate and extend beyond 1500 because the system continued.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     12.79,
+     45.02
+    ],
+    [
+     11.25,
+     75.77
+    ],
+    [
+     2.19,
+     102.25
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "dhow",
+   "goods": [
+    "pepper",
+    "spices",
+    "textiles",
+    "horses"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Monsoon trader (dhow)",
+    "speed_km_day": 120,
+    "active": 3,
+    "both_directions": true
+   },
+   "region": "Intercontinental",
+   "family": "indian-ocean",
+   "reconstruction": true,
+   "citations": [
+    "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "indian-ocean-east-africa-india",
+   "type": "sea",
+   "name": "Indian Ocean monsoon (Kilwa and Sofala to Calicut)",
+   "line": "indian-ocean",
+   "color": "#ffbf5e",
+   "start_date": "1200",
+   "end_date": "1500",
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985).",
+   "notes": "East African coast to the Malabar emporia under the monsoon. Geometry reconstructed. Years approximate.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     -20.15,
+     34.73
+    ],
+    [
+     -8.96,
+     39.51
+    ],
+    [
+     11.25,
+     75.77
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "dhow",
+   "goods": [
+    "gold",
+    "ivory",
+    "textiles",
+    "beads"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Monsoon trader (dhow)",
+    "speed_km_day": 120,
+    "active": 2,
+    "both_directions": true
+   },
+   "region": "Indian Ocean & South Asia",
+   "family": "indian-ocean",
+   "reconstruction": true,
+   "citations": [
+    "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "indian-ocean-hormuz-calicut",
+   "type": "sea",
+   "name": "Indian Ocean monsoon (Hormuz–Calicut)",
+   "line": "indian-ocean",
+   "color": "#ffbf5e",
+   "start_date": "1200",
+   "end_date": "1600",
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985).",
+   "notes": "Persian Gulf–Malabar monsoon link. Geometry reconstructed. Years approximate.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     27.1,
+     56.45
+    ],
+    [
+     11.25,
+     75.77
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "dhow",
+   "goods": [
+    "horses",
+    "pearls",
+    "pepper",
+    "textiles"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Monsoon trader (dhow)",
+    "speed_km_day": 120,
+    "active": 2,
+    "both_directions": true
+   },
+   "region": "Indian Ocean & South Asia",
+   "family": "indian-ocean",
+   "reconstruction": true,
+   "citations": [
+    "K. N. Chaudhuri, Trade and Civilisation in the Indian Ocean: An Economic History from the Rise of Islam to 1750 (Cambridge: Cambridge University Press, 1985)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}

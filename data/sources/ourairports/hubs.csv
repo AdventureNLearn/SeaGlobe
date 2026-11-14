@@ -1,0 +1,18 @@
+ident,iata_code,name,latitude_deg,longitude_deg,municipality,iso_country
+EDDF,FRA,Frankfurt Main Airport,50.026706,8.55835,Frankfurt am Main,DE
+EGLL,LHR,London Heathrow Airport,51.470748,-0.459909,London,GB
+FAOR,JNB,O.R. Tambo International Airport,-26.140081,28.246801,Johannesburg,ZA
+KJFK,JFK,John F. Kennedy International Airport,40.639447,-73.779317,New York,US
+KLAX,LAX,Los Angeles International Airport,33.942501,-118.407997,Los Angeles,US
+KORD,ORD,Chicago O'Hare International Airport,41.9786,-87.9048,Chicago,US
+LFPG,CDG,Charles de Gaulle International Airport,49.00896,2.554117,"Paris (Roissy-en-France, Val-d'Oise)",FR
+LTFM,IST,İstanbul Airport,41.274874,28.732136,Istanbul,TR
+OMDB,DXB,Dubai International Airport,25.24979,55.370992,Dubai,AE
+RJTT,HND,Tokyo Haneda International Airport,35.549678,139.786958,Tokyo,JP
+SBGR,GRU,São Paulo/Guarulhos–Governor André Franco Montoro International Airport,-23.431274,-46.469954,São Paulo,BR
+VHHH,HKG,Hong Kong International Airport,22.31184,113.914862,Hong Kong,HK
+VIDP,DEL,Indira Gandhi International Airport,28.55563,77.09519,New Delhi,IN
+WSSS,SIN,Singapore Changi Airport,1.35019,103.994003,Singapore,SG
+YSSY,SYD,Sydney Kingsford Smith International Airport,-33.946098,151.177002,Sydney (Mascot),AU
+ZBAA,PEK,Beijing Capital International Airport,40.077349,116.596702,Beijing,CN
+ZSPD,PVG,Shanghai Pudong International Airport,31.1434,121.805,Shanghai (Pudong),CN

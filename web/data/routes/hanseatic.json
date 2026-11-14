@@ -1,0 +1,179 @@
+{
+ "family": "hanseatic",
+ "title": "Hanseatic League",
+ "schema_version": 1,
+ "partial_sample": true,
+ "notes": "See SOURCES.md for every record's citations.",
+ "routes": [
+  {
+   "id": "hanseatic-baltic-trunk",
+   "type": "sea",
+   "name": "Hanseatic Baltic trunk (Lübeck–Visby–Reval)",
+   "line": "hanseatic",
+   "color": "#9ad0a8",
+   "start_date": "1250",
+   "end_date": "1550",
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970).",
+   "notes": "Core Baltic sea route of the German Hansa. The Novgorod trade continued overland and by river from the Gulf of Finland; that inland leg is not drawn. Geometry reconstructed. Years approximate.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     53.87,
+     10.68
+    ],
+    [
+     57.64,
+     18.3
+    ],
+    [
+     59.44,
+     24.75
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "cog",
+   "goods": [
+    "grain",
+    "furs",
+    "wax",
+    "timber",
+    "cloth"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Hanseatic cog",
+    "speed_km_day": 75,
+    "active": 3,
+    "both_directions": true
+   },
+   "region": "Northern Europe & North Atlantic",
+   "family": "hanseatic",
+   "reconstruction": true,
+   "citations": [
+    "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "hanseatic-bergen",
+   "type": "sea",
+   "name": "Hanseatic route to the Bergen Kontor",
+   "line": "hanseatic",
+   "color": "#9ad0a8",
+   "start_date": "1250",
+   "end_date": "1550",
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970).",
+   "notes": "Sea route to the Bergen Kontor (stockfish). Geometry reconstructed. Years approximate.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     53.87,
+     10.68
+    ],
+    [
+     57.72,
+     10.58
+    ],
+    [
+     60.39,
+     5.32
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "cog",
+   "goods": [
+    "stockfish (dried cod)",
+    "grain (inbound)"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Hanseatic cog",
+    "speed_km_day": 75,
+    "active": 2,
+    "both_directions": true
+   },
+   "region": "Northern Europe & North Atlantic",
+   "family": "hanseatic",
+   "reconstruction": true,
+   "citations": [
+    "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  },
+  {
+   "id": "hanseatic-bruges-london",
+   "type": "sea",
+   "name": "Hanseatic routes to the Bruges and London Kontors",
+   "line": "hanseatic",
+   "color": "#9ad0a8",
+   "start_date": "1250",
+   "end_date": "1550",
+   "years_approximate": true,
+   "confidence": "historical reconstruction",
+   "source": "published history",
+   "citation": "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970).",
+   "notes": "Westward sea route to the Bruges Kontor (drawn at Sluis, the Zwyn outport) and on to the London Steelyard. Geometry reconstructed. Years approximate.",
+   "sample": false,
+   "partial": false,
+   "path": [
+    [
+     53.87,
+     10.68
+    ],
+    [
+     57.72,
+     10.58
+    ],
+    [
+     51.31,
+     3.39
+    ],
+    [
+     51.51,
+     -0.08
+    ]
+   ],
+   "demo_seed": false,
+   "citation_check": false,
+   "era": "medieval",
+   "vehicle": "cog",
+   "goods": [
+    "wool",
+    "cloth",
+    "wine"
+   ],
+   "goods_source": "general history of the trade; not from a cargo manifest",
+   "schedule": {
+    "kind": "traffic",
+    "label": "Hanseatic cog",
+    "speed_km_day": 75,
+    "active": 2,
+    "both_directions": true
+   },
+   "region": "Northern Europe & North Atlantic",
+   "family": "hanseatic",
+   "reconstruction": true,
+   "citations": [
+    "Philippe Dollinger, The German Hansa, trans. D. S. Ault and S. H. Steinberg (Stanford: Stanford University Press, 1970)."
+   ],
+   "confidence_level": "medium",
+   "derived_from": "hand-written reconstruction from published history"
+  }
+ ]
+}
