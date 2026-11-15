@@ -2,7 +2,8 @@
 (public domain). Build time only; the app reads the generated web/data/regions/*.js files, never the network.
 
 Usage: python3 tools/build_regions.py <folder with the Natural Earth GeoJSON downloads>
-  ne_110m_admin_0_countries.geojson, ne_50m_admin_1_states_provinces.geojson,
+  ne_110m_admin_0_countries.geojson, ne_50m_admin_1_states_provinces.geojson (nine countries),
+  (further admin-1 countries: tools/build_admin1.py and ne_10m_admin_1_states_provinces),
   ne_10m_admin_2_counties.geojson (US counties), ne_10m_populated_places_simple.geojson
 from https://github.com/nvkelso/natural-earth-vector (geojson/), downloaded 2026-11-14.
 Coordinates are rounded (2 decimals for countries, 3 below) and rings with fewer than 4 points are dropped.

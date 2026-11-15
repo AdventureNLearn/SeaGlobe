@@ -176,7 +176,7 @@
     // web/js/next/atlas-types.js and stay unloaded while SeaFlags are off.
     // drill-down levels
     const levels = [["world", "World", "The whole globe, the top of the region tree."], ["country", "Countries", "Natural Earth admin-0 countries; zoom in to see borders and names."],
-      ["state", "States and provinces", "Natural Earth admin-1 states and provinces, loaded per country as you zoom in."], ["county", "US counties", "US counties, loaded per state as you zoom in further."],
+      ["state", "States and provinces", "Natural Earth admin-1 states and provinces for every country, loaded per country as you zoom in."], ["county", "US counties", "US counties, loaded per state as you zoom in further."],
       ["town", "Towns", "Natural Earth populated places, shown as labels at the closest zoom."]];
     levels.forEach(([id, title, text]) => add({ id: "level:" + id, kind: "level", title: "Drill-down level: " + title, layer: "regions", summary: text + " Boundaries and names from Natural Earth (public domain).",
       citations: cite("Natural Earth (public domain)"), evidence: { basis: "dataset", gaps: [] } }));

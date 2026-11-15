@@ -11,10 +11,18 @@
   function points(id, items, on) {
     layers[id] = layers[id] || { on: false, items: [] };
     if (items) layers[id].items = items;
-    if (on != null) layers[id].on = !!on;
+    if (on != null) {
+      layers[id].on = !!on;
+      if (!layers[id].on) layers[id].items = [];
+    }
     redraw();
   }
   function layer(id, on) {
+    if (on && window.SeaLayers && !SeaLayers.request(id, true)) {
+      const cb = $("t" + id[0].toUpperCase() + id.slice(1)); if (cb) cb.checked = false;
+      return;
+    }
+    if (!on && window.SeaLayers) SeaLayers.request(id, false);
     if (id === "hubs" && on && !(layers.hubs && layers.hubs.items.length)) hubs();
     points(id, null, on);
     const cb = $("t" + id[0].toUpperCase() + id.slice(1)); if (cb) cb.checked = !!(layers[id] && layers[id].on);
@@ -104,4 +112,119 @@
   window.SeaTools = { points, layer, distance, measure, coords, print, snapshot, at, state: () => ({ measure: st.measure, pts: st.pts.slice(), coords: st.coords, layers: Object.keys(layers).filter((k) => layers[k].on) }),
     measurePoints: (a, b) => { measure(true); st.pts = [a, b]; measureShow(); return distance(a, b); } };
   window.addEventListener("seaglobe:ready", init);
+})();
+
+
+/* SeaLayers: one small registry for overlays. Heavy layers are capped so added
+   layers do not crowd or crash the app. Light layers are not capped. */
+(function () {
+  "use strict";
+  const REG = {
+    routes: { weight: "light", toggle: "tRoutes" },
+    wakes: { weight: "light", toggle: "tWakes" },
+    night: { weight: "light", toggle: "tNight" },
+    sats: { weight: "light", toggle: "tSats" },
+    orbit: { weight: "light", toggle: "tOrbit" },
+    coords: { weight: "light", toggle: "tCoords" },
+    wind: { weight: "heavy", toggle: "tWind" },
+    regions: { weight: "heavy", toggle: "tRegions" },
+    live: { weight: "heavy", toggle: "tLive" },
+    hubs: { weight: "heavy", toggle: "tHubs" },
+    launch: { weight: "heavy", toggle: "tLaunch" },
+    pmtilesBorders: { weight: "heavy", toggle: "tPmtiles" },
+    terrain: { weight: "heavy", toggle: "tTerrain" }
+  };
+  const byToggle = {};
+  Object.keys(REG).forEach((id) => { byToggle[REG[id].toggle] = id; });
+  const active = new Set();
+  let noticeText = "";
+
+  function isLite() {
+    if (window.__sg && window.__sg.isLite) return true;
+    if (window.SEAGLOBE_EDITION && SEAGLOBE_EDITION.lite) return true;
+    return /(^|\/)lite\.html$/i.test((location.pathname || "").split("?")[0]);
+  }
+  function isPhone() {
+    return !!(window.matchMedia && window.matchMedia("(max-width: 820px)").matches);
+  }
+  function cap() { return (isLite() || isPhone()) ? 3 : 5; }
+
+  function noteEl() {
+    let el = document.getElementById("layerNotice");
+    if (el) return el;
+    el = document.createElement("div");
+    el.id = "layerNotice";
+    el.className = "small warn";
+    el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite");
+    el.hidden = true;
+    const pane = document.querySelector("[data-pane='layers'] .toggles");
+    if (pane && pane.parentNode) pane.parentNode.insertBefore(el, pane.nextSibling);
+    else document.body.appendChild(el);
+    return el;
+  }
+  function showNotice() {
+    const n = cap();
+    const where = isLite() && !isPhone() ? " in the lite edition" : (isPhone() ? " on a phone" : "");
+    noticeText = "Only " + n + " heavier layers can be on at once" + where + ". Turn one off to add another.";
+    const el = noteEl();
+    el.textContent = noticeText;
+    el.hidden = false;
+  }
+  function hideNotice() {
+    noticeText = "";
+    const el = document.getElementById("layerNotice");
+    if (el) { el.textContent = ""; el.hidden = true; }
+  }
+
+  function wanted(idOrIds, on) {
+    const list = Array.isArray(idOrIds) ? idOrIds.slice() : [idOrIds];
+    if (idOrIds === "live" && on && window.SeaRegions && !SeaRegions.state().on) list.push("regions");
+    return list;
+  }
+
+  function request(idOrIds, on) {
+    const ids = wanted(idOrIds, on);
+    if (!on) {
+      ids.forEach((id) => active.delete(id));
+      return true;
+    }
+    const need = [];
+    ids.forEach((id) => {
+      const spec = REG[id];
+      if (spec && spec.weight === "heavy" && !active.has(id)) need.push(id);
+    });
+    if (active.size + need.length > cap()) { showNotice(); return false; }
+    need.forEach((id) => active.add(id));
+    if (need.length) hideNotice();
+    return true;
+  }
+
+  function bind() {
+    const pane = document.querySelector("[data-pane='layers'] .toggles");
+    if (!pane || pane.dataset.layerGuard) return;
+    pane.dataset.layerGuard = "1";
+    pane.addEventListener("change", (ev) => {
+      const el = ev.target;
+      if (!el || el.type !== "checkbox") return;
+      const id = byToggle[el.id];
+      if (!id) return;
+      if (!request(id, el.checked)) {
+        el.checked = false;
+        ev.stopImmediatePropagation();
+      }
+    }, true);
+  }
+
+  window.SeaLayers = {
+    registry: REG,
+    cap, isLite, isPhone,
+    request,
+    active: () => [...active],
+    notice: () => noticeText,
+    state: () => ({ cap: cap(), active: [...active], notice: noticeText, lite: isLite(), phone: isPhone() })
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
+  else bind();
+  window.addEventListener("seaglobe:ready", bind);
 })();

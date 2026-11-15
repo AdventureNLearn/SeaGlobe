@@ -32,6 +32,11 @@
   }
   function sites(on) {
     const g = G(); if (!g || !window.SeaTools) return;
+    if (on && window.SeaLayers && !SeaLayers.request("launch", true)) {
+      const cb = $("tLaunch"); if (cb) cb.checked = false;
+      return;
+    }
+    if (!on && window.SeaLayers) SeaLayers.request("launch", false);
     window.SeaTools.points("launch", g.sites.map((s) => ({ lat: s.lat, lon: s.lon, color: "#ff9f6e", r: 0.18 + Math.min(0.5, Math.sqrt(s.launches) / 90), alt: 0.004,
       label: "<b>" + esc(s.short || s.name) + "</b><div>" + esc(s.launches) + " launch attempts " + esc(s.first) + "–" + esc(s.last) + " · GCAT (CC BY 4.0)</div>", id: "place:site-" + s.code })), on);
     const cb = $("tLaunch"); if (cb) cb.checked = !!on;

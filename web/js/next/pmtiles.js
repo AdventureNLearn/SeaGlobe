@@ -182,6 +182,11 @@
   }
 
   function enable(on) {
+    if (on && window.SeaLayers && !SeaLayers.request("pmtilesBorders", true)) {
+      const cb = $("tPmtiles"); if (cb) cb.checked = false;
+      return;
+    }
+    if (!on && window.SeaLayers) SeaLayers.request("pmtilesBorders", false);
     st.on = !!on;
     remember(st.on);
     if (!st.on) {

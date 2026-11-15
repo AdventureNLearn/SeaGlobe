@@ -400,6 +400,145 @@ try {
     await p.close();
   });
 
+  const clickLayer = async (page, id, on) => {
+    await page.evaluate((id, on) => {
+      const el = document.getElementById(id);
+      if (!el) throw new Error("missing " + id);
+      if (el.checked !== on) el.click();
+    }, id, on);
+  };
+
+  await check("the cap blocks the next heavy layer and shows the notice", async () => {
+    const tiles = await rangeServer(FIX);
+    const p = await openApp(browser, port, "capture=1&mute=1&flags=pmtilesBorders,terrain&r2base=" + encodeURIComponent("http://127.0.0.1:" + tiles.port + "/"));
+    try {
+      await p.waitForFunction(() => window.SeaLayers && document.getElementById("tPmtiles") && document.getElementById("tTerrain"), { timeout: 30000 });
+      const cap = await p.evaluate(() => window.SeaLayers.cap());
+      assert.equal(cap, 5);
+      const heavy = ["tWind", "tRegions", "tHubs", "tLaunch", "tPmtiles"];
+      for (const id of heavy) await clickLayer(p, id, true);
+      const atCap = await p.evaluate(() => {
+        const on = (id) => document.getElementById(id).checked;
+        return {
+          active: window.SeaLayers.active().slice().sort(),
+          wind: on("tWind"),
+          regions: window.SeaRegions.state().on,
+          tools: window.SeaTools.state().layers.slice().sort(),
+          pmtiles: window.SeaNext.pmtilesBorders.state().on,
+          defaults: { routes: on("tRoutes"), wakes: on("tWakes"), night: on("tNight"), sats: on("tSats") }
+        };
+      });
+      assert.deepEqual(atCap.active, ["hubs", "launch", "pmtilesBorders", "regions", "wind"]);
+      assert.equal(atCap.wind, true);
+      assert.equal(atCap.regions, true);
+      assert.deepEqual(atCap.tools, ["hubs", "launch"]);
+      assert.equal(atCap.pmtiles, true);
+      assert.deepEqual(atCap.defaults, { routes: true, wakes: true, night: true, sats: true });
+      await clickLayer(p, "tTerrain", true);
+      const blocked = await p.evaluate(() => ({
+        checked: document.getElementById("tTerrain").checked,
+        on: window.SeaNext.terrain.state().on,
+        notice: window.SeaLayers.notice(),
+        noticeEl: (document.getElementById("layerNotice") || {}).textContent,
+        hidden: document.getElementById("layerNotice") && document.getElementById("layerNotice").hidden,
+        active: window.SeaLayers.active().slice().sort(),
+        orbit: document.getElementById("tOrbit").checked
+      }));
+      assert.equal(blocked.checked, false);
+      assert.equal(blocked.on, false);
+      assert.match(blocked.notice, /Only 5 heavier layers can be on at once/);
+      assert.match(blocked.notice, /Turn one off to add another/);
+      assert.equal(blocked.noticeEl, blocked.notice);
+      assert.equal(blocked.hidden, false);
+      assert.deepEqual(blocked.active, ["hubs", "launch", "pmtilesBorders", "regions", "wind"]);
+      // a light layer still turns on past the cap
+      await clickLayer(p, "tOrbit", true);
+      assert.equal(await p.evaluate(() => document.getElementById("tOrbit").checked), true);
+      assert.deepEqual(p._errors.filter((e) => !/Failed to load resource|404|the server responded with a status/.test(e)), []);
+    } finally {
+      await p.close();
+      tiles.srv.close();
+    }
+  });
+
+  await check("phone and lite use the lower cap", async () => {
+    // phone
+    const ph = await openApp(browser, port, "capture=1&mute=1");
+    await ph.setViewport({ width: 390, height: 844, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+    await ph.waitForFunction(() => window.SeaLayers && document.getElementById("tLaunch"), { timeout: 30000 });
+    const phoneCap = await ph.evaluate(() => window.SeaLayers.state());
+    assert.equal(phoneCap.cap, 3);
+    assert.equal(phoneCap.phone, true);
+    for (const id of ["tWind", "tRegions", "tHubs"]) await clickLayer(ph, id, true);
+    await clickLayer(ph, "tLaunch", true);
+    const phoneBlocked = await ph.evaluate(() => ({
+      checked: document.getElementById("tLaunch").checked,
+      tools: window.SeaTools.state().layers.slice().sort(),
+      notice: window.SeaLayers.notice(),
+      active: window.SeaLayers.active().slice().sort()
+    }));
+    assert.equal(phoneBlocked.checked, false);
+    assert.deepEqual(phoneBlocked.tools, ["hubs"]);
+    assert.match(phoneBlocked.notice, /Only 3 heavier layers can be on at once on a phone/);
+    assert.deepEqual(phoneBlocked.active, ["hubs", "regions", "wind"]);
+    const phoneErrs = ph._errors.filter((e) => !/Failed to load resource|404|the server responded with a status/.test(e));
+    assert.deepEqual(phoneErrs, []);
+    await ph.close();
+
+    // lite (wide window still uses the lower cap)
+    const lite = await openApp(browser, port, "capture=1&mute=1", "lite.html");
+    await lite.waitForFunction(() => window.SeaLayers && document.getElementById("tLaunch"), { timeout: 30000 });
+    const liteSt = await lite.evaluate(() => window.SeaLayers.state());
+    assert.equal(liteSt.cap, 3);
+    assert.equal(liteSt.lite, true);
+    for (const id of ["tWind", "tRegions", "tHubs"]) await clickLayer(lite, id, true);
+    await clickLayer(lite, "tLaunch", true);
+    const liteBlocked = await lite.evaluate(() => ({
+      checked: document.getElementById("tLaunch").checked,
+      notice: window.SeaLayers.notice(),
+      active: window.SeaLayers.active().slice().sort()
+    }));
+    assert.equal(liteBlocked.checked, false);
+    assert.match(liteBlocked.notice, /Only 3 heavier layers can be on at once in the lite edition/);
+    assert.deepEqual(liteBlocked.active, ["hubs", "regions", "wind"]);
+    assert.deepEqual(lite._errors.filter((e) => !/Failed to load resource|404|the server responded with a status/.test(e)), []);
+    await lite.close();
+  });
+
+  await check("turning a layer off frees its slot", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1");
+    await p.setViewport({ width: 390, height: 844, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+    await p.waitForFunction(() => window.SeaLayers && document.getElementById("tLaunch"), { timeout: 30000 });
+    for (const id of ["tWind", "tRegions", "tHubs"]) await clickLayer(p, id, true);
+    await clickLayer(p, "tLaunch", true);
+    assert.equal(await p.evaluate(() => document.getElementById("tLaunch").checked), false);
+    await clickLayer(p, "tHubs", false);
+    const freed = await p.evaluate(() => ({
+      hubs: window.SeaTools.state().layers,
+      hubItemsGone: !(window.SeaTools.state().layers.includes("hubs")),
+      active: window.SeaLayers.active().slice().sort()
+    }));
+    assert.deepEqual(freed.active, ["regions", "wind"]);
+    assert.equal(freed.hubItemsGone, true);
+    await clickLayer(p, "tLaunch", true);
+    const after = await p.evaluate(() => ({
+      checked: document.getElementById("tLaunch").checked,
+      tools: window.SeaTools.state().layers.slice().sort(),
+      notice: window.SeaLayers.notice(),
+      noticeHidden: document.getElementById("layerNotice") && document.getElementById("layerNotice").hidden,
+      active: window.SeaLayers.active().slice().sort(),
+      defaults: { routes: document.getElementById("tRoutes").checked, wakes: document.getElementById("tWakes").checked, night: document.getElementById("tNight").checked, sats: document.getElementById("tSats").checked }
+    }));
+    assert.equal(after.checked, true);
+    assert.deepEqual(after.tools, ["launch"]);
+    assert.equal(after.notice, "");
+    assert.equal(after.noticeHidden, true);
+    assert.deepEqual(after.active, ["launch", "regions", "wind"]);
+    assert.deepEqual(after.defaults, { routes: true, wakes: true, night: true, sats: true });
+    assert.deepEqual(p._errors.filter((e) => !/Failed to load resource|404|the server responded with a status/.test(e)), []);
+    await p.close();
+  });
+
   await check("no console errors on desktop, phone or lite with layers on and off", async () => {
     const tiles = await rangeServer(FIX);
     const cases = [

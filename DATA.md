@@ -149,7 +149,7 @@ are added (see BACKLOG.md, v2.2).
 
 | Data | Files | Source and licence | Built by |
 |---|---|---|---|
-| Regions: countries, admin-1 (states/provinces), US counties, towns | `web/data/regions/` | Natural Earth 1:110m / 1:50m / 1:10m, public domain. Coordinates rounded (2 decimals for countries, 3 below). | `tools/build_regions.py` |
+| Regions: countries, admin-1 (states/provinces for every country), US counties, towns | `web/data/regions/` | Natural Earth 1:110m countries, 1:50m admin-1 for nine large countries, 1:10m admin-1 (simplified) for every other country, 1:10m US counties and towns, public domain. Coordinates rounded (2 decimals for countries and 1:10m states, 3 for the 1:50m packs and below). Source gaps: Croatia HR-11 (Požeško-slavonska); Vietnam's Bắc Kạn, Hưng Yên and Đồng Nai, which appear only as Natural Earth regional rows. | `tools/build_regions.py`, `tools/build_admin1.py` |
 | Town search list (every town label in one file, for the encyclopedia and chat) | `web/data/regions/towns-index.js` | Built by `tools/build_town_index.py` from the town packs above (Natural Earth, public domain). |
 | Live US town boundaries (opt-in, not bundled) | fetched at run time; fixtures in `tests/fixtures/live/` | U.S. Census Bureau TIGERweb, layer 4 of `Places_CouSub_ConCity_SubMCD`. Health check first; skipped with a message when down. | `web/js/regions.js` |
 | Airports (1,197) for the hubs layer and encyclopedia | `web/data/places/airports.js` | OurAirports slice, public domain; rows named "(Duplicate)…" are skipped | `tools/build_places.py` |

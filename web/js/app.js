@@ -678,7 +678,10 @@
     $("followBtn").addEventListener("click", () => setFollow(!st.follow));
     $("clearBtn").addEventListener("click", () => { st.selected = null; setFollow(false); renderDetail(); refreshRoutes(); });
     const lay = { tRoutes: "routes", tWakes: "wakes", tWind: "wind", tNight: "night", tSats: "sats" };
-    for (const [id, k] of Object.entries(lay)) $(id).addEventListener("change", (e) => { st.layers[k] = e.target.checked; refreshRoutes(); });
+    for (const [id, k] of Object.entries(lay)) $(id).addEventListener("change", (e) => {
+      if (window.SeaLayers && !SeaLayers.request(k, e.target.checked)) { e.target.checked = false; return; }
+      st.layers[k] = e.target.checked; refreshRoutes();
+    });
     $("tOrbit").addEventListener("change", (e) => { st.orbit = e.target.checked; st.orbitPaused = false; if (st.orbit) setFollow(false); });
     const types = {}; prepared.forEach((r) => { types[r.line] = types[r.line] || r.color; });
     $("legend").innerHTML = Object.entries(types).map(([k, c]) => "<div><i data-style='background:" + c + "'></i>" + esc(k) + "</div>").join("");

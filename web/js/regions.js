@@ -11,16 +11,24 @@
   // altitude = globe.gl camera altitude in Earth radii (smaller = closer)
   const REGISTRY = [
     { id: "countries", level: "country", kind: "static", pack: () => "world", maxAlt: 4.0, color: "rgba(231,199,102,.55)", attribution: "Made with Natural Earth", source: "src-natural-earth", coverage: "World" },
-    { id: "states", level: "state", kind: "static", pack: (c) => c.country && HAS_ADMIN1.has(c.country.a3) ? "admin1/" + c.country.a3 : null, maxAlt: 1.3, color: "rgba(94,231,255,.55)", attribution: "Made with Natural Earth", source: "src-natural-earth", coverage: "Countries with Natural Earth 1:50m states/provinces (USA, Canada, Australia, Brazil, China, India, Indonesia, Russia, South Africa)" },
+    { id: "states", level: "state", kind: "static", pack: (c) => c.country ? (ADMIN1_REST.has(c.country.a3) ? "admin1/rest" : "admin1/" + c.country.a3) : null, maxAlt: 1.3, color: "rgba(94,231,255,.55)", attribution: "Made with Natural Earth", source: "src-natural-earth", coverage: "Natural Earth states and provinces for every country" },
     { id: "counties", level: "county", kind: "static", pack: (c) => c.state && /^US-/.test(c.state.iso || "") ? "counties/" + c.state.iso : null, maxAlt: 0.5, color: "rgba(201,162,255,.6)", attribution: "Made with Natural Earth", source: "src-natural-earth", coverage: "United States" },
     { id: "towns", level: "town", kind: "static", pack: (c) => (c.country ? "towns/" + c.country.a3 : null), maxAlt: 0.7, attribution: "Made with Natural Earth", source: "src-natural-earth", coverage: "World (populated places)" },
     { id: "us-places-live", level: "town", kind: "live", optIn: true, maxAlt: 0.3, color: "rgba(255,111,174,.75)", health: TW + "?f=json", query: TW + "/4/query",
       attribution: "Boundaries: U.S. Census Bureau, TIGERweb (live)", source: "src-tigerweb", coverage: "United States incorporated places" },
   ];
-  const HAS_ADMIN1 = new Set(["USA", "CAN", "AUS", "BRA", "CHN", "IND", "IDN", "RUS", "ZAF"]);
+  // <admin1-rest>
+  const ADMIN1_REST = new Set(["ATA","ATF","BRN","CYN","CYP","FLK","GBR","LUX","NCL","PRI","PSX","SAH","SLE","SOL","SWZ"]);
+  // </admin1-rest>
   const R = () => (window.SEAGLOBE_REGIONS = window.SEAGLOBE_REGIONS || {});
   const loading = {};
   const st = { on: false, live: false, liveStatus: "off", ctx: {}, lastKey: "", liveCache: {}, msg: "" };
+  function statesOf(pack, a3) {
+    if (!pack) return null;
+    if (pack.states) return pack;
+    const one = pack.countries && a3 && pack.countries[a3];
+    return one && one.states ? one : null;
+  }
   function loadPack(key) {
     if (R()[key]) return Promise.resolve(R()[key]);
     if (!loading[key]) loading[key] = new Promise((res) => { const s = document.createElement("script"); s.src = "data/regions/" + key + ".js"; s.onload = () => res(R()[key] || null); s.onerror = () => res(null); document.head.appendChild(s); });
@@ -37,7 +45,8 @@
     const world = await loadPack("world");
     const ctx = { alt, lat, lon, country: null, state: null, county: null };
     if (world) ctx.country = world.countries.find((c) => inPolys(lon, lat, c.polys)) || null;
-    const statePack = ctx.country && alt < 1.3 && HAS_ADMIN1.has(ctx.country.a3) ? await loadPack("admin1/" + ctx.country.a3) : null;
+    const stateRaw = ctx.country && alt < 1.3 ? await loadPack(REGISTRY[1].pack(ctx)) : null;
+    const statePack = statesOf(stateRaw, ctx.country && ctx.country.a3);
     if (statePack) ctx.state = statePack.states.find((s) => inPolys(lon, lat, s.polys)) || null;
     const countyPack = ctx.state && alt < 0.5 && /^US-/.test(ctx.state.iso || "") ? await loadPack("counties/" + ctx.state.iso) : null;
     if (countyPack) ctx.county = countyPack.counties.find((c) => inPolys(lon, lat, c.polys)) || null;
@@ -105,14 +114,30 @@
       (window.SeaNext && SeaNext.pmtilesBorders && SeaNext.pmtilesBorders.credited() ? " · U.S. Census Bureau, TIGER/Line 2026" : "") +
       (window.SeaNext && SeaNext.terrain && SeaNext.terrain.credited() ? " · U.S. Geological Survey, 3DEP" : "") + "</div>";
   }
+  function freePacks() {
+    const keep = { index: 1, world: 1, "towns-index": 1 };
+    const R = window.SEAGLOBE_REGIONS;
+    if (R) Object.keys(R).forEach((k) => { if (!keep[k]) delete R[k]; });
+    Object.keys(loading).forEach((k) => { if (!keep[k]) delete loading[k]; });
+  }
   function enable(on) {
+    if (on && window.SeaLayers && !SeaLayers.request("regions", true)) {
+      const cb = $("tRegions"); if (cb) cb.checked = false;
+      return;
+    }
+    if (!on && window.SeaLayers) SeaLayers.request("regions", false);
     st.on = !!on;
     const cb = $("tRegions"); if (cb) cb.checked = st.on;
     const sg = window.__sg;
-    if (!st.on && sg && sg.globe()) { sg.globe().polygonsData([]).labelsData([]); st.lastKey = ""; }
+    if (!st.on && sg && sg.globe()) { sg.globe().polygonsData([]).labelsData([]); st.lastKey = ""; st.ctx = {}; freePacks(); }
     crumbs(); if (st.on) update();
   }
   async function enableLive(on) {
+    if (on && window.SeaLayers && !SeaLayers.request("live", true)) {
+      const cb = $("tLive"); if (cb) cb.checked = false;
+      return;
+    }
+    if (!on && window.SeaLayers) SeaLayers.request("live", false);
     st.live = !!on; const cb = $("tLive"); if (cb) cb.checked = st.live;
     if (st.live) { if (!st.on) enable(true); await health(); } else { st.liveStatus = "off"; st.msg = ""; }
     st.lastKey = ""; update();

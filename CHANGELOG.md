@@ -1,5 +1,30 @@
 # Changelog
 
+## v3.1.2 (2026-11-15) — layer load guard and complete admin-1 coverage
+
+- Overlays now declare a weight in a small layer registry. Heavy layers (wind,
+  borders and regions, live town boundaries, air hubs, launch sites, Census
+  boundaries and terrain) are capped at 5 at once on a desktop and 3 on a phone
+  or in the lite edition. Turning on one more shows a short notice and does not
+  load it; the others stay as they are. Light layers are not capped, and no
+  new layer turns on by default.
+- The 1:10m admin-1 build now keeps every Natural Earth row for a country
+  (duplicates removed by adm1_code) and repairs polygons after rounding. The
+  fifteen smallest countries share one rest pack so the lite build has 10 file
+  slots of headroom (590 files). A second HR-12 row and a near-zero-area
+  SI-054 copy are dropped, not relabelled. Source gaps: Croatia HR-11
+  (Požeško-slavonska); Vietnam's Bắc Kạn, Hưng Yên and Đồng Nai, which appear
+  only as Natural Earth regional rows.
+
+
+## v3.1.1 (2026-11-15) — states and provinces for every country
+
+- The Borders and regions layer now has Natural Earth admin-1 states and provinces for every
+  country on the globe, not only the previous nine. The nine existing 1:50m packs are unchanged.
+  The others come from the 1:10m admin-1 set, simplified for the globe and the lite size limit,
+  and are still credited only to Natural Earth.
+
+
 ## v3.1.0 (2026-11-15) — Census PMTiles borders and USGS 3DEP terrain
 
 - Behind flags that stay off on a normal visit (`?flag=pmtilesBorders`, `?flag=terrain`): US Census
