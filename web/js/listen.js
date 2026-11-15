@@ -5,7 +5,6 @@
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id);
-  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const synth = window.speechSynthesis || null;
   const st = { speaking: false, tour: null, i: 0, timer: null, rate: 1, lastText: "", token: 0 };
   const supported = () => !!(synth && window.SpeechSynthesisUtterance);
@@ -17,31 +16,75 @@
     if (e.evidence && e.evidence.basis === "reconstruction") parts.push("This route is a reconstruction.");
     return parts.join(" ").replace(/\[UNKNOWN\]/g, "unknown").replace(/\s+/g, " ").trim();
   }
-  function caption(html) { const c = $("listenCap"); if (!c) return; c.hidden = !html; c.innerHTML = html || ""; }
-  function stop() {
-    st.token++;
-    if (synth) synth.cancel();
-    clearTimeout(st.timer); st.speaking = false; st.tour = null; caption("");
-    document.querySelectorAll("[data-listen]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+  function el(tag, cls, text) {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
   }
-  function controls(extra) {
-    const more = st.tour && st.i < st.tour.stops.length;
-    return (extra || "") +
-      (more ? " <button class='btn ghost small' id='listenNext' type='button'>Next</button>" : "") +
-      " <button class='btn ghost small' id='listenStop' type='button' aria-label='Stop listening'>Stop</button>";
+  function clearCaption() {
+    const c = $("listenCap");
+    if (!c) return;
+    while (c.firstChild) c.removeChild(c.firstChild);
+    c.hidden = true;
   }
-  function wireCaption() {
+  function addControls(c) {
+    const row = el("span", "listen-ctrls");
+    if (st.tour && st.i < st.tour.stops.length) {
+      const n = el("button", "btn ghost small", "Next");
+      n.id = "listenNext";
+      n.type = "button";
+      row.appendChild(n);
+    }
+    const s = el("button", "btn ghost small", "Stop");
+    s.id = "listenStop";
+    s.type = "button";
+    s.setAttribute("aria-label", "Stop listening");
+    row.appendChild(s);
+    c.appendChild(row);
     const b = $("listenStop"); if (b) b.addEventListener("click", stop);
     const n = $("listenNext"); if (n) n.addEventListener("click", next);
   }
-  function say(text, cap) {
+  // Caption nodes are built with textContent only. Tour titles, stop counters and entry text
+  // never go through innerHTML.
+  function showCaption(kind, opts) {
+    const c = $("listenCap");
+    if (!c) return;
+    while (c.firstChild) c.removeChild(c.firstChild);
+    c.hidden = false;
+    if (kind === "tour") {
+      const head = el("div", "listen-head");
+      head.appendChild(el("span", "listen-title", opts.title));
+      const n = el("span", "listen-count", "Stop " + opts.i + " of " + opts.n);
+      n.setAttribute("aria-label", "Stop " + opts.i + " of " + opts.n);
+      head.appendChild(n);
+      c.appendChild(head);
+      c.appendChild(el("div", "listen-body", opts.body));
+    } else if (kind === "end") {
+      c.appendChild(el("span", "kicker", "Tour"));
+      c.appendChild(document.createTextNode(" "));
+      c.appendChild(el("span", "listen-body", "End of “" + opts.title + "”."));
+    } else {
+      c.appendChild(el("span", "kicker", "Listening"));
+      c.appendChild(document.createTextNode(" "));
+      c.appendChild(el("span", "listen-body", opts.body));
+    }
+    addControls(c);
+  }
+  function stop() {
+    st.token++;
+    if (synth) synth.cancel();
+    clearTimeout(st.timer); st.speaking = false; st.tour = null; clearCaption();
+    document.querySelectorAll("[data-listen]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+  }
+  function say(text, meta) {
     clearTimeout(st.timer);
     const token = ++st.token;
     const start = () => {
       if (token !== st.token) return;
       st.speaking = true; st.lastText = text;
-      caption("<span class='kicker'>Listening</span> " + esc(cap || text) + controls());
-      wireCaption();
+      if (meta && meta.title) showCaption("tour", { title: meta.title, i: meta.i, n: meta.n, body: text });
+      else showCaption("listen", { body: text });
       const finish = (why) => {
         if (token !== st.token) return;
         st.speaking = false;
@@ -50,8 +93,7 @@
         if (why === "error") {
           const c = $("listenCap");
           if (c && !c.querySelector(".listen-err")) {
-            c.insertAdjacentHTML("beforeend", " <span class='listen-err small'>Couldn’t play this stop.</span>");
-            wireCaption();
+            c.appendChild(el("span", "listen-err small", "Couldn’t play this stop."));
           }
         }
       };
@@ -76,16 +118,15 @@
   function playStop() {
     if (!st.tour) return;
     if (st.i >= st.tour.stops.length) {
-      caption("<span class='kicker'>Tour</span> End of “" + esc(st.tour.title) + "”." + controls());
-      wireCaption();
+      const title = st.tour.title;
       st.tour = null;
-      st.timer = setTimeout(() => caption(""), 3000);
+      showCaption("end", { title: title });
+      st.timer = setTimeout(() => clearCaption(), 3000);
       return;
     }
     const e = st.tour.stops[st.i++];
     if (window.SeaEncyclopedia && window.SeaEncyclopedia.showOnGlobe) window.SeaEncyclopedia.showOnGlobe(e);
-    const n = st.i + "/" + st.tour.stops.length;
-    say(textOf(e), "<b>" + esc(st.tour.title) + " · " + n + "</b> " + esc(textOf(e)));
+    say(textOf(e), { title: st.tour.title, i: st.i, n: st.tour.stops.length });
   }
   function tour(id) {
     const T = ((window.SEAGLOBE_DATA || {}).tours || []).find((t) => t.id === id); const A = window.SeaAtlas; if (!T || !A) return false;
@@ -114,8 +155,20 @@
     const deeper = document.querySelector("[data-pane='deeper']");
     if (deeper && !$("tourList")) {
       const tours = (window.SEAGLOBE_DATA || {}).tours || [];
-      deeper.insertAdjacentHTML("afterbegin", "<div class='tours' id='tourList'><div class='kicker'>Narrated tours</div>" + tours.map((t) => "<button class='btn ghost' data-listen='tour:" + esc(t.id) + "' type='button'>▶ " + esc(t.title) + "</button>").join("") +
-        "<div class='small'>" + (supported() ? "Read aloud by your browser’s speech voice, with captions. Press a tour to start; Next for the next stop." : "Your browser has no speech voice; tours play as captions. Press a tour to start; Next for the next stop.") + "</div></div>");
+      const box = el("div", "tours");
+      box.id = "tourList";
+      box.appendChild(el("div", "kicker", "Narrated tours"));
+      tours.forEach((t) => {
+        const b = el("button", "btn ghost", "▶ " + t.title);
+        b.type = "button";
+        b.setAttribute("data-listen", "tour:" + t.id);
+        box.appendChild(b);
+      });
+      const note = el("div", "small", supported()
+        ? "Read aloud by your browser’s speech voice, with captions. Press a tour to start; Next for the next stop."
+        : "Your browser has no speech voice; tours play as captions. Press a tour to start; Next for the next stop.");
+      box.appendChild(note);
+      deeper.insertBefore(box, deeper.firstChild);
     }
     wire(document);
     window.addEventListener("seaglobe:entry", () => wire(document));

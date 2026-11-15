@@ -203,11 +203,16 @@ try {
     await p.evaluate(() => window.SeaListen.stop());
     await p.evaluate(() => window.SeaListen.tour("space"));
     assert.equal(await p.evaluate(() => window.SeaListen.state().i), 1);
-    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /The space age · 1\/7/);
+    const cap1 = await p.evaluate(() => document.getElementById("listenCap").innerText);
+    assert.match(cap1, /The space age/);
+    assert.match(cap1, /Stop 1 of 7/);
+    assert.ok(!cap1.includes("<b>") && !cap1.includes("</"), "caption showed markup: " + cap1);
     assert.ok(await p.evaluate(() => !!document.getElementById("listenNext")), "Next is offered on a tour");
     await p.evaluate(() => window.SeaListen.next());
     assert.equal(await p.evaluate(() => window.SeaListen.state().i), 2);
-    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /The space age · 2\/7/);
+    const cap2 = await p.evaluate(() => document.getElementById("listenCap").innerText);
+    assert.match(cap2, /The space age/);
+    assert.match(cap2, /Stop 2 of 7/);
     await p.evaluate(() => window.SeaListen.stop());
     assert.ok(await p.evaluate(() => document.querySelectorAll("#tourList [data-listen]").length === 3));
     assert.deepEqual(p._errors, []);
@@ -244,13 +249,57 @@ try {
     await sleep(2500);
     st = await p.evaluate(() => window.SeaListen.state());
     assert.equal(st.i, 1, "speech error auto-advanced the tour, i=" + st.i);
-    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /1\/6/);
+    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /Stop 1 of 6/);
     await p.evaluate(() => window.SeaListen.next());
     await sleep(200);
     st = await p.evaluate(() => window.SeaListen.state());
     assert.equal(st.i, 2, "Next should advance to stop 2, got " + st.i);
-    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /2\/6/);
+    assert.match(await p.evaluate(() => document.getElementById("listenCap").innerText), /Stop 2 of 6/);
     await p.evaluate(() => window.SeaListen.stop());
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("listen: tour captions show a title and a stop counter, with no literal markup", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1");
+    const tours = await p.evaluate(() => (window.SEAGLOBE_DATA.tours || []).map((t) => t.id));
+    assert.ok(tours.length >= 1, "no tours");
+    const hits = [];
+    for (const id of tours) {
+      await p.evaluate((tid) => window.SeaListen.tour(tid), id);
+      const report = await p.evaluate(() => {
+        const cap = document.getElementById("listenCap");
+        const visible = document.body.innerText || "";
+        const title = cap && cap.querySelector(".listen-title");
+        const count = cap && cap.querySelector(".listen-count");
+        return {
+          hidden: !cap || cap.hidden,
+          title: title ? title.textContent : "",
+          count: count ? count.textContent : "",
+          capText: cap ? cap.innerText : "",
+          capHTML: cap ? cap.innerHTML : "",
+          markup: /<b>|<\//.test(visible) ? (visible.match(/[\s\S]{0,24}<b>[\s\S]{0,40}|[\s\S]{0,24}<\//) || [visible.slice(0, 80)])[0] : ""
+        };
+      });
+      if (report.hidden) hits.push(id + " caption hidden");
+      if (!report.title) hits.push(id + " missing title");
+      if (!/^Stop \d+ of \d+$/.test(report.count)) hits.push(id + " bad counter: " + report.count);
+      if (report.markup) hits.push(id + " visible markup: " + report.markup);
+      if (report.capText.includes("<b>") || report.capText.includes("</")) hits.push(id + " cap text " + report.capText);
+      await p.evaluate(() => window.SeaListen.stop());
+    }
+    // encyclopedia Listen uses the same caption path (no tour title)
+    await p.evaluate(() => window.SeaEncyclopedia.show("era:age-of-sail"));
+    await p.evaluate(() => window.SeaListen.entry("era:age-of-sail"));
+    const entryCap = await p.evaluate(() => {
+      const cap = document.getElementById("listenCap");
+      const visible = document.body.innerText || "";
+      return { text: cap ? cap.innerText : "", markup: /<b>|<\//.test(visible) };
+    });
+    if (!/Age of Sail/.test(entryCap.text)) hits.push("entry caption missing title: " + entryCap.text);
+    if (entryCap.markup || /<b>|<\//.test(entryCap.text)) hits.push("entry Listen showed markup");
+    await p.evaluate(() => window.SeaListen.stop());
+    assert.deepEqual(hits, [], hits.join("; "));
     assert.deepEqual(p._errors, []);
     await p.close();
   });
@@ -527,6 +576,109 @@ try {
     assert.ok(await p.evaluate(() => !document.getElementById("log").hidden));
     await p.evaluate(() => window.SeaWindows.resetLayout());
     assert.deepEqual(p._errors, []); await p.close();
+  });
+
+  await check("windows: header controls do not overlap buttons or tabs", async () => {
+    const sizes = [[1536, 864], [390, 844], [3840, 2160], [7680, 4320]];
+    const hits = [];
+    for (const [w, h] of sizes) {
+      const b = w <= 820 ? await launch(w, h) : browser;
+      if (b === browser) {
+        /* desktop / large: reuse the shared browser; resize before navigating */
+      }
+      const p = await openApp(b, port, "capture=1&mute=1");
+      await p.setViewport({ width: w, height: h, deviceScaleFactor: 1 });
+      await sleep(200);
+      const opens = [
+        ["side", "side"],
+        ["log", "log"],
+        ["atlas", "atlasPanel"],
+        ["radio", "radioPanel"]
+      ];
+      for (const [name, elId] of opens) {
+        await p.evaluate((n, phone) => {
+          if (n === "side") {
+            if (phone && window.__sgMobile) window.__sgMobile.sheet("menu");
+            else {
+              const s = document.getElementById("side");
+              if (s) s.hidden = false;
+              if (window.SeaWindows) window.SeaWindows.expand("side");
+            }
+          } else if (n === "log") window.__sg.log(true);
+          else if (n === "atlas") window.SeaEncyclopedia.open(true);
+          else if (n === "radio") window.SeaRadio.open(true);
+        }, name, w <= 820);
+        if (name === "side" && w <= 820) {
+          await p.waitForFunction(() => {
+            const s = document.getElementById("side");
+            const t = s && s.querySelector(".tab");
+            if (!s || !t) return false;
+            const r = t.getBoundingClientRect();
+            return getComputedStyle(s).visibility !== "hidden" && r.width > 0 && r.top >= 0 && r.top < window.innerHeight;
+          }, { timeout: 5000 });
+        } else {
+          await sleep(150);
+        }
+        const bad = await p.evaluate((win, elId, vw, vh) => {
+          const el = document.getElementById(elId);
+          if (!el || el.hidden) return [win + " @" + vw + "x" + vh + " not visible"];
+          const out = [];
+          const overlap = (a, b) => !(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top);
+          const vis = (n) => {
+            if (!n || !n.getClientRects().length) return false;
+            const cs = getComputedStyle(n);
+            if (cs.display === "none" || cs.visibility === "hidden" || Number(cs.opacity) === 0) return false;
+            const r = n.getBoundingClientRect();
+            return r.width >= 1 && r.height >= 1;
+          };
+          const label = (n) => n.id || n.getAttribute("data-tab") || n.getAttribute("data-act") || n.getAttribute("aria-label") || (n.textContent || "").trim().slice(0, 24);
+          const ctrls = [...el.querySelectorAll(".tab, #logCsv, #logClose, #atlasBack, #atlasClose, #radioClose, #mClose, .wintools > [data-act='menu']")].filter(vis);
+          for (let i = 0; i < ctrls.length; i++) {
+            for (let j = i + 1; j < ctrls.length; j++) {
+              const ra = ctrls[i].getBoundingClientRect(), rb = ctrls[j].getBoundingClientRect();
+              if (overlap(ra, rb)) out.push(win + " @" + vw + "x" + vh + ": " + label(ctrls[i]) + " overlaps " + label(ctrls[j]));
+            }
+            const r = ctrls[i].getBoundingClientRect();
+            const x = r.left + r.width / 2, y = r.top + r.height / 2;
+            const top = document.elementFromPoint(x, y);
+            if (!top || (!ctrls[i].contains(top) && top !== ctrls[i])) {
+              out.push(win + " @" + vw + "x" + vh + ": elementFromPoint missed " + label(ctrls[i]) + " got " + (top ? label(top) : "null"));
+            }
+          }
+          return out;
+        }, name, elId, w, h);
+        hits.push(...bad);
+        if (name !== "side") {
+          await p.evaluate((n) => {
+            if (n === "log") window.__sg.log(false);
+            if (n === "atlas") window.SeaEncyclopedia.open(false);
+            if (n === "radio") window.SeaRadio.open(false);
+          }, name);
+        }
+      }
+      await p.close();
+      if (b !== browser) await b.close();
+    }
+    assert.deepEqual(hits, [], hits.join("; "));
+  });
+
+  await check("help: How to go deeper is on Layers and in the encyclopedia, and is dismissible", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&help=1");
+    await p.evaluate(() => document.querySelector(".tab[data-tab='layers']").click());
+    await sleep(50);
+    const text = await p.evaluate(() => (document.getElementById("deeperHelp") || {}).innerText || "");
+    assert.match(text, /How to go deeper/);
+    assert.match(text, /Borders and regions/);
+    assert.match(text, /Live US town boundaries/);
+    assert.match(text, /Ship’s Log/);
+    assert.match(text, /Encyclopedia/);
+    assert.match(text, /Go deeper/);
+    assert.ok(await p.evaluate(() => !!window.SeaAtlas.get("app:how-to-go-deeper")));
+    await p.evaluate(() => document.getElementById("deeperHelpDismiss").click());
+    assert.ok(await p.evaluate(() => !document.getElementById("deeperHelp")));
+    assert.ok(await p.evaluate(() => !!document.getElementById("deeperHelpOpen")));
+    assert.deepEqual(p._errors, []);
+    await p.close();
   });
 
   await check("R2 mock: textures load from the large-file host when set; a dead host falls back to the repo copy", async () => {

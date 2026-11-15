@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.0.2 (2026-11-14) — window headers, how-to help, tour captions
+
+- Window controls (⧉) now sit in the header flow: at the end of the tab row on the side panel, and between
+  the title and the right-hand buttons on the radio, encyclopedia and Ship's Log. They no longer sit on top
+  of Export CSV or the Voyage tab. A test checks that header buttons and tabs do not overlap, at phone,
+  desktop, 4K and 8K sizes.
+- A short, dismissible “How to go deeper” note on the Layers tab (and the same text as an encyclopedia
+  entry, so Ask can find it) covers zooming from countries to states, counties and towns, the Region
+  breadcrumb, live US town boundaries, air hubs, the space layer, map tools, Focus, the Ship’s Log,
+  Encyclopedia Search, Ask and Listen, narrated tours with Next, and the window controls. It does not
+  start anything on its own. The phone sheet has it too.
+- Tour and Listen captions are built with the DOM (textContent): a styled title and a separate “Stop 1 of 8”
+  counter. HTML tags no longer show up as text in the caption.
+
 ## v3.0.1 (2026-11-14) — narrated tours, radio window, shared windows
 
 - Narration in Go deeper starts only when you press a tour or Listen button. Opening the tab does not start it, and a

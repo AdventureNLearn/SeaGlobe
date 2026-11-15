@@ -162,8 +162,13 @@
       ["version-check", "Version check", "Each copy reads the published version file once, read only, with a short timeout, and shows a notice with a link to the changelog when a newer version exists. Offline it stays silent; ?update=0 turns it off."],
       ["starfield", "Stars and the Moon (background)", "The stars behind the globe are seeded random points made in code, not a star catalogue, and the Moon texture is procedural too. [UNKNOWN] whether a licensed star catalogue will be added."],
       ["credit", "Credit: Built by AdventureNLearn", "SeaGlobe was built by AdventureNLearn (@AdventureNLearn on X). The credit is in the footer and the About tab, with the version and the changelog."],
+      ["how-to-go-deeper", "How to go deeper", "Zoom the globe to go from countries to states, counties and towns. On the Layers tab, turn on “Borders and regions (zoom in: country › state › county › towns)”; a Region breadcrumb then follows the view centre. “Live US town boundaries (U.S. Census TIGERweb; off by default, needs the internet)” is optional and needs the internet. Layers also has Air hubs, Satellites (decorative, space age), Launch sites (75, GCAT), Cursor coordinates, Measure distance, and Print map view. A Focus chip appears when you pick an era, or when you filter or select a voyage in the Ship’s Log; press × on the chip, or Esc, to clear it. Ship’s Log (or L) lists every voyage. Encyclopedia has Search, Ask and Listen. The Go deeper tab has narrated tours: press a tour to start, then Next for the next stop. Narration never starts on its own. The ⧉ button on a panel opens window controls: lock, zoom the panel (not the globe), and minimize; Reset layout is in the dock. A short copy of this note sits on the Layers tab and can be dismissed."],
     ];
-    APP.forEach(([id, title, text]) => add({ id: "app:" + id, kind: "app", title, layer: "app", summary: text, citations: [], evidence: { basis: "our-reconstruction", gaps: gapsIn(text) } }));
+    APP.forEach(([id, title, text]) => {
+      const rec = { id: "app:" + id, kind: "app", title, layer: "app", summary: text, citations: [], evidence: { basis: "our-reconstruction", gaps: gapsIn(text) } };
+      if (id === "how-to-go-deeper") rec.aliases = ["how to go deeper", "deeper layers", "layers help", "instructions", "window controls"];
+      add(rec);
+    });
     // drill-down levels
     const levels = [["world", "World", "The whole globe, the top of the region tree."], ["country", "Countries", "Natural Earth admin-0 countries; zoom in to see borders and names."],
       ["state", "States and provinces", "Natural Earth admin-1 states and provinces, loaded per country as you zoom in."], ["county", "US counties", "US counties, loaded per state as you zoom in further."],

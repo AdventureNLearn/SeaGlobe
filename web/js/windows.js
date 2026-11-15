@@ -116,43 +116,29 @@
       el.appendChild(h);
     });
   }
-  function closeBtn(el) {
-    return el.querySelector("#radioClose, #atlasClose, #logClose");
-  }
-  function placeTools(r) {
-    const el = r.el;
-    const t = el.querySelector(":scope > .wintools-overlay");
-    const close = closeBtn(el);
-    if (!t || !close || el.hidden || el.classList.contains("is-min")) return;
-    const er = el.getBoundingClientRect(), cr = close.getBoundingClientRect();
-    if (cr.width < 1 || er.width < 1) return;
-    const gap = 4;
-    // Sit just to the left of ×, out of the document flow so other header buttons do not shift.
-    t.style.right = (er.right - cr.left + gap) + "px";
-    t.style.left = "auto";
-    t.style.top = Math.max(2, cr.top - er.top) + "px";
-  }
   function attachChrome(id, r) {
     const el = r.el;
-    const head = [el.querySelector(".loghead"), el.querySelector("#mHead"), el.querySelector(".tabs")].find((h) => {
-      if (!h || h.hidden) return false;
-      const cs = getComputedStyle(h);
-      return cs.display !== "none" && cs.visibility !== "hidden";
-    }) || el.querySelector(".tabs");
     const t = tools(id);
-    t.classList.add("wintools-overlay");
-    el.appendChild(t);
-    if (closeBtn(el)) {
-      const ro = new ResizeObserver(() => placeTools(r));
-      ro.observe(el);
-      ro.observe(closeBtn(el));
-      requestAnimationFrame(() => placeTools(r));
-    }
-    if (head) head.setAttribute("data-winbar", "1");
-    else {
+    const tabRow = el.id === "side" ? el.querySelector(".tabs") : null;
+    const loghead = el.querySelector(".loghead");
+    if (tabRow) {
+      // Reserved slot at the end of the tab row, in flow, so ⧉ never sits on Voyage (or any tab).
+      t.classList.add("wintools-end");
+      tabRow.appendChild(t);
+      tabRow.setAttribute("data-winbar", "1");
+    } else if (loghead) {
+      // In-flow between the title and the right-hand buttons. space-between keeps
+      // the title on the left and Export CSV / Back / × on the right, unmoved.
+      const right = [...loghead.children].find((c) => c.classList.contains("row") || c.tagName === "BUTTON");
+      if (right) loghead.insertBefore(t, right);
+      else loghead.appendChild(t);
+      loghead.setAttribute("data-winbar", "1");
+    } else {
       const bar = document.createElement("div");
       bar.className = "winbar"; bar.setAttribute("data-winbar", "1");
-      bar.innerHTML = "<div class='kicker'>" + (r.opts.title || id) + "</div>";
+      const k = document.createElement("div"); k.className = "kicker"; k.textContent = r.opts.title || id;
+      bar.appendChild(k);
+      bar.appendChild(t);
       el.insertBefore(bar, el.firstChild);
     }
     handles(el);
@@ -334,7 +320,6 @@
     if (r.el.hidden && r.opts.unhideOnExpand !== false) { /* leave hidden to the owner's open() */ }
     if (typeof r.opts.onExpand === "function") r.opts.onExpand();
     raise(r.el);
-    requestAnimationFrame(() => placeTools(r));
     persist(); paintDock();
   }
   function toggleLock(id) {
