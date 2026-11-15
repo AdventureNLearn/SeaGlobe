@@ -266,10 +266,10 @@ body.cinema .logpanel { opacity: 0; pointer-events: none; }
   .mhead { display: flex; flex-wrap: wrap; align-items: center; gap: calc(6px * var(--ui)); padding: calc(4px * var(--ui)) calc(8px * var(--ui)) calc(6px * var(--ui)); flex: none; position: relative; }
   .mgrip { flex: 1 0 100%; height: calc(22px * var(--ui)); display: flex; justify-content: center; align-items: center; }
   .mgrip i { width: calc(44px * var(--ui)); height: calc(4px * var(--ui)); border-radius: calc(2px * var(--ui)); background: rgba(234,246,255,.35); }
-  .mquick { display: flex; gap: calc(6px * var(--ui)); }
+  .mquick { display: flex; flex-wrap: wrap; gap: calc(6px * var(--ui)); flex: 1; min-width: 0; }
   .mquick .btn { min-height: calc(44px * var(--ui)); }
-  .mclose { position: absolute; right: calc(6px * var(--ui)); top: calc(22px * var(--ui)); }
-  body.m-sheet-voyage .mclose { top: calc(2px * var(--ui)); }
+  .mclose { position: static; flex: none; margin-left: auto; align-self: center; }
+  body.m-sheet-voyage .mclose { position: absolute; right: calc(6px * var(--ui)); top: calc(2px * var(--ui)); }
   .meras { display: flex; gap: calc(6px * var(--ui)); overflow-x: auto; flex: 1 0 100%; padding-bottom: calc(2px * var(--ui)); scrollbar-width: none; }
   .meras .btn { min-height: calc(44px * var(--ui)); white-space: nowrap; font-size: calc(12px * var(--ui)); }
   .meras .btn .sw { display: inline-block; width: calc(8px * var(--ui)); height: calc(8px * var(--ui)); margin-right: calc(6px * var(--ui)); }

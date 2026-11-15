@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.0.3 (2026-11-14) — phone radio close, window icon, clock and help wording
+
+- On a phone, the sheet’s × no longer covers the Radio quick button. The close control sits in the
+  header flow, and the header test checks the phone quick buttons at 390×844 and 414×844.
+- The Window controls button is an inline SVG icon, so it does not depend on a font. Help and the
+  encyclopedia call it Window controls.
+- The How to go deeper note (and the encyclopedia entry) now says that Esc closes the Ship’s Log
+  first, then clears Focus, which is what the key already does.
+- The header-overlap test also runs with help=1 so the note’s Got it button is checked.
+- A cache-bust query such as `?t=1794704953840` no longer throws “bad date” or breaks the clock.
+  Only a parseable year or date sets the clock; use `?cb=` to cache-bust the page.
+- The published `version.json` (the Pages site) is stamped at assemble time with the commit and the
+  zip sha256. The zip itself still keeps placeholders, so it does not have to contain its own hash.
+- The optional chat Worker has a unit test for the network-failure 502 path.
+
 ## v3.0.2 (2026-11-14) — window headers, how-to help, tour captions
 
 - Window controls (⧉) now sit in the header flow: at the end of the tab row on the side panel, and between

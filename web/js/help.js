@@ -40,9 +40,9 @@
     box.appendChild(head);
     box.appendChild(p("Zoom the globe to go from countries to states, counties and towns. In this tab, turn on “Borders and regions (zoom in: country › state › county › towns)”; a Region breadcrumb then follows the view centre. “Live US town boundaries (U.S. Census TIGERweb; off by default, needs the internet)” is optional and needs the internet."));
     box.appendChild(p("This tab also has Air hubs, Satellites (decorative, space age), Launch sites (75, GCAT), Cursor coordinates, Measure distance, and Print map view."));
-    box.appendChild(p("A Focus chip appears when you pick an era, or when you filter or select a voyage in the Ship’s Log. Press × on the chip, or Esc, to clear it."));
+    box.appendChild(p("A Focus chip appears when you pick an era, or when you filter or select a voyage in the Ship’s Log. Press × on the chip to clear it. Esc closes the Ship’s Log first, then clears Focus."));
     box.appendChild(p("Ship’s Log (or L) lists every voyage. Encyclopedia has Search, Ask and Listen. The Go deeper tab has narrated tours: press a tour to start, then Next for the next stop. Narration never starts on its own."));
-    box.appendChild(p("The ⧉ button on a panel opens window controls: lock, zoom the panel (not the globe), and minimize. Reset layout is in the dock."));
+    box.appendChild(p("The Window controls button on a panel opens lock, zoom the panel (not the globe), and minimize. Reset layout is in the dock."));
     return box;
   }
   function opener() {

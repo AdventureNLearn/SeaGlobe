@@ -124,7 +124,8 @@ body.atlas-open .radiopanel { left: calc(490px * var(--ui)); }
 .wintools-row { display: flex; align-items: center; gap: calc(4px * var(--ui)); flex: none; margin: 0; }
 .wintools-menu { display: flex; gap: calc(2px * var(--ui)); position: absolute; right: 0; top: calc(100% + 2px * var(--ui)); padding: calc(4px * var(--ui)); background: var(--solid); border: calc(1px * var(--ui)) solid var(--edge); z-index: 9; }
 .wintools-menu[hidden] { display: none !important; }
-.wintools .btn.icon { min-width: calc(28px * var(--ui)); padding: 0 calc(6px * var(--ui)); font-size: calc(13px * var(--ui)); }
+.wintools .btn.icon { min-width: calc(28px * var(--ui)); padding: 0 calc(6px * var(--ui)); font-size: calc(13px * var(--ui)); display: inline-flex; align-items: center; justify-content: center; }
+.wintools .win-controls-icon { width: calc(16px * var(--ui)); height: calc(16px * var(--ui)); display: block; flex: none; }
 .wintools .win-lock[aria-pressed="true"] { color: var(--gold); }
 .sgwin { --win-zoom: 1; }
 .sgwin .winbody { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: auto; transform-origin: 0 0; }

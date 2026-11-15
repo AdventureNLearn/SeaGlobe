@@ -82,7 +82,11 @@
     const t = document.createElement("div");
     t.className = "wintools";
     t.innerHTML =
-      "<button class='btn ghost icon' type='button' data-act='menu' aria-expanded='false' title='Window controls' aria-label='Window controls'>⧉</button>" +
+      "<button class='btn ghost icon' type='button' data-act='menu' aria-expanded='false' title='Window controls' aria-label='Window controls'>" +
+      "<svg class='win-controls-icon' viewBox='0 0 16 16' width='16' height='16' aria-hidden='true' focusable='false'>" +
+      "<rect x='1.5' y='4.5' width='9' height='9' rx='1.25' fill='none' stroke='currentColor' stroke-width='1.4'/>" +
+      "<rect x='5.5' y='1.5' width='9' height='9' rx='1.25' fill='none' stroke='currentColor' stroke-width='1.4'/>" +
+      "</svg></button>" +
       "<div class='wintools-menu' hidden>" +
       "<button class='btn ghost icon win-lock' type='button' data-act='lock' aria-pressed='false' title='Lock position and size' aria-label='Lock position and size'>🔒</button>" +
       "<button class='btn ghost icon' type='button' data-act='zoom-out' title='Zoom content out' aria-label='Zoom content out'>−</button>" +
@@ -122,7 +126,7 @@
     const tabRow = el.id === "side" ? el.querySelector(".tabs") : null;
     const loghead = el.querySelector(".loghead");
     if (tabRow) {
-      // Reserved slot at the end of the tab row, in flow, so ⧉ never sits on Voyage (or any tab).
+      // Reserved slot at the end of the tab row, in flow, so Window controls never sits on Voyage (or any tab).
       t.classList.add("wintools-end");
       tabRow.appendChild(t);
       tabRow.setAttribute("data-winbar", "1");

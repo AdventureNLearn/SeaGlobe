@@ -579,14 +579,14 @@ try {
   });
 
   await check("windows: header controls do not overlap buttons or tabs", async () => {
-    const sizes = [[1536, 864], [390, 844], [3840, 2160], [7680, 4320]];
+    const sizes = [[1536, 864], [390, 844], [414, 844], [3840, 2160], [7680, 4320]];
     const hits = [];
     for (const [w, h] of sizes) {
       const b = w <= 820 ? await launch(w, h) : browser;
       if (b === browser) {
         /* desktop / large: reuse the shared browser; resize before navigating */
       }
-      const p = await openApp(b, port, "capture=1&mute=1");
+      const p = await openApp(b, port, "capture=1&mute=1&help=1");
       await p.setViewport({ width: w, height: h, deviceScaleFactor: 1 });
       await sleep(200);
       const opens = [
@@ -619,6 +619,10 @@ try {
         } else {
           await sleep(150);
         }
+        if (name === "side") {
+          await p.evaluate(() => { const tab = document.querySelector(".tab[data-tab='layers']"); if (tab) tab.click(); });
+          await sleep(100);
+        }
         const bad = await p.evaluate((win, elId, vw, vh) => {
           const el = document.getElementById(elId);
           if (!el || el.hidden) return [win + " @" + vw + "x" + vh + " not visible"];
@@ -632,7 +636,7 @@ try {
             return r.width >= 1 && r.height >= 1;
           };
           const label = (n) => n.id || n.getAttribute("data-tab") || n.getAttribute("data-act") || n.getAttribute("aria-label") || (n.textContent || "").trim().slice(0, 24);
-          const ctrls = [...el.querySelectorAll(".tab, #logCsv, #logClose, #atlasBack, #atlasClose, #radioClose, #mClose, .wintools > [data-act='menu']")].filter(vis);
+          const ctrls = [...el.querySelectorAll(".tab, #logCsv, #logClose, #atlasBack, #atlasClose, #radioClose, #mClose, #mModeBtn, #mLogBtn, #mAtlasBtn, #mRadioBtn, #deeperHelpDismiss, .wintools > [data-act='menu']")].filter(vis);
           for (let i = 0; i < ctrls.length; i++) {
             for (let j = i + 1; j < ctrls.length; j++) {
               const ra = ctrls[i].getBoundingClientRect(), rb = ctrls[j].getBoundingClientRect();
@@ -673,7 +677,14 @@ try {
     assert.match(text, /Ship’s Log/);
     assert.match(text, /Encyclopedia/);
     assert.match(text, /Go deeper/);
-    assert.ok(await p.evaluate(() => !!window.SeaAtlas.get("app:how-to-go-deeper")));
+    assert.match(text, /Esc closes the Ship’s Log first, then clears Focus/);
+    assert.match(text, /Window controls/);
+    assert.doesNotMatch(text, /⧉/);
+    const entry = await p.evaluate(() => window.SeaAtlas.get("app:how-to-go-deeper"));
+    assert.ok(entry);
+    assert.match(entry.summary, /Esc closes the Ship’s Log first, then clears Focus/);
+    assert.match(entry.summary, /Window controls/);
+    assert.doesNotMatch(entry.summary, /⧉/);
     await p.evaluate(() => document.getElementById("deeperHelpDismiss").click());
     assert.ok(await p.evaluate(() => !document.getElementById("deeperHelp")));
     assert.ok(await p.evaluate(() => !!document.getElementById("deeperHelpOpen")));

@@ -52,3 +52,10 @@ test("the default upstream timeout is about 60 s and the fetch carries an abort 
   assert.ok(calls[0].init.signal instanceof AbortSignal);
   assert.match(await (await import("node:fs")).promises.readFile(new URL("../src/index.js", import.meta.url), "utf8"), /UPSTREAM_TIMEOUT_MS = 60 \* 1000/);
 });
+
+test("a network failure reaching the upstream is a 502", async () => {
+  globalThis.fetch = async () => { throw new TypeError("fetch failed"); };
+  const r = await worker.fetch(req(), env);
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).error, "could not reach the xAI API");
+});

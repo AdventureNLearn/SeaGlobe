@@ -14,6 +14,15 @@
   const uiScale = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui")) || 1;
   let uiK = 1; window.addEventListener("resize", () => { uiK = uiScale(); }); setTimeout(() => { uiK = uiScale(); }, 0);
   const P = new URLSearchParams(location.search);
+  // The clock is ?t= as a year or date (for example 1320-05-01). Use ?cb= to cache-bust the page;
+  // a bare number in t (epoch milliseconds, and so on) is ignored so it cannot throw "bad date".
+  function parseClockParam(raw) {
+    if (raw == null || raw === "") return null;
+    const s = String(raw).trim();
+    if (!/^(-?\d{1,4})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}))?)?)?$/.test(s)) return null;
+    try { return T.parse(s); } catch (e) { return null; }
+  }
+  const clockParam = parseClockParam(P.get("t"));
   const capture = P.get("capture") === "1";
   const shot = P.get("shot") === "1" || capture;
   const fileMode = location.protocol === "file:";
@@ -30,13 +39,13 @@
   const HIT_TOUCH = 44; // a fingertip is less precise than a mouse pointer (touch only)
 
   const st = {
-    t: T.parse(P.get("t") || "1320-05-01"),
+    t: clockParam != null ? clockParam : T.parse("1320-05-01"),
     playing: P.get("play") !== "0" && !shot,
     speed: parseFloat(P.get("speed") || "5"),
     selected: null, follow: P.get("follow") === "1", orbit: false,
     fly: null, lastYear: null, now: 0, layers: { routes: true, wakes: true, wind: false, night: true, sats: true },
     // "idle": a rotating sample of vessels from every era; "timeline": the real timeline at st.t
-    mode: P.get("t") || P.get("era") || P.get("select") || P.get("idle") === "0" ? "timeline" : "idle",
+    mode: clockParam != null || P.get("era") || P.get("select") || P.get("idle") === "0" ? "timeline" : "idle",
     focus: {},            // era, type, family, goods, region, evidence, routeId, q
     slots: [], lastSwap: 0, idleSeq: 0, pendingKey: null, orbitIdleUntil: 0,
     ptr: null, slow: 1, govern: 1, hoverKey: null, hoverAt: -9,

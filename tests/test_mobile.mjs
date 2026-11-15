@@ -135,6 +135,16 @@ try {
       assert.deepEqual(s.vis, ["topbar", "side", "timeline"]); assert.deepEqual(s.overlaps, []); assert.deepEqual(s.offscreen, []);
       assert.equal(await p.evaluate(() => document.getElementById("menuBtn").getAttribute("aria-expanded")), "true");
       assert.ok(await p.evaluate(() => document.querySelectorAll("#mEras [data-mera]").length) >= 5, "era chips in the sheet");
+      const radioHit = await p.evaluate(() => {
+        const b = document.getElementById("mRadioBtn"), x = document.getElementById("mClose");
+        if (!b || !x) return { ok: false, why: "missing" };
+        const r = b.getBoundingClientRect(), xr = x.getBoundingClientRect();
+        const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        const hit = !!(top && (top === b || b.contains(top)));
+        const overlap = !(r.right <= xr.left || xr.right <= r.left || r.bottom <= xr.top || xr.bottom <= r.top);
+        return { ok: hit && !overlap, hit: top && (top.id || top.tagName), overlap };
+      });
+      assert.ok(radioHit.ok, `${w}x${h}: Radio centre must hit Radio, not × ` + JSON.stringify(radioHit));
       for (const tab of ["layers", "routes", "deeper"]) {
         await p.tap(`.tab[data-tab='${tab}']`); await settle(p);
         assert.deepEqual(await smallTargets(p, CONTROLS("#side")), [], tab);

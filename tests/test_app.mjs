@@ -142,6 +142,20 @@ try {
       await p.close();
     }
   });
+  await check("a cache-bust ?t= number does not break the clock; a real date still sets it", async () => {
+    const p = await openApp(browser, port, "capture=1&t=1794704953840");
+    const s = await p.evaluate(() => window.__sg.state());
+    assert.deepEqual(p._errors, []);
+    assert.ok(s.date && !/bad date/i.test(s.date), "sane date " + s.date);
+    assert.ok(s.t >= 1320 && s.t < 1321, "default clock t=" + s.t);
+    await p.close();
+    const p2 = await openApp(browser, port, "capture=1&t=1320-05-01");
+    const s2 = await p2.evaluate(() => window.__sg.state());
+    assert.deepEqual(p2._errors, []);
+    assert.ok(s2.t >= 1320 && s2.t < 1321, "valid date t=" + s2.t);
+    assert.match(s2.date, /1 May 1320/);
+    await p2.close();
+  });
   await check("lite mode loads", async () => {
     const p = await openApp(browser, port, "capture=1&lite=1&t=1320-05-01");
     assert.ok((await p.evaluate(() => window.__sg.state())).live > 0);
@@ -163,5 +177,5 @@ try {
 } finally {
   await browser.close(); server.kill();
 }
-console.log(`${ok}/9 browser checks passed`);
-if (ok !== 9) process.exit(1);
+console.log(`${ok}/10 browser checks passed`);
+if (ok !== 10) process.exit(1);

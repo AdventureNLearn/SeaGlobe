@@ -1,6 +1,6 @@
 {
  "name": "SeaGlobe Lite",
- "version": "3.0.2",
+ "version": "3.0.3",
  "commit": "[set at release]",
  "entry": "lite.html",
  "root": "web/",
@@ -23,13 +23,13 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 13123248,
+ "total_bytes": 13124531,
  "file_count": 400,
  "files": [
   {
    "path": "app.css",
-   "bytes": 29891,
-   "sha256": "9d26ab5a77a84a0f06c2bc7d6a7b64637c9d5e4165e4b777db14cf1bca5f4eb5"
+   "bytes": 29971,
+   "sha256": "c69dfce602cd66796ab78c3113c3de1c52a5814d55063f4b6c64ad550df19a63"
   },
   {
    "path": "assets.json",
@@ -1878,8 +1878,8 @@
   },
   {
    "path": "js/app.js",
-   "bytes": 71062,
-   "sha256": "902f3804ee460e0e0a75e0533dbd369ac118753435ba00550efc8ea77810f35d"
+   "bytes": 71609,
+   "sha256": "ec2c30c2815b3a9c27045018f7a70a240571399238d29d81c10add65a6a8f6eb"
   },
   {
    "path": "js/assets.js",
@@ -1888,8 +1888,8 @@
   },
   {
    "path": "js/atlas.js",
-   "bytes": 28564,
-   "sha256": "092858b6ec904ab21ad9b0434f4cfaadb9279745f2043bd829dd63eed0b09a11"
+   "bytes": 28604,
+   "sha256": "056551d07893328d2ddb1897d764385c3ca84695824258f7be148d017eae0878"
   },
   {
    "path": "js/byo-csp.js",
@@ -1908,8 +1908,8 @@
   },
   {
    "path": "js/help.js",
-   "bytes": 3675,
-   "sha256": "a5253eefaf9162ea8a75492f3f62dad212a9d32a1f2403e744edb622b0325e85"
+   "bytes": 3715,
+   "sha256": "57cb44f6198443241cad772284210ed99c3faa19354c16e5f8e1bb08240bc509"
   },
   {
    "path": "js/listen.js",
@@ -1969,7 +1969,7 @@
   {
    "path": "js/version.js",
    "bytes": 492,
-   "sha256": "9cfa95c5ea5f005af3159532b771089f37e7cebaead887ecbc20a0b59020f026"
+   "sha256": "d23e690cec4b68ed8f670967524b3eddf953fb3d2589a08ee26c0d0ee84dd07a"
   },
   {
    "path": "js/voyages.js",
@@ -1978,13 +1978,13 @@
   },
   {
    "path": "js/windows.js",
-   "bytes": 18489,
-   "sha256": "b14ccbf5b1e3a2d067295748a2f8f89b6d4461f1d8114260d55073ffdca427e8"
+   "bytes": 18873,
+   "sha256": "f6ee45de98412a3ca2e4b15c1ff7e6b383d8109486e63be8bcff3d006e238bee"
   },
   {
    "path": "lite.html",
    "bytes": 10485,
-   "sha256": "d41b608f0ab75f79e27d99bbe5153e16883283eab6b464610bf8f2f06fada301"
+   "sha256": "809862b848c40ba4ba98e4ec874d1c0742e8d82ca8424fd597febc3573ac7f61"
   },
   {
    "path": "textures/earth-navy.png",
@@ -1993,8 +1993,8 @@
   },
   {
    "path": "v3.css",
-   "bytes": 17610,
-   "sha256": "e127c5c1ea0e344311b7a84d6696798d7a5d6c8a991f3b30dce9f3efa46c7b5e"
+   "bytes": 17802,
+   "sha256": "8fad1d958904f658022c291af7e1808943f01cea47c046d463084a33c12de539"
   },
   {
    "path": "vendor/README.md",
@@ -2024,7 +2024,7 @@
   {
    "path": "version.json",
    "bytes": 352,
-   "sha256": "c05ac69ddf5fea32df5cfedf30431759d546058187516e87110e3df29cb6077e"
+   "sha256": "50325d65e2724cab9d2a06d1a96f776b9ee429014ea17c66ff251432ed346371"
   }
  ]
 }
