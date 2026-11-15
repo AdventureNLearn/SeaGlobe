@@ -89,6 +89,7 @@
         <div class="toggles">
           <label title="Shows the tracks of voyages on the globe."><input type="checkbox" id="tRoutes" checked> Route lines</label>
           <label title="Shows wakes and trails behind moving vehicles."><input type="checkbox" id="tWakes" checked> Wakes and trails</label>
+          <label title="Shows moving ships, aircraft and vehicles on the globe. Turn off to hide them and stop their animation."><input type="checkbox" id="tShips" checked> Ships and assets</label>
           <label title="Shows schematic wind belts and logbook wind arrows."><input type="checkbox" id="tWind"> Wind belts (schematic) and logbook winds</label>
           <label title="Shows city lights on the night side, in the modern era."><input type="checkbox" id="tNight" checked> Night lights (modern era only)</label>
           <label title="Shows decorative satellite markers in the space age."><input type="checkbox" id="tSats" checked> Satellites (decorative, space age)</label>
@@ -106,7 +107,7 @@
         <ul class="deeper" id="deeperList"></ul>
       </section>
     </div>
-    <footer class="pfoot" id="pfoot">Made with Natural Earth. Earth imagery: NASA (public domain). CLIWOC logbook sample CC BY 3.0. Space data: GCAT (CC BY 4.0). See DATA.md.<span class="credit">Built by AdventureNLearn · <a href="https://x.com/AdventureNLearn" target="_blank" rel="noopener noreferrer">@AdventureNLearn</a></span><span class="vline"><a href="#/about">About</a> · <span data-sg-version></span></span></footer>
+    <footer class="pfoot" id="pfoot">Made with Natural Earth. Earth imagery: NASA (public domain). CLIWOC logbook sample CC BY 3.0. Space data: GCAT (CC BY 4.0). © OpenStreetMap contributors (ODbL). See DATA.md.<span class="credit">Built by AdventureNLearn · <a href="https://x.com/AdventureNLearn" target="_blank" rel="noopener noreferrer">@AdventureNLearn</a></span><span class="vline"><a href="#/about">About</a> · <span data-sg-version></span></span></footer>
   </aside>
 
   <section class="timeline glass" id="timeline">
@@ -181,6 +182,7 @@
   <script src="js/help.js"></script>
   <script src="js/guide.js"></script>
   <script src="js/flags.js"></script>
+  <script src="js/next/bells.js"></script>
   <script src="js/radio.js"></script>
   <script src="vendor/satellite.min.js"></script>
   <script src="js/byo.js"></script>

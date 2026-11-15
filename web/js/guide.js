@@ -7,6 +7,7 @@
   const TIPS = {
     tRoutes: "Shows the tracks of voyages on the globe.",
     tWakes: "Shows wakes and trails behind moving vehicles.",
+    tShips: "Shows moving ships, aircraft and vehicles on the globe. Turn off to hide them and stop their animation.",
     tWind: "Shows schematic wind belts and logbook wind arrows.",
     tNight: "Shows city lights on the night side, in the modern era.",
     tSats: "Shows decorative satellite markers in the space age.",
@@ -17,13 +18,16 @@
     tTerrain: "Shows USGS 3DEP elevation over the US where tiles exist; elsewhere the globe stays as it is.",
     tHubs: "Shows airport hubs from OurAirports.",
     tCoords: "Shows latitude and longitude at the cursor.",
-    tLaunch: "Shows launch sites from GCAT."
+    tLaunch: "Shows launch sites from GCAT.",
+    tBells: "Shows historical bells on the globe at official coordinates or at the last known building (approximate). Off by default."
   };
 
   const ITEMS = [
     { id: "layers", title: "Layers", lines: "Open the Layers tab to turn overlays on or off. Hover a toggle for a one-line tip about what it shows.", aliases: ["how to use layers", "layers tab"] },
     { id: "layer-cap", title: "Layer limit", lines: "Heavier overlays (wind, borders, live town boundaries, air hubs, launch sites, Census boundaries and terrain) have a cap: 5 at once on a desktop, 3 on a phone or in the lite edition. Turning on one more shows a short notice and leaves the others as they are. Turn one off to add another.", aliases: ["how many layers can I turn on", "layer cap", "too many layers"] },
-    { id: "borders", title: "Borders and regions", lines: "Turn on Borders and regions, then zoom in: country, then state or province (every country), then county, then towns. A breadcrumb follows the view.", aliases: ["how to see borders", "how to zoom to a county", "borders and regions", "states and provinces"] },
+    { id: "bells", title: "Historical bells", lines: "In Layers, turn on Historical bells. Each bell is pinned at official coordinates when the source gives them, or at its last known building (marked approximate). The layer panel shows that basis. Each bell is in the encyclopedia, and bells with a known cast year appear on the time slider.", aliases: ["how to see historical bells", "historical bells", "bells layer", "show bells"] },
+    { id: "ships", title: "Ships and assets", lines: "The Ships and assets toggle is on by default. Turn it off in Layers to hide every moving ship, aircraft and vehicle and stop their animation. The setting is remembered with the window layout.", aliases: ["how to hide ships", "ships and assets", "hide vehicles", "turn off ships"] },
+    { id: "borders", title: "Borders and regions", lines: "Turn on Borders and regions, then zoom in: country, then state or province (every country), then county, then towns. Country and state names keep the same zoom ranges. County and town shapes load only for the state or country in view and unload when you move on. A breadcrumb follows the view.", aliases: ["how to see borders", "how to zoom to a county", "borders and regions", "states and provinces"] },
     { id: "census-borders", title: "US Census boundaries", lines: "On a visit with the borders flag, turn on US Census boundaries in Layers. It shows TIGER/Line 2026 state, county, county-subdivision and place lines.", aliases: ["how to turn on census boundaries", "pmtiles borders", "tiger line"] },
     { id: "terrain", title: "US terrain", lines: "On a visit with the terrain flag, turn on US terrain in Layers. It shows USGS 3DEP elevation where tiles exist, and leaves the globe as it is everywhere else.", aliases: ["how to turn on terrain", "turn terrain", "usgs 3dep"] },
     { id: "time-slider", title: "Time slider", lines: "Use the time bar at the bottom to play, change speed, or jump to an era. The date at the top follows the clock.", aliases: ["how to use the time slider", "time bar", "era chips"] },

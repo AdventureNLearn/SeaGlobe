@@ -1,0 +1,759 @@
+{
+ "license": "CC BY 4.0",
+ "layer": "bells",
+ "merge_into": "web/data/next/bells/bells.json",
+ "records": [
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Liberty Bell Center, Independence National Historical Park",
+   "geo": {
+    "lat": 39.949954,
+    "lon": -75.1502052
+   },
+   "dateCast": 1753,
+   "dateInstalled": null,
+   "founder": "John Pass and John Stow, Philadelphia (1753 recast)",
+   "foundry": "Whitechapel Foundry, London (first casting, 1752); recast in Philadelphia",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The first bell was cast in 1752 by Thomas Lester and Thomas Pack at the Whitechapel Foundry in London, and was recast twice in 1753 by John Pass and John Stow in Philadelphia. The surviving bell is that 1753 recast. It was the State House bell, ordered to call lawmakers and townspeople. The official history page states there is no evidence that it rang on 4 or 8 July 1776. In 1846 a repair of an earlier crack failed; a second fissure silenced the bell.",
+   "status": "Silenced after a second fissure in 1846",
+   "time": {
+    "start": 1753,
+    "end": 1753,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.nps.gov/inde/learn/historyculture/stories-libertybell.htm",
+    "https://www.nps.gov/articles/000/bell-and-clock-facts.htm",
+    "https://www.nps.gov/places/000/liberty-bell-center.htm"
+   ],
+   "id": "bell:liberty",
+   "title": "Liberty Bell",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 40086417, Liberty Bell Center. https://www.openstreetmap.org/way/40086417"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Benjamin Rush Garden, Independence National Historical Park",
+   "geo": {
+    "lat": 39.9474263,
+    "lon": -75.1465698
+   },
+   "dateCast": 1976,
+   "dateInstalled": 1976,
+   "founder": "[UNKNOWN]",
+   "foundry": "Whitechapel Foundry, London",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "Cast in 1976 (the inscription date on the official page is 4 July 1976) and presented on 6 July 1976 as a gift from the people of Britain to the people of the United States for the 200th anniversary of American independence. The inscription includes “LET FREEDOM RING.” It previously rang from a tower in the park.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1976,
+    "end": 1976,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.nps.gov/inde/learn/historyculture/the-bicentennial-bell.htm"
+   ],
+   "id": "bell:bicentennial",
+   "title": "Bicentennial Bell",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 1302753999, Benjamin Rush Garden. https://www.openstreetmap.org/way/1302753999"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Independence Hall tower, Independence National Historical Park",
+   "geo": {
+    "lat": 39.9487239,
+    "lon": -75.1501772
+   },
+   "dateCast": 1876,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "Meneely-Kimberly Foundry, Troy, New York",
+   "weight": "13,000 lbs",
+   "size": "[UNKNOWN]",
+   "history": "First rang to mark the nation’s 100th birthday in 1876. It hangs in the same spot the Liberty Bell once did. The visitor page says it has been struck with a mechanical hammer since 1926 and still rings hourly. Coordinates are the USGS GNIS August 2021 archive feature for Independence Hall (Feature ID 1177722).",
+   "status": "Rings hourly",
+   "time": {
+    "start": 1876,
+    "end": 1876,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.nps.gov/thingstodo/hear-the-centennial-bell-ring.htm",
+    "https://www.nps.gov/articles/000/bell-and-clock-facts.htm",
+    "https://whc.unesco.org/en/list/78",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/PA_Features_20210825.txt",
+    "https://www.usgs.gov/us-board-on-geographic-names/download-gnis-data"
+   ],
+   "id": "bell:centennial",
+   "title": "Centennial Bell",
+   "location_basis": "official coordinates",
+   "coordinate_source": "USGS GNIS August 2021 archive, Feature ID 1177722, Independence Hall. https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/PA_Features_20210825.txt"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Independence Hall, as listed on the NPS fact sheet (current hanging position Unknown)",
+   "geo": {
+    "lat": 39.9487239,
+    "lon": -75.1501772
+   },
+   "dateCast": 1828,
+   "dateInstalled": null,
+   "founder": "John Wilbank, Philadelphia",
+   "foundry": "[UNKNOWN]",
+   "weight": "4,600 lbs",
+   "size": "diameter 61.5 inches",
+   "history": "Listed on the official NPS Fact Sheet — Bells and Clocks of Independence Hall, dated 1828, by John Wilbank of Philadelphia. The fact sheet does not state the bell’s current hanging position beyond that heading. Purpose and notable ringings are Unknown on the pages read. Coordinates are the USGS GNIS August 2021 archive feature for Independence Hall (Feature ID 1177722).",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1828,
+    "end": 1828,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.nps.gov/articles/000/bell-and-clock-facts.htm",
+    "https://whc.unesco.org/en/list/78",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/PA_Features_20210825.txt",
+    "https://www.usgs.gov/us-board-on-geographic-names/download-gnis-data"
+   ],
+   "id": "bell:wilbank",
+   "title": "Wilbank Bell",
+   "location_basis": "official coordinates",
+   "coordinate_source": "USGS GNIS August 2021 archive, Feature ID 1177722, Independence Hall. https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/PA_Features_20210825.txt"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Washington Memorial Chapel, Valley Forge, Pennsylvania",
+   "geo": {
+    "lat": 40.1045511,
+    "lon": -75.4379666
+   },
+   "dateCast": 1915,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "Meneely Bell Foundry (Meneely Bell Co.), Troy, New York",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "Also called the Women’s Liberty Bell or Suffrage Bell on the NPS page. A near replica of the Liberty Bell, cast without a crack in 1915 (the inscription date MCMXV) and used in the women’s suffrage campaign. Its clapper was chained so it could not ring, then it was rung 48 times after ratification of the 19th Amendment in August 1920. It is on permanent display at Washington Memorial Chapel. Coordinates are the USGS GNIS August 2021 archive feature Washington Memorial Church (Feature ID 1190629).",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1915,
+    "end": 1915,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.nps.gov/articles/dyk-justice-bell.htm",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/PA_Features_20210825.txt",
+    "https://www.usgs.gov/us-board-on-geographic-names/download-gnis-data"
+   ],
+   "id": "bell:justice",
+   "title": "Justice Bell",
+   "aliases": [
+    "Women’s Liberty Bell",
+    "Suffrage Bell"
+   ],
+   "location_basis": "official coordinates",
+   "coordinate_source": "USGS GNIS August 2021 archive, Feature ID 1190629, Washington Memorial Church. https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/PA_Features_20210825.txt"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Oak Ridge, Tennessee, at an official NPS wayside next to the bell",
+   "geo": {
+    "lat": 36.0120486,
+    "lon": -84.2624304
+   },
+   "dateCast": 1993,
+   "dateInstalled": null,
+   "founder": "Sotetsu Iwazawa",
+   "foundry": "Cast in Kyoto, Japan",
+   "weight": "8,300-pound bronze bell",
+   "size": "[UNKNOWN]",
+   "history": "Cast in 1993 in Kyoto, Japan, by Sotetsu Iwazawa (named on the NPS place page as the bell-maker). The page says the bell was designed in 1991 and dedicated in 1996, and presents it as a symbol of peace and reconciliation. Visitors are encouraged to ring it in times of celebration and remembrance.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1993,
+    "end": 1993,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.nps.gov/places/oak-ridge-wayside-international-friendship-bell.htm"
+   ],
+   "id": "bell:friendship",
+   "title": "International Friendship Bell",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap node 5682623121, International Friendship Bell. https://www.openstreetmap.org/node/5682623121"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Belfry of Elizabeth Tower, Palace of Westminster, United Kingdom",
+   "geo": {
+    "lat": 51.5006944,
+    "lon": -0.1245749
+   },
+   "dateCast": 1858,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "Whitechapel Bell Foundry, East London (present bell); first bell: Warners of Norton",
+   "weight": "13.7 tonnes (present bell)",
+   "size": "[UNKNOWN]",
+   "history": "A first bell was cast in 1856 at Warners of Norton, near Stockton-on-Tees, and cracked in testing in 1857. The present bell was cast in April 1858 at the Whitechapel Bell Foundry. Its strikes were first heard on 11 July 1859; later that year it was found fractured and was silent until 1863, when it was turned 90 degrees and the hammer reduced. BBC Radio first broadcast the chimes on New Year’s Eve 1923. After a 5 August 1976 clock failure it was silent for nearly nine months and rang again in May 1977. The present bell is fixed and struck from outside. Historic England lists a National Grid Reference for Elizabeth Tower; the map pin uses the OpenStreetMap Elizabeth Tower building coordinate, not a conversion of that grid reference.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1858,
+    "end": 1858,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.parliament.uk/about/living-heritage/building/palace/big-ben/facts-figures/great-bell/",
+    "https://www.parliament.uk/about/living-heritage/building/palace/big-ben/building-clock-tower/key-dates-/",
+    "https://historicengland.org.uk/listing/the-list/list-entry/1226284"
+   ],
+   "id": "bell:great-bell-elizabeth-tower",
+   "title": "Great Bell of the Great Clock (commonly called Big Ben)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 123557148, Elizabeth Tower (building coordinate; not a conversion of the Historic England National Grid Reference). https://www.openstreetmap.org/way/123557148"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "National Museum of Ireland (Treasury), on display",
+   "geo": {
+    "lat": 53.3402355,
+    "lon": -6.2549637
+   },
+   "dateCast": "8th–9th century AD (bell); shrine circa AD 1100",
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The official artefact page dates the iron bell to the 8th–9th century AD and the shrine to circa AD 1100. The page names craftsmen only on the later shrine inscription; the founder of the iron bell itself is Unknown. The bell is reputed to have belonged to St Patrick and is frequently mentioned in written sources as one of the principal relics of Ireland. It is made of two riveted iron sheets coated with bronze.",
+   "status": "On display",
+   "time": {
+    "start": null,
+    "end": null,
+    "precision": "century"
+   },
+   "citations": [
+    "https://www.museum.ie/en-IE/Collections-Research/Collection/The-Treasury/Artefact/The-Bell-of-St-Patrick-and-its-Shrine/95577a65-66da-4228-869b-0e3644273d32"
+   ],
+   "id": "bell:st-patrick",
+   "title": "The Bell of St Patrick (and its shrine)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 1029441205, National Museum of Ireland, Archaeology, Kildare Street. https://www.openstreetmap.org/way/1029441205"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "United Nations Headquarters, exterior grounds",
+   "geo": {
+    "lat": 40.7495461,
+    "lon": -73.9679163
+   },
+   "dateCast": 1952,
+   "dateInstalled": 1954,
+   "founder": "[UNKNOWN]",
+   "foundry": "The Tada Factory",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "Cast in 1952 and presented to the United Nations on 8 June 1954. The official gift record says it is traditionally rung twice a year: on the first day of spring (vernal equinox / Earth Day) and on the opening day of the General Assembly in September (International Day of Peace). Coordinates are the USGS GNIS August 2021 archive feature United Nations Headquarters (Feature ID 968243), the Headquarters building, not a separate Peace Bell feature.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1952,
+    "end": 1952,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.un.org/ungifts/japanese-peace-bell-and-garden",
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/NY_Features_20210825.txt",
+    "https://www.usgs.gov/us-board-on-geographic-names/download-gnis-data"
+   ],
+   "id": "bell:japanese-peace",
+   "title": "Japanese Peace Bell",
+   "location_basis": "official coordinates",
+   "coordinate_source": "USGS GNIS August 2021 archive, Feature ID 968243, United Nations Headquarters. https://prd-tnm.s3.amazonaws.com/StagedProducts/GeographicNames/Archive/MainDomestic/NY_Features_20210825.txt"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "South tower, cathedral of Notre-Dame de Paris",
+   "geo": {
+    "lat": 48.8529371,
+    "lon": 2.3500501
+   },
+   "dateCast": 1686,
+   "dateInstalled": null,
+   "founder": "Florentin II Le Guay, with Nicolas Chapelle, Jean Gillot, and François Moreau (third and present pour)",
+   "foundry": "[UNKNOWN]",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The official page records three pours, on 17 September 1680, 31 October 1681, and 4 March 1686; the successful third pour is the present bourdon, blessed 29 April 1686. Classified as a historic monument by order of 24 July 1944. Removed in 1794 and put back for the Concordat ceremony on 18 April 1802. The present 1686 bell sounded at the service for Louis XIV on 28 October 1715.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1686,
+    "end": 1686,
+    "precision": "year"
+   },
+   "citations": [
+    "https://notre-dame-de-paris.culture.gouv.fr/fr/le-bourdon-emmanuel"
+   ],
+   "id": "bell:emmanuel",
+   "title": "Bourdon Emmanuel",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 201611261, Cathédrale Notre-Dame de Paris. https://www.openstreetmap.org/way/201611261"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Unfinished north tower of St Stephen’s Cathedral (Stephansdom), Vienna",
+   "geo": {
+    "lat": 48.2084923,
+    "lon": 16.3731269
+   },
+   "dateCast": null,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The official cathedral page calls it the “Stimme Österreichs” (Voice of Austria) and says it hangs in the helm of the unfinished north tower. The cathedral has 22 bells, which the page calls the largest ring in Austria. A cast year and founder are Unknown on the page read.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": null,
+    "end": null,
+    "precision": "[UNKNOWN]"
+   },
+   "citations": [
+    "https://stephansdom-wien.at/glocken"
+   ],
+   "id": "bell:pummerin",
+   "title": "Pummerin",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 212496461, Stephansdom, Vienna. https://www.openstreetmap.org/way/212496461"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Shōrō, Tōdai-ji, Nara, Japan",
+   "geo": {
+    "lat": 34.68869,
+    "lon": 135.842
+   },
+   "dateCast": "[UNKNOWN]",
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "26.3 tons",
+   "size": "[UNKNOWN]",
+   "history": "The official temple page says the bell dates from the time of the founding of Tōdai-ji and does not give a single year, so the cast year is Unknown. The same page dates the bell tower itself to 1207–1210 and lists it as a National Treasure. Weight 26.3 tons. The page calls it one of the Three Famous Bells of Japan and says it is known for its long ring.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": null,
+    "end": null,
+    "precision": "[UNKNOWN]"
+   },
+   "citations": [
+    "https://www.todaiji.or.jp/en/information/shoro/"
+   ],
+   "id": "bell:todai-ji",
+   "title": "Bell of Tōdai-ji (shōrō)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "Wikidata Q107020494, Belfry, Todaiji (東大寺鐘楼). https://www.wikidata.org/wiki/Q107020494"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Peace Tower, Centre Block, Parliament Hill, Ottawa",
+   "geo": {
+    "lat": 45.4247929,
+    "lon": -75.6996352
+   },
+   "dateCast": null,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "10,090 kg",
+   "size": "[UNKNOWN]",
+   "history": "The official page says the Peace Tower carillon has 53 bells; the bourdon is the largest (10,090 kg) and plays the low note E; the hourly sound was made by the bourdon. A cast year and founder are Unknown on the page read. The page says the carillon is being restored and that, at the time of the page, the Peace Tower clock chimes were silent during Centre Block work; some carillon bells were removed in spring 2022 for restoration.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": null,
+    "end": null,
+    "precision": "[UNKNOWN]"
+   },
+   "citations": [
+    "https://www.canada.ca/en/public-services-procurement/services/infrastructure-buildings/parliamentary-precinct/discover/peace-tower.html"
+   ],
+   "id": "bell:peace-tower-bourdon",
+   "title": "Peace Tower bourdon",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 128127767, Peace Tower, Ottawa. https://www.openstreetmap.org/way/128127767"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Parish church of Nuestra Señora de los Dolores, Dolores Hidalgo, Guanajuato, Mexico",
+   "geo": {
+    "lat": 21.1585561,
+    "lon": -100.9339458
+   },
+   "dateCast": "1768 and 1776",
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The official federal cultural-property monograph says two San Joseph esquilas were cast in 1768 and 1776, were already in the church tower, and were used on the morning of 16 September 1810 to call people to mass, and thus to begin the campaign toward national independence. Founder names are Unknown on the page read.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1768,
+    "end": 1776,
+    "precision": "year"
+   },
+   "citations": [
+    "https://sitiosymonumentos.cultura.gob.mx/iii-estudios-monograficos/nuestra-senora-de-los-dolores/"
+   ],
+   "id": "bell:esquilas-san-joseph",
+   "title": "Esquilas San Joseph (two parish bells)",
+   "sliderYears": [
+    1768,
+    1776
+   ],
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 1245963687, Parroquia de los Dolores, Dolores Hidalgo. https://www.openstreetmap.org/way/1245963687"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Palacio Nacional, Mexico City",
+   "geo": {
+    "lat": 19.4325543,
+    "lon": -99.1312673
+   },
+   "dateCast": null,
+   "dateInstalled": 1891,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "In 1891 the bell called Campana de la Independencia was transferred to Mexico City and installed in the Palacio Nacional. A cast year is Unknown.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": null,
+    "end": null,
+    "precision": "[UNKNOWN]"
+   },
+   "citations": [
+    "https://sitiosymonumentos.cultura.gob.mx/iii-estudios-monograficos/nuestra-senora-de-los-dolores/"
+   ],
+   "id": "bell:campana-independencia",
+   "title": "Campana de la Independencia",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap relation 6191295, Palacio Nacional, Mexico City. https://www.openstreetmap.org/relation/6191295"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Outdoor space of Gyeongju National Museum, Republic of Korea",
+   "geo": {
+    "lat": 35.8289946,
+    "lon": 129.2279662
+   },
+   "dateCast": 771,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The official National Museum of Korea page says it was completed in 771 during the Unified Silla period, and cites it as the type-example of the Korean Buddhist temple-bell style. Further purpose or notable-ringing detail for this specific bell is Unknown on the page read.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 771,
+    "end": 771,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.museum.go.kr/ENG/contents/E0401000000.do?relicRecommendId=519690&schM=view"
+   ],
+   "id": "bell:seongdeok",
+   "title": "Divine Bell of King Seongdeok (성덕대왕신종)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 573218888, Gyeongju National Museum. https://www.openstreetmap.org/way/573218888"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Metal Crafts Gallery, National Museum of Korea, Seoul",
+   "geo": {
+    "lat": 37.523953,
+    "lon": 126.9803196
+   },
+   "dateCast": 1010,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "Produced in 1010 at Cheonheungsa Temple near Mt. Seonggeo in Cheonan (no founder’s name is given)",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The official curators’ page gives the inscription date 1010 and calls it the oldest extant Goryeo-period bell. Korean Buddhist temple bells are used to signal gatherings and mealtimes and in rituals; large temple bells are described there as sending sound down to reach the souls in the underworld. No founder’s name is given.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1010,
+    "end": 1010,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.museum.go.kr/ENG/contents/E0401000000.do?relicRecommendId=519690&schM=view"
+   ],
+   "id": "bell:cheonheungsa",
+   "title": "Bronze bell with inscription “Cheonheungsa” (National Treasure 280)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 168364800, National Museum of Korea, Seoul. https://www.openstreetmap.org/way/168364800"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Australian War Memorial, Main Building, First World War Gallery",
+   "geo": {
+    "lat": -35.2805964,
+    "lon": 149.1493197
+   },
+   "dateCast": "c. 1800–1899",
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "[UNKNOWN]",
+   "size": "[UNKNOWN]",
+   "history": "The official collection record dates it “c 1800-1899” and says it was “cast in the nineteenth century for a wooden boat.” Maker is listed as Unknown; place made, Germany. Later presented by the city of Emden to SMS Emden when that ship was commissioned in 1909; removed from the wreck by the Royal Australian Navy after the action with HMAS Sydney (I) on 9 November 1914 and retained as a war trophy. The record also states naval bells are used for signalling, timekeeping, alarms, and ceremony.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": null,
+    "end": null,
+    "precision": "[UNKNOWN]"
+   },
+   "citations": [
+    "https://www.awm.gov.au/collection/RELAWM12275"
+   ],
+   "id": "bell:emden",
+   "title": "Ship’s bell from SMS Emden",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap relation 7527080, Australian War Memorial, Canberra. https://www.openstreetmap.org/relation/7527080"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "South-west tower, St Paul’s Cathedral, London",
+   "geo": {
+    "lat": 51.5137872,
+    "lon": -0.0984506
+   },
+   "dateCast": 1881,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "John Taylor and Co",
+   "weight": "16.75 imperial tons",
+   "size": "[UNKNOWN]",
+   "history": "The official cathedral bells page calls it the largest bell in the UK in current use, 16.75 imperial tons, note E flat, and the second largest bell ever cast in the British Isles. For about 30 years it was chimed daily with an automated mechanism, which the page says is broken; it is now rung manually for special occasions such as major services and the Lord Mayor’s Show.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1881,
+    "end": 1881,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.stpauls.co.uk/bells"
+   ],
+   "id": "bell:great-paul",
+   "title": "Great Paul",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 369161987, St Paul’s Cathedral, London. https://www.openstreetmap.org/way/369161987"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "South-west tower, St Paul’s Cathedral, London, among the three clock bells",
+   "geo": {
+    "lat": 51.5137872,
+    "lon": -0.0984506
+   },
+   "dateCast": 1716,
+   "dateInstalled": null,
+   "founder": "Richard Phelps of the Whitechapel Foundry",
+   "foundry": "Whitechapel Foundry",
+   "weight": "over 5 tons",
+   "size": "[UNKNOWN]",
+   "history": "The official page calls it the largest of the cathedral’s three clock bells, over 5 tons, in A flat, and the successor to a much older bell acquired from the Palace of Westminster in 1698, which was cracked in transit. It strikes the hours and is tolled manually to mark the deaths of senior members of the Royal Family or, should they die in office, the Archbishop of Canterbury, the Bishop of London, the Dean of St Paul’s, the Lord Mayor of London, or the Prime Minister. The page says this was last done in September 2025, and before that upon the death of Queen Elizabeth II.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1716,
+    "end": 1716,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.stpauls.co.uk/bells"
+   ],
+   "id": "bell:great-tom",
+   "title": "Great Tom",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 369161987, St Paul’s Cathedral, London. https://www.openstreetmap.org/way/369161987"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Cathedral of St Mary (Dom St. Marien), Erfurt",
+   "geo": {
+    "lat": 50.975711,
+    "lon": 11.0229055
+   },
+   "dateCast": 1497,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "[UNKNOWN]",
+   "weight": "11,450 kg",
+   "size": "height including the crown 2.50 m; diameter 2.57 m",
+   "history": "The official city page says the great bell was consecrated in 1251 and recast several times, last in 1497. A founder is Unknown on the page read. The page calls it the largest free-swinging medieval bell in the world.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1497,
+    "end": 1497,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.erfurt.de/ef/de/erleben/sehenswertes/dom/108136.html"
+   ],
+   "id": "bell:gloriosa",
+   "title": "Gloriosa (Maria Gloriosa)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap relation 9381189, Erfurter Dom. https://www.openstreetmap.org/relation/9381189"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "A raised former defensive tower of Wawel Castle, Wawel Cathedral, Kraków",
+   "geo": {
+    "lat": 50.0546504,
+    "lon": 19.9354554
+   },
+   "dateCast": 1520,
+   "dateInstalled": null,
+   "founder": "Hans Behem, a Nuremberg founder; the official page says the bell was cast in Cracow",
+   "foundry": "[UNKNOWN]",
+   "weight": "bronze body 9,650 kg; total weight 12,600 kg",
+   "size": "[UNKNOWN]",
+   "history": "Commissioned by King Sigismund I the Old and dated 1520 (the Latin inscription date MDXX on the official page). First heard in Kraków on 13 July 1521. The original iron clapper last rang on Christmas Day 2000 and was replaced; a new clapper has been in use since 14 April 2001.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1520,
+    "end": 1520,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.katedra-wawelska.pl/en/katedra-wawelska/dzwony-i-wieze-katedralne/krolewski-dzwon-zygmunt/"
+   ],
+   "id": "bell:sigismund",
+   "title": "Royal Sigismund Bell (Królewski Dzwon Zygmunt)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 85151350, Wawel Cathedral, Kraków. https://www.openstreetmap.org/way/85151350"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "British Museum (not on display)",
+   "geo": {
+    "lat": 51.5193118,
+    "lon": -0.1267051
+   },
+   "dateCast": "18th century (circa)",
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "Made by: Edo; technique: lost-wax cast (no named founder)",
+   "weight": "1,528 grammes",
+   "size": "height 21.10 cm",
+   "history": "Official collection record: production date 18th century (circa); lost-wax cast brass bell, quadrangular, with an iron clapper. Location: not on display. Production place and findspot: Benin City. The official acquisition notes state that during the British expedition to Benin City in 1897, objects of brass, bronze, ivory, coral, and wood were looted from the royal palace, its storerooms, and compounds, and that many were brought to the UK.",
+   "status": "Not on display",
+   "time": {
+    "start": null,
+    "end": null,
+    "precision": "century"
+   },
+   "citations": [
+    "https://www.britishmuseum.org/collection/object/E_Af1897-498"
+   ],
+   "id": "bell:benin-af1897-498",
+   "title": "Brass bell from Benin City (Af1897,-.498)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap relation 177044, British Museum, London. https://www.openstreetmap.org/relation/177044"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "South tower of Cologne Cathedral, about 53 m up",
+   "geo": {
+    "lat": 50.9413035,
+    "lon": 6.958138
+   },
+   "dateCast": 1923,
+   "dateInstalled": null,
+   "founder": "Heinrich Ulrich",
+   "foundry": "Glockengießerei Gebrüder Ulrich, Apolda",
+   "weight": "24,000 kg",
+   "size": "diameter 3.22 m",
+   "history": "The inscription gives 1922, as originally planned, but the official page says the bell was cast in Apolda on the evening of 5 May 1923. Bronze; strike note c0. Until the end of the 20th century it was the largest free-swinging bell in the world. It replaced the Kaiserglocke (cast 1874 by Andreas Hamm in Frankenthal), taken apart between May and July 1918 for wartime metal. Blessed 30 November 1924; a first ringing on Christmas Eve 1924 failed; it was first heard on 28 October 1925. It rings on high church feasts and special occasions.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1923,
+    "end": 1923,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.koelner-dom.de/erleben/petersglocke"
+   ],
+   "id": "bell:petersglocke",
+   "title": "Petersglocke",
+   "aliases": [
+    "Decke Pitter",
+    "Dicke Pitter"
+   ],
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap way 4532022, Kölner Dom. https://www.openstreetmap.org/way/4532022"
+  },
+  {
+   "example": false,
+   "kind": "bell",
+   "place": "Colle di Miravalle, Rovereto, Italy",
+   "geo": {
+    "lat": 45.8739962,
+    "lon": 11.0388336
+   },
+   "dateCast": 1964,
+   "dateInstalled": null,
+   "founder": "[UNKNOWN]",
+   "foundry": "Capanni foundry, Castelnovo Né Monti (1964 recast); foundry names for the 1924 and 1939 casts are Unknown",
+   "weight": "22.639 tonnes",
+   "size": "height 3.36 m; diameter 3.21 m",
+   "history": "The official foundation page: first cast in Trento on 30 October 1924 from bronze of cannons donated by nations involved in the First World War; recast in Verona on 13 June 1939; the present bell was recast on 1 August 1964 at the Capanni foundry, Castelnovo Né Monti. Conceived in Rovereto to honour the fallen of all wars and to invoke peace and brotherhood. Baptised “Maria Dolens” in Rovereto on 24 May 1925 and inaugurated 4 October 1925. A crack stopped it ringing on 31 August 1960. Placed at Colle di Miravalle, near the Castel Dante Ossuary, on 4 November 1965 (earlier, after the 1925 inauguration, it stood on the Malipiero Bastion of Rovereto Castle). The page calls it the world’s largest swinging bell and says it has sounded every evening for over eighty years to commemorate the fallen, without distinction of faith or nationality. Blessed in St Peter’s Square, Rome, on 31 October 1965.",
+   "status": "[UNKNOWN]",
+   "time": {
+    "start": 1964,
+    "end": 1964,
+    "precision": "year"
+   },
+   "citations": [
+    "https://www.fondazioneoperacampana.it/en/the-bell.html"
+   ],
+   "id": "bell:maria-dolens",
+   "title": "Maria Dolens (Campana dei Caduti / Bell of the Fallen)",
+   "location_basis": "last known location (approximate, building)",
+   "coordinate_source": "OpenStreetMap node 270099585, Campana dei Caduti, Rovereto. https://www.openstreetmap.org/node/270099585"
+  }
+ ]
+}

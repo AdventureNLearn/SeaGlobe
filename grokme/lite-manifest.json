@@ -1,6 +1,6 @@
 {
  "name": "SeaGlobe Lite",
- "version": "3.1.2",
+ "version": "3.1.4",
  "commit": "[set at release]",
  "entry": "lite.html",
  "root": "web/",
@@ -23,8 +23,8 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 16291901,
- "file_count": 590,
+ "total_bytes": 16340449,
+ "file_count": 591,
  "files": [
   {
    "path": "app.css",
@@ -103,8 +103,13 @@
   },
   {
    "path": "data/next/bells/README.md",
-   "bytes": 248,
-   "sha256": "81f47c6b0dedf78e014a3e8289d0b8cac6ca50cba510330d2fffd451580f5b8f"
+   "bytes": 362,
+   "sha256": "f1a78eb6ef482cad1f46ed261e63f8a58c87280cc8d3de0c3110248d76df28e7"
+  },
+  {
+   "path": "data/next/bells/bells.json",
+   "bytes": 33958,
+   "sha256": "dfb2912a3501f39690749a8a01e102f329d0843dc577c10546e02976422cc13f"
   },
   {
    "path": "data/next/bells/example.json",
@@ -2753,8 +2758,8 @@
   },
   {
    "path": "js/app.js",
-   "bytes": 71767,
-   "sha256": "c9be418e124a58edbebcd463bedf50f48a49d8041889943464efd5cce5a5ef32"
+   "bytes": 72782,
+   "sha256": "198bfa1c7d8f092a41fd990033eeedd452d00f3ca9b40ff2190abaae972342c1"
   },
   {
    "path": "js/assets.js",
@@ -2763,8 +2768,8 @@
   },
   {
    "path": "js/atlas.js",
-   "bytes": 29675,
-   "sha256": "10b82c5dfdcd7613ce89ee1dc2dee26099d5ba39445b348abb98e3dd7fe28840"
+   "bytes": 29914,
+   "sha256": "c177e1de38e9f2dfcd22074583a419b08fe7201278a4c8b4610d2987668f6f2f"
   },
   {
    "path": "js/byo-csp.js",
@@ -2778,8 +2783,8 @@
   },
   {
    "path": "js/encyclopedia.js",
-   "bytes": 24452,
-   "sha256": "0705397a4b89d6d38e84a91ce46a245c25cc88fb52d4cb166423d6e693900360"
+   "bytes": 24563,
+   "sha256": "d1f085f13319d5ea6c4f61be3ea877b3f2dc08c2c9e3b5bd558cbfefa57fed5e"
   },
   {
    "path": "js/flags.js",
@@ -2793,8 +2798,8 @@
   },
   {
    "path": "js/guide.js",
-   "bytes": 11006,
-   "sha256": "d591753f7067ac6dd2e0858c7f45304c2a29a7307de36e2534876639fb63f553"
+   "bytes": 12182,
+   "sha256": "75042d33b43e0f9c4f042d0d175c2a22916a0d048b16fac460c72b818ebef4ae"
   },
   {
    "path": "js/help.js",
@@ -2828,8 +2833,8 @@
   },
   {
    "path": "js/next/bells.js",
-   "bytes": 827,
-   "sha256": "53db8c30623627f1ef46917144e391f7b7a411b2612821ad3bb2fcc76e2a6b24"
+   "bytes": 8757,
+   "sha256": "1e80014d70197c9e68ff6ceb6881b3984cfcb4bdfe855303e7ab17cc25190b3a"
   },
   {
    "path": "js/next/county-gis.js",
@@ -2883,8 +2888,8 @@
   },
   {
    "path": "js/regions.js",
-   "bytes": 12741,
-   "sha256": "556fadea9e21510a1bef40b50fdc420e6f9f01de4c92717f761fa7902b5fecac"
+   "bytes": 14608,
+   "sha256": "2520f6c6d54a3d6ad4906f65eb44afc70350de1e3f8cfe036cd60ab4aa467044"
   },
   {
    "path": "js/sky.js",
@@ -2903,8 +2908,8 @@
   },
   {
    "path": "js/tools.js",
-   "bytes": 12824,
-   "sha256": "bc9473f51bdb125d4d30e028e6d6ec7634f66119673d84d1d9d10a3bd81a3539"
+   "bytes": 13132,
+   "sha256": "51121f0a95593086bb682814c74d69a820792741acc48b128b7b110544c4cfee"
   },
   {
    "path": "js/update.js",
@@ -2919,7 +2924,7 @@
   {
    "path": "js/version.js",
    "bytes": 492,
-   "sha256": "b1b885852c0eb6bec4ac2f2f96334e8fd9904fce60681cffdac9d81bae75a2be"
+   "sha256": "edd151392699d33aeb8c87e01495fef47317640aa7dff7f8e3b3633e2e9f526e"
   },
   {
    "path": "js/voyages.js",
@@ -2928,13 +2933,13 @@
   },
   {
    "path": "js/windows.js",
-   "bytes": 18873,
-   "sha256": "f6ee45de98412a3ca2e4b15c1ff7e6b383d8109486e63be8bcff3d006e238bee"
+   "bytes": 19348,
+   "sha256": "e8187afe103a714f9e00dace9a75b6e76e02482b76898ed78ed08074eafe17af"
   },
   {
    "path": "lite.html",
-   "bytes": 10947,
-   "sha256": "8adb84a75b14e3e71e1429125fb359ed1cd951c046e0d7334b3c0584d4e3135f"
+   "bytes": 11226,
+   "sha256": "a801684eb1355171290dae19d5fafbc4e0807c27ee3d15e970b130f482995022"
   },
   {
    "path": "textures/earth-navy.png",
@@ -2943,8 +2948,8 @@
   },
   {
    "path": "v3.css",
-   "bytes": 17823,
-   "sha256": "7b3305715a96315c0f77787590d21f26f11f746d5236ce7072d58a8ba03678d1"
+   "bytes": 18899,
+   "sha256": "50918d483518519e3b94279cbd675cac3d74c3afc666d393528bdd6786bdf4cd"
   },
   {
    "path": "vendor/README.md",
@@ -2974,7 +2979,7 @@
   {
    "path": "version.json",
    "bytes": 352,
-   "sha256": "aa52b9db71555c46548ccda0b61c7844771bc5cdfe6db5bcdb06c962461764bc"
+   "sha256": "ef5f535a82b6585061a16e8989e517fb6603a016b4b26b76036296a07ae1db50"
   }
  ]
 }

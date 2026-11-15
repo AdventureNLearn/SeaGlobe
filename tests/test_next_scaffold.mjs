@@ -73,7 +73,7 @@ try {
         all: f && f.all,
         any: f && f.any(),
         example: f && f.exampleData,
-        nextToggles: [...document.querySelectorAll("[data-next-layer], #tPmtiles, #tTerrain, #tBells, #tLaws")].map((e) => e.id || e.dataset.nextLayer),
+        nextToggles: [...document.querySelectorAll("[data-next-layer], #tPmtiles, #tTerrain, #tLaws")].map((e) => e.id || e.dataset.nextLayer),
         exampleEntries: window.SeaAtlas && window.SeaAtlas.get && !!(window.SeaAtlas.get("law:zz-example-instrument") || window.SeaAtlas.get("bell:example-not-a-real-bell"))
       };
     });
@@ -557,7 +557,7 @@ try {
           await p.waitForFunction(() => document.getElementById("tPmtiles") && document.getElementById("tTerrain"), { timeout: 30000 });
         }
         await p.evaluate(async () => {
-          const ids = ["tRoutes", "tWakes", "tWind", "tNight", "tSats", "tOrbit", "tRegions", "tHubs", "tCoords", "tLaunch", "tPmtiles", "tTerrain"];
+          const ids = ["tRoutes", "tWakes", "tShips", "tWind", "tNight", "tSats", "tOrbit", "tRegions", "tHubs", "tCoords", "tLaunch", "tBells", "tPmtiles", "tTerrain"];
           for (const id of ids) {
             const el = document.getElementById(id);
             if (!el) continue;
@@ -576,8 +576,210 @@ try {
     }
   });
 
+  await check("ships and assets toggle hides moving models and frees their work", async () => {
+    const p = await openApp(browser, port, "capture=1");
+    await p.waitForFunction(() => window.__sg && window.__sg.state && window.__sg.state().live > 0, { timeout: 30000 });
+    const on = await p.evaluate(() => {
+      const s = window.__sg.state();
+      const cb = document.getElementById("tShips");
+      return { live: s.live, ships: s.ships, shipsWork: s.shipsWork, checked: !!(cb && cb.checked), tip: (cb && cb.parentElement && cb.parentElement.getAttribute("title")) || "" };
+    });
+    assert.equal(on.ships, true); assert.equal(on.checked, true); assert.ok(on.live > 0, "models present by default: " + on.live);
+    assert.match(on.tip, /moving ships, aircraft and vehicles/i);
+    const off = await p.evaluate(() => {
+      window.__sg.layers({ ships: false });
+      const s = window.__sg.state();
+      const w1 = s.shipsWork;
+      window.__sg.layers({ ships: false });
+      const s2 = window.__sg.state();
+      return { live: s.live, ships: s.ships, checked: document.getElementById("tShips").checked, w1, w2: s2.shipsWork, count: (document.getElementById("activeCount") || {}).textContent };
+    });
+    assert.equal(off.ships, false); assert.equal(off.checked, false); assert.equal(off.live, 0);
+    assert.equal(off.w1, off.w2, "turning the layer off must not keep stepping models");
+    assert.match(off.count, /Ships and assets off/);
+    const back = await p.evaluate(() => { window.__sg.layers({ ships: true }); return window.__sg.state(); });
+    assert.equal(back.ships, true); assert.ok(back.live > 0, "models return when the toggle is on");
+    assert.ok(back.shipsWork > off.w2, "work resumes only when the toggle is on");
+    // capture=1 must not write the layout
+    assert.equal(await p.evaluate(() => { try { return localStorage.getItem("seaglobe-windows"); } catch (e) { return null; } }), null);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("below state level, only the selected state's counties are drawn and packs unload on change", async () => {
+    const p = await openApp(browser, port, "capture=1&regions=1");
+    await p.evaluate(() => window.__sg.pov({ lat: 42.96, lng: -85.67, altitude: 0.3 }));
+    await p.waitForFunction(() => { window.SeaRegions.update(); const s = window.SeaRegions.state(); return s.ctx.state === "Michigan" && /Kent/.test(s.ctx.county || ""); }, { timeout: 30000, polling: 200 });
+    const mi = await p.evaluate(() => {
+      const drawn = (window.__sg.globe().polygonsData() || []).filter((d) => d.lvl === 2);
+      const s = window.SeaRegions.state();
+      const towns = window.__sg.globe().labelsData() || [];
+      return { n: drawn.length, packs: s.packs, drawn: s.drawn, adm1: [...new Set(towns.map((t) => t.adm1).filter(Boolean))], state: s.ctx.state };
+    });
+    assert.equal(mi.n, 83, "Michigan counties drawn, not the full US set: " + mi.n);
+    assert.ok(mi.n < 3224);
+    assert.deepEqual(mi.packs.filter((k) => k.startsWith("counties/")), ["counties/US-MI"]);
+    assert.ok(mi.adm1.every((a) => a === "Michigan"), "towns of the selected state only: " + mi.adm1.join());
+    await p.evaluate(() => window.__sg.pov({ lat: 30.267, lng: -97.743, altitude: 0.3 }));
+    await p.waitForFunction(() => { window.SeaRegions.update(); const s = window.SeaRegions.state(); return s.ctx.state === "Texas" && s.ctx.county; }, { timeout: 30000, polling: 200 });
+    const tx = await p.evaluate(() => {
+      const drawn = (window.__sg.globe().polygonsData() || []).filter((d) => d.lvl === 2);
+      const s = window.SeaRegions.state();
+      const mem = (s.packs || []).filter((k) => k.startsWith("counties/"));
+      let inMem = 0;
+      const R = window.SEAGLOBE_REGIONS || {};
+      for (const k of mem) inMem += (R[k].counties || []).length;
+      return { n: drawn.length, packs: mem, inMem, state: s.ctx.state, county: s.ctx.county, towns: (s.drawn || {}).towns };
+    });
+    assert.equal(tx.state, "Texas");
+    assert.equal(tx.n, 254, "Texas counties only: " + tx.n);
+    assert.deepEqual(tx.packs, ["counties/US-TX"]);
+    assert.equal(tx.inMem, 254);
+    assert.ok(!tx.packs.includes("counties/US-MI"), "Michigan pack unloaded");
+    assert.ok(tx.inMem < 3224);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("returning to a state fetches its county pack again after eviction", async () => {
+    const p = await openApp(browser, port, "capture=1&regions=1");
+    const fetched = [];
+    p.on("request", (r) => {
+      const u = r.url();
+      if (/\/counties\/US-MI\.js(\?|$)/.test(u)) fetched.push("MI");
+      if (/\/counties\/US-OH\.js(\?|$)/.test(u)) fetched.push("OH");
+    });
+    await p.evaluate(() => window.__sg.pov({ lat: 42.96, lng: -85.67, altitude: 0.3 }));
+    await p.waitForFunction(() => { window.SeaRegions.update(); return window.SeaRegions.state().ctx.state === "Michigan"; }, { timeout: 30000, polling: 200 });
+    const first = await p.evaluate(() => [...document.querySelectorAll("script[src*='counties/US-MI.js']")].length);
+    assert.ok(first >= 1, "Michigan pack loaded first: " + first);
+    await p.evaluate(() => window.__sg.pov({ lat: 39.96, lng: -83.00, altitude: 0.3 }));
+    await p.waitForFunction(() => { window.SeaRegions.update(); return window.SeaRegions.state().ctx.state === "Ohio"; }, { timeout: 30000, polling: 200 });
+    const mid = await p.evaluate(() => window.SeaRegions.state().packs || []);
+    assert.ok(!mid.includes("counties/US-MI"), "Michigan pack evicted in memory: " + mid.join());
+    assert.ok(mid.includes("counties/US-OH"), "Ohio pack loaded: " + mid.join());
+    await p.evaluate(() => window.__sg.pov({ lat: 42.96, lng: -85.67, altitude: 0.3 }));
+    await p.waitForFunction(() => { window.SeaRegions.update(); return window.SeaRegions.state().ctx.state === "Michigan"; }, { timeout: 30000, polling: 200 });
+    const back = await p.evaluate(() => ({
+      packs: window.SeaRegions.state().packs || [],
+      miScripts: [...document.querySelectorAll("script[src*='counties/US-MI.js']")].length,
+      state: window.SeaRegions.state().ctx.state
+    }));
+    assert.equal(back.state, "Michigan");
+    assert.ok(back.packs.includes("counties/US-MI"), "Michigan pack present again");
+    assert.ok(!back.packs.includes("counties/US-OH"), "Ohio pack evicted: " + back.packs.join());
+    assert.ok(back.miScripts >= 2, "Michigan pack fetched again (script tags " + back.miScripts + ", requests " + fetched.filter((x) => x === "MI").length + ")");
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+
     skip("pre-recorded tour clip plays at 1.0 with captions", "todo: no voice picked, no audio generated");
-  skip("historical bells appear on the time slider", "todo: no cited records yet");
+  await check("historical bells: pins, last-known buildings, time slider and encyclopedia", async () => {
+    const p = await openApp(browser, port, "capture=1");
+    await p.waitForFunction(() => window.SeaBells && document.getElementById("tBells"), { timeout: 30000 });
+    const off = await p.evaluate(() => ({
+      checked: document.getElementById("tBells").checked,
+      loaded: window.SeaBells.state().loaded,
+      on: window.SeaBells.state().on
+    }));
+    assert.equal(off.checked, false, "off by default");
+    assert.equal(off.on, false);
+    assert.equal(off.loaded, false, "data is lazy-loaded");
+    await p.evaluate(() => document.getElementById("tBells").click());
+    await p.waitForFunction(() => window.SeaBells.state().on && window.SeaBells.state().loaded, { timeout: 20000 });
+    const on = await p.evaluate(() => {
+      const s = window.SeaBells.state();
+      const recs = window.SeaBells.records();
+      const campana = recs.find((r) => r.id === "bell:campana-independencia");
+      const bigBen = recs.find((r) => r.id === "bell:great-bell-elizabeth-tower");
+      const official = recs.filter((r) => r.location_basis === "official coordinates");
+      const approx = recs.filter((r) => r.location_basis === "last known location (approximate, building)");
+      const marks = [...document.querySelectorAll("#bellTicks .belltick")].map((el) => ({ id: el.getAttribute("data-id"), y: el.getAttribute("data-y") }));
+      const panel = document.getElementById("bellsPanel");
+      const text = panel ? panel.innerText : "";
+      const pinCount = (window.__sg.globe().pointsData() || []).filter((d) => /^bell:/.test(d.id || "")).length;
+      return {
+        s, pinCount, marks: marks.length,
+        official: official.length,
+        approx: approx.length,
+        officialIds: official.map((r) => r.id),
+        campanaYear: campana && campana.dateCast,
+        campanaHistory: campana && campana.history,
+        campanaLat: campana && campana.geo && campana.geo.lat,
+        campanaLon: campana && campana.geo && campana.geo.lon,
+        campanaBasis: campana && campana.location_basis,
+        bigBenLat: bigBen && bigBen.geo && bigBen.geo.lat,
+        bigBenLon: bigBen && bigBen.geo && bigBen.geo.lon,
+        bigBenBasis: bigBen && bigBen.location_basis,
+        unknownListed: /Location unknown/i.test(text),
+        officialListed: /official coordinates/.test(text),
+        approxListed: /last known location \(approximate, building\)/.test(text),
+        pinnedListed: /Centennial Bell/.test(text) && /Liberty Bell/.test(text) && /Campana de la Independencia/.test(text),
+        campanaOnSlider: marks.some((m) => m.id === "bell:campana-independencia"),
+        libertyOnSlider: marks.some((m) => m.id === "bell:liberty" && m.y === "1753")
+      };
+    });
+    assert.equal(on.s.total, 25);
+    assert.equal(on.s.pinned, 25);
+    assert.equal(on.s.unknown, 0);
+    assert.equal(on.pinCount, 25);
+    assert.equal(on.official, 4);
+    assert.equal(on.approx, 21);
+    assert.deepEqual(on.officialIds.sort(), ["bell:centennial", "bell:japanese-peace", "bell:justice", "bell:wilbank"].sort());
+    assert.equal(on.campanaYear, null);
+    assert.equal(on.campanaLat, 19.4325543);
+    assert.equal(on.campanaLon, -99.1312673);
+    assert.equal(on.campanaBasis, "last known location (approximate, building)");
+    assert.equal(on.bigBenLat, 51.5006944, "Elizabeth Tower OSM building coordinate, not an OS grid conversion");
+    assert.equal(on.bigBenLon, -0.1245749);
+    assert.equal(on.bigBenBasis, "last known location (approximate, building)");
+    assert.match(on.campanaHistory, /1891/);
+    assert.doesNotMatch(on.campanaHistory, /1768|1776/);
+    assert.equal(on.campanaOnSlider, false);
+    assert.equal(on.libertyOnSlider, true);
+    assert.ok(on.marks > 0, "cast-year marks on the time slider");
+    assert.equal(on.unknownListed, false, "all bells are pinned");
+    assert.ok(on.officialListed, "official basis shown in the panel");
+    assert.ok(on.approxListed, "approximate basis shown in the panel");
+    assert.ok(on.pinnedListed, "pinned bells listed");
+    await p.evaluate(() => window.SeaAtlas.ensureAll());
+    const entry = await p.evaluate(() => {
+      const e = window.SeaAtlas.get("bell:liberty");
+      const c = window.SeaAtlas.get("bell:campana-independencia");
+      return {
+        title: e && e.title,
+        kind: e && e.kind,
+        cites: e && e.citations && e.citations.length,
+        citeUrls: (function () {
+          const ids = (e && e.citations) || [];
+          const src = (window.SeaAtlas.sources && window.SeaAtlas.sources()) || [];
+          const byId = Object.fromEntries(src.map((s) => [s.id, s]));
+          return ids.map((id) => ((byId[id] && byId[id].url) || id) + "");
+        })(),
+        libertyLocation: e && e.facts && e.facts.Location,
+        libertyGaps: e && e.evidence && e.evidence.gaps,
+        campanaCast: c && c.facts && c.facts["Cast year"],
+        campanaLocation: c && c.facts && c.facts.Location,
+        campanaGaps: c && c.evidence && c.evidence.gaps,
+        chat: window.SeaChat && window.SeaChat.context("How do I see historical bells?").map((x) => x.id)
+      };
+    });
+    assert.equal(entry.title, "Liberty Bell");
+    assert.equal(entry.kind, "bell");
+    assert.ok(entry.cites > 0, "primary sources on the entry");
+    assert.equal(entry.citeUrls.some((u) => /openstreetmap\.org|wikidata\.org/.test(u)), false, "coordinate links stay out of citations");
+    assert.equal(entry.libertyLocation, "last known location (approximate, building)");
+    assert.ok(!(entry.libertyGaps || []).includes("Location unknown"), "pinned bell does not show Location unknown");
+    assert.equal(entry.campanaCast, "Unknown");
+    assert.equal(entry.campanaLocation, "last known location (approximate, building)");
+    assert.ok(!(entry.campanaGaps || []).includes("Location unknown"), "pinned Campana does not show Location unknown");
+    assert.ok((entry.campanaGaps || []).includes("Cast year unknown"), "Campana has a named cast-year gap");
+    assert.ok(entry.chat.includes("app:guide-bells"), "chat " + (entry.chat || []).join());
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
   skip("quoted laws attach to country entries", "todo: official instruments not re-verified");
   skip("authority entries list verified offices only", "todo: no verified set yet");
   skip("federal tax section cites OLRC / IRS only", "todo: section not wired");

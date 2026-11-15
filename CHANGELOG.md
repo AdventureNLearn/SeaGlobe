@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.1.4 (2026-11-15) — Historical bells
+
+- A Historical bells layer (off by default, light, and lazy-loaded) covers 25 sourced bells. Four keep official USGS GNIS coordinates; the rest are pinned at the last known building or site named in the cited source. Approximate coordinates come from OpenStreetMap or Wikidata and are marked approximate. Those coordinate links are kept in the entry’s coordinate source so citations stay primary. Credit: © OpenStreetMap contributors (ODbL). The layer panel shows that basis. The Campana de la Independencia still has no known cast year.
+- Each bell is an encyclopedia entry with name, place, cast year, founder, short facts and primary-source links. Bells with a known cast year appear on the time slider. The Campana de la Independencia has no cast year; only the 1891 move to the Palacio Nacional is stated.
+
+
+## v3.1.3 (2026-11-15) — contributions, ships toggle, and region performance
+
+- CONTRIBUTING.md and tools/check_contribution.py describe how to add points, routes and regions: submissions merge into an existing file, never add a new one, and the checker prints plain errors.
+- A Ships and assets layer toggle (on by default, remembered with the window layout) hides every moving ship, aircraft and vehicle and stops their animation while it is off. The Guide has a short entry.
+- Country and state names still appear at the same zoom levels. Below state level, county and town shapes draw only for the state or country in view and unload when the selection changes, so the 3,224 US counties and the town packs are never all drawn at once.
+- Evicting a county or town pack also drops its in-flight load record, so returning to a state fetches that pack again instead of keeping it in memory.
+
+
 ## v3.1.2 (2026-11-15) — layer load guard and complete admin-1 coverage
 
 - Overlays now declare a weight in a small layer registry. Heavy layers (wind,

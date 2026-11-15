@@ -221,8 +221,10 @@
   let allLoading = null;
   function ensureAll() {
     build();
-    if (!allLoading) allLoading = (window.SeaRegions ? Promise.all([window.SeaRegions.loadIndex(), window.SeaRegions.loadPack("towns-index")]) : Promise.resolve())
-      .then(() => { const a = addRegions(), b = addTowns(); if (a || b) { addSources(); buildIndex(); } return entities.size; });
+    if (!allLoading) allLoading = Promise.all([
+      window.SeaRegions ? Promise.all([window.SeaRegions.loadIndex(), window.SeaRegions.loadPack("towns-index")]) : Promise.resolve(),
+      window.SeaBells && window.SeaBells.load ? window.SeaBells.load() : Promise.resolve()
+    ]).then(() => { const a = addRegions(), b = addTowns(); if (a || b) { addSources(); buildIndex(); } return entities.size; });
     return allLoading;
   }
   let regionsAdded = false;
@@ -298,6 +300,7 @@
     sources: () => { build(); return [...sources.values()].sort((a, b) => a.type.localeCompare(b.type) || a.title.localeCompare(b.title)); },
     source: (id) => sources.get(id) || null, datasets: () => DATASETS.map((d) => Object.assign({}, d, { match: undefined })),
     count: () => { build(); const c = {}; for (const e of entities.values()) c[e.kind] = (c[e.kind] || 0) + 1; return c; },
-    kinds: ["route", "vessel", "aircraft", "vehicle", "spacecraft", "launch-year", "place", "region", "level", "era", "topic", "tour", "link", "app", "source"],
+    kinds: ["route", "vessel", "aircraft", "vehicle", "spacecraft", "launch-year", "place", "region", "level", "era", "topic", "tour", "link", "app", "source", "bell"],
+    ingest: (fn) => { build(); if (typeof fn === "function") fn({ add, cite, sourceFor }); addSources(); buildIndex(); }
   };
 })();

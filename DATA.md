@@ -114,6 +114,7 @@ decimals in the route files. The app does not read the CSV at run time; the rout
 Made with Natural Earth. Earth imagery: NASA Earth Observatory (Blue Marble Next Generation, Black Marble 2012), public domain.
 CLIWOC 2.1 logbook data: Jones et al. (2007), doi:10.1594/PANGAEA.611088, and García-Herrera et al. (2010), doi:10.1594/PANGAEA.750354, CC BY 3.0.
 Airport coordinates: OurAirports, public domain. Font: Inter, SIL OFL 1.1. three.js and globe.gl: MIT.
+© OpenStreetMap contributors (ODbL). Approximate last-known building coordinates on the Historical bells layer come from OpenStreetMap or Wikidata; those links are recorded in each entry’s coordinate source, not in its primary-source citations.
 
 ## 11. Grok.me hosting
 
@@ -155,5 +156,6 @@ are added (see BACKLOG.md, v2.2).
 | Airports (1,197) for the hubs layer and encyclopedia | `web/data/places/airports.js` | OurAirports slice, public domain; rows named "(Duplicate)…" are skipped | `tools/build_places.py` |
 | Space: launch sites (75), yearly payload counts, 14 notable objects | `data/sources/gcat/`, `web/data/space/gcat.js`, `web/data/space/content.js` | GCAT (J. McDowell, planet4589.org/space/gcat), CC BY 4.0, release 1.8.9 (data update 13 Nov 2026). Orbit rings are illustrative (inclination and mean altitude), not live positions. The full catalogue and launch log are R2 assets. | `tools/build_gcat.py`, `tools/content_space.py` |
 | Tours | `web/data/tours.js` | Stops are entry ids; narration is the entries' own cited text | hand-written |
+| Historical bells (25 records) | `web/data/next/bells/bells.json` | Each record cites only the official primary pages that support it (read 15 November 2026). Four bells keep official WGS84 coordinates: the Centennial and Wilbank bells use the USGS GNIS August 2021 Independence Hall feature; the Justice Bell uses the Washington Memorial Church feature; the Japanese Peace Bell uses the United Nations Headquarters feature. The other twenty-one are pinned at the last known building or site named in the cited source. Approximate coordinates come from OpenStreetMap or Wikidata, are recorded in each entry’s coordinate source (not in its primary-source citations), and are marked as an approximate last-known location. Credit: © OpenStreetMap contributors (ODbL). The Great Bell of the Great Clock (Big Ben) uses the OpenStreetMap Elizabeth Tower building coordinate, not a conversion of the Historic England National Grid Reference. The Campana de la Independencia has no cast year; the cited monograph records only its 1891 transfer to the Palacio Nacional. | hand-written |
 | Radio | `web/data/radio.js` | Playlist and link URLs from the official pages, read 14 Nov 2026. No audio is hosted. | hand-written |
 | Large assets | `data/assets.json` → `web/data/assets.js`, `web/assets.json` | Each asset has a bundled path or Pages fallback and, where large, an R2 key; R2 is not configured in this build | `tools/build_assets.py` |

@@ -129,6 +129,8 @@ try {
     assert.match(chip, /World › United States of America › Michigan › Kent/); assert.match(chip, /Made with Natural Earth/);
     const loaded = await p.evaluate(() => [...document.querySelectorAll("script[src^='data/regions/']")].map((x) => x.getAttribute("src")));
     assert.ok(loaded.includes("data/regions/counties/US-MI.js") && !loaded.includes("data/regions/counties/US-TX.js"), "lazy per view: " + loaded.join());
+    const drawn = await p.evaluate(() => (window.__sg.globe().polygonsData() || []).filter((d) => d.lvl === 2).length);
+    assert.equal(drawn, 83, "selected state only, not all 3,224 US counties: " + drawn);
     assert.ok((await p.evaluate(() => window.__sg.globe().labelsData().length)) > 0, "town labels");
     assert.ok(await p.evaluate(() => window.SeaRegions.registry.every((r) => r.attribution && r.maxAlt)), "registry has attribution and zoom range");
     assert.deepEqual(p._errors, []);

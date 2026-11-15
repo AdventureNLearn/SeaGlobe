@@ -173,6 +173,10 @@ node tools/vehicle_sheet.mjs         # contact sheet of every vehicle model; fai
 node tools/closeup_check.mjs         # in-app close-ups: hulls at the waterline, wheels on the ground
 ```
 
+## Contributing
+
+SeaGlobe accepts additions to existing layer files (airports, launch sites, bells, routes, and regions). A submission must merge into a file that is already in the project; it must not add a new file. See [CONTRIBUTING.md](CONTRIBUTING.md) for the templates, and run `python3 tools/check_contribution.py your-submission.json` to check a submission.
+
 ## Credits
 
 Made with Natural Earth. Earth imagery: NASA Earth Observatory (Blue Marble Next Generation, Black Marble

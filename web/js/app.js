@@ -44,7 +44,7 @@
     playing: P.get("play") !== "0" && !shot,
     speed: parseFloat(P.get("speed") || "5"),
     selected: null, follow: P.get("follow") === "1", orbit: false,
-    fly: null, lastYear: null, now: 0, layers: { routes: true, wakes: true, wind: false, night: true, sats: true },
+    fly: null, lastYear: null, now: 0, shipsWork: 0, layers: { routes: true, wakes: true, wind: false, night: true, sats: true, ships: true },
     // "idle": a rotating sample of vessels from every era; "timeline": the real timeline at st.t
     mode: clockParam != null || P.get("era") || P.get("select") || P.get("idle") === "0" ? "timeline" : "idle",
     focus: {},            // era, type, family, goods, region, evidence, routeId, q
@@ -305,6 +305,14 @@
     l.obj.traverse((m) => { if (m.isMesh && m !== l.halo) { if (on) { m.userData.mat = m.material; m.material = GHOST; } else if (m.userData.mat) m.material = m.userData.mat; } });
   }
   function placeVehicles(dtReal) {
+    if (!st.layers.ships) {
+      vehGroup.visible = false;
+      if (live.size) { for (const k of [...live.keys()]) dropLive(k); }
+      const n = $("activeCount"); if (n) n.textContent = "Ships and assets off";
+      return;
+    }
+    vehGroup.visible = true;
+    st.shipsWork++;
     const items = vehicleItems();
     const act = items.map((x) => x.inst);
     const foc = focusActive();
@@ -677,10 +685,19 @@
     $("scrubber").addEventListener("input", (e) => { enterTimeline(); setTime(parseFloat(e.target.value)); refreshRoutes(); });
     $("followBtn").addEventListener("click", () => setFollow(!st.follow));
     $("clearBtn").addEventListener("click", () => { st.selected = null; setFollow(false); renderDetail(); refreshRoutes(); });
-    const lay = { tRoutes: "routes", tWakes: "wakes", tWind: "wind", tNight: "night", tSats: "sats" };
+    if (window.SeaWindows && SeaWindows.layerPref) {
+      const pref = SeaWindows.layerPref("ships");
+      if (pref === false || pref === true) {
+        st.layers.ships = pref;
+        const cb = $("tShips"); if (cb) cb.checked = pref;
+      }
+    }
+    const lay = { tRoutes: "routes", tWakes: "wakes", tWind: "wind", tNight: "night", tSats: "sats", tShips: "ships" };
     for (const [id, k] of Object.entries(lay)) $(id).addEventListener("change", (e) => {
       if (window.SeaLayers && !SeaLayers.request(k, e.target.checked)) { e.target.checked = false; return; }
-      st.layers[k] = e.target.checked; refreshRoutes();
+      st.layers[k] = e.target.checked;
+      if (k === "ships" && window.SeaWindows && SeaWindows.layerPref) SeaWindows.layerPref("ships", e.target.checked);
+      refreshRoutes(); placeVehicles(0);
     });
     $("tOrbit").addEventListener("change", (e) => { st.orbit = e.target.checked; st.orbitPaused = false; if (st.orbit) setFollow(false); });
     const types = {}; prepared.forEach((r) => { types[r.line] = types[r.line] || r.color; });
@@ -1041,13 +1058,13 @@
       const f = new THREE.Vector3(0, 0, 1).applyQuaternion(q), u = new THREE.Vector3(0, 1, 0).applyQuaternion(q), p = l.obj.position;
       return { vehicle: l.inst.route.vehicle, type: l.inst.route.type, pos: [p.x, p.y, p.z], fwd: [f.x, f.y, f.z], up: [u.x, u.y, u.z], bank: l.bank || 0, detail: !!l.detail, gear: !!l.gear, visible: l.obj.visible }; },
     poses: () => [...live.keys()],
-    state: () => ({ t: st.t, date: T.dateLabel(st.t), speed: st.speed, playing: st.playing, selected: st.selected && st.selected.key, follow: st.follow, live: live.size, routes: prepared.length }),
+    state: () => ({ t: st.t, date: T.dateLabel(st.t), speed: st.speed, playing: st.playing, selected: st.selected && st.selected.key, follow: st.follow, live: live.size, routes: prepared.length, ships: !!st.layers.ships, shipsWork: st.shipsWork }),
     sunAngle: (a) => { st.sunAng = a; },
     gold: (on) => { st.allGold = !!on; refreshRoutes(); },
     night: (v) => { st.forceNight = v; },
     sats: (n) => { st.satOverride = n; },
     bloom: (strength) => { if (bloom) bloom.strength = strength; },
-    layers: (o) => { Object.assign(st.layers, o); refreshRoutes(); },
+    layers: (o) => { Object.assign(st.layers, o); if (o && Object.prototype.hasOwnProperty.call(o, "ships")) { const cb = $("tShips"); if (cb) cb.checked = !!st.layers.ships; if (window.SeaWindows && SeaWindows.layerPref) SeaWindows.layerPref("ships", !!st.layers.ships); } refreshRoutes(); placeVehicles(0); },
     tab: switchTab,
     idle: (on) => (on ? enterIdle() : enterTimeline()),
     focus: (f) => { st.focus = Object.assign({}, f || {}); syncFocusUI(); refreshRoutes(); renderLog(); },

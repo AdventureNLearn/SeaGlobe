@@ -21,6 +21,21 @@
     return { x: pad, y: top, r: innerWidth - pad, b: innerHeight - bottom, pad, top, bottom };
   }
   function store() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+  function layerPref(name, value) {
+    if (arguments.length < 2) {
+      if (testMode()) return undefined;
+      const o = store();
+      return o.layers && o.layers[name];
+    }
+    if (testMode()) return;
+    try {
+      const o = store();
+      o.layers = o.layers || {};
+      if (value == null) delete o.layers[name];
+      else o.layers[name] = !!value;
+      localStorage.setItem(KEY, JSON.stringify(o));
+    } catch (e) { /* quota / private mode */ }
+  }
   function persist() {
     if (testMode()) return;
     const out = store();
@@ -397,6 +412,6 @@
     return false;
   }
 
-  window.SeaWindows = { register, unregister, minimize, expand, toggleLock, zoom, move, resize, resetLayout, state, persist, bring, paintDock };
+  window.SeaWindows = { register, unregister, minimize, expand, toggleLock, zoom, move, resize, resetLayout, state, persist, bring, paintDock, layerPref };
   window.addEventListener("seaglobe:ready", () => setTimeout(initBuiltins, 0));
 })();

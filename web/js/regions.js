@@ -22,17 +22,48 @@
   // </admin1-rest>
   const R = () => (window.SEAGLOBE_REGIONS = window.SEAGLOBE_REGIONS || {});
   const loading = {};
-  const st = { on: false, live: false, liveStatus: "off", ctx: {}, lastKey: "", liveCache: {}, msg: "" };
+  const st = { on: false, live: false, liveStatus: "off", ctx: {}, lastKey: "", liveCache: {}, msg: "", wantCounty: null, wantTown: null, drawn: { counties: 0, towns: 0 } };
   function statesOf(pack, a3) {
     if (!pack) return null;
     if (pack.states) return pack;
     const one = pack.countries && a3 && pack.countries[a3];
     return one && one.states ? one : null;
   }
+  function wanted(key) {
+    if (!key) return false;
+    if (key.startsWith("counties/")) return key === st.wantCounty;
+    if (key.startsWith("towns/") && key !== "towns-index") return key === st.wantTown;
+    return true;
+  }
   function loadPack(key) {
     if (R()[key]) return Promise.resolve(R()[key]);
     if (!loading[key]) loading[key] = new Promise((res) => { const s = document.createElement("script"); s.src = "data/regions/" + key + ".js"; s.onload = () => res(R()[key] || null); s.onerror = () => res(null); document.head.appendChild(s); });
-    return loading[key];
+    return loading[key].then((pack) => {
+      if (!pack) return null;
+      if (!R()[key]) {
+        if (!wanted(key)) return null;
+        R()[key] = pack;
+      } else if (!wanted(key) && (key.startsWith("counties/") || (key.startsWith("towns/") && key !== "towns-index"))) {
+        delete R()[key];
+        return null;
+      }
+      return R()[key] || pack;
+    });
+  }
+  function evictBelow() {
+    const keep = { index: 1, world: 1, "towns-index": 1 };
+    if (st.wantCounty) keep[st.wantCounty] = 1;
+    if (st.wantTown) keep[st.wantTown] = 1;
+    const drop = (k) => k.startsWith("counties/") || (k.startsWith("towns/") && k !== "towns-index");
+    const packs = R();
+    Object.keys(packs).forEach((k) => {
+      if (keep[k] || !drop(k)) return;
+      delete packs[k];
+    });
+    Object.keys(loading).forEach((k) => {
+      if (keep[k] || !drop(k)) return;
+      delete loading[k];
+    });
   }
   function inRing(lon, lat, ring) { let ins = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const [xi, yi] = ring[i], [xj, yj] = ring[j]; if ((yi > lat) !== (yj > lat) && lon < (xj - xi) * (lat - yi) / (yj - yi) + xi) ins = !ins; } return ins; }
   function inPolys(lon, lat, polys) { return polys.some((poly) => inRing(lon, lat, poly[0]) && !poly.slice(1).some((h) => inRing(lon, lat, h))); }
@@ -48,9 +79,16 @@
     const stateRaw = ctx.country && alt < 1.3 ? await loadPack(REGISTRY[1].pack(ctx)) : null;
     const statePack = statesOf(stateRaw, ctx.country && ctx.country.a3);
     if (statePack) ctx.state = statePack.states.find((s) => inPolys(lon, lat, s.polys)) || null;
-    const countyPack = ctx.state && alt < 0.5 && /^US-/.test(ctx.state.iso || "") ? await loadPack("counties/" + ctx.state.iso) : null;
+    const countyKey = ctx.state && alt < 0.5 && /^US-/.test(ctx.state.iso || "") ? "counties/" + ctx.state.iso : null;
+    const townKey = ctx.country && alt < 0.7 ? "towns/" + ctx.country.a3 : null;
+    st.wantCounty = countyKey; st.wantTown = townKey;
+    evictBelow();
+    const countyPack = countyKey ? await loadPack(countyKey) : null;
+    if (countyKey !== st.wantCounty) return;
     if (countyPack) ctx.county = countyPack.counties.find((c) => inPolys(lon, lat, c.polys)) || null;
-    const townPack = ctx.country && alt < 0.7 ? await loadPack("towns/" + ctx.country.a3) : null;
+    const townPack = townKey ? await loadPack(townKey) : null;
+    if (townKey !== st.wantTown) return;
+    evictBelow();
     st.ctx = ctx;
     const polys = [];
     if (world && alt < 4.0) world.countries.forEach((c) => polys.push({ g: geom(c.polys), color: REGISTRY[0].color, id: c.id, name: c.name, lvl: 0 }));
@@ -70,7 +108,10 @@
       g.polygonsData(polys).polygonGeoJsonGeometry((d) => d.g).polygonCapColor(() => "rgba(0,0,0,0)").polygonSideColor(() => "rgba(0,0,0,0)")
         .polygonStrokeColor((d) => d.color).polygonAltitude((d) => 0.0012 + d.lvl * 0.0004).polygonsTransitionDuration(0).polygonLabel((d) => esc(d.name));
     }
-    const towns = townPack ? townPack.towns.filter((t) => Math.abs(t.lat - lat) < alt * 30 && Math.abs(t.lon - lon) < alt * 40).slice(0, alt < 0.25 ? 80 : 30) : [];
+    let towns = townPack && townPack.towns ? townPack.towns.filter((t) => Math.abs(t.lat - lat) < alt * 30 && Math.abs(t.lon - lon) < alt * 40) : [];
+    if (ctx.state && ctx.state.name) towns = towns.filter((t) => !t.adm1 || t.adm1 === ctx.state.name);
+    towns = towns.slice(0, alt < 0.25 ? 80 : 30);
+    st.drawn = { counties: countyPack && countyPack.counties ? countyPack.counties.length : 0, towns: towns.length };
     g.labelsData(towns).labelLat((d) => d.lat).labelLng((d) => d.lon).labelText((d) => d.name).labelSize(() => Math.max(0.12, alt * 0.9)).labelDotRadius(() => Math.max(0.06, alt * 0.35))
       .labelColor(() => "rgba(234,246,255,.85)").labelAltitude(0.002).labelResolution(2).labelsTransitionDuration(0);
     crumbs();
@@ -160,7 +201,7 @@
     window.__sg.onFrame((dt) => { acc += dt; if (acc > 0.35) { acc = 0; update(); } });
     if (new URLSearchParams(location.search).get("regions") === "1") enable(true);
   }
-  window.SeaRegions = { registry: REGISTRY, enable, enableLive, health, focus, update, state: () => ({ on: st.on, live: st.live, liveStatus: st.liveStatus, msg: st.msg, ctx: { country: st.ctx.country && st.ctx.country.name, state: st.ctx.state && st.ctx.state.name, county: st.ctx.county && st.ctx.county.name } }),
+  window.SeaRegions = { registry: REGISTRY, enable, enableLive, health, focus, update, state: () => ({ on: st.on, live: st.live, liveStatus: st.liveStatus, msg: st.msg, ctx: { country: st.ctx.country && st.ctx.country.name, state: st.ctx.state && st.ctx.state.name, county: st.ctx.county && st.ctx.county.name }, drawn: st.drawn || { counties: 0, towns: 0 }, packs: Object.keys(R()).filter((k) => k.startsWith("counties/") || (k.startsWith("towns/") && k !== "towns-index")) }),
     loadIndex: () => loadPack("index"), loadPack };
   window.addEventListener("seaglobe:ready", init);
 })();

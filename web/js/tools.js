@@ -35,6 +35,10 @@
     st.key = key;
     G.pointsData(all).pointLat((d) => d.lat).pointLng((d) => d.lon).pointColor((d) => d.color).pointRadius((d) => d.r || 0.12)
       .pointAltitude((d) => d.alt || 0.003).pointsMerge(all.length > 300).pointsTransitionDuration(0).pointLabel((d) => d.label || "");
+    if (!st.pointClick) {
+      st.pointClick = true;
+      G.onPointClick((d) => { if (d && d.id && window.SeaEncyclopedia) window.SeaEncyclopedia.show(d.id); });
+    }
   }
   function hubs() {
     const A = (window.SEAGLOBE_DATA || {}).airports || [];
@@ -78,7 +82,7 @@
     const ent = entity ? document.querySelector("#atlasBody .aentry") : null;
     pv.innerHTML = "<h1>SeaGlobe — " + esc(entity ? entity.title : "map view") + "</h1><div class='pmeta'>" + esc(s.date || "") + " · SeaGlobe v" + esc(V.version || "") + " · printed from " + esc(location.href.split("#")[0]) + "</div>" +
       (img ? "<img alt='Globe view' src='" + img + "'>" : "<p>[Map image not available in this browser]</p>") + "<div class='plegend'>" + legend + "</div>" + (ent ? restyle(ent.outerHTML) : "") +
-      "<p class='pfootp'>Every reconstruction is labelled; gaps are marked [UNKNOWN]. Sources: see each entry, DATA.md and SOURCES.md. Made with Natural Earth; Earth imagery NASA (public domain).</p>";
+      "<p class='pfootp'>Every reconstruction is labelled; gaps are marked [UNKNOWN]. Sources: see each entry, DATA.md and SOURCES.md. Made with Natural Earth; Earth imagery NASA (public domain). © OpenStreetMap contributors (ODbL).</p>";
     document.body.classList.add("printing");
     const done = () => { document.body.classList.remove("printing"); window.removeEventListener("afterprint", done); };
     window.addEventListener("afterprint", done);
@@ -126,6 +130,8 @@
     sats: { weight: "light", toggle: "tSats" },
     orbit: { weight: "light", toggle: "tOrbit" },
     coords: { weight: "light", toggle: "tCoords" },
+    ships: { weight: "light", toggle: "tShips" },
+    bells: { weight: "light", toggle: "tBells" },
     wind: { weight: "heavy", toggle: "tWind" },
     regions: { weight: "heavy", toggle: "tRegions" },
     live: { weight: "heavy", toggle: "tLive" },
