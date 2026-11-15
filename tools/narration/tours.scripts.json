@@ -1,0 +1,414 @@
+{
+ "comment": "Scripts extracted from existing tour stop ids and nearby title, name, notes or summary fields. No audio generated. voice is null until the owner picks one.",
+ "version": "scaffold",
+ "voice": null,
+ "voiceLicence": "[UNKNOWN — no voice picked]",
+ "rate": 1,
+ "timeStretch": false,
+ "tours": [
+  {
+   "id": "eras",
+   "title": "Six eras of routes",
+   "voice": null,
+   "rate": 1,
+   "stops": [
+    {
+     "stop": 1,
+     "of": 6,
+     "entry": "era:classical",
+     "script": "Classical.",
+     "src": null
+    },
+    {
+     "stop": 2,
+     "of": 6,
+     "entry": "era:late-antiquity",
+     "script": "Late Antiquity.",
+     "src": null
+    },
+    {
+     "stop": 3,
+     "of": 6,
+     "entry": "era:medieval",
+     "script": "Medieval.",
+     "src": null
+    },
+    {
+     "stop": 4,
+     "of": 6,
+     "entry": "era:age-of-sail",
+     "script": "Age of Sail.",
+     "src": null
+    },
+    {
+     "stop": 5,
+     "of": 6,
+     "entry": "era:industrial",
+     "script": "Industrial.",
+     "src": null
+    },
+    {
+     "stop": 6,
+     "of": 6,
+     "entry": "era:modern",
+     "script": "Modern.",
+     "src": null
+    }
+   ]
+  },
+  {
+   "id": "air",
+   "title": "Early flight to the jet age",
+   "voice": null,
+   "rate": 1,
+   "stops": [
+    {
+     "stop": 1,
+     "of": 8,
+     "entry": "route:wright-kitty-hawk-1903",
+     "script": "Wright Flyer, Kill Devil Hills (Kitty Hawk), 17 Dec 1903. Four flights on 17 December 1903; the longest, by Wilbur, covered 852 ft (260 m) in 59 seconds. Drawn as a 260 m line starting at First Flight Airport (OurAirports KFFA), which adjoins the site; the direction of the line is our sketch unknown. Shown at a slowed display pace so it can be seen.",
+     "src": null
+    },
+    {
+     "stop": 2,
+     "of": 8,
+     "entry": "route:us-air-mail-1918",
+     "script": "First US Air Mail route, Washington–Philadelphia–New York, 1918. Scheduled US Air Mail began on 15 May 1918 on this route, flown by Army pilots in converted Curtiss JN-4HM",
+     "src": null
+    },
+    {
+     "stop": 3,
+     "of": 8,
+     "entry": "route:aeropostale-south-atlantic-1930",
+     "script": "Mermoz. On 12–13 May 1930 Jean Mermoz flew a Latécoère 28 seaplane 3,058 km from Dakar to Natal in 19 h 35 min with 122 kg of mail. Modern Dakar and Natal airfields stand in for the seaplane bases. The 3D model is a generic stand-in for this aircraft type.",
+     "src": null
+    },
+    {
+     "stop": 4,
+     "of": 8,
+     "entry": "route:imperial-airways-london-karachi",
+     "script": "Imperial Airways, London to Karachi, 1929–1932. From 30 March 1929 the seven-day London–Karachi service flew London to Basel, went by train to Genoa, by Short Calcutta flying boat to Alexandria, by train to Cairo and by DH.66 to Karachi. From 1 October 1932 the route moved to the Arabian side of the Gulf, where this record ends. Drawn through Croydon (OurAirports, closed) and modern airports; the train legs are drawn as straight air lines, and the Cairo–Karachi stops are unknown here. The 3D model is a generic stand-in for this aircraft type.",
+     "src": null
+    },
+    {
+     "stop": 5,
+     "of": 8,
+     "entry": "route:pan-am-china-clipper-1935",
+     "script": "Pan Am China Clipper, San Francisco Bay to Manila, Nov 1935. The first commercial transpacific air mail left Alameda on 22 November 1935 and reached Manila on 29 November via Honolulu, Midway, Wake and Guam. Alameda is drawn at the former Naval Air Station (OurAirports, closed); the island stops at today",
+     "src": null
+    },
+    {
+     "stop": 6,
+     "of": 8,
+     "entry": "route:boac-comet-1952",
+     "script": "BOAC Comet, first jetliner passenger service, London to Johannesburg, 1952. On 2 May 1952 Comet G-ALYP flew the world",
+     "src": null
+    },
+    {
+     "stop": 7,
+     "of": 8,
+     "entry": "route:pan-am-747-1970",
+     "script": "Pan Am Boeing 747, first service, New York to London, 1970. The 747 entered service on 22 January 1970 on Pan Am",
+     "src": null
+    },
+    {
+     "stop": 8,
+     "of": 8,
+     "entry": "route:concorde-london-new-york",
+     "script": "Concorde, London to New York JFK, 1977–2003. Concorde flew to New York JFK from 17 October 1977; the average supersonic transatlantic flight took just under 3.5 hours. British Airways retired its Concorde fleet on 24 October 2003. Service gaps (for example after the July 2000 crash, until 7 November 2001) are not shown. Display pace slowed so the aircraft can be seen. The Concorde model is an artistic impression.",
+     "src": null
+    }
+   ]
+  },
+  {
+   "id": "space",
+   "title": "The space age",
+   "voice": null,
+   "rate": 1,
+   "stops": [
+    {
+     "stop": 1,
+     "of": 7,
+     "entry": "topic:space",
+     "script": "The space age. Spacecraft and launch sites from GCAT. Yearly counts of payloads launched and of orbital launch attempts drive the space layer.",
+     "src": null
+    },
+    {
+     "stop": 2,
+     "of": 7,
+     "entry": "spacecraft:s00002",
+     "script": "1-y ISZ.",
+     "src": null
+    },
+    {
+     "stop": 3,
+     "of": 7,
+     "entry": "spacecraft:s00004",
+     "script": "Explorer I.",
+     "src": null
+    },
+    {
+     "stop": 4,
+     "of": 7,
+     "entry": "spacecraft:s04039",
+     "script": "Apollo 11 CSM.",
+     "src": null
+    },
+    {
+     "stop": 5,
+     "of": 7,
+     "entry": "spacecraft:s06633",
+     "script": "Skylab Orbital Workshop.",
+     "src": null
+    },
+    {
+     "stop": 6,
+     "of": 7,
+     "entry": "spacecraft:s20580",
+     "script": "Hubble Space Telescope.",
+     "src": null
+    },
+    {
+     "stop": 7,
+     "of": 7,
+     "entry": "spacecraft:s25544",
+     "script": "Zarya.",
+     "src": null
+    }
+   ]
+  }
+ ],
+ "clips": [
+  {
+   "id": "eras:1",
+   "tour": "eras",
+   "stop": 1,
+   "entry": "era:classical",
+   "script": "Classical.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "eras:2",
+   "tour": "eras",
+   "stop": 2,
+   "entry": "era:late-antiquity",
+   "script": "Late Antiquity.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "eras:3",
+   "tour": "eras",
+   "stop": 3,
+   "entry": "era:medieval",
+   "script": "Medieval.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "eras:4",
+   "tour": "eras",
+   "stop": 4,
+   "entry": "era:age-of-sail",
+   "script": "Age of Sail.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "eras:5",
+   "tour": "eras",
+   "stop": 5,
+   "entry": "era:industrial",
+   "script": "Industrial.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "eras:6",
+   "tour": "eras",
+   "stop": 6,
+   "entry": "era:modern",
+   "script": "Modern.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:1",
+   "tour": "air",
+   "stop": 1,
+   "entry": "route:wright-kitty-hawk-1903",
+   "script": "Wright Flyer, Kill Devil Hills (Kitty Hawk), 17 Dec 1903. Four flights on 17 December 1903; the longest, by Wilbur, covered 852 ft (260 m) in 59 seconds. Drawn as a 260 m line starting at First Flight Airport (OurAirports KFFA), which adjoins the site; the direction of the line is our sketch unknown. Shown at a slowed display pace so it can be seen.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:2",
+   "tour": "air",
+   "stop": 2,
+   "entry": "route:us-air-mail-1918",
+   "script": "First US Air Mail route, Washington–Philadelphia–New York, 1918. Scheduled US Air Mail began on 15 May 1918 on this route, flown by Army pilots in converted Curtiss JN-4HM",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:3",
+   "tour": "air",
+   "stop": 3,
+   "entry": "route:aeropostale-south-atlantic-1930",
+   "script": "Mermoz. On 12–13 May 1930 Jean Mermoz flew a Latécoère 28 seaplane 3,058 km from Dakar to Natal in 19 h 35 min with 122 kg of mail. Modern Dakar and Natal airfields stand in for the seaplane bases. The 3D model is a generic stand-in for this aircraft type.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:4",
+   "tour": "air",
+   "stop": 4,
+   "entry": "route:imperial-airways-london-karachi",
+   "script": "Imperial Airways, London to Karachi, 1929–1932. From 30 March 1929 the seven-day London–Karachi service flew London to Basel, went by train to Genoa, by Short Calcutta flying boat to Alexandria, by train to Cairo and by DH.66 to Karachi. From 1 October 1932 the route moved to the Arabian side of the Gulf, where this record ends. Drawn through Croydon (OurAirports, closed) and modern airports; the train legs are drawn as straight air lines, and the Cairo–Karachi stops are unknown here. The 3D model is a generic stand-in for this aircraft type.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:5",
+   "tour": "air",
+   "stop": 5,
+   "entry": "route:pan-am-china-clipper-1935",
+   "script": "Pan Am China Clipper, San Francisco Bay to Manila, Nov 1935. The first commercial transpacific air mail left Alameda on 22 November 1935 and reached Manila on 29 November via Honolulu, Midway, Wake and Guam. Alameda is drawn at the former Naval Air Station (OurAirports, closed); the island stops at today",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:6",
+   "tour": "air",
+   "stop": 6,
+   "entry": "route:boac-comet-1952",
+   "script": "BOAC Comet, first jetliner passenger service, London to Johannesburg, 1952. On 2 May 1952 Comet G-ALYP flew the world",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:7",
+   "tour": "air",
+   "stop": 7,
+   "entry": "route:pan-am-747-1970",
+   "script": "Pan Am Boeing 747, first service, New York to London, 1970. The 747 entered service on 22 January 1970 on Pan Am",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "air:8",
+   "tour": "air",
+   "stop": 8,
+   "entry": "route:concorde-london-new-york",
+   "script": "Concorde, London to New York JFK, 1977–2003. Concorde flew to New York JFK from 17 October 1977; the average supersonic transatlantic flight took just under 3.5 hours. British Airways retired its Concorde fleet on 24 October 2003. Service gaps (for example after the July 2000 crash, until 7 November 2001) are not shown. Display pace slowed so the aircraft can be seen. The Concorde model is an artistic impression.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "space:1",
+   "tour": "space",
+   "stop": 1,
+   "entry": "topic:space",
+   "script": "The space age. Spacecraft and launch sites from GCAT. Yearly counts of payloads launched and of orbital launch attempts drive the space layer.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "space:2",
+   "tour": "space",
+   "stop": 2,
+   "entry": "spacecraft:s00002",
+   "script": "1-y ISZ.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "space:3",
+   "tour": "space",
+   "stop": 3,
+   "entry": "spacecraft:s00004",
+   "script": "Explorer I.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "space:4",
+   "tour": "space",
+   "stop": 4,
+   "entry": "spacecraft:s04039",
+   "script": "Apollo 11 CSM.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "space:5",
+   "tour": "space",
+   "stop": 5,
+   "entry": "spacecraft:s06633",
+   "script": "Skylab Orbital Workshop.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "space:6",
+   "tour": "space",
+   "stop": 6,
+   "entry": "spacecraft:s20580",
+   "script": "Hubble Space Telescope.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  },
+  {
+   "id": "space:7",
+   "tour": "space",
+   "stop": 7,
+   "entry": "spacecraft:s25544",
+   "script": "Zarya.",
+   "src": null,
+   "bytes": null,
+   "sha256": null,
+   "durationSec": null
+  }
+ ]
+}

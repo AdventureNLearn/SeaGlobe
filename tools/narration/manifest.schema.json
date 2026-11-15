@@ -1,0 +1,70 @@
+{
+ "$comment": "Manifest of pre-recorded tour clips. No files are listed until a voice is chosen and clips are rendered.",
+ "type": "object",
+ "required": [
+  "version",
+  "voice",
+  "rate",
+  "clips"
+ ],
+ "properties": {
+  "version": {
+   "type": "string"
+  },
+  "voice": {
+   "type": "string",
+   "description": "Owner-chosen voice id. Leave unset until picked."
+  },
+  "voiceLicence": {
+   "type": "string"
+  },
+  "rate": {
+   "description": "Playback rate. Must be 1.0.",
+   "const": 1.0
+  },
+  "timeStretch": {
+   "const": false
+  },
+  "clips": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "tour",
+     "stop",
+     "entry",
+     "script",
+     "src"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "tour": {
+      "type": "string"
+     },
+     "stop": {
+      "type": "integer"
+     },
+     "entry": {
+      "type": "string"
+     },
+     "script": {
+      "type": "string"
+     },
+     "src": {
+      "type": [
+       "string",
+       "null"
+      ],
+      "description": "Path or R2 key; null until rendered."
+     },
+     "bytes": {},
+     "sha256": {},
+     "durationSec": {}
+    }
+   }
+  }
+ }
+}

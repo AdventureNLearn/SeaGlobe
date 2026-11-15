@@ -98,6 +98,7 @@ try {
       // font, colour and transform must still match the v2.2.1 baseline exactly.
       // v3.0: the baseline was regenerated on purpose (--write-fixture) for the new top-bar buttons (Go deeper,
       // Radio) and the footer credit and version line; the desktop layout is otherwise compared exactly as before.
+      // v3.1: regenerated again for the Help button (opens the in-app Guide) next to Encyclopedia.
       const ROW = /^#log-(\d+)(>|$)/, ADDED_ROWS = 0;
       // footer version width ("v3.0.0" vs "v3.0.1") changes with VERSION; position, font and colour still match
       const COUNT_TEXT = new Set(["#logCount", "#log>div.loghead:0>div:0", "#log>div.loghead:0>div:0>div.kicker:0", "#pfoot>span.vline:0>span:0"]);

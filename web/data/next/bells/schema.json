@@ -1,0 +1,69 @@
+{
+ "$comment": "Historical bells for the time slider. Every field sourced or [UNKNOWN].",
+ "type": "object",
+ "required": [
+  "id",
+  "kind",
+  "title",
+  "example"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^bell:"
+  },
+  "kind": {
+   "const": "bell"
+  },
+  "title": {
+   "type": "string"
+  },
+  "place": {
+   "type": "string"
+  },
+  "geo": {
+   "type": "object"
+  },
+  "dateCast": {
+   "type": [
+    "string",
+    "number",
+    "null"
+   ]
+  },
+  "dateInstalled": {
+   "type": [
+    "string",
+    "number",
+    "null"
+   ]
+  },
+  "founder": {
+   "type": "string"
+  },
+  "foundry": {
+   "type": "string"
+  },
+  "weight": {
+   "type": "string"
+  },
+  "size": {
+   "type": "string"
+  },
+  "history": {
+   "type": "string"
+  },
+  "status": {
+   "type": "string"
+  },
+  "time": {
+   "type": "object"
+  },
+  "citations": {
+   "type": "array"
+  },
+  "example": {
+   "type": "boolean"
+  }
+ }
+}

@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.youtube.com; style-src 'self' 'sha256-GRFgt45UbKYCV14/Fqy6H9EB3zlAwSnH4xbsYt03Q6M=' 'sha256-9xjtvxMT1ApHlgn9ohbh2FNfvK5Tqtzy94BjfXBeMSY=' 'sha256-yfc2FhpkFR0EAy3T+zDsaAFGXSP9B3ELNvaJKDzNhkk=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self' data: blob: https://adventurenlearn.github.io https://tigerweb.geo.census.gov https://api.x.ai; frame-src https://www.youtube-nocookie.com https://www.youtube.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <script src="js/frame-guard.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>SeaGlobe Lite — routes of the world, 500 BCE to today</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -86,12 +87,12 @@
       </section>
       <section class="tabpane" data-pane="layers" hidden>
         <div class="toggles">
-          <label><input type="checkbox" id="tRoutes" checked> Route lines</label>
-          <label><input type="checkbox" id="tWakes" checked> Wakes and trails</label>
-          <label><input type="checkbox" id="tWind"> Wind belts (schematic) and logbook winds</label>
-          <label><input type="checkbox" id="tNight" checked> Night lights (modern era only)</label>
-          <label><input type="checkbox" id="tSats" checked> Satellites (decorative, space age)</label>
-          <label><input type="checkbox" id="tOrbit"> Slow orbit camera</label>
+          <label title="Shows the tracks of voyages on the globe."><input type="checkbox" id="tRoutes" checked> Route lines</label>
+          <label title="Shows wakes and trails behind moving vehicles."><input type="checkbox" id="tWakes" checked> Wakes and trails</label>
+          <label title="Shows schematic wind belts and logbook wind arrows."><input type="checkbox" id="tWind"> Wind belts (schematic) and logbook winds</label>
+          <label title="Shows city lights on the night side, in the modern era."><input type="checkbox" id="tNight" checked> Night lights (modern era only)</label>
+          <label title="Shows decorative satellite markers in the space age."><input type="checkbox" id="tSats" checked> Satellites (decorative, space age)</label>
+          <label title="Slowly rotates the camera around the globe."><input type="checkbox" id="tOrbit"> Slow orbit camera</label>
         </div>
         <div class="legend" id="legend"></div>
         <div class="confidence">
@@ -178,6 +179,8 @@
   <script src="js/chat.js"></script>
   <script src="js/windows.js"></script>
   <script src="js/help.js"></script>
+  <script src="js/guide.js"></script>
+  <script src="js/flags.js"></script>
   <script src="js/radio.js"></script>
   <script src="js/app.js"></script>
   <script src="js/mobile.js"></script>

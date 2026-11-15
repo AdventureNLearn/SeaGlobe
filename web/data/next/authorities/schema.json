@@ -1,0 +1,53 @@
+{
+ "$comment": "Offices, not people. No phones, emails, or parcel owners.",
+ "type": "object",
+ "required": [
+  "id",
+  "kind",
+  "title",
+  "level",
+  "example"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^authority:"
+  },
+  "kind": {
+   "const": "authority"
+  },
+  "title": {
+   "type": "string"
+  },
+  "level": {
+   "enum": [
+    "federal",
+    "state",
+    "county",
+    "city",
+    "district"
+   ]
+  },
+  "place": {
+   "type": "array"
+  },
+  "role": {
+   "type": "string"
+  },
+  "facts": {
+   "type": "object"
+  },
+  "related": {
+   "type": "array"
+  },
+  "citations": {
+   "type": "array"
+  },
+  "evidence": {
+   "type": "object"
+  },
+  "example": {
+   "type": "boolean"
+  }
+ }
+}

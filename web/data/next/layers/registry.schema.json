@@ -1,0 +1,84 @@
+{
+ "$comment": "SeaGlobe layer registry. Unverified layers have reason and no URLs.",
+ "type": "object",
+ "required": [
+  "layers"
+ ],
+ "properties": {
+  "layers": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "id",
+     "label",
+     "group",
+     "status",
+     "credit"
+    ],
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "label": {
+      "type": "string"
+     },
+     "group": {
+      "enum": [
+       "base",
+       "terrain",
+       "boundary",
+       "overlay"
+      ]
+     },
+     "kind": {
+      "type": "string"
+     },
+     "status": {
+      "enum": [
+       "planned",
+       "working",
+       "skip",
+       "unverified"
+      ]
+     },
+     "sourceUrl": {
+      "type": "string"
+     },
+     "tiles": {
+      "type": "string"
+     },
+     "credit": {
+      "type": "string"
+     },
+     "terms": {
+      "type": "string"
+     },
+     "minzoom": {
+      "type": "number"
+     },
+     "maxzoom": {
+      "type": "number"
+     },
+     "coverage": {
+      "type": "string"
+     },
+     "hosting": {
+      "enum": [
+       "r2",
+       "live",
+       "bundled",
+       "planned"
+      ]
+     },
+     "fallback": {
+      "type": "string"
+     },
+     "reason": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ }
+}

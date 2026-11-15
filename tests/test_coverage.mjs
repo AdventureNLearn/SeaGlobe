@@ -32,6 +32,7 @@ try {
     put("radio", "app:radio");
     ["web", "lite", "byo"].forEach((e) => put("edition", "app:edition-" + e));
     ["chat", "version-check", "starfield", "credit", "how-to-go-deeper"].forEach((e) => put("app feature", "app:" + e));
+    if (window.SeaGuide && window.SeaGuide.records) window.SeaGuide.records().forEach((e) => put("app feature", e.id));
     R.index.levels.forEach((l) => put("drill-down level", "level:" + l));
     R.index.regions.forEach((x) => put("region", "region:" + x.id));
     A.sources().forEach((s) => put("source", "source:" + s.id));

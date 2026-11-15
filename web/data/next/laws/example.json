@@ -1,0 +1,28 @@
+{
+ "example": true,
+ "id": "law:zz-example-instrument",
+ "kind": "law",
+ "iso": "ZZ",
+ "title": "EXAMPLE only \u2014 not a real statute. Do not ship.",
+ "instrument": "Example Instrument",
+ "subsection": "art. 0",
+ "legalStatus": "example",
+ "quote": "This sentence is labelled example data and is not a quote from any official instrument.",
+ "quoteAttribution": "EXAMPLE",
+ "url": "https://example.invalid/statute",
+ "asOf": "2026-11-14",
+ "notes": "Replace with a verified official instrument before the laws flag is turned on for users.",
+ "related": [
+  {
+   "id": "region:example-zz",
+   "rel": "country"
+  }
+ ],
+ "citations": [],
+ "evidence": {
+  "basis": "example",
+  "gaps": [
+   "Not a real law. [EXAMPLE]"
+  ]
+ }
+}

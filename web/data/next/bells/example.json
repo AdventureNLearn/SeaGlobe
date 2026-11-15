@@ -1,0 +1,28 @@
+{
+ "example": true,
+ "id": "bell:example-not-a-real-bell",
+ "kind": "bell",
+ "title": "EXAMPLE historical bell \u2014 not a real object. Do not ship.",
+ "place": "[UNKNOWN]",
+ "geo": null,
+ "dateCast": null,
+ "dateInstalled": null,
+ "founder": "[UNKNOWN]",
+ "foundry": "[UNKNOWN]",
+ "weight": "[UNKNOWN]",
+ "size": "[UNKNOWN]",
+ "history": "This record is labelled example data and has no historical claim.",
+ "status": "example",
+ "time": {
+  "start": null,
+  "end": null,
+  "precision": "[UNKNOWN]"
+ },
+ "citations": [],
+ "evidence": {
+  "basis": "example",
+  "gaps": [
+   "Not a real bell. [EXAMPLE]"
+  ]
+ }
+}

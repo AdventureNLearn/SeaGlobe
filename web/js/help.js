@@ -43,20 +43,31 @@
     box.appendChild(p("A Focus chip appears when you pick an era, or when you filter or select a voyage in the Ship’s Log. Press × on the chip to clear it. Esc closes the Ship’s Log first, then clears Focus."));
     box.appendChild(p("Ship’s Log (or L) lists every voyage. Encyclopedia has Search, Ask and Listen. The Go deeper tab has narrated tours: press a tour to start, then Next for the next stop. Narration never starts on its own."));
     box.appendChild(p("The Window controls button on a panel opens lock, zoom the panel (not the globe), and minimize. Reset layout is in the dock."));
+    const g = el("button", "btn small", "Open the Guide");
+    g.type = "button"; g.id = "deeperHelpGuide";
+    g.addEventListener("click", () => { if (window.SeaGuide) window.SeaGuide.open(); });
+    box.appendChild(g);
     return box;
   }
   function opener() {
+    const wrap = el("div", "deeperhelp-openers");
+    wrap.id = "deeperHelpOpeners";
     const b = el("button", "btn ghost small deeperhelp-open", "How to go deeper");
     b.type = "button";
     b.id = "deeperHelpOpen";
     b.addEventListener("click", () => { persist(false); show(true); });
-    return b;
+    const g = el("button", "btn ghost small", "Guide");
+    g.type = "button"; g.id = "deeperHelpGuideOpen";
+    g.addEventListener("click", () => { if (window.SeaGuide) window.SeaGuide.open(); });
+    wrap.appendChild(b);
+    wrap.appendChild(g);
+    return wrap;
   }
   function show(open) {
     const pane = document.querySelector("[data-pane='layers']");
     if (!pane) return;
     let box = $("deeperHelp");
-    let link = $("deeperHelpOpen");
+    let link = $("deeperHelpOpeners") || $("deeperHelpOpen");
     if (open) {
       if (link) link.remove();
       if (!box) { box = card(); pane.insertBefore(box, pane.firstChild); }

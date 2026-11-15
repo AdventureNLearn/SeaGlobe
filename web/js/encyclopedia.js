@@ -1,6 +1,6 @@
 /* SeaGlobe encyclopedia: search, A–Z, browse by era / topic / layer / region, entry pages with timeline, related
    entries and references, comparisons, a global timeline, a bibliography and a sources & licences page.
-   Hash routes: #/entry/<id>, #/search/<q>, #/az/<letter>, #/browse, #/timeline, #/compare/<a>,<b>, #/bibliography, #/sources */
+   Hash routes: #/entry/<id>, #/search/<q>, #/az/<letter>, #/browse, #/guide, #/timeline, #/compare/<a>,<b>, #/bibliography, #/sources */
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id);
@@ -16,7 +16,7 @@
     panel.innerHTML = "<div class='loghead'><div><div class='kicker'>Encyclopedia</div><div class='psub' id='atlasCount'>—</div></div>" +
       "<div class='row'><button class='btn ghost icon' id='atlasBack' aria-label='Back' title='Back'>‹</button><button class='btn ghost icon' id='atlasClose' aria-label='Close encyclopedia'>×</button></div></div>" +
       "<input id='atlasQ' type='search' placeholder='Search ships, aircraft, routes, places, spacecraft, regions…' aria-label='Search the encyclopedia' autocomplete='off'>" +
-      "<nav class='atabs' role='tablist'>" + [["browse", "Browse"], ["az", "A–Z"], ["timeline", "Timeline"], ["compare", "Compare"], ["bibliography", "Bibliography"], ["sources", "Sources & licences"], ["ask", "Ask"], ["about", "About"]]
+      "<nav class='atabs' role='tablist'>" + [["guide", "Guide"], ["browse", "Browse"], ["az", "A–Z"], ["timeline", "Timeline"], ["compare", "Compare"], ["bibliography", "Bibliography"], ["sources", "Sources & licences"], ["ask", "Ask"], ["about", "About"]]
         .map(([k, l]) => "<button class='atab' data-av='" + k + "'>" + l + "</button>").join("") + "</nav>" +
       "<div class='abody' id='atlasBody' tabindex='0'></div>";
     document.body.appendChild(panel);
@@ -33,7 +33,11 @@
       onMinimize: () => { document.body.classList.remove("atlas-open"); },
       onExpand: () => { if (panel.hidden) open(true); else document.body.classList.add("atlas-open"); } });
     $("atlasBack").addEventListener("click", () => history.back());
-    q.addEventListener("input", () => { const v = q.value.trim(); go(v ? "#/search/" + encodeURIComponent(v) : "#/browse", true); });
+    q.addEventListener("input", () => {
+      const v = q.value.trim();
+      if (/^#\/guide/.test(location.hash)) { if (window.SeaGuide) window.SeaGuide.render(body, v); return; }
+      go(v ? "#/search/" + encodeURIComponent(v) : "#/browse", true);
+    });
     panel.querySelectorAll("[data-av]").forEach((b) => b.addEventListener("click", () => go("#/" + b.dataset.av)));
     body.addEventListener("click", onClick);
     window.addEventListener("hashchange", route);
@@ -72,6 +76,7 @@
     if (view === "bibliography") return bibliography();
     if (view === "sources") return sourcesView();
     if (view === "about") return aboutView();
+    if (view === "guide") { tabOn("guide"); if (window.SeaGuide) window.SeaGuide.render(body, q.value.trim()); else body.innerHTML = "<p class='small'>The Guide is not part of this copy.</p>"; return; }
     if (view === "ask") { if (window.SeaChat) window.SeaChat.view(body); else body.innerHTML = "<p class='small'>Chat is not part of this copy.</p>"; tabOn("ask"); return; }
     if (view === "region") return regionTree(arg);
     return browse(arg);
@@ -227,7 +232,8 @@
     tabOn("about");
   }
   function init() { make(); if (/^#\//.test(location.hash)) setTimeout(route, 0); }
-  window.SeaEncyclopedia = { open, go, showOnGlobe, show: (id) => go("#/entry/" + encodeURIComponent(id)), compare: compareSet };
+  function openGuide() { open(true); go("#/guide"); }
+  window.SeaEncyclopedia = { open, go, openGuide, showOnGlobe, show: (id) => go("#/entry/" + encodeURIComponent(id)), compare: compareSet };
   window.addEventListener("seaglobe:ready", () => { if (!panel) init(); });
   if (window.__sg && window.__sg.globe && window.__sg.globe()) init();
 })();

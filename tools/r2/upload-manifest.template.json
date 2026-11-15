@@ -1,0 +1,83 @@
+{
+ "comment": "Template only. Nothing has been uploaded. Owner YES is required before any R2 upload. Sizes for built archives come from the local SIZES-pmtiles.txt. Missing zooms are [UNKNOWN].",
+ "bucket": "[UNKNOWN \u2014 existing SeaGlobe asset bucket; do not invent a new hostname]",
+ "source": "local staging folder (outside the repository)",
+ "checksums_file": "SHA256SUMS-pmtiles.txt",
+ "objects": [
+  {
+   "key": "pmtiles/census-state-2026.pmtiles",
+   "bytes": 2590115,
+   "sha256": "[UNKNOWN \u2014 copy from SHA256SUMS-pmtiles.txt at upload]",
+   "credit": "U.S. Census Bureau, TIGER/Line 2026 (U.S. Government work)",
+   "status": "staged-local-not-uploaded",
+   "notes": "See TILES.md in the local staging folder."
+  },
+  {
+   "key": "pmtiles/census-county-2026.pmtiles",
+   "bytes": 40007901,
+   "sha256": "[UNKNOWN \u2014 copy from SHA256SUMS-pmtiles.txt at upload]",
+   "credit": "U.S. Census Bureau, TIGER/Line 2026 (U.S. Government work)",
+   "status": "staged-local-not-uploaded",
+   "notes": "See TILES.md in the local staging folder."
+  },
+  {
+   "key": "pmtiles/census-cousub-2026.pmtiles",
+   "bytes": 48547942,
+   "sha256": "[UNKNOWN \u2014 copy from SHA256SUMS-pmtiles.txt at upload]",
+   "credit": "U.S. Census Bureau, TIGER/Line 2026 (U.S. Government work)",
+   "status": "staged-local-not-uploaded",
+   "notes": "Zooms 6\u201310 in the archive. z11\u201313 not done. Some Aleutian / east-of-date-line pieces not done."
+  },
+  {
+   "key": "pmtiles/census-place-2026.pmtiles",
+   "bytes": 26328914,
+   "sha256": "[UNKNOWN \u2014 copy from SHA256SUMS-pmtiles.txt at upload]",
+   "credit": "U.S. Census Bureau, TIGER/Line 2026 (U.S. Government work)",
+   "status": "staged-local-not-uploaded",
+   "notes": "Zooms 6\u201310 in the archive. z11\u201313 not done. Some Aleutian / east-of-date-line pieces not done."
+  },
+  {
+   "key": "pmtiles/usgs-3dep-terrain.pmtiles",
+   "bytes": 10593790,
+   "sha256": "[UNKNOWN \u2014 copy from SHA256SUMS-pmtiles.txt at upload]",
+   "credit": "U.S. Geological Survey, 3DEP",
+   "status": "staged-local-not-uploaded",
+   "notes": "Zooms 0\u20136 (z6 partial). z7\u20138 not done. 24 tiles have no sample bytes."
+  }
+ ],
+ "not_built": [
+  {
+   "key": "pmtiles/census-cousub-2026-z11-13.pmtiles",
+   "bytes": "[UNKNOWN]",
+   "sha256": "[UNKNOWN]",
+   "status": "not-built",
+   "notes": "County-subdivision zooms 11\u201313 were requested and are not done."
+  },
+  {
+   "key": "pmtiles/census-place-2026-z11-13.pmtiles",
+   "bytes": "[UNKNOWN]",
+   "sha256": "[UNKNOWN]",
+   "status": "not-built",
+   "notes": "Place zooms 11\u201313 were requested and are not done."
+  },
+  {
+   "key": "pmtiles/usgs-3dep-terrain-z7-8.pmtiles",
+   "bytes": "[UNKNOWN]",
+   "sha256": "[UNKNOWN]",
+   "status": "not-built",
+   "notes": "3DEP zoom 7 and 8 are not in the current archive."
+  },
+  {
+   "key": "pmtiles/aleutian-date-line-pieces",
+   "bytes": "[UNKNOWN]",
+   "sha256": "[UNKNOWN]",
+   "status": "not-built",
+   "notes": "Pieces east of the date line, including some far Aleutian parts, were left out."
+  }
+ ],
+ "totals": {
+  "built_bytes": 128068662,
+  "built_files": 5,
+  "not_built_bytes": "[UNKNOWN]"
+ }
+}

@@ -1,0 +1,39 @@
+{
+ "$comment": "Short cited explainers linked to places, layers, or authorities.",
+ "type": "object",
+ "required": [
+  "id",
+  "kind",
+  "title",
+  "text",
+  "citations",
+  "example"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^explainer:"
+  },
+  "kind": {
+   "const": "explainer"
+  },
+  "title": {
+   "type": "string"
+  },
+  "text": {
+   "type": "string"
+  },
+  "place": {
+   "type": "array"
+  },
+  "stopIfUnsafe": {
+   "type": "string"
+  },
+  "citations": {
+   "type": "array"
+  },
+  "example": {
+   "type": "boolean"
+  }
+ }
+}

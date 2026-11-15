@@ -69,8 +69,8 @@ body.measuring .globe { cursor: crosshair; }
 body.atlas-open .regionchip { left: calc(50% + calc(240px * var(--ui))); }
 #printView { display: none; }
 @media (max-width: 820px) {
-  /* phones open these from the menu sheet (Encyclopedia, Radio), with 44 px targets */
-  #atlasBtn, #radioBtn { display: none; }
+  /* phones open these from the menu sheet (Encyclopedia, Radio, Guide tab), with 44 px targets */
+  #atlasBtn, #radioBtn, #helpBtn { display: none; }
   .atlaspanel { left: var(--mgap); right: var(--mgap); width: auto; top: calc(var(--mtop) + var(--mgap) * 2); bottom: calc(var(--mgap) + var(--sab)); z-index: 19; }
   .regionchip { top: calc(var(--mtop) + var(--mgap) * 2); max-width: 92vw; font-size: calc(11px * var(--ui)); }
   body.atlas-open .regionchip { left: 50%; }

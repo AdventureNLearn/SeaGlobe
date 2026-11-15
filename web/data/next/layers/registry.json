@@ -1,0 +1,54 @@
+{
+ "comment": "v3.1 layers are wired behind flags (off by default). status=working means the code path exists; nothing is uploaded or default-on until Review and owner YES.",
+ "layers": [
+  {
+   "id": "ne-regions",
+   "label": "Borders and regions (Natural Earth)",
+   "group": "boundary",
+   "status": "working",
+   "credit": "Natural Earth (public domain)",
+   "hosting": "bundled",
+   "coverage": "world"
+  },
+  {
+   "id": "tigerweb-places",
+   "label": "Live US town boundaries",
+   "group": "boundary",
+   "status": "working",
+   "credit": "U.S. Census Bureau, TIGERweb",
+   "hosting": "live",
+   "coverage": "US",
+   "fallback": "Skipped when the service is down or the layer is off."
+  },
+  {
+   "id": "pmtiles-census-2026",
+   "label": "US Census TIGER/Line 2026 (PMTiles)",
+   "group": "boundary",
+   "kind": "pmtiles",
+   "status": "working",
+   "credit": "U.S. Census Bureau, TIGER/Line 2026 (U.S. Government work)",
+   "hosting": "r2",
+   "coverage": "US",
+   "minzoom": 0,
+   "maxzoom": 12,
+   "reason": "Flag off by default. Toggles in Layers are remembered. Archives are not uploaded until owner YES. Cousub and place archives stop at zoom 10 (z11–13 not built).",
+   "tiles": "pmtiles/census-state-2026.pmtiles",
+   "fallback": "Skipped with a layer-unavailable note when the archive is missing or the host is down."
+  },
+  {
+   "id": "usgs-3dep-terrain",
+   "label": "USGS 3DEP terrain",
+   "group": "terrain",
+   "kind": "pmtiles",
+   "status": "working",
+   "credit": "U.S. Geological Survey, 3DEP",
+   "hosting": "r2",
+   "coverage": "US",
+   "minzoom": 0,
+   "maxzoom": 6,
+   "reason": "Flag off by default. Toggles in Layers are remembered. Archive is not uploaded until owner YES. Zoom 6 is partial; zooms 7–8 are not in this archive.",
+   "tiles": "pmtiles/usgs-3dep-terrain.pmtiles",
+   "fallback": "Skipped with a layer-unavailable note when the archive is missing or the host is down. Missing or black tiles keep the current globe elevation."
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+{
+ "$comment": "US Code (Title 26) and IRS notices only. Not tax advice.",
+ "type": "object",
+ "required": [
+  "id",
+  "kind",
+  "title",
+  "example"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^tax:"
+  },
+  "kind": {
+   "const": "tax"
+  },
+  "title": {
+   "type": "string"
+  },
+  "instrument": {
+   "type": "string"
+  },
+  "section": {
+   "type": "string"
+  },
+  "url": {
+   "type": "string"
+  },
+  "asOf": {
+   "type": "string"
+  },
+  "summary": {
+   "type": "string"
+  },
+  "label": {
+   "enum": [
+    "statute",
+    "regulation",
+    "irs-notice",
+    "explainer",
+    "example"
+   ]
+  },
+  "citations": {
+   "type": "array"
+  },
+  "example": {
+   "type": "boolean"
+  }
+ }
+}

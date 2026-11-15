@@ -1,0 +1,39 @@
+{
+ "$comment": "Census county GIS metadata. No parcels.",
+ "type": "object",
+ "required": [
+  "id",
+  "product",
+  "credit",
+  "example"
+ ],
+ "properties": {
+  "id": {
+   "type": "string"
+  },
+  "product": {
+   "type": "string"
+  },
+  "vintage": {
+   "type": "string"
+  },
+  "coverage": {
+   "type": "string"
+  },
+  "geometry": {
+   "type": "string"
+  },
+  "attributes": {
+   "type": "array"
+  },
+  "parcels": {
+   "const": false
+  },
+  "credit": {
+   "type": "string"
+  },
+  "example": {
+   "type": "boolean"
+  }
+ }
+}

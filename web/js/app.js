@@ -5,6 +5,7 @@
    their own Cloudflare account) and feeds the user brings in the BYO edition (js/byo.js). */
 (function () {
   "use strict";
+  if (window.__sgFrameBlocked) return;
   const THREE = window.SEAGLOBE_THREE;
   const D = window.SEAGLOBE_DATA;
   const S = D.schema;

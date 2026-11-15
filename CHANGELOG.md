@@ -1,5 +1,26 @@
 # Changelog
 
+## v3.1.0 (2026-11-15) — Census PMTiles borders and USGS 3DEP terrain
+
+- Behind flags that stay off on a normal visit (`?flag=pmtilesBorders`, `?flag=terrain`): US Census
+  TIGER/Line 2026 boundaries and USGS 3DEP terrain can be turned on from the Layers panel. Both
+  toggles start off and are remembered in this browser (not during tests).
+- Tiles load from the existing asset host under `pmtiles/`. A missing file or 404 shows a short
+  “layer unavailable” note and does not throw; other layers keep working.
+- Terrain draws only where samples exist and leaves the current globe elevation everywhere else.
+  Coverage is US-centred, zooms 0–6, zoom 6 partial. Census archives are drawn only at zooms they
+  contain (cousub and place stop at zoom 10).
+- Credits: U.S. Census Bureau, TIGER/Line 2026; U.S. Geological Survey, 3DEP. Nothing is uploaded
+  or default-on until Review and an owner YES.
+- Framing is allowed only when the parent is Grok.me (`https://grok.me` or `https://*.grok.me`),
+  so the Grok.me lite app can show SeaGlobe in an iframe. For any other parent, the page tries
+  to break out of the frame. If that is blocked, it stops loading, replaces the page with
+  “SeaGlobe must be opened directly.”, and does not start the app. GitHub Pages cannot send
+  framing headers, so this is done in the page.
+- A short in-app Guide lists each feature in one or two lines. Open it from the Help
+  button or the Encyclopedia's Guide tab; the list is searchable. Layer toggles have a
+  one-line tip. The same Guide entries sit in the encyclopedia and the offline chat index.
+
 ## v3.0.3 (2026-11-14) — phone radio close, window icon, clock and help wording
 
 - On a phone, the sheet’s × no longer covers the Radio quick button. The close control sits in the

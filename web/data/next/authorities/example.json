@@ -1,0 +1,22 @@
+{
+ "example": true,
+ "id": "authority:zz-example-office",
+ "kind": "authority",
+ "title": "EXAMPLE Office of the Atlas \u2014 not a real desk. Do not ship.",
+ "level": "federal",
+ "place": [
+  "region:example-zz"
+ ],
+ "role": "example only",
+ "facts": {
+  "homepage": "[UNKNOWN]"
+ },
+ "related": [],
+ "citations": [],
+ "evidence": {
+  "basis": "example",
+  "gaps": [
+   "Not a verified office. [EXAMPLE]"
+  ]
+ }
+}

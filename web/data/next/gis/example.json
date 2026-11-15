@@ -1,0 +1,12 @@
+{
+ "example": true,
+ "id": "gis:census-county-example",
+ "product": "EXAMPLE Census county GIS descriptor \u2014 not a data extract. Do not ship as a layer.",
+ "vintage": "[UNKNOWN]",
+ "coverage": "US",
+ "geometry": "planned: TIGER/Line county polygons (see v3.1 PMTiles)",
+ "attributes": [],
+ "parcels": false,
+ "credit": "U.S. Census Bureau",
+ "notes": "Parcels are out of scope."
+}

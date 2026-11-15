@@ -19,6 +19,8 @@
     { id: "src-cliwoc", type: "dataset", title: "CLIWOC 2.1 ship logbook data (PANGAEA)", author: "Jones et al. (2007); García-Herrera et al. (2010)", url: "https://doi.org/10.1594/PANGAEA.611088", licence: "CC BY 3.0", host: "hosting permitted", attribution: "CLIWOC 2.1, CC BY 3.0", accessed: "13 Nov 2026", match: /cliwoc|pangaea/i },
     { id: "src-nasa-imagery", type: "dataset", title: "Blue Marble Next Generation and Black Marble 2012", publisher: "NASA Earth Observatory", url: "https://earthobservatory.nasa.gov/", licence: "Public domain (NASA)", host: "hosting permitted", attribution: "Earth imagery: NASA Earth Observatory", accessed: "13 Nov 2026", match: /blue marble|black marble|nasa earth observatory/i },
     { id: "src-tigerweb", type: "dataset", title: "TIGERweb map services (live, opt-in)", publisher: "U.S. Census Bureau", url: "https://tigerweb.geo.census.gov/", licence: "U.S. government work (17 U.S.C. § 105); the Census Bureau asks to be cited", host: "linked live service, not hosted", attribution: "Boundaries: U.S. Census Bureau, TIGERweb", accessed: ACCESS, match: /tigerweb/i },
+    { id: "src-census-tigerline", type: "dataset", title: "TIGER/Line shapefiles, 2026", publisher: "U.S. Census Bureau", url: "https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html", licence: "U.S. government work (17 U.S.C. § 105); the Census Bureau asks to be cited", host: "hosting permitted", attribution: "U.S. Census Bureau, TIGER/Line 2026", accessed: ACCESS, match: /tiger\/line 2026|census bureau, tiger/i },
+    { id: "src-usgs-3dep", type: "dataset", title: "3D Elevation Program (3DEP)", publisher: "U.S. Geological Survey", url: "https://www.usgs.gov/3d-elevation-program", licence: "U.S. government work (17 U.S.C. § 105)", host: "hosting permitted", attribution: "U.S. Geological Survey, 3DEP", accessed: ACCESS, match: /3dep|u\.s\. geological survey/i },
   ];
   const PRIMARY = /herodotus|strabo|pliny|periplus|marco polo|yule 1903|ibn battuta|cieza|logbook|log book|journal of|isidore of charax|ship'?s log|letters? of|original record/i;
   function hashId(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return "src-" + (h >>> 0).toString(36); }
@@ -169,6 +171,9 @@
       if (id === "how-to-go-deeper") rec.aliases = ["how to go deeper", "deeper layers", "layers help", "instructions", "window controls"];
       add(rec);
     });
+    if (window.SeaGuide && window.SeaGuide.records) window.SeaGuide.records().forEach(add);
+    // Planned next-layer kinds (law, authority, tax, explainer, bell) live in
+    // web/js/next/atlas-types.js and stay unloaded while SeaFlags are off.
     // drill-down levels
     const levels = [["world", "World", "The whole globe, the top of the region tree."], ["country", "Countries", "Natural Earth admin-0 countries; zoom in to see borders and names."],
       ["state", "States and provinces", "Natural Earth admin-1 states and provinces, loaded per country as you zoom in."], ["county", "US counties", "US counties, loaded per state as you zoom in further."],

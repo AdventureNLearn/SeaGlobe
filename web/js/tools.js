@@ -80,7 +80,7 @@
   function init() {
     const pane = document.querySelector("[data-pane='layers'] .toggles");
     if (pane && !$("tHubs")) {
-      pane.insertAdjacentHTML("beforeend", "<label><input type='checkbox' id='tHubs'> Air hubs (" + ((window.SEAGLOBE_DATA || {}).airports || []).length.toLocaleString("en-US") + " airports, OurAirports)</label><label><input type='checkbox' id='tCoords'> Cursor coordinates</label>");
+      pane.insertAdjacentHTML("beforeend", "<label title='Shows airport hubs from OurAirports.'><input type='checkbox' id='tHubs'> Air hubs (" + ((window.SEAGLOBE_DATA || {}).airports || []).length.toLocaleString("en-US") + " airports, OurAirports)</label><label title='Shows latitude and longitude at the cursor.'><input type='checkbox' id='tCoords'> Cursor coordinates</label>");
       $("tHubs").addEventListener("change", (e) => layer("hubs", e.target.checked));
       $("tCoords").addEventListener("change", (e) => coords(e.target.checked));
       pane.insertAdjacentHTML("afterend", "<div class='row actions toolrow'><button class='btn' id='measureBtn' aria-pressed='false'>Measure distance</button><button class='btn ghost' id='printBtn'>Print map view</button></div>");

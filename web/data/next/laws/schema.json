@@ -1,0 +1,66 @@
+{
+ "$comment": "Quoted law cells. Official instrument URL required before shipping. Example data only in example.json.",
+ "type": "object",
+ "required": [
+  "id",
+  "kind",
+  "iso",
+  "title",
+  "quote",
+  "url",
+  "asOf",
+  "citations",
+  "example"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^law:"
+  },
+  "kind": {
+   "const": "law"
+  },
+  "iso": {
+   "type": "string"
+  },
+  "title": {
+   "type": "string"
+  },
+  "instrument": {
+   "type": "string"
+  },
+  "subsection": {
+   "type": "string"
+  },
+  "legalStatus": {
+   "type": "string"
+  },
+  "quote": {
+   "type": "string"
+  },
+  "quoteAttribution": {
+   "type": "string"
+  },
+  "url": {
+   "type": "string"
+  },
+  "asOf": {
+   "type": "string"
+  },
+  "notes": {
+   "type": "string"
+  },
+  "related": {
+   "type": "array"
+  },
+  "citations": {
+   "type": "array"
+  },
+  "evidence": {
+   "type": "object"
+  },
+  "example": {
+   "type": "boolean"
+  }
+ }
+}

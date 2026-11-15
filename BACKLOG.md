@@ -21,7 +21,7 @@ Not done in v1.1 / v2. In rough priority order.
 7. More era cards (Late Antiquity, Medieval, Industrial, Modern), on request.
 8. Keyboard shortcuts and screen-reader descriptions of the moving vehicles.
 
-## Next phase — v2.2: transport and technology layers (planned 13 Nov 2026 ET)
+## Next phase — v2.2: transport and technology layers (owner request, 13 Nov 2026 ET)
 
 Every form of transport and technology as a toggleable layer, especially space, air and undersea. Not started.
 Same rules as the rest of the atlas: every item cited, with start/end dates and goods or services carried;
@@ -43,10 +43,10 @@ copied or traced, only linked from "Go deeper"; gaps marked [UNKNOWN].
   space station; each added to `schema.vehicles`, the no-placeholder test and the contact sheet.
 - Data sources and their licences for each layer: [UNKNOWN] until researched.
 
-### Two builds: "full" local edition and "lite" Grok.me edition (13 Nov 2026 ET)
+### Two builds: "full" local edition and "lite" Grok.me edition (owner decision, 13 Nov 2026 ET)
 
-The full version does not need to fit Grok.me; it can be hosted locally from the GitHub repo.
-Plan two builds from the same data and code:
+The owner says the full version does not need to fit Grok.me; it can be hosted locally from the GitHub repo
+on the PC. Plan two builds from the same data and code:
 
 - **Full (local) edition:** photoreal PBR materials; CC0 or permissively licensed glTF models where the
   licences allow (each listed in ASSETS-LICENSES.md, otherwise keep the procedural model); Gerstner-wave
@@ -54,14 +54,14 @@ Plan two builds from the same data and code:
   far vessels stay simple and only near ones get the heavy models. Runs offline from the local repo.
 - **Lite edition (existing):** the current app, kept within what Grok.me accepts (limits still [UNKNOWN],
   see item 6).
-- Open questions: build switch (query flag vs. separate entry page), performance budget on a local PC
+- Open questions: build switch (query flag vs. separate entry page), performance budget on the owner's PC
   [UNKNOWN], and which glTF sources qualify [UNKNOWN] until researched.
-- **Architecture written:** see [DESIGN-V3.md](DESIGN-V3.md) (design dated 13 Nov 2026 ET):
+- **Architecture written:** see [DESIGN-V3.md](DESIGN-V3.md) (owner YES to design, 13 Nov 2026 ET):
   quality-tier switch; PBR/glTF/LOD pipeline; Gerstner ocean and buoyancy; sails and wind; aircraft banking;
   space, air and undersea layers; per-model licence plan (CC0 or CC BY only, recorded in ASSETS-LICENSES.md);
   phased build order. Design only, build not started.
 
-## Air-traffic layer (planned 2026-11-14)
+## Air-traffic layer (owner idea, 2026-11-14 7:17 AM ET)
 - Reuse the SeaGlobe route format for real flight data: group by airline and by aircraft (tail number), draw and animate each one's routes.
-- Pluggable sources: optional third-party flight-data exports (only with permission and within that source's terms; some commercial flight-data providers restrict redistribution), OpenSky Network (non-commercial), BTS on-time/route data (public).
+- Pluggable sources: a partner's FlightAware export (private use only, check its terms), OpenSky Network (non-commercial), BTS on-time/route data (public).
 - Start after the v2.1 release ships.

@@ -1,6 +1,6 @@
 {
  "name": "SeaGlobe Lite",
- "version": "3.0.3",
+ "version": "3.1.0",
  "commit": "[set at release]",
  "entry": "lite.html",
  "root": "web/",
@@ -23,8 +23,8 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 13124531,
- "file_count": 400,
+ "total_bytes": 13204624,
+ "file_count": 436,
  "files": [
   {
    "path": "app.css",
@@ -33,8 +33,8 @@
   },
   {
    "path": "assets.json",
-   "bytes": 4586,
-   "sha256": "63ef8dae0f2830975267ab8e032aa2e123a96b13b1d05e1cf7447eaf3bc703f3"
+   "bytes": 6613,
+   "sha256": "ec34f54471b10e341d945b782963cd16afe60b617b81a6516840d5f93eb836e6"
   },
   {
    "path": "assets/eras/era-age-of-sail.jpg",
@@ -48,8 +48,8 @@
   },
   {
    "path": "data/assets.js",
-   "bytes": 4050,
-   "sha256": "1cea168596ca2f24b8e9c7eaa9211c1768594d2581bf431e0187d9ec7b7c214c"
+   "bytes": 5868,
+   "sha256": "54792f3d0896c10514b38e8d80382ea7d4ec2c14685890f82179953f55ab7ddb"
   },
   {
    "path": "data/content.js",
@@ -80,6 +80,111 @@
    "path": "data/ne_110m_land.geojson",
    "bytes": 138160,
    "sha256": "9e0729ee253ca7d7a5c4ae9395fb1902264c5377c52e224d13dd85010e2835d9"
+  },
+  {
+   "path": "data/next/README.md",
+   "bytes": 1092,
+   "sha256": "b66f28a648a89f08275955c5d0d27b320d5f1f072a92d5681ce69f9378c982c3"
+  },
+  {
+   "path": "data/next/authorities/README.md",
+   "bytes": 231,
+   "sha256": "a43a70eadcf04d3ad263ad3b6f6a44f1a2cf7d1f8693d6c0d443fb2df3167cf0"
+  },
+  {
+   "path": "data/next/authorities/example.json",
+   "bytes": 414,
+   "sha256": "6bd4a3559922f3315106646d7c42d5bcc5adda0fff334644e355affbde01d98d"
+  },
+  {
+   "path": "data/next/authorities/schema.json",
+   "bytes": 709,
+   "sha256": "9faa50294f9eb717ff963e983e9f22d39ffaa1bf02605a2e6d25ebd4a712338b"
+  },
+  {
+   "path": "data/next/bells/README.md",
+   "bytes": 248,
+   "sha256": "81f47c6b0dedf78e014a3e8289d0b8cac6ca50cba510330d2fffd451580f5b8f"
+  },
+  {
+   "path": "data/next/bells/example.json",
+   "bytes": 613,
+   "sha256": "9199cfeb81cb5babce84daa747ba2008f5c099e431ca1eb6e31e1996918dacc5"
+  },
+  {
+   "path": "data/next/bells/schema.json",
+   "bytes": 912,
+   "sha256": "cfe949b10e476b1236d3fa739117afe47696073e409aa550022af725fcd9c2f1"
+  },
+  {
+   "path": "data/next/gis/README.md",
+   "bytes": 243,
+   "sha256": "d2298c8b2a756b584480210c53d58bfad231250ee8776963e29f9277003c80c1"
+  },
+  {
+   "path": "data/next/gis/example.json",
+   "bytes": 385,
+   "sha256": "fefa1af79e7f4e09b5a6375f1344127d06c2058c820b332ce4c92254b93d942b"
+  },
+  {
+   "path": "data/next/gis/schema.json",
+   "bytes": 519,
+   "sha256": "cdd228e83983eba2b4065e792f390b90f5dc9a063d6c925fbd40b91b321f0559"
+  },
+  {
+   "path": "data/next/laws/README.md",
+   "bytes": 307,
+   "sha256": "6a620e4b1007678de0444c304d040de13f44a85157d2d31f4156ef3ecb366575"
+  },
+  {
+   "path": "data/next/laws/example.json",
+   "bytes": 725,
+   "sha256": "2ef61bc3c8a41341c45f1fb689ab00e96bd722cf9ea6781482deb28225e6b945"
+  },
+  {
+   "path": "data/next/laws/schema.json",
+   "bytes": 932,
+   "sha256": "1630efe3d346417bb3b94caae357d6a9ce2d91c4a99d0c95707e1c3a5facaba6"
+  },
+  {
+   "path": "data/next/layers/registry.json",
+   "bytes": 1983,
+   "sha256": "4f5eb2949714432b6a9b504e1ba312ce2bb67dea2660b9ff06738cf82c9379a7"
+  },
+  {
+   "path": "data/next/layers/registry.schema.json",
+   "bytes": 1280,
+   "sha256": "e333edbb336362a29631dfeb27634ece74e0accde8815a928c48661daecf855b"
+  },
+  {
+   "path": "data/next/learning-paths/README.md",
+   "bytes": 304,
+   "sha256": "5233cbf19f2145740c85798d1761edee73286aa4b1d347f1d654ba1d7a91bf46"
+  },
+  {
+   "path": "data/next/learning-paths/example.json",
+   "bytes": 538,
+   "sha256": "b530453b7b5cc0c7ce59f10b9f239e3f02ae96c3f06539a57c386859b0519d5e"
+  },
+  {
+   "path": "data/next/learning-paths/schema.json",
+   "bytes": 552,
+   "sha256": "439cc6dd65f5ce81c64cf852d050c65d6fb0b567c89e7d38dcdafeddeed761cf"
+  },
+  {
+   "path": "data/next/tax/README.md",
+   "bytes": 405,
+   "sha256": "deb83fa2c8e5d359937f7f2e4cca4fdd40ccb1866fbdf0b20324e902a7554401"
+  },
+  {
+   "path": "data/next/tax/example.json",
+   "bytes": 549,
+   "sha256": "cf78b27cbe8a1eaddad826aea5cea9ed9055585e6f062c1926998e111b17dbf9"
+  },
+  {
+   "path": "data/next/tax/schema.json",
+   "bytes": 702,
+   "sha256": "ccad9bd51594af56c319a0d96cd68ca45153ce16994d515792cb298d24aba716"
   },
   {
    "path": "data/places/airports.js",
@@ -1878,8 +1983,8 @@
   },
   {
    "path": "js/app.js",
-   "bytes": 71609,
-   "sha256": "ec2c30c2815b3a9c27045018f7a70a240571399238d29d81c10add65a6a8f6eb"
+   "bytes": 71648,
+   "sha256": "95ae479bd068d77f48455da700f366e858a39bfc39c340fe0b716483809647e1"
   },
   {
    "path": "js/assets.js",
@@ -1888,8 +1993,8 @@
   },
   {
    "path": "js/atlas.js",
-   "bytes": 28604,
-   "sha256": "056551d07893328d2ddb1897d764385c3ca84695824258f7be148d017eae0878"
+   "bytes": 29657,
+   "sha256": "670aa90815450beb1581b1e93156fb40299ac5690c7e14170e8131ba76d1a9c5"
   },
   {
    "path": "js/byo-csp.js",
@@ -1903,13 +2008,28 @@
   },
   {
    "path": "js/encyclopedia.js",
-   "bytes": 24030,
-   "sha256": "0883d7a700aedfeb35b057e734890a280e67f289e2fe990c1e46ea7a13b27c18"
+   "bytes": 24452,
+   "sha256": "0705397a4b89d6d38e84a91ce46a245c25cc88fb52d4cb166423d6e693900360"
+  },
+  {
+   "path": "js/flags.js",
+   "bytes": 2723,
+   "sha256": "e8fade4e7a8cab9532889fd1dedff6e7f816fd66bc66b23f162be0f623799593"
+  },
+  {
+   "path": "js/frame-guard.js",
+   "bytes": 2213,
+   "sha256": "b5f482ba867dce9ccb094cc6ab730f4af866d40a8b67a79617bf928f4899732a"
+  },
+  {
+   "path": "js/guide.js",
+   "bytes": 10533,
+   "sha256": "57ce68fa91fc4de35d46e3a830bb4fa9a7fa7eaf8a4c29abbdbf9d4cdaf06468"
   },
   {
    "path": "js/help.js",
-   "bytes": 3715,
-   "sha256": "57cb44f6198443241cad772284210ed99c3faa19354c16e5f8e1bb08240bc509"
+   "bytes": 4298,
+   "sha256": "bf7adf899c4cfa5b506fb468dfa2b52f2e6a86389ec2c24b6b282f5203234e79"
   },
   {
    "path": "js/listen.js",
@@ -1920,6 +2040,66 @@
    "path": "js/mobile.js",
    "bytes": 5099,
    "sha256": "d5e63fe1b1cf2f98810dee77819b22ff4d4fe1e1ef8a7b654a3bbf66805b6ab5"
+  },
+  {
+   "path": "js/next/README.md",
+   "bytes": 1310,
+   "sha256": "1d5cdb1bd6906946f59d1bfdfda2d1e82a767e335c96c4358715b0993fe8a849"
+  },
+  {
+   "path": "js/next/atlas-types.js",
+   "bytes": 391,
+   "sha256": "f74a2937db46785baf9e4acad217e2410d019e323b50c9c7d9252938d9b5200d"
+  },
+  {
+   "path": "js/next/authorities.js",
+   "bytes": 806,
+   "sha256": "067ad19ee20abfabf9282a3aecc59b786cb38127f8bead4d2d2de91141f3bd10"
+  },
+  {
+   "path": "js/next/bells.js",
+   "bytes": 827,
+   "sha256": "53db8c30623627f1ef46917144e391f7b7a411b2612821ad3bb2fcc76e2a6b24"
+  },
+  {
+   "path": "js/next/county-gis.js",
+   "bytes": 799,
+   "sha256": "2b475c4fb1fd8e6a98a36b73ebcc50f5212e0e4d1350dec1f68d1f067094a7ab"
+  },
+  {
+   "path": "js/next/laws.js",
+   "bytes": 760,
+   "sha256": "5db1603c49ff39465e38742e4089fe30997031acc95188523a8151d2cd605d5b"
+  },
+  {
+   "path": "js/next/learning-paths.js",
+   "bytes": 809,
+   "sha256": "c2ca4fc03c31c72df82004402f7c818b293c0a5f84632e2376bede01d9831b2e"
+  },
+  {
+   "path": "js/next/mvt.js",
+   "bytes": 7464,
+   "sha256": "0a76c3346cc72b1567005804b0489517ef9eb7bfff9a633e977f317445401a81"
+  },
+  {
+   "path": "js/next/pmtiles-lib.js",
+   "bytes": 7610,
+   "sha256": "0f1a0f8bd0dfdca39d5ad633bcfb655acb9cebf464a5b7a01f082a3f2dc522ed"
+  },
+  {
+   "path": "js/next/pmtiles.js",
+   "bytes": 9320,
+   "sha256": "47e41cf136407338c80dff55a4d29f16e2e9421b2509abfc4de898fa0dfe4889"
+  },
+  {
+   "path": "js/next/tax.js",
+   "bytes": 803,
+   "sha256": "324c7c35e19fb6818f0da6c021ea1e29f68f9849e714f646584068748acfa721"
+  },
+  {
+   "path": "js/next/terrain.js",
+   "bytes": 12796,
+   "sha256": "0a2e2ae374c61593c03e55ef74eb52a989987d83062f84710bd27ff1ee907273"
   },
   {
    "path": "js/planet.js",
@@ -1933,13 +2113,13 @@
   },
   {
    "path": "js/regions.js",
-   "bytes": 11031,
-   "sha256": "8560b1cc3ad4fd71b1d1916294f53c651803ffe486e39c13bdbdc1e017ec9fc9"
+   "bytes": 11757,
+   "sha256": "3314a6ed45bd0667db376bfeb00ec4bcb8896b804df975c0d4c267d4c9fedb20"
   },
   {
    "path": "js/sky.js",
-   "bytes": 5158,
-   "sha256": "688684af7c972a4dcfdbaccbea7fa71f3807cfe19af836bb07c8d7d7cc008c09"
+   "bytes": 5196,
+   "sha256": "cac0bfa7c02ca81f371fd6330cff32bbb2e1d955d35115bd9cff711b5af85caf"
   },
   {
    "path": "js/styles.js",
@@ -1953,8 +2133,8 @@
   },
   {
    "path": "js/tools.js",
-   "bytes": 8339,
-   "sha256": "36ca96a4a701fe8dc7cf813172e25855fcd0a8183cb00f76668b22747578587c"
+   "bytes": 8436,
+   "sha256": "902a2736af4c5b5956ff95b503e667f066cb4ba82099b17463869a6f919adda6"
   },
   {
    "path": "js/update.js",
@@ -1969,7 +2149,7 @@
   {
    "path": "js/version.js",
    "bytes": 492,
-   "sha256": "d23e690cec4b68ed8f670967524b3eddf953fb3d2589a08ee26c0d0ee84dd07a"
+   "sha256": "fdeadefd92b053d849a348c38d9006ae9f3523184636acca31521f7724063022"
   },
   {
    "path": "js/voyages.js",
@@ -1983,8 +2163,8 @@
   },
   {
    "path": "lite.html",
-   "bytes": 10485,
-   "sha256": "809862b848c40ba4ba98e4ec874d1c0742e8d82ca8424fd597febc3573ac7f61"
+   "bytes": 10947,
+   "sha256": "8adb84a75b14e3e71e1429125fb359ed1cd951c046e0d7334b3c0584d4e3135f"
   },
   {
    "path": "textures/earth-navy.png",
@@ -1993,8 +2173,8 @@
   },
   {
    "path": "v3.css",
-   "bytes": 17802,
-   "sha256": "8fad1d958904f658022c291af7e1808943f01cea47c046d463084a33c12de539"
+   "bytes": 17823,
+   "sha256": "7b3305715a96315c0f77787590d21f26f11f746d5236ce7072d58a8ba03678d1"
   },
   {
    "path": "vendor/README.md",
@@ -2024,7 +2204,7 @@
   {
    "path": "version.json",
    "bytes": 352,
-   "sha256": "50325d65e2724cab9d2a06d1a96f776b9ee429014ea17c66ff251432ed346371"
+   "sha256": "7702687c0fc47c3dd0315d41a535c6bd174abfcdb60c022c360e4142e293983d"
   }
  ]
 }

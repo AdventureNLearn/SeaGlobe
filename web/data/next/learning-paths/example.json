@@ -1,0 +1,16 @@
+{
+ "example": true,
+ "id": "explainer:example-place-note",
+ "kind": "explainer",
+ "title": "EXAMPLE explainer \u2014 not a cited lesson. Do not ship.",
+ "text": "This paragraph is labelled example data. A real explainer needs a primary-source citation and an educational, not-authoritative frame.",
+ "place": [],
+ "stopIfUnsafe": "If a later explainer covers a hazard, it must say to stop and check the official authority.",
+ "citations": [],
+ "evidence": {
+  "basis": "example",
+  "gaps": [
+   "Uncited example text. [EXAMPLE]"
+  ]
+ }
+}

@@ -48,6 +48,12 @@
     if (statePack) statePack.states.forEach((s) => polys.push({ g: geom(s.polys), color: REGISTRY[1].color, id: s.id, name: s.name, lvl: 1 }));
     if (countyPack) countyPack.counties.forEach((c) => polys.push({ g: geom(c.polys), color: REGISTRY[2].color, id: c.id, name: c.name, lvl: 2 }));
     if (st.live && st.liveStatus === "ok" && alt < 0.3 && ctx.country && ctx.country.a3 === "USA") (await liveQuery(lat, lon)).forEach((f) => polys.push({ g: f.geometry, color: REGISTRY[4].color, id: "live-" + f.properties.GEOID, name: f.properties.NAME, lvl: 3 }));
+    if (window.SeaNext && SeaNext.pmtilesBorders && SeaNext.pmtilesBorders.active()) {
+      try {
+        const extra = await SeaNext.pmtilesBorders.polygons(ctx, alt, lon, lat);
+        if (extra && extra.length) extra.forEach((d) => polys.push(d));
+      } catch (e) { /* next layer skips quietly */ }
+    }
     const key = polys.map((p) => p.id).join("|");
     const g = sg.globe();
     if (key !== st.lastKey) {
@@ -95,7 +101,9 @@
     if (c.county) parts.push("<a href='#/entry/region:" + esc(c.county.id) + "'>" + esc(c.county.name) + "</a>");
     const live = st.live ? " <span class='small'>· live: " + esc(st.liveStatus) + "</span>" : "";
     el.innerHTML = "<span class='kicker'>Region</span> " + parts.join(" › ") + live + (st.msg ? "<div class='small warn'>" + esc(st.msg) + "</div>" : "") +
-      "<div class='small'>Made with Natural Earth" + (st.live && st.liveStatus === "ok" ? " · Boundaries: U.S. Census Bureau, TIGERweb" : "") + "</div>";
+      "<div class='small'>Made with Natural Earth" + (st.live && st.liveStatus === "ok" ? " · Boundaries: U.S. Census Bureau, TIGERweb" : "") +
+      (window.SeaNext && SeaNext.pmtilesBorders && SeaNext.pmtilesBorders.credited() ? " · U.S. Census Bureau, TIGER/Line 2026" : "") +
+      (window.SeaNext && SeaNext.terrain && SeaNext.terrain.credited() ? " · U.S. Geological Survey, 3DEP" : "") + "</div>";
   }
   function enable(on) {
     st.on = !!on;
@@ -117,8 +125,8 @@
   function init() {
     const pane = document.querySelector("[data-pane='layers'] .toggles");
     if (pane && !$("tRegions")) {
-      pane.insertAdjacentHTML("beforeend", "<label><input type='checkbox' id='tRegions'> Borders and regions (zoom in: country › state › county › towns)</label>" +
-        "<label><input type='checkbox' id='tLive'> Live US town boundaries (U.S. Census TIGERweb; off by default, needs the internet)</label>");
+      pane.insertAdjacentHTML("beforeend", "<label title='Shows country, then state, then county, then town borders as you zoom in.'><input type='checkbox' id='tRegions'> Borders and regions (zoom in: country › state › county › towns)</label>" +
+        "<label title='Shows live US town boundaries from Census TIGERweb. Needs the internet.'><input type='checkbox' id='tLive'> Live US town boundaries (U.S. Census TIGERweb; off by default, needs the internet)</label>");
       $("tRegions").addEventListener("change", (ev) => enable(ev.target.checked));
       $("tLive").addEventListener("change", (ev) => enableLive(ev.target.checked));
     }

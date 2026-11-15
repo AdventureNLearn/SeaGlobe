@@ -67,7 +67,7 @@
     patchCount();
     const pane = document.querySelector("[data-pane='layers'] .toggles");
     if (pane && !$("tLaunch") && G()) {
-      pane.insertAdjacentHTML("beforeend", "<label><input type='checkbox' id='tLaunch'> Launch sites (75, GCAT)</label>");
+      pane.insertAdjacentHTML("beforeend", "<label title='Shows launch sites from GCAT.'><input type='checkbox' id='tLaunch'> Launch sites (75, GCAT)</label>");
       $("tLaunch").addEventListener("change", (ev) => sites(ev.target.checked));
       pane.insertAdjacentHTML("afterend", "<div class='skyreadout small' id='skyReadout' aria-live='off'></div>");
     }

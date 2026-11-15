@@ -1,0 +1,19 @@
+{
+ "example": true,
+ "id": "tax:us-example-section",
+ "kind": "tax",
+ "title": "EXAMPLE Title 26 section \u2014 not official text. Do not ship.",
+ "instrument": "Title 26, United States Code",
+ "section": "\u00a70 (example)",
+ "url": "https://example.invalid/uscode",
+ "asOf": "2026-11-14",
+ "summary": "This is labelled example data. Real entries must link to official OLRC text and must not be tax advice.",
+ "label": "example",
+ "citations": [],
+ "evidence": {
+  "basis": "example",
+  "gaps": [
+   "Not official statute text. [EXAMPLE]"
+  ]
+ }
+}
