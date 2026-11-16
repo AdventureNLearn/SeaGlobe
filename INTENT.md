@@ -19,8 +19,8 @@ rather than read off a map. It is a showcase and a learning tool, not a research
   failing quietly: the read-only version check, the opt-in live TIGERweb layer, the radio's YouTube player (on
   click), the xAI API (only with the visitor's own key), an R2 asset base (with bundled fallbacks), and the PC-only BYO
   feeds. The Content-Security-Policy allows only those hosts.
-- **Extensible.** One data file per route family with a shared schema (sea, land, river, canal, rail, air,
-  pipeline), validated by tests.
+- **Extensible.** One data file per route family with a shared schema — sea, land, river, canal, rail, air,
+  pipeline, telegraph, radio, cable, orbital — validated by tests.
 
 ## Scope of this version
 
