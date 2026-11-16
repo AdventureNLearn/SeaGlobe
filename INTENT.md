@@ -50,6 +50,13 @@ What fits: any form of transport or communication between places, with start and
 carried, and a cited source. What does not fit: atmospheric or decorative layers with no human movement
 behind them (star catalogues, cloud layers belong to the visual layer, not the encyclopedia).
 
+**Undersea cables are the test case for information-as-cargo.** A cable entry requires both the physical
+path — the wire on the seabed, with its landing points and repeaters — and the endpoints — the stations
+at each end where the signal enters and leaves. Drop either one and the entry lies, because a cable's
+truth is the wire and the stations together. The same dual requirement applies to any domain where the
+carried thing is not physical cargo: telegraph lines need poles and offices, radio needs transmitters and
+receivers, pipelines need the pipe and the terminals.
+
 ## Not in scope
 
 - No accounts, analytics, tracking or personal data.
