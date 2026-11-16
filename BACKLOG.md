@@ -7,6 +7,8 @@ Not done in v1.1 / v2. In rough priority order.
    coordinates for ancient ports; World Bank global shipping density (CC BY 4.0) for modern lanes;
    French railways (CC BY 4.0); Scottish Canals (OGL 3.0); CEPII BACI (Etalab 2.0) for modern goods.
    Today all ancient and medieval geometry is hand-drawn from published history (labelled reconstruction).
+   Partial progress 17 Nov 2026: ORBIS trunk routes, Itiner-e, Pleiades ports, one additional CLIWOC
+   cruise targeted in docs/DEEPENING_PREP.md.
 2. **More families:** Suez and Panama as their own canal sea lanes with traffic; more rail
    (Cape-to-Cairo segments, Indian railways, Orient Express); more air hubs from OurAirports;
    more pipelines; a full Atlantic and Pacific steamship network; Portuguese Carreira da Índia;
@@ -15,7 +17,8 @@ Not done in v1.1 / v2. In rough priority order.
 4. **CC0 vehicle models** (Kenney, Quaternius, Smithsonian CC0) where they fit an era better than the
    procedural ones.
 5. **Real star catalogue** (Yale BSC / Hipparcos, public domain) once a reachable source is found;
-   **NASA cloud layer** (public domain).
+   **NASA cloud layer** (public domain). Deferred from encyclopedia scope 16 Nov 2026 — visual layer
+   only, not encyclopedia (see INTENT.md scope reframing).
 6. **Single-file lite build** (`tools/build_single.py`) for hosts that want one HTML file. What Grok.me
    accepts (file count, size limits, whether WebGL and local files are allowed) is [UNKNOWN].
 7. More era cards (Late Antiquity, Medieval, Industrial, Modern), on request.
@@ -30,18 +33,27 @@ copied or traced, only linked from "Go deeper"; gaps marked [UNKNOWN].
 
 - **Space:** launches, crewed missions, space stations, satellite constellations, the Moon missions.
   The current satellite layer is decorative; v2.2 would replace or sit beside it with cited records.
+  One orbital record (Apollo 11) targeted 17 Nov 2026 per docs/DEEPENING_PREP.md.
 - **Air:** balloons, airships, early aviation, airmail, airline eras, jets. (Models for the piston
-  airliner and jet exist; no pre-1958 air routes are in the data yet.)
-- **Undersea:** submarines; telegraph and fibre-optic undersea cables.
-- **Also consider:** overland telegraph and radio; the Pony Express and postal routes.
+  airliner and jet exist; no pre-1958 air routes are in the data yet.) One airmail record targeted
+  17 Nov 2026.
+- **Undersea:** submarines; telegraph and fibre-optic undersea cables. One cable record targeted
+  17 Nov 2026 — INTENT.md test case for information-as-cargo.
+- **Also consider:** overland telegraph and radio; the Pony Express and postal routes. One telegraph
+  record and one radio record targeted 17 Nov 2026.
 - **Layers tab design:** today it is a flat list of 6 checkboxes (web/index.html, Layers tab). It cannot
   hold ~15 more layers as is. Plan: grouped, collapsible sections (Transport: sea / river and canal / land /
   rail / air / pipeline; Space; Undersea; Communications), a per-group "all on/off", a count of visible records
   per layer, and the same toggles reachable from the Ship's Log "Type" filter. Layer state should stay in
   the URL query so screenshots and the video scripts can set it.
+  **Accelerated 16 Nov 2026:** four new types (telegraph, radio, cable, orbital) make the flat list
+  untenable, so this moves into the 17 Nov session alongside the schema pass. Not on the critical path —
+  if time runs short, schema + one record per type ship first and the grouped layout is a fast follow.
 - New vehicle models needed then: balloon, airship, biplane, submarine, cable ship, rocket / capsule,
   space station; each added to `schema.vehicles`, the no-placeholder test and the contact sheet.
-- Data sources and their licences for each layer: [UNKNOWN] until researched.
+  Minimal procedural stubs for the four new types targeted 17 Nov 2026 so tests don't fail.
+- Data sources and their licences for each layer: [UNKNOWN] until researched. Cable dataset landscape
+  is the first research task of Wave 2 on 17 Nov, capped at one hour per docs/DEEPENING_PREP.md.
 
 ### Two builds: "full" local edition and "lite" Grok.me edition (owner decision, 13 Nov 2026 ET)
 
@@ -65,3 +77,11 @@ on the PC. Plan two builds from the same data and code:
 - Reuse the SeaGlobe route format for real flight data: group by airline and by aircraft (tail number), draw and animate each one's routes.
 - Pluggable sources: a partner's FlightAware export (private use only, check its terms), OpenSky Network (non-commercial), BTS on-time/route data (public).
 - Start after the v2.1 release ships.
+
+## Deepening session (17 Nov 2026, 8:45 AM ET) — tracked in docs/DEEPENING_PREP.md
+
+- Index rebuild automation: tools/build_indexes.py + pre-commit hook + CI step
+- Schema pass: four new types (telegraph, radio, cable, orbital) + dual-requirement check
+- One cited record per new type, one-hour research cap each
+- Wave 1: ORBIS, Itiner-e, Pleiades, one CLIWOC cruise
+- Definition of done in DEEPENING_PREP.md section 6
