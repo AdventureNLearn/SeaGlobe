@@ -34,6 +34,22 @@ An atlas framework on top of the routes: encyclopedia, regions drill-down, map t
 grounded chat, Creedence Clearwater Revival Radio (official YouTube embed and link-outs), rebuilt vehicle models with
 levels of detail, full / lite / BYO editions, a version check and an update path. SeaGlobe stands on its own.
 
+## Scope reframing (owner decision, 16 Nov 2026 ET)
+
+SeaGlobe's long-term target is not general knowledge. It is **everything humans have moved and everywhere
+they've moved it** — goods, people, information, and the vehicles and infrastructure that carried them,
+anchored to real places on the globe.
+
+This keeps the honest-evidence DNA intact: every entry stays tied to a location or a route, every record
+carries citations and a confidence level, reconstructions stay labelled, and restricted-license sources stay
+linked under "Go deeper" rather than bundled. The encyclopedia grows by adding domains of movement —
+Roman roads, rail networks, airmail, undersea cables, crewed spaceflight — not by becoming a general
+knowledge base.
+
+What fits: any form of transport or communication between places, with start and end dates, what was
+carried, and a cited source. What does not fit: atmospheric or decorative layers with no human movement
+behind them (star catalogues, cloud layers belong to the visual layer, not the encyclopedia).
+
 ## Not in scope
 
 - No accounts, analytics, tracking or personal data.
