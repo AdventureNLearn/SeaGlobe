@@ -5,6 +5,26 @@ Read INTENT.md scope reframing first — it is the boundary.
 
 ---
 
+## 0. The consistency rule (read before anything else)
+
+Every new type gets **exactly one cited record** in this session. Not a domain pass, not a
+representative sample — one record that proves the type works end to end: schema validates,
+encyclopedia page exists, chat index picks it up, coverage test passes, and it renders on the
+globe with its path and endpoints.
+
+The bar is identical across all four types:
+- Real citations (a published source, even if the geometry is reconstructed)
+- `reconstruction=true` where the path or dates are inferred, with a confidence level
+- Dual-requirement satisfied: path coordinates AND endpoints, both present
+- Gaps marked [UNKNOWN], never invented
+- Restricted sources linked under Go deeper only
+
+If a type's one record cannot be finished in under an hour of research, stop, mark it
+[UNKNOWN] in BACKLOG.md with what was tried, and move to the next type. A documented unknown
+is a finished item. A wild goose chase is not.
+
+---
+
 ## 1. Automate the index rebuilds (do this FIRST, ~20 min)
 
 **Problem:** encyclopedia index and chat index are rebuilt manually. A forgotten rebuild makes Ask
@@ -42,7 +62,8 @@ Each new type gets:
 - An entry in `web/data/schema.js` with the same required fields as existing types
 - A matching family file template under `web/data/routes/`
 - A row in the Layers tab (which means the grouped/collapsible Layers redesign from BACKLOG
-  v2.2 becomes load-bearing sooner than planned — 6 checkboxes cannot hold ~15 layers)
+  v2.2 becomes load-bearing sooner than planned — 6 checkboxes cannot hold ~15 layers;
+  see section 2b)
 - A vehicle model stub in `schema.vehicles` so the no-placeholder test and contact sheet
   don't fail (models can be minimal procedural placeholders marked as such)
 
@@ -53,13 +74,22 @@ physical cargo (cable, telegraph, radio, pipeline, orbital) must carry BOTH:
 A record missing either fails schema validation. Add this as a conditional check in schema.js:
 if type in (cable, telegraph, radio, pipeline, orbital): require path and endpoints.
 
+### 2b. Layers tab — accelerated from v2.2, but only if time allows
+
+The grouped/collapsible Layers redesign (Transport / Space / Undersea / Communications sections,
+per-group all-on/off, visible-record counts, URL query state) is in BACKLOG as v2.2 work.
+Adding four types makes six checkboxes untenable, so this moves up. **But it is not on the
+critical path.** If the session runs long, ship schema + one record per type first and do the
+Layers layout as a fast follow — the flat checkbox list still functions, just poorly.
+
 ---
 
 ## 3. Seeding order for tomorrow
 
-Priority from BACKLOG, filtered through the place-and-movement anchor:
+Priority from BACKLOG, filtered through the place-and-movement anchor.
+Remember section 0: one cited record per type, same bar, stop at an hour.
 
-**Wave 1 — highest evidence density, existing allowed licenses:**
+**Wave 1 — highest evidence density, existing allowed licenses (the afternoon's work):**
 1. ORBIS Roman roads (CC BY 3.0) — dataset-derived geometry, upgrades hand-drawn
    reconstructions to citable data. Start with the major trunk routes.
 2. Itiner-e (CC BY 4.0) — Roman sea lanes, same logic.
@@ -68,22 +98,27 @@ Priority from BACKLOG, filtered through the place-and-movement anchor:
 4. One more CLIWOC cruise (CC BY 3.0) — proves the dated-voyage pattern scales beyond the
    Launceston sample.
 
-**Wave 2 — new domains, research licenses first:**
-5. Undersea cables — the INTENT.md test case. Research: which openly licensed cable datasets
-   exist? [UNKNOWN] until checked. Likely starting point: public cable maps and Wikipedia-
-   cited primary sources, all marked reconstruction with confidence levels.
-6. Telegraph — overland lines. Same dual-requirement pattern.
-7. Airmail routes — pre-1958, which BACKLOG notes are missing. Piston-airliner model exists;
-   no cited records yet.
+**Wave 2 — new domains, one record each:**
+5. **Cable** — the INTENT.md test case. First task: check which openly licensed cable
+   datasets exist ([UNKNOWN] until checked). If nothing suitable surfaces in the first hour,
+   use one Wikipedia-cited public cable map as the source, mark reconstruction=true with a
+   low-to-mid confidence level, and move on. Do not solve the cable-data problem in this
+   session.
+6. **Telegraph** — one overland line (e.g., a well-documented 19th-century trunk) with poles
+   as path and offices as endpoints. Same dual-requirement, same one-hour cap.
+7. **Radio** — one transmitter-to-receiver route (e.g., an early ship-to-shore or
+   transatlantic wireless link) with both stations as endpoints.
+8. **Airmail** — pre-1958, which BACKLOG notes is missing. Piston-airliner model exists;
+   one cited route is enough to prove the type.
 
-**Wave 3 — space (v2.2):**
-8. Crewed missions and space stations from GCAT (already CC BY 4.0, partially bundled).
-   Replace the decorative satellite layer's encyclopedia entries with cited records.
-9. Launch trajectories as orbital-type records: launch site (path start) to destination
-   (endpoint). Apollo 11: Cape Canaveral to Tranquility Base.
+**Wave 3 — space, one record:**
+9. **Orbital** — Apollo 11: Cape Canaveral (path start / launch site) to Tranquility Base
+   (endpoint). GCAT is already CC BY 4.0 and partially bundled, so citations are cheap.
+   The decorative satellite layer's encyclopedia entries get replaced by this cited record,
+   not expanded into a constellation catalogue.
 
-Defer: star catalogue, cloud layer (visual only, not encyclopedia), single-file lite build,
-keyboard shortcuts, screen-reader descriptions.
+Defer entirely: star catalogue, cloud layer (visual only, not encyclopedia), single-file lite
+build, keyboard shortcuts, screen-reader descriptions, full domain passes for any Wave 2/3 type.
 
 ---
 
@@ -104,7 +139,7 @@ keyboard shortcuts, screen-reader descriptions.
 - Whether browser CORS to api.x.ai stays supported [UNKNOWN] — fallback worker/chat/ exists
 - Performance budget on the owner's PC for the full edition [UNKNOWN]
 - Which glTF sources qualify for CC0/CC BY [UNKNOWN] until researched
-- Cable dataset landscape [UNKNOWN] — first research task of Wave 2
+- Cable dataset landscape [UNKNOWN] — first research task of Wave 2, capped at one hour
 
 ---
 
@@ -112,8 +147,11 @@ keyboard shortcuts, screen-reader descriptions.
 
 - build_indexes.py runs, is hooked, and CI enforces it
 - schema.js has the four new types and the dual-requirement check
-- At least one record per new type exists with real citations (a stub doesn't count)
+- INTENT.md extensible principle lists all eleven types (updated in this pass)
+- Exactly one cited record exists per new type — cable, telegraph, radio, orbital — each
+  passing schema validation, coverage, and rendering
 - test_coverage.mjs passes
-- BACKLOG.md updated with what's now done vs. still open
+- BACKLOG.md updated: what's done, what's [UNKNOWN] with what was tried
+- Layers tab redesign either shipped or explicitly deferred to v2.2 fast-follow
 - INTENT.md unchanged unless a new boundary decision is made — if so, commit it separately
   with the decision date
