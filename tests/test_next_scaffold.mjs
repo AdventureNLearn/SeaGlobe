@@ -85,6 +85,7 @@ try {
     assert.equal(st.example, false);
     assert.ok(st.names && st.names.includes("pmtilesBorders"));
     assert.ok(st.names && st.names.includes("topicNav"));
+    assert.ok(st.names && st.names.includes("officialUap"));
     assert.ok(Object.values(st.all).every((v) => v === false));
     assert.deepEqual(st.nextToggles, []);
     assert.equal(st.exampleEntries, false);
@@ -689,7 +690,7 @@ try {
           await p.waitForFunction(() => document.getElementById("tPmtiles") && document.getElementById("tTerrain"), { timeout: 30000 });
         }
         await p.evaluate(async () => {
-          const ids = ["tRoutes", "tWakes", "tShips", "tWind", "tNight", "tSats", "tOrbit", "tRegions", "tHubs", "tCoords", "tLaunch", "tBells", "tPmtiles", "tTerrain"];
+          const ids = ["tRoutes", "tWakes", "tShips", "tWind", "tNight", "tSats", "tOrbit", "tRegions", "tHubs", "tCoords", "tLaunch", "tBells", "tUap", "tPmtiles", "tTerrain"];
           for (const id of ids) {
             const el = document.getElementById(id);
             if (!el) continue;
@@ -913,6 +914,61 @@ try {
   });
 
 
+  await check("layer flags load bells.js and uap.js once and state() matches each toggle", async () => {
+    const cases = [
+      { flag: "historicalBells", file: "js/next/bells.js", api: "SeaBells", toggle: "tBells" },
+      { flag: "officialUap", file: "js/next/uap.js", api: "SeaUap", toggle: "tUap" }
+    ];
+    for (const c of cases) {
+      const p = await openApp(browser, port, "capture=1&mute=1&flag=" + c.flag);
+      await p.waitForFunction((flag, api, toggle) => window.SeaFlags && window.SeaFlags.on(flag) && window[api] && document.getElementById(toggle), { timeout: 30000 }, c.flag, c.api, c.toggle);
+      await p.waitForFunction(() => [...document.querySelectorAll("script[src]")].some((s) => /next\/atlas-types\.js/.test((s.getAttribute("src") || "") + " " + (s.src || ""))), { timeout: 10000 });
+      await p.evaluate(() => new Promise((r) => setTimeout(r, 100)));
+      const before = await p.evaluate((file, api, toggle) => {
+        const scripts = [...document.querySelectorAll("script[src]")].filter((s) => {
+          const a = (s.getAttribute("src") || "").split("?")[0];
+          const abs = (s.src || "").split("?")[0];
+          return a === file || a.endsWith("/" + file) || abs.endsWith("/" + file);
+        }).length;
+        return { on: window[api].state().on, checked: document.getElementById(toggle).checked, scripts };
+      }, c.file, c.api, c.toggle);
+      assert.equal(before.checked, false, c.flag + " off by default");
+      assert.equal(before.on, false, c.flag + " state off by default");
+      assert.equal(before.scripts, 1, c.file + " script tags: " + before.scripts);
+      await p.evaluate((toggle) => document.getElementById(toggle).click(), c.toggle);
+      await p.waitForFunction((api) => window[api].state().on && window[api].state().loaded, { timeout: 20000 }, c.api);
+      const on = await p.evaluate((file, api, toggle) => ({
+        on: window[api].state().on,
+        checked: document.getElementById(toggle).checked,
+        scripts: [...document.querySelectorAll("script[src]")].filter((s) => {
+          const a = (s.getAttribute("src") || "").split("?")[0];
+          const abs = (s.src || "").split("?")[0];
+          return a === file || a.endsWith("/" + file) || abs.endsWith("/" + file);
+        }).length
+      }), c.file, c.api, c.toggle);
+      assert.equal(on.checked, true, c.flag + " toggle on");
+      assert.equal(on.on, true, c.flag + " state() should match the on toggle");
+      assert.equal(on.scripts, 1, c.file + " still one script after enable");
+      await p.evaluate((toggle) => document.getElementById(toggle).click(), c.toggle);
+      await p.waitForFunction((api) => window[api].state().on === false, { timeout: 20000 }, c.api);
+      const off = await p.evaluate((file, api, toggle) => ({
+        on: window[api].state().on,
+        checked: document.getElementById(toggle).checked,
+        scripts: [...document.querySelectorAll("script[src]")].filter((s) => {
+          const a = (s.getAttribute("src") || "").split("?")[0];
+          const abs = (s.src || "").split("?")[0];
+          return a === file || a.endsWith("/" + file) || abs.endsWith("/" + file);
+        }).length
+      }), c.file, c.api, c.toggle);
+      assert.equal(off.checked, false, c.flag + " toggle off");
+      assert.equal(off.on, false, c.flag + " state() should match the off toggle");
+      assert.equal(off.scripts, 1);
+      assert.deepEqual(p._errors, [], c.flag + " console " + JSON.stringify(p._errors));
+      await p.close();
+    }
+  });
+
+
   const SHIPPED_TOPIC_IDS = [
     "topic-nav:historical-bells",
     "topic-nav:six-eras-of-sea-routes",
@@ -923,7 +979,7 @@ try {
     "topic-nav:wind-and-weather",
     "topic-nav:how-seaglobe-works"
   ];
-  const LAYER_IDS = new Set(["routes", "wakes", "night", "sats", "orbit", "coords", "ships", "bells", "wind", "regions", "live", "hubs", "launch", "pmtilesBorders", "terrain"]);
+  const LAYER_IDS = new Set(["routes", "wakes", "night", "sats", "orbit", "coords", "ships", "bells", "uap", "wind", "regions", "live", "hubs", "launch", "pmtilesBorders", "terrain"]);
 
   await check("topics.js ships the eight approved topics and matches the schema", async () => {
     const src = fs.readFileSync(path.join(root, "web", "data", "topics.js"), "utf8");

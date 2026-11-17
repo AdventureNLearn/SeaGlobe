@@ -38,6 +38,8 @@ try {
     A.sources().forEach((s) => put("source", "source:" + s.id));
     const bells = (D.bells && D.bells.records) || [];
     bells.filter((b) => b && b.example !== true && b.id).forEach((b) => put("bell", b.id));
+    const uap = (D.uap && D.uap.records) || [];
+    uap.filter((b) => b && b.example !== true && b.id).forEach((b) => put("uap record", b.id));
     const ids = new Set(A.ids()), indexed = new Set(A.indexed());
     const out = { rows: [], missing: [], unindexed: [], towns: { data: R["towns-index"].towns.length, entries: A.all((e) => e.level === "town" && e.kind === "place").length } };
     for (const [kind, list] of Object.entries(exp)) {
