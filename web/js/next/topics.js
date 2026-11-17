@@ -5,7 +5,11 @@
    the topic asks which active layer to turn off first and never drops one silently.
    Terrain and Census are skipped with a short note when their flags are off. Clear
    restores the prior time, camera, Focus and light layers, and turns off only the
-   heavy layers this topic turned on. */
+   heavy layers this topic turned on. Each curated topic is also an encyclopedia
+   record, so Search and Ask can see it. A question about a curated topic is answered
+   only from that record and the entries it names; otherwise [UNKNOWN]. Topic tours
+   wait for recorded narration: a named tour is shown as coming later and is never
+   started from Topics. Listen on an encyclopedia entry still reads that entry aloud. */
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id);
@@ -57,6 +61,65 @@
   function entryTitle(id) {
     const e = window.SeaAtlas && window.SeaAtlas.get && window.SeaAtlas.get(id);
     return (e && e.title) || id;
+  }
+
+  function normQ(s) {
+    return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function ingestAtlas() {
+    if (!enabled() || !window.SeaAtlas || !window.SeaAtlas.ingest) return;
+    window.SeaAtlas.ingest((api) => {
+      rows().forEach((t) => {
+        const related = (Array.isArray(t.entities) ? t.entities.filter(Boolean) : []).map((id) => ({ id, rel: "named entry" }));
+        const cites = (t.citations && t.citations.length) ? api.cite(t.citations) : [];
+        const gaps = [];
+        if (!cites.length) gaps.push("No separate citation; facts come from the named encyclopedia entries.");
+        if (t.tour) gaps.push("Recorded topic-tour narration is not shipped yet [UNKNOWN].");
+        const slug = String(t.id || "").replace(/^topic-nav:/, "").replace(/-/g, " ");
+        api.add({
+          id: t.id,
+          kind: "topic",
+          title: t.title,
+          aliases: [t.title, slug].filter(Boolean),
+          layer: (t.layersLight && t.layersLight[0]) || (t.layersHeavy && t.layersHeavy[0]) || "app",
+          summary: t.summary,
+          sections: [{
+            label: "How to use it",
+            text: "Open Topics, pick this topic for an overview and links to the encyclopedia entries it names. A second press, Show on the globe, applies the named time, camera, Focus and layers. It never runs on its own. In the encyclopedia, Listen reads an entry aloud if you want to hear it. A narrated topic tour waits until recorded narration is ready."
+          }],
+          related,
+          citations: cites,
+          evidence: { basis: "secondary", gaps }
+        });
+      });
+    });
+  }
+
+  function askTopic(q, hinted) {
+    if (!enabled()) return null;
+    if (hinted) {
+      const hit = byId(hinted);
+      if (hit) return hit;
+    }
+    const n = normQ(q);
+    if (!n) return null;
+    const list = rows().slice().sort((a, b) => String(b.title || "").length - String(a.title || "").length);
+    for (let i = 0; i < list.length; i++) {
+      const t = list[i];
+      const title = normQ(t.title);
+      const id = String(t.id || "").toLowerCase();
+      if ((title && n.indexOf(title) >= 0) || (id && n.indexOf(id) >= 0)) return t;
+    }
+    return null;
+  }
+
+  function askEntries(q, hinted) {
+    const t = askTopic(q, hinted);
+    if (!t) return null;
+    const A = window.SeaAtlas;
+    const ids = [t.id].concat(Array.isArray(t.entities) ? t.entities.filter(Boolean) : []);
+    return ids.map((id) => A && A.get && A.get(id)).filter(Boolean);
   }
 
   function eraById(id) {
@@ -413,10 +476,17 @@
       ? "<p class='small'>" + esc([t.time.start, t.time.end].filter((x) => x != null && x !== "").join(" – ")) + "</p>"
       : "";
     const ids = Array.isArray(t.entities) ? t.entities.filter(Boolean) : [];
+    const selfLink = "<div class='psub'>Encyclopedia and Ask</div><ul class='alist'>" +
+      "<li><a href='#/entry/" + encodeURIComponent(t.id) + "'>Open the encyclopedia entry</a></li>" +
+      "<li><a href='#/ask/" + encodeURIComponent(t.id) + "'>Ask about this topic</a></li></ul>";
     const links = ids.length
       ? "<div class='psub'>Encyclopedia entries</div><ul class='alist'>" + ids.map((id) =>
         "<li><a href='#/entry/" + encodeURIComponent(id) + "'>" + esc(entryTitle(id)) + "</a></li>"
       ).join("") + "</ul>"
+      : "";
+    const tour = t.tour
+      ? "<div class='row aact'><button class='btn ghost' id='topicsTour' type='button' disabled aria-disabled='true' title='Topic tours wait until recorded narration is ready'>Tour (coming later)</button></div>" +
+        "<p class='small' id='topicsTourNote'>A narrated tour for this topic is coming later, once recorded narration is ready. You can use Listen on an encyclopedia entry to hear that entry.</p>"
       : "";
     const applied = !!(st.applied && st.applied.id === t.id);
     const asking = !!(st.ask && st.ask.topic && st.ask.topic.id === t.id);
@@ -427,7 +497,7 @@
           : asking ? "" : "<button class='btn' id='topicsShow' type='button' data-act='show'>Show on the globe</button>") +
         "</div>"
       : "";
-    body.innerHTML = "<h2>" + esc(t.title) + "</h2><p>" + esc(t.summary) + "</p>" + eras + years + actions + askHtml() + notesHtml() + links;
+    body.innerHTML = "<h2>" + esc(t.title) + "</h2><p>" + esc(t.summary) + "</p>" + eras + years + actions + tour + askHtml() + notesHtml() + selfLink + links;
     body.scrollTop = 0;
   }
 
@@ -635,6 +705,7 @@
       return;
     }
     loadExamples().then(() => {
+      ingestAtlas();
       make();
       markReady();
       route();
@@ -647,6 +718,7 @@
     rows,
     apply: (id) => apply(typeof id === "string" ? byId(id) : id),
     clear: () => clearApplied(),
+    askEntries,
     state: () => ({
       ready: st.ready,
       open: st.open,

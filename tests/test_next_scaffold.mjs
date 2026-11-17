@@ -913,7 +913,19 @@ try {
   });
 
 
-  await check("topics.js ships only Historical Bells and matches the schema", async () => {
+  const SHIPPED_TOPIC_IDS = [
+    "topic-nav:historical-bells",
+    "topic-nav:six-eras-of-sea-routes",
+    "topic-nav:early-flight-to-the-jet-age",
+    "topic-nav:the-space-age",
+    "topic-nav:ships-and-assets-today",
+    "topic-nav:countries-and-regions",
+    "topic-nav:wind-and-weather",
+    "topic-nav:how-seaglobe-works"
+  ];
+  const LAYER_IDS = new Set(["routes", "wakes", "night", "sats", "orbit", "coords", "ships", "bells", "wind", "regions", "live", "hubs", "launch", "pmtilesBorders", "terrain"]);
+
+  await check("topics.js ships the eight approved topics and matches the schema", async () => {
     const src = fs.readFileSync(path.join(root, "web", "data", "topics.js"), "utf8");
     const sandbox = { SEAGLOBE_DATA: {} };
     const fn = new Function("window", src);
@@ -922,25 +934,43 @@ try {
     assert.ok(Array.isArray(list), "topics list");
     const shipped = list.filter((row) => row.example !== true);
     const inFileExamples = list.filter((row) => row.example === true);
-    assert.equal(shipped.length, 1, "shipped list has one topic");
     assert.equal(inFileExamples.length, 0, "example rows must not ship in topics.js");
-    const tpc = shipped[0];
-    assert.equal(tpc.id, "topic-nav:historical-bells");
-    assert.equal(tpc.title, "Historical Bells");
-    assert.equal(tpc.order, 1);
-    assert.equal(tpc.example, undefined);
-    assert.deepEqual(tpc.layersLight, ["bells"]);
-    assert.ok(!tpc.layersHeavy || tpc.layersHeavy.length === 0, "no heavy layers on the first row");
-    const lines = String(tpc.summary || "").trim().split(/\n/).filter(Boolean);
-    assert.ok(lines.length >= 1 && lines.length <= 2, "summary must be one or two lines");
+    assert.deepEqual(shipped.map((row) => row.id), SHIPPED_TOPIC_IDS, "owner-approved order");
+    assert.deepEqual(shipped.map((row) => row.order), [1, 2, 3, 4, 5, 6, 7, 8]);
+    const titles = Object.fromEntries(shipped.map((row) => [row.id, row.title]));
+    assert.equal(titles["topic-nav:historical-bells"], "Historical Bells");
+    assert.equal(titles["topic-nav:six-eras-of-sea-routes"], "Six eras of sea routes");
+    assert.equal(titles["topic-nav:early-flight-to-the-jet-age"], "Early flight to the jet age");
+    assert.equal(titles["topic-nav:the-space-age"], "The space age");
+    assert.equal(titles["topic-nav:ships-and-assets-today"], "Ships and assets today");
+    assert.equal(titles["topic-nav:countries-and-regions"], "Countries and regions");
+    assert.equal(titles["topic-nav:wind-and-weather"], "Wind and weather");
+    assert.equal(titles["topic-nav:how-seaglobe-works"], "How SeaGlobe works");
     const schema = JSON.parse(fs.readFileSync(path.join(root, "web", "data", "next", "topics", "schema.json"), "utf8"));
     assert.deepEqual(schema.required, ["id", "title", "summary", "order"]);
     assert.equal(schema.properties.id.pattern, "^topic-nav:");
     assert.deepEqual(schema.properties.camera.type, ["object", "null"]);
     assert.equal(schema.properties.focus.type, "object");
-    for (const key of Object.keys(tpc)) {
-      assert.ok(schema.properties[key], "unexpected field " + key);
-    }
+    const tours = (new Function("window", fs.readFileSync(path.join(root, "web", "data", "tours.js"), "utf8") + "; return window.SEAGLOBE_DATA.tours;") )({ SEAGLOBE_DATA: {} });
+    const tourIds = new Set((tours || []).map((t) => t.id));
+    shipped.forEach((row) => {
+      assert.equal(row.example, undefined);
+      const lines = String(row.summary || "").trim().split(/\n/).filter(Boolean);
+      assert.ok(lines.length >= 1 && lines.length <= 2, row.id + " summary must be one or two lines");
+      for (const key of Object.keys(row)) {
+        assert.ok(schema.properties[key], row.id + " unexpected field " + key);
+      }
+      for (const req of schema.required) assert.ok(row[req] != null && row[req] !== "", row.id + " missing " + req);
+      assert.match(row.id, new RegExp(schema.properties.id.pattern));
+      (row.layersLight || []).concat(row.layersHeavy || []).forEach((id) => {
+        assert.ok(LAYER_IDS.has(id), row.id + " unknown layer " + id);
+      });
+      assert.ok((row.layersHeavy || []).length <= 3, row.id + " has more than 3 heavy layers, which would pass the phone cap");
+      if (row.tour) assert.ok(tourIds.has(row.tour), row.id + " names missing tour " + row.tour);
+    });
+    const tpc = shipped[0];
+    assert.deepEqual(tpc.layersLight, ["bells"]);
+    assert.ok(!tpc.layersHeavy || tpc.layersHeavy.length === 0, "no heavy layers on Historical Bells");
     const exampleFile = JSON.parse(fs.readFileSync(path.join(root, "web", "data", "next", "topics", "example.json"), "utf8"));
     const examples = exampleFile.topics || [];
     assert.equal(exampleFile.example, true);
@@ -1071,7 +1101,10 @@ try {
     assert.equal(over.showOnGlobe, true, "Show on the globe is a second press");
     assert.match(over.hash, /#\/topic\/topic-nav:historical-bells/);
     assert.ok(over.hrefs.includes("#/entry/bell:liberty"), over.hrefs.join(","));
-    assert.equal(over.hrefs.length, 25);
+    assert.ok(over.hrefs.includes("#/entry/topic-nav:historical-bells"), over.hrefs.join(","));
+    assert.equal(over.hrefs.filter((h) => h.indexOf("#/entry/bell:") === 0).length, 25);
+    assert.ok(over.text.includes("Ask about this topic"), "Ask link on overview");
+    assert.ok(over.text.includes("Open the encyclopedia entry"));
     assert.deepEqual(over.layers, before.layers);
     assert.equal(over.mode, before.mode);
     assert.equal(over.date, before.date);
@@ -1151,7 +1184,7 @@ try {
     }));
     assert.equal(st.ready, "1");
     assert.equal(st.btn, true);
-    assert.deepEqual(st.rows, ["topic-nav:historical-bells"]);
+    assert.deepEqual(st.rows, SHIPPED_TOPIC_IDS);
     await p.click("#topicsBtn");
     await p.waitForFunction(() => document.getElementById("topicsPanel") && !document.getElementById("topicsPanel").hidden);
     const text = await p.evaluate(() => (document.getElementById("topicsBody") && document.getElementById("topicsBody").textContent) || "");
@@ -1241,7 +1274,7 @@ try {
     const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav&exampleData=1");
     await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
     const ids = await p.evaluate(() => window.SeaTopics.rows().map((row) => row.id));
-    assert.deepEqual(ids, ["topic-nav:historical-bells", "topic-nav:example-show", "topic-nav:example-heavy"]);
+    assert.deepEqual(ids, SHIPPED_TOPIC_IDS.concat(["topic-nav:example-show", "topic-nav:example-heavy"]));
     const before = await p.evaluate(() => ({
       idle: document.body.classList.contains("idle"),
       mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
@@ -1565,6 +1598,164 @@ try {
     await lite.close();
   });
 
+  await check("every shipped topic layer and encyclopedia entry exists, and none exceed the phone heavy cap", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready && window.SeaAtlas && window.SeaLayers, { timeout: 10000 });
+    await p.evaluate(() => window.SeaAtlas.ensureAll());
+    const st = await p.evaluate(() => {
+      const rows = window.SeaTopics.rows();
+      const reg = (window.SeaLayers && window.SeaLayers.registry) || {};
+      const missingLayers = [];
+      const missingEntries = [];
+      const heavyCounts = {};
+      rows.forEach((row) => {
+        (row.layersLight || []).concat(row.layersHeavy || []).forEach((id) => {
+          if (!reg[id]) missingLayers.push(row.id + ":" + id);
+        });
+        heavyCounts[row.id] = (row.layersHeavy || []).length;
+        (row.entities || []).forEach((id) => {
+          if (!(window.SeaAtlas.get && window.SeaAtlas.get(id))) missingEntries.push(row.id + ":" + id);
+        });
+      });
+      return {
+        ids: rows.map((row) => row.id),
+        missingLayers,
+        missingEntries,
+        heavyCounts,
+        howWorksShow: (function () {
+          const t = rows.find((row) => row.id === "topic-nav:how-seaglobe-works");
+          return !!(t && (t.time || t.camera || t.focus || (t.layersLight && t.layersLight.length) || (t.layersHeavy && t.layersHeavy.length)));
+        })()
+      };
+    });
+    assert.deepEqual(st.ids, SHIPPED_TOPIC_IDS);
+    assert.deepEqual(st.missingLayers, [], "unknown layers: " + st.missingLayers.join(", "));
+    assert.deepEqual(st.missingEntries, [], "missing entries: " + st.missingEntries.join(", "));
+    Object.keys(st.heavyCounts).forEach((id) => {
+      assert.ok(st.heavyCounts[id] <= 3, id + " has " + st.heavyCounts[id] + " heavy layers, which would pass the phone cap of 3");
+    });
+    assert.equal(st.howWorksShow, false, "How SeaGlobe works should not move the globe; it points to the Guide");
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("Topics encyclopedia records are in Search when the flag is on, and absent when it is off", async () => {
+
+    const on = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
+    await on.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready && window.SeaAtlas, { timeout: 10000 });
+    const found = await on.evaluate(() => {
+      const e = window.SeaAtlas.get("topic-nav:historical-bells");
+      const hits = window.SeaAtlas.search("Historical Bells", { limit: 20 }).map((x) => x.id);
+      return {
+        title: e && e.title,
+        kind: e && e.kind,
+        summary: e && e.summary,
+        related: e && (e.related || []).map((r) => r.id),
+        hits,
+        noBellsYet: !window.SeaAtlas.get("bell:liberty")
+      };
+    });
+    assert.equal(found.title, "Historical Bells");
+    assert.equal(found.kind, "topic");
+    assert.match(found.summary, /Twenty-five sourced bells/);
+    assert.ok(found.related.includes("bell:liberty"));
+    assert.ok(found.hits.includes("topic-nav:historical-bells"));
+    assert.equal(found.noBellsYet, true, "glance must not load bells.json just to index the topic");
+    assert.deepEqual(on._errors, []);
+    await on.close();
+
+    const off = await openApp(browser, port, "capture=1&mute=1");
+    await off.waitForFunction(() => window.SeaAtlas && window.SeaChat, { timeout: 10000 });
+    const absent = await off.evaluate(() => ({
+      entry: window.SeaAtlas.get("topic-nav:historical-bells"),
+      hits: window.SeaAtlas.search("Historical Bells", { limit: 20 }).map((x) => x.id),
+      topics: typeof window.SeaTopics
+    }));
+    assert.equal(absent.entry, null);
+    assert.equal(absent.hits.includes("topic-nav:historical-bells"), false);
+    assert.equal(absent.topics, "undefined");
+    assert.deepEqual(off._errors, []);
+    await off.close();
+  });
+
+  await check("Ask about a curated topic is grounded only in that topic and its named entries", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready && window.SeaChat, { timeout: 10000 });
+    const beforeLoad = await p.evaluate(() => ({
+      ids: window.SeaChat.context("What is the Historical Bells topic?").map((c) => c.id),
+      comet: window.SeaChat.context("When did the Comet fly to Johannesburg?").map((c) => c.id)
+    }));
+    assert.ok(beforeLoad.ids.includes("topic-nav:historical-bells"), "topic record grounds the question: " + beforeLoad.ids.join());
+    assert.equal(beforeLoad.ids.some((id) => id.indexOf("bell:") === 0), false, "named bells are not fetched at glance");
+    assert.equal(beforeLoad.ids.includes("route:boac-comet-1952") || beforeLoad.ids.some((id) => /comet/i.test(id)), false, "unrelated routes stay out of a topic question");
+    assert.ok(beforeLoad.comet.includes("route:boac-comet-1952") || beforeLoad.comet.some((id) => /comet/i.test(id)), "a question not about a curated topic still uses ordinary Ask search: " + beforeLoad.comet.join());
+
+    await p.evaluate(() => window.SeaAtlas.ensureAll());
+    const after = await p.evaluate(async () => {
+      const ids = window.SeaChat.context("What is the Historical Bells topic?").map((c) => c.id);
+      const res = await window.SeaChat.ask("Does the Historical Bells topic mention the mass of Phobos?");
+      return {
+        ids,
+        hasLiberty: ids.includes("bell:liberty"),
+        hasTopic: ids.includes("topic-nav:historical-bells"),
+        leak: ids.filter((id) => id !== "topic-nav:historical-bells" && !/^bell:/.test(id)),
+        count: ids.length,
+        askIds: (res && res.ctx || []).map((c) => c.id),
+        answer: (res && res.answer) || "",
+        note: (res && res.note) || ""
+      };
+    });
+    assert.equal(after.hasTopic, true);
+    assert.equal(after.hasLiberty, true);
+    assert.equal(after.count, 26, "topic record plus 25 named bells: " + after.count);
+    assert.deepEqual(after.leak, []);
+    assert.ok(after.askIds.includes("topic-nav:historical-bells"));
+    assert.equal(after.askIds.some((id) => /phobos|spacecraft|route:/.test(id)), false, "offline Ask must not pull in unrelated entries: " + after.askIds.join());
+    // Offline Ask lists the grounded entries rather than inventing an answer
+    assert.equal(after.answer, "");
+    assert.match(after.note, /offline/i);
+
+    await p.evaluate(() => { location.hash = "#/ask/" + encodeURIComponent("topic-nav:historical-bells"); });
+    await p.waitForFunction(() => /Ask about Historical Bells/.test((document.getElementById("atlasBody") && document.getElementById("atlasBody").textContent) || ""));
+    const panel = await p.evaluate(() => ({
+      text: (document.getElementById("atlasBody") && document.getElementById("atlasBody").textContent) || "",
+      ids: window.SeaChat.context("When did the Comet fly to Johannesburg?").map((c) => c.id)
+    }));
+    assert.match(panel.text, /Ask about Historical Bells/);
+    assert.match(panel.text, /\[UNKNOWN\]/);
+    assert.ok(panel.ids.includes("topic-nav:historical-bells"), "Ask link keeps grounding even if the typed question names something else");
+    assert.equal(panel.ids.some((id) => /comet/i.test(id)), false);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("A named topic tour is shown as coming later and does not start", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav&exampleData=1");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:example-show"); });
+    await p.waitForFunction(() => document.getElementById("topicsTourNote") || /coming later/i.test((document.getElementById("topicsBody") && document.getElementById("topicsBody").textContent) || ""));
+    const st = await p.evaluate(() => {
+      const btn = document.getElementById("topicsTour");
+      const disabled = !!(btn && btn.disabled && btn.getAttribute("aria-disabled") === "true");
+      if (btn) btn.click();
+      const after = window.SeaListen && window.SeaListen.state ? window.SeaListen.state() : { speaking: false, tour: null };
+      return {
+        note: ((document.getElementById("topicsTourNote") && document.getElementById("topicsTourNote").textContent) || (document.getElementById("topicsBody") && document.getElementById("topicsBody").textContent) || ""),
+        disabled,
+        label: btn && btn.textContent,
+        speaking: after && after.speaking,
+        tour: after && after.tour
+      };
+    });
+    assert.match(st.note, /coming later/i);
+    assert.equal(st.disabled, true);
+    assert.match(st.label || "", /Tour \(coming later\)/);
+    assert.equal(st.speaking, false);
+    assert.equal(st.tour, null);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
   await check("Topics flag-on smoke load on desktop, phone and lite", async () => {
     for (const [label, file, size] of [
       ["desktop", "", null],
@@ -1589,7 +1780,7 @@ try {
       assert.equal(st.topicsBtn, true, label + " Topics button");
       assert.equal(st.mTopicsBtn, true, label + " phone Topics button");
       assert.equal(st.applied, null, label + " does not auto-apply");
-      assert.deepEqual(st.rows, ["topic-nav:historical-bells"], label + " list");
+      assert.deepEqual(st.rows, SHIPPED_TOPIC_IDS, label + " list");
       assert.equal(st.log, true, label + " log");
       assert.deepEqual(p._errors, [], label + " errors: " + (p._errors || []).join(" | "));
       await p.close();

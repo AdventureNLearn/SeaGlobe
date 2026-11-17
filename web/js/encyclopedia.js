@@ -78,7 +78,7 @@
     if (view === "sources") return sourcesView();
     if (view === "about") return aboutView();
     if (view === "guide") { tabOn("guide"); if (window.SeaGuide) window.SeaGuide.render(body, q.value.trim()); else body.innerHTML = "<p class='small'>The Guide is not part of this copy.</p>"; return; }
-    if (view === "ask") { if (window.SeaChat) window.SeaChat.view(body); else body.innerHTML = "<p class='small'>Chat is not part of this copy.</p>"; tabOn("ask"); return; }
+    if (view === "ask") { if (window.SeaChat) window.SeaChat.view(body, arg); else body.innerHTML = "<p class='small'>Chat is not part of this copy.</p>"; tabOn("ask"); return; }
     if (view === "region") return regionTree(arg);
     return browse(arg);
   }

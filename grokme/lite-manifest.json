@@ -1,6 +1,6 @@
 {
  "name": "SeaGlobe Lite",
- "version": "3.1.7",
+ "version": "3.1.8",
  "commit": "[set at release]",
  "entry": "lite.html",
  "root": "web/",
@@ -23,7 +23,7 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 16376856,
+ "total_bytes": 16386346,
  "file_count": 595,
  "files": [
   {
@@ -193,8 +193,8 @@
   },
   {
    "path": "data/next/topics/example.json",
-   "bytes": 912,
-   "sha256": "a4be4bbb82fccb9621bbea79581d8b30af58523f75449257b56766151c91c50e"
+   "bytes": 931,
+   "sha256": "781de416ee5d9e716373ee85bb10f70fb32330fb053fbca03c889d2fb2492482"
   },
   {
    "path": "data/next/topics/schema.json",
@@ -2733,8 +2733,8 @@
   },
   {
    "path": "data/topics.js",
-   "bytes": 1448,
-   "sha256": "28361a89adeec71e190d44938e976ab02119e598fd95bc02a649ba7a29457ad8"
+   "bytes": 5939,
+   "sha256": "61f81c1355f51ebaa8eee130ffcdc9f35616a95c01ebcd0e3f87f237ecfa7c91"
   },
   {
    "path": "data/tours.js",
@@ -2793,13 +2793,13 @@
   },
   {
    "path": "js/chat.js",
-   "bytes": 12132,
-   "sha256": "3bb66d17cc71929333c785fee9b9340c4f0312d78c0d01002e924a51009c718d"
+   "bytes": 12954,
+   "sha256": "a20a81588710b721dbf753d0bc8ab5fbb3a9859909221c01f7b024cb47515d93"
   },
   {
    "path": "js/encyclopedia.js",
-   "bytes": 24692,
-   "sha256": "2bd6b44cd551c599d1bf4ccda384a2d574b391a9b7160f4b3f4341fec6a0dabe"
+   "bytes": 24697,
+   "sha256": "9a8f0a5c9237dc017c2263732c8854add0601f8fff3c8e77dd12d7560ef21f27"
   },
   {
    "path": "js/flags.js",
@@ -2813,8 +2813,8 @@
   },
   {
    "path": "js/guide.js",
-   "bytes": 13231,
-   "sha256": "7040aa3e74c6318906bfda7851542c2fc3c0889d153a9f3978a1ff3881f40775"
+   "bytes": 13658,
+   "sha256": "79d633ef2d6574c2f9981a9789e7679ea6df1d30d8d2055bdfab073a46fc25fe"
   },
   {
    "path": "js/help.js",
@@ -2893,8 +2893,8 @@
   },
   {
    "path": "js/next/topics.js",
-   "bytes": 24633,
-   "sha256": "267d372c024769a2316332e4dc1e21cbd65487b21021d352b0afae5574f77c39"
+   "bytes": 28359,
+   "sha256": "bef7f5b006b18f37a506dab2326fc03173fcaca006b7f8258b72863311054d0b"
   },
   {
    "path": "js/planet.js",
@@ -2944,7 +2944,7 @@
   {
    "path": "js/version.js",
    "bytes": 492,
-   "sha256": "3a385178b3ef7dfcbfa23e3076bdff73dab4e5eff518188d3247ef1bdb980813"
+   "sha256": "deb357e60ab8d8395247391714a22ad761f5ec3e7ef0b68eef1e41cc7fcf5fce"
   },
   {
    "path": "js/voyages.js",
@@ -2999,7 +2999,7 @@
   {
    "path": "version.json",
    "bytes": 352,
-   "sha256": "52730bbfa5acc0ae39bcd2dbf28d3d0c11847e723be5ab42a92d34a639770d28"
+   "sha256": "ec15a7ca88884c3d1211961888c3f9806881c30ac85af5a6fb52e0702bda48dc"
   }
  ]
 }

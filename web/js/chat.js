@@ -42,8 +42,24 @@
   function forget() { memKey = ""; ["session", "local"].forEach((s) => { del(s, KEY); del(s, MODEL); }); }
   function model() { return get("session", MODEL) || get("local", MODEL) || DEFAULT_MODEL; }
   function mode() { return userKey() ? "key" : "offline"; }
+  function toCtx(A, list) {
+    return (list || []).filter((e) => e && e.id).map((e) => ({
+      id: e.id, title: e.title, kind: e.kind, reconstruction: !!(e.evidence && e.evidence.reconstruction),
+      text: String(e.summary || "").slice(0, 900), sources: (e.citations || []).slice(0, 4).map((sid) => { const s = A.source(sid); return s ? s.title : sid; }),
+    }));
+  }
+  function askHint() {
+    const h = decodeURIComponent(location.hash || "");
+    const m = /^#\/ask\/(.+)$/.exec(h);
+    return (m && m[1] || "").trim();
+  }
   function context(q) {
     const A = window.SeaAtlas; if (!A) return [];
+    const T = window.SeaTopics;
+    if (T && typeof T.askEntries === "function") {
+      const scoped = T.askEntries(q, askHint());
+      if (scoped) return toCtx(A, scoped);
+    }
     // question words that carry no topic ("when did the ... fly to") are dropped; if every remaining word together
     // finds nothing, the entries matching the most of them are used instead
     const STOP = new Set("a an and are as at be by can did do does for from how in into is it its of on or the to was were what when where which who why with fly flew go went".split(" "));
@@ -55,10 +71,7 @@
       const best = Math.max(0, ...[...tally.values()].map((t) => t.n));
       if (best >= 2) hits = [...tally.values()].filter((t) => t.n === best).sort((a, b) => a.r - b.r).slice(0, 6).map((t) => t.e);
     }
-    return hits.map((r) => r.entity || A.get(r.id) || r).filter((e) => e && e.id).map((e) => ({
-      id: e.id, title: e.title, kind: e.kind, reconstruction: !!(e.evidence && e.evidence.reconstruction),
-      text: String(e.summary || "").slice(0, 900), sources: (e.citations || []).slice(0, 4).map((sid) => { const s = A.source(sid); return s ? s.title : sid; }),
-    }));
+    return toCtx(A, hits.map((r) => r.entity || A.get(r.id) || r));
   }
   function prompt(q, ctx) { return ctx.map((c, i) => (i + 1) + ". [" + c.id + "] " + c.title + (c.reconstruction ? " (reconstruction)" : "") + ": " + c.text + " Sources: " + c.sources.join("; ")).join("\n") + "\n\nQuestion: " + q; }
   async function post(url, body, headers, ms) {
@@ -99,11 +112,16 @@
       (r.answer && r.ctx.length ? "<div class='small'>Grounded in: " + r.ctx.map((c) => "<a href='#/entry/" + encodeURIComponent(c.id) + "'>" + esc(c.title) + "</a>").join(", ") + "</div>" : "") + "</div>").join("");
     out.scrollTop = out.scrollHeight;
   }
-  function view(body) {
+  function view(body, topicId) {
     const m = mode();
+    const hint = String(topicId || askHint() || "").trim();
+    const trow = hint && window.SeaTopics && window.SeaTopics.rows && window.SeaTopics.rows().find((t) => t.id === hint);
+    const intro = trow
+      ? "Ask about " + trow.title + ". Answers come only from this topic's encyclopedia entry and the entries it names; anything those entries do not cover is [UNKNOWN]."
+      : "Ask about any route, vessel, aircraft, spacecraft, place or era. Answers come only from atlas entries, with links; anything the atlas does not cover is [UNKNOWN].";
     const status = m === "key" ? "Online with your own xAI key" + (remembered() ? " (remembered on this device)" : " (this tab only)") + ": questions and the matching atlas entries go straight from this browser to the xAI API."
       : "Offline: no xAI key is set, so you get the matching atlas entries instead of a written answer.";
-    body.innerHTML = "<p class='small'>Ask about any route, vessel, aircraft, spacecraft, place or era. Answers come only from atlas entries, with links; anything the atlas does not cover is [UNKNOWN].</p>" +
+    body.innerHTML = "<p class='small'>" + esc(intro) + "</p>" +
       "<div class='small chatstatus' id='chatStatus' data-mode='" + m + "'>" + esc(status) + "</div><div class='chatlog' id='chatLog'></div>" +
       "<form id='chatForm' class='row'><input id='chatQ' type='search' maxlength='500' placeholder='e.g. When did the Comet fly to Johannesburg?' aria-label='Question'><button class='btn' type='submit'>Ask</button></form>" +
       "<details class='small chatkey' id='chatSettings'" + (m === "key" ? "" : " open") + "><summary>Chat settings: your own xAI key</summary>" +

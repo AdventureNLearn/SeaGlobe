@@ -21,7 +21,8 @@
    ],
    "focus": {
     "era": "age-of-sail"
-   }
+   },
+   "tour": "eras"
   },
   {
    "id": "topic-nav:example-heavy",
