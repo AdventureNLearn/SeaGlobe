@@ -919,8 +919,12 @@ try {
     const fn = new Function("window", src);
     fn(sandbox);
     const list = sandbox.SEAGLOBE_DATA.topics;
-    assert.ok(Array.isArray(list) && list.length === 1, "first slice ships one topic");
-    const tpc = list[0];
+    assert.ok(Array.isArray(list), "topics list");
+    const shipped = list.filter((row) => row.example !== true);
+    const inFileExamples = list.filter((row) => row.example === true);
+    assert.equal(shipped.length, 1, "shipped list has one topic");
+    assert.equal(inFileExamples.length, 0, "example rows must not ship in topics.js");
+    const tpc = shipped[0];
     assert.equal(tpc.id, "topic-nav:historical-bells");
     assert.equal(tpc.title, "Historical Bells");
     assert.equal(tpc.order, 1);
@@ -932,9 +936,23 @@ try {
     const schema = JSON.parse(fs.readFileSync(path.join(root, "web", "data", "next", "topics", "schema.json"), "utf8"));
     assert.deepEqual(schema.required, ["id", "title", "summary", "order"]);
     assert.equal(schema.properties.id.pattern, "^topic-nav:");
+    assert.deepEqual(schema.properties.camera.type, ["object", "null"]);
+    assert.equal(schema.properties.focus.type, "object");
     for (const key of Object.keys(tpc)) {
       assert.ok(schema.properties[key], "unexpected field " + key);
     }
+    const exampleFile = JSON.parse(fs.readFileSync(path.join(root, "web", "data", "next", "topics", "example.json"), "utf8"));
+    const examples = exampleFile.topics || [];
+    assert.equal(exampleFile.example, true);
+    assert.ok(examples.length >= 2, "test-only example rows are present");
+    assert.deepEqual(examples.map((row) => row.id), ["topic-nav:example-show", "topic-nav:example-heavy"]);
+    examples.forEach((row) => {
+      assert.equal(row.example, true);
+      for (const key of Object.keys(row)) {
+        assert.ok(schema.properties[key], "unexpected example field " + key);
+      }
+    });
+    assert.deepEqual(examples[1].layersHeavy, ["wind", "pmtilesBorders", "terrain"]);
     for (const req of schema.required) assert.ok(tpc[req] != null && tpc[req] !== "", "missing " + req);
     assert.match(tpc.id, new RegExp(schema.properties.id.pattern));
     const bells = JSON.parse(fs.readFileSync(path.join(root, "web", "data", "next", "bells", "bells.json"), "utf8"));
@@ -943,6 +961,9 @@ try {
     assert.equal(tpc.entities.length, 25);
     const man = JSON.parse(fs.readFileSync(path.join(root, "grokme", "lite-manifest.json"), "utf8"));
     assert.ok(man.file_count <= 600, "lite file count " + man.file_count);
+    assert.ok((man.files || []).some((f) => f.path === "data/next/topics/example.json"), "example file is in the lite manifest so lite tests can load it");
+    assert.equal(src.includes("topic-nav:example-show"), false, "example id must not appear in shipped topics.js");
+    assert.equal(src.includes("topic-nav:example-heavy"), false, "heavy example id must not appear in shipped topics.js");
   });
 
   const snapGlobe = () => ({
@@ -985,6 +1006,9 @@ try {
   await check("topicNav opens glance and overview without touching Sampler, layers or the clock", async () => {
     const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
     await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const fetched = [];
+    const onReq = (r) => fetched.push(r.url());
+    p.on("request", onReq);
     const before = await p.evaluate(snapGlobe);
     const ui = await p.evaluate(() => {
       const btn = document.getElementById("topicsBtn");
@@ -1044,14 +1068,16 @@ try {
     assert.match(over.text, /Historical Bells/);
     assert.match(over.text, /Each bell is in the encyclopedia/);
     assert.equal(over.backHidden, false);
-    assert.equal(over.showOnGlobe, false, "Show on the globe is not in this slice");
+    assert.equal(over.showOnGlobe, true, "Show on the globe is a second press");
     assert.match(over.hash, /#\/topic\/topic-nav:historical-bells/);
     assert.ok(over.hrefs.includes("#/entry/bell:liberty"), over.hrefs.join(","));
     assert.equal(over.hrefs.length, 25);
     assert.deepEqual(over.layers, before.layers);
     assert.equal(over.mode, before.mode);
     assert.equal(over.date, before.date);
-    assert.equal(over.bellsToggle, false, "bells layer must stay off");
+    assert.equal(over.bellsToggle, false, "bells layer must stay off until Show on the globe");
+    p.off("request", onReq);
+    assert.equal(fetched.filter((u) => /bells\.json/.test(u)).length, 0, "overview must not fetch bells.json");
     await p.close();
   });
 
@@ -1132,6 +1158,442 @@ try {
     assert.match(text, /Historical Bells/);
     assert.deepEqual(p._errors, []);
     await p.close();
+  });
+
+  await check("Show on the globe applies Historical Bells light layer and Clear restores it", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const fetched = [];
+    const onReq = (r) => fetched.push(r.url());
+    p.on("request", onReq);
+    const before = await p.evaluate(() => ({
+      mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+      date: document.getElementById("dateLabel").textContent,
+      bells: !!(window.SeaBells && SeaBells.enabled()),
+      tBells: !!(document.getElementById("tBells") && document.getElementById("tBells").checked),
+      pov: window.__sg.pov(),
+      t: window.__sg.state().t,
+      focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden)
+    }));
+    await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:historical-bells"); });
+    await p.waitForFunction(() => document.getElementById("topicsShow"));
+    assert.equal(fetched.filter((u) => /bells\.json/.test(u)).length, 0, "no bells.json before Show on the globe");
+    const beforeShow = await p.evaluate(() => ({
+      mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+      date: document.getElementById("dateLabel").textContent,
+      pov: window.__sg.pov(),
+      t: window.__sg.state().t,
+      focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden)
+    }));
+    await p.evaluate(() => document.getElementById("topicsShow").click());
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.state().applied === "topic-nav:historical-bells" && window.SeaBells && SeaBells.enabled());
+    const on = await p.evaluate(() => ({
+      applied: window.SeaTopics.state().applied,
+      bells: !!(window.SeaBells && SeaBells.enabled()),
+      tBells: !!(document.getElementById("tBells") && document.getElementById("tBells").checked),
+      pins: window.SeaBells.state().pinned,
+      mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+      date: document.getElementById("dateLabel").textContent,
+      t: window.__sg.state().t,
+      pov: window.__sg.pov(),
+      chip: !!(document.getElementById("topicChip") && !document.getElementById("topicChip").hidden),
+      chipText: (document.getElementById("topicChipText") && document.getElementById("topicChipText").textContent) || "",
+      focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden)
+    }));
+    assert.equal(on.applied, "topic-nav:historical-bells");
+    assert.equal(on.bells, true);
+    assert.equal(on.tBells, true);
+    assert.equal(on.pins, 25);
+    assert.equal(on.mode, beforeShow.mode, "no time on the Bells row, Sampler stays");
+    assert.equal(on.date, beforeShow.date);
+    assert.equal(on.t, beforeShow.t);
+    assert.ok(Math.abs(on.pov.lat - beforeShow.pov.lat) < 0.05 && Math.abs(on.pov.lng - beforeShow.pov.lng) < 0.05, "no camera on the Bells row");
+    assert.equal(on.chip, true);
+    assert.match(on.chipText, /Historical Bells/);
+    assert.equal(on.focusOn, beforeShow.focusOn, "no Focus on the Bells row");
+    p.off("request", onReq);
+    assert.ok(fetched.filter((u) => /bells\.json/.test(u)).length >= 1, "Show on the globe may fetch bells.json");
+    await p.evaluate(() => document.getElementById("topicChipClear").click());
+    await p.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().applied && window.SeaBells && !SeaBells.enabled());
+    const after = await p.evaluate(() => ({
+      applied: window.SeaTopics.state().applied,
+      bells: !!(window.SeaBells && SeaBells.enabled()),
+      tBells: !!(document.getElementById("tBells") && document.getElementById("tBells").checked),
+      mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+      date: document.getElementById("dateLabel").textContent,
+      t: window.__sg.state().t,
+      chip: !!(document.getElementById("topicChip") && !document.getElementById("topicChip").hidden),
+      focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden)
+    }));
+    assert.equal(after.applied, null);
+    assert.equal(after.bells, false);
+    assert.equal(after.tBells, false);
+    assert.equal(after.mode, beforeShow.mode);
+    assert.equal(after.date, beforeShow.date);
+    assert.equal(after.t, beforeShow.t);
+    assert.equal(after.chip, false);
+    assert.equal(after.focusOn, beforeShow.focusOn);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("exampleData Show on the globe sets time, Focus, camera and a light layer, and Clear restores Sampler", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav&exampleData=1");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const ids = await p.evaluate(() => window.SeaTopics.rows().map((row) => row.id));
+    assert.deepEqual(ids, ["topic-nav:historical-bells", "topic-nav:example-show", "topic-nav:example-heavy"]);
+    const before = await p.evaluate(() => ({
+      idle: document.body.classList.contains("idle"),
+      mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+      date: document.getElementById("dateLabel").textContent,
+      t: window.__sg.state().t,
+      pov: window.__sg.pov(),
+      coords: !!(document.getElementById("tCoords") && document.getElementById("tCoords").checked),
+      focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden)
+    }));
+    assert.equal(before.idle, true);
+    assert.equal(before.coords, false);
+    await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:example-show"); });
+    await p.waitForFunction(() => document.getElementById("topicsShow"));
+    const still = await p.evaluate(() => ({
+      idle: document.body.classList.contains("idle"),
+      date: document.getElementById("dateLabel").textContent,
+      coords: !!(document.getElementById("tCoords") && document.getElementById("tCoords").checked),
+      focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden)
+    }));
+    assert.equal(still.idle, true, "overview must not apply the example");
+    assert.equal(still.date, before.date);
+    assert.equal(still.coords, false);
+    assert.equal(still.focusOn, false);
+    await p.evaluate(() => document.getElementById("topicsShow").click());
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.state().applied === "topic-nav:example-show" && /20 Sep 1595/.test((document.getElementById("dateLabel") && document.getElementById("dateLabel").textContent) || ""));
+    const on = await p.evaluate(() => {
+      const pov = window.__sg.pov();
+      return {
+        idle: document.body.classList.contains("idle"),
+        mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+        date: document.getElementById("dateLabel").textContent,
+        t: window.__sg.state().t,
+        pov,
+        coords: !!(document.getElementById("tCoords") && document.getElementById("tCoords").checked),
+        focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden),
+        focusText: (document.getElementById("focusText") && document.getElementById("focusText").textContent) || "",
+        chip: !!(document.getElementById("topicChip") && !document.getElementById("topicChip").hidden),
+        clearLabel: ((document.getElementById("topicsClear") && document.getElementById("topicsClear").textContent) || "")
+      };
+    });
+    assert.equal(on.idle, false, "leaves Sampler when a time is named");
+    assert.equal(on.mode, "false");
+    assert.match(on.date, /20 Sep 1595/);
+    assert.ok(Math.abs(on.pov.lat - 0) < 0.05, "camera lat " + on.pov.lat);
+    assert.ok(Math.abs(on.pov.lng - 20) < 0.05, "camera lng " + on.pov.lng);
+    assert.ok(Math.abs(on.pov.altitude - 2.4) < 0.05, "camera alt " + on.pov.altitude);
+    assert.equal(on.coords, true);
+    assert.equal(on.focusOn, true);
+    assert.match(on.focusText, /Age of Sail/);
+    assert.equal(on.chip, true);
+    assert.match(on.clearLabel, /Back to Sampler/);
+    await p.evaluate(() => document.getElementById("topicsClear").click());
+    await p.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().applied && document.body.classList.contains("idle") && ((document.getElementById("dateLabel") && document.getElementById("dateLabel").textContent) || "") === "500 BCE – today");
+    const after = await p.evaluate(() => ({
+      idle: document.body.classList.contains("idle"),
+      mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+      date: document.getElementById("dateLabel").textContent,
+      t: window.__sg.state().t,
+      pov: window.__sg.pov(),
+      coords: !!(document.getElementById("tCoords") && document.getElementById("tCoords").checked),
+      focusOn: !!(document.getElementById("focusChip") && !document.getElementById("focusChip").hidden),
+      chip: !!(document.getElementById("topicChip") && !document.getElementById("topicChip").hidden)
+    }));
+    assert.equal(after.idle, true);
+    assert.equal(after.mode, before.mode);
+    assert.equal(after.date, before.date);
+    assert.equal(after.t, before.t);
+    assert.ok(Math.abs(after.pov.lat - before.pov.lat) < 0.05, "restored camera lat");
+    assert.ok(Math.abs(after.pov.lng - before.pov.lng) < 0.05, "restored camera lng");
+    assert.equal(after.coords, false, "cursor coordinates restored off");
+    assert.equal(after.focusOn, false, "no stray Focus");
+    assert.equal(after.chip, false);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("example then Bells then Back to Sampler restores the start camera", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav&exampleData=1");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const before = await p.evaluate(() => ({
+      idle: document.body.classList.contains("idle"),
+      pov: window.__sg.pov(),
+      t: window.__sg.state().t,
+      date: document.getElementById("dateLabel").textContent
+    }));
+    assert.equal(before.idle, true);
+    assert.ok(Math.abs(before.pov.lat - 18) < 0.05, "start camera lat " + before.pov.lat);
+    await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:example-show"); });
+    await p.waitForFunction(() => document.getElementById("topicsShow"));
+    await p.evaluate(() => document.getElementById("topicsShow").click());
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.state().applied === "topic-nav:example-show" && Math.abs((window.__sg.pov() || {}).lat) < 0.05);
+    await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:historical-bells"); });
+    await p.waitForFunction(() => document.getElementById("topicsShow") && window.SeaTopics && window.SeaTopics.state().selected === "topic-nav:historical-bells");
+    await p.evaluate(() => document.getElementById("topicsShow").click());
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.state().applied === "topic-nav:historical-bells" && window.SeaBells && SeaBells.enabled());
+    const mid = await p.evaluate(() => ({
+      applied: window.SeaTopics.state().applied,
+      clearLabel: ((document.getElementById("topicsClear") && document.getElementById("topicsClear").textContent) || "")
+    }));
+    assert.equal(mid.applied, "topic-nav:historical-bells");
+    assert.match(mid.clearLabel, /Back to Sampler/);
+    await p.evaluate(() => document.getElementById("topicsClear").click());
+    await p.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().applied && document.body.classList.contains("idle") && ((document.getElementById("dateLabel") && document.getElementById("dateLabel").textContent) || "") === "500 BCE – today");
+    const after = await p.evaluate(() => ({
+      idle: document.body.classList.contains("idle"),
+      pov: window.__sg.pov(),
+      t: window.__sg.state().t,
+      date: document.getElementById("dateLabel").textContent,
+      bells: !!(window.SeaBells && SeaBells.enabled()),
+      chip: !!(document.getElementById("topicChip") && !document.getElementById("topicChip").hidden)
+    }));
+    assert.equal(after.idle, true);
+    assert.equal(after.date, before.date);
+    assert.equal(after.t, before.t);
+    assert.equal(after.bells, false);
+    assert.equal(after.chip, false);
+    assert.ok(Math.abs(after.pov.lat - 18) < 0.05, "cleared camera lat " + after.pov.lat);
+    assert.ok(Math.abs(after.pov.lat - before.pov.lat) < 0.05, "restored start camera lat");
+    assert.ok(Math.abs(after.pov.lng - before.pov.lng) < 0.05, "restored start camera lng");
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("example-heavy applies wind under the cap and skips Census and terrain when their flags are off", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav&exampleData=1");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const before = await p.evaluate(() => ({
+      wind: !!(document.getElementById("tWind") && document.getElementById("tWind").checked),
+      active: window.SeaLayers.active().slice().sort(),
+      pmtilesToggle: !!document.getElementById("tPmtiles"),
+      terrainToggle: !!document.getElementById("tTerrain")
+    }));
+    assert.equal(before.wind, false);
+    assert.equal(before.pmtilesToggle, false);
+    assert.equal(before.terrainToggle, false);
+    await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:example-heavy"); });
+    await p.waitForFunction(() => document.getElementById("topicsShow"));
+    await p.evaluate(() => document.getElementById("topicsShow").click());
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.state().applied === "topic-nav:example-heavy" && document.getElementById("tWind") && document.getElementById("tWind").checked);
+    const on = await p.evaluate(() => ({
+      wind: document.getElementById("tWind").checked,
+      active: window.SeaLayers.active().slice().sort(),
+      heavyOn: window.SeaTopics.state().heavyOn.slice().sort(),
+      skipped: window.SeaTopics.state().skipped.slice().sort(),
+      ask: window.SeaTopics.state().ask,
+      notes: (document.getElementById("topicsSkipped") && document.getElementById("topicsSkipped").textContent) || "",
+      pmtiles: !!document.getElementById("tPmtiles"),
+      terrain: !!document.getElementById("tTerrain"),
+      hook: !!(window.__sgLayerHook && window.__sgLayerHook.reapply === window.SeaLayers.reapply)
+    }));
+    assert.equal(on.wind, true);
+    assert.deepEqual(on.active, ["wind"]);
+    assert.deepEqual(on.heavyOn, ["wind"]);
+    assert.deepEqual(on.skipped, ["pmtilesBorders", "terrain"]);
+    assert.equal(on.ask, null);
+    assert.match(on.notes, /US Census boundaries were skipped because the Census boundaries flag is off/);
+    assert.match(on.notes, /US terrain was skipped because the terrain flag is off/);
+    assert.equal(on.pmtiles, false);
+    assert.equal(on.terrain, false);
+    assert.equal(on.hook, true, "topic path uses SeaLayers.reapply");
+    await p.evaluate(() => window.SeaTopics.clear());
+    await p.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().applied && document.getElementById("tWind") && !document.getElementById("tWind").checked);
+    const after = await p.evaluate(() => ({
+      wind: document.getElementById("tWind").checked,
+      active: window.SeaLayers.active().slice().sort()
+    }));
+    assert.equal(after.wind, false);
+    assert.deepEqual(after.active, []);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("when a topic heavy layer would pass the desktop cap, Topics asks which layer to turn off and never drops one silently", async () => {
+    const tiles = await rangeServer(FIX);
+    const p = await openApp(browser, port, "capture=1&mute=1&flags=topicNav,pmtilesBorders,terrain&exampleData=1&r2base=" + encodeURIComponent("http://127.0.0.1:" + tiles.port + "/"));
+    try {
+      await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready && document.getElementById("tPmtiles") && document.getElementById("tTerrain"), { timeout: 30000 });
+      assert.equal(await p.evaluate(() => window.SeaLayers.cap()), 5);
+      for (const id of ["tRegions", "tHubs", "tLaunch", "tPmtiles", "tTerrain"]) await clickLayer(p, id, true);
+      const atCap = await p.evaluate(() => window.SeaLayers.active().slice().sort());
+      assert.deepEqual(atCap, ["hubs", "launch", "pmtilesBorders", "regions", "terrain"]);
+      await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:example-heavy"); });
+      await p.waitForFunction(() => document.getElementById("topicsShow"));
+      await p.evaluate(() => document.getElementById("topicsShow").click());
+      await p.waitForFunction(() => document.getElementById("topicsCapAsk"));
+      const ask = await p.evaluate(() => {
+        const on = (id) => document.getElementById(id).checked;
+        return {
+          want: window.SeaTopics.state().ask,
+          active: window.SeaLayers.active().slice().sort(),
+          wind: on("tWind"),
+          regions: on("tRegions"),
+          hubs: on("tHubs"),
+          launch: on("tLaunch"),
+          pmtiles: on("tPmtiles"),
+          terrain: on("tTerrain"),
+          text: (document.getElementById("topicsCapAsk") && document.getElementById("topicsCapAsk").textContent) || "",
+          choices: [...document.querySelectorAll("#topicsCapAsk [data-act='cap-off']")].map((b) => b.getAttribute("data-layer")).sort()
+        };
+      });
+      assert.equal(ask.want, "wind");
+      assert.deepEqual(ask.active, atCap, "no layer dropped silently");
+      assert.equal(ask.wind, false);
+      assert.equal(ask.regions, true);
+      assert.equal(ask.hubs, true);
+      assert.equal(ask.launch, true);
+      assert.equal(ask.pmtiles, true);
+      assert.equal(ask.terrain, true);
+      assert.match(ask.text, /Wind belts/);
+      assert.match(ask.text, /only 5 heavier layers can be on at once/);
+      assert.deepEqual(ask.choices, ["hubs", "launch", "pmtilesBorders", "regions", "terrain"]);
+      await p.evaluate(() => document.querySelector("#topicsCapAsk [data-act='cap-off'][data-layer='hubs']").click());
+      await p.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().ask && document.getElementById("tWind") && document.getElementById("tWind").checked);
+      const after = await p.evaluate(() => {
+        const on = (id) => document.getElementById(id).checked;
+        return {
+          active: window.SeaLayers.active().slice().sort(),
+          wind: on("tWind"),
+          hubs: on("tHubs"),
+          launch: on("tLaunch"),
+          regions: on("tRegions"),
+          pmtiles: on("tPmtiles"),
+          terrain: on("tTerrain"),
+          heavyOn: window.SeaTopics.state().heavyOn.slice().sort(),
+          ask: !!document.getElementById("topicsCapAsk")
+        };
+      });
+      assert.equal(after.wind, true);
+      assert.equal(after.hubs, false);
+      assert.equal(after.launch, true);
+      assert.equal(after.regions, true);
+      assert.equal(after.pmtiles, true);
+      assert.equal(after.terrain, true);
+      assert.deepEqual(after.active, ["launch", "pmtilesBorders", "regions", "terrain", "wind"]);
+      assert.deepEqual(after.heavyOn, ["wind"]);
+      assert.equal(after.ask, false);
+      await p.evaluate(() => window.SeaTopics.clear());
+      await p.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().applied && !document.getElementById("tWind").checked);
+      const cleared = await p.evaluate(() => window.SeaLayers.active().slice().sort());
+      assert.deepEqual(cleared, ["launch", "pmtilesBorders", "regions", "terrain"], "clear turns off only the topic's heavy layers");
+      assert.deepEqual(p._errors.filter((e) => !/Failed to load resource|404|the server responded with a status/.test(e)), []);
+    } finally {
+      await p.close();
+      tiles.srv.close();
+    }
+  });
+
+  await check("phone and lite cap 3: Topics asks, never drops a layer silently, and Not now leaves the set as it is", async () => {
+    // phone: ask, then pick
+    const ph = await openApp(browser, port, "capture=1&mute=1&flag=topicNav&exampleData=1");
+    await ph.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    await ph.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
+    await ph.waitForFunction(() => window.SeaLayers && window.SeaLayers.cap() === 3, { timeout: 10000 });
+    await ph.waitForFunction(() => document.getElementById("tLaunch"));
+    for (const id of ["tRegions", "tHubs", "tLaunch"]) await clickLayer(ph, id, true);
+    const phoneBefore = await ph.evaluate(() => window.SeaLayers.active().slice().sort());
+    assert.deepEqual(phoneBefore, ["hubs", "launch", "regions"]);
+    await ph.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:example-heavy"); });
+    await ph.waitForFunction(() => document.getElementById("topicsShow"));
+    await ph.evaluate(() => document.getElementById("topicsShow").click());
+    await ph.waitForFunction(() => document.getElementById("topicsCapAsk"));
+    const phoneAsk = await ph.evaluate(() => ({
+      cap: window.SeaLayers.cap(),
+      active: window.SeaLayers.active().slice().sort(),
+      wind: document.getElementById("tWind").checked,
+      text: (document.getElementById("topicsCapAsk") && document.getElementById("topicsCapAsk").textContent) || "",
+      panelOpen: !!(document.getElementById("topicsPanel") && !document.getElementById("topicsPanel").hidden)
+    }));
+    assert.equal(phoneAsk.cap, 3);
+    assert.deepEqual(phoneAsk.active, phoneBefore, "no layer dropped silently on a phone");
+    assert.equal(phoneAsk.wind, false);
+    assert.match(phoneAsk.text, /on a phone/);
+    assert.equal(phoneAsk.panelOpen, true, "ask stays visible on a phone");
+    await ph.evaluate(() => document.querySelector("#topicsCapAsk [data-act='cap-off'][data-layer='launch']").click());
+    await ph.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().ask && document.getElementById("tWind") && document.getElementById("tWind").checked);
+    const phoneAfter = await ph.evaluate(() => ({
+      active: window.SeaLayers.active().slice().sort(),
+      launch: document.getElementById("tLaunch").checked,
+      wind: document.getElementById("tWind").checked
+    }));
+    assert.equal(phoneAfter.wind, true);
+    assert.equal(phoneAfter.launch, false);
+    assert.deepEqual(phoneAfter.active, ["hubs", "regions", "wind"]);
+    assert.deepEqual(ph._errors, []);
+    await ph.close();
+
+    // lite: ask, then Not now
+    const lite = await openApp(browser, port, "capture=1&mute=1&flag=topicNav&exampleData=1", "lite.html");
+    await lite.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready && document.getElementById("tLaunch"), { timeout: 10000 });
+    assert.equal(await lite.evaluate(() => window.SeaLayers.cap()), 3);
+    for (const id of ["tRegions", "tHubs", "tLaunch"]) await clickLayer(lite, id, true);
+    const liteBefore = await lite.evaluate(() => window.SeaLayers.active().slice().sort());
+    assert.deepEqual(liteBefore, ["hubs", "launch", "regions"]);
+    await lite.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:example-heavy"); });
+    await lite.waitForFunction(() => document.getElementById("topicsShow"));
+    await lite.evaluate(() => document.getElementById("topicsShow").click());
+    await lite.waitForFunction(() => document.getElementById("topicsCapAsk"));
+    const liteAsk = await lite.evaluate(() => ({
+      active: window.SeaLayers.active().slice().sort(),
+      wind: document.getElementById("tWind").checked,
+      text: (document.getElementById("topicsCapAsk") && document.getElementById("topicsCapAsk").textContent) || ""
+    }));
+    assert.deepEqual(liteAsk.active, liteBefore, "no layer dropped silently in lite");
+    assert.equal(liteAsk.wind, false);
+    assert.match(liteAsk.text, /in the lite edition/);
+    await lite.evaluate(() => document.getElementById("topicsCapCancel").click());
+    await lite.waitForFunction(() => window.SeaTopics && !window.SeaTopics.state().ask && (document.getElementById("topicsSkipped") || {}).textContent);
+    const liteAfter = await lite.evaluate(() => ({
+      active: window.SeaLayers.active().slice().sort(),
+      wind: document.getElementById("tWind").checked,
+      heavyOn: window.SeaTopics.state().heavyOn,
+      skipped: window.SeaTopics.state().skipped.slice(),
+      notes: (document.getElementById("topicsSkipped") && document.getElementById("topicsSkipped").textContent) || ""
+    }));
+    assert.deepEqual(liteAfter.active, liteBefore);
+    assert.equal(liteAfter.wind, false);
+    assert.deepEqual(liteAfter.heavyOn, []);
+    assert.ok(liteAfter.skipped.includes("wind"));
+    assert.match(liteAfter.notes, /Wind belts was not added/);
+    assert.deepEqual(lite._errors, []);
+    await lite.close();
+  });
+
+  await check("Topics flag-on smoke load on desktop, phone and lite", async () => {
+    for (const [label, file, size] of [
+      ["desktop", "", null],
+      ["phone", "", { width: 390, height: 844, deviceScaleFactor: 1 }],
+      ["lite", "lite.html", null]
+    ]) {
+      const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav", file);
+      await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+      if (size) {
+        await p.setViewport(size);
+        await new Promise((r) => setTimeout(r, 250));
+      }
+      const st = await p.evaluate(() => ({
+        ready: document.documentElement.dataset.ready,
+        topicsBtn: !!(document.getElementById("topicsBtn") && document.getElementById("topicsBtn").textContent.trim() === "Topics"),
+        mTopicsBtn: !!(document.getElementById("mTopicsBtn") && document.getElementById("mTopicsBtn").textContent.trim() === "Topics"),
+        applied: window.SeaTopics.state().applied,
+        rows: window.SeaTopics.rows().map((row) => row.id),
+        log: !!document.getElementById("logBtn")
+      }));
+      assert.equal(st.ready, "1", label + " ready");
+      assert.equal(st.topicsBtn, true, label + " Topics button");
+      assert.equal(st.mTopicsBtn, true, label + " phone Topics button");
+      assert.equal(st.applied, null, label + " does not auto-apply");
+      assert.deepEqual(st.rows, ["topic-nav:historical-bells"], label + " list");
+      assert.equal(st.log, true, label + " log");
+      assert.deepEqual(p._errors, [], label + " errors: " + (p._errors || []).join(" | "));
+      await p.close();
+    }
   });
 
   await check("Topics flag-off smoke load on desktop, phone and lite", async () => {

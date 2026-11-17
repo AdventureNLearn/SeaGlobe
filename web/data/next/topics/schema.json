@@ -40,7 +40,12 @@
       }
     },
     "camera": {
-      "type": "object"
+      "type": ["object", "null"],
+      "properties": {
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "altitude": { "type": "number" }
+      }
     },
     "entities": {
       "type": "array",
@@ -55,7 +60,16 @@
       "items": { "type": "string" }
     },
     "focus": {
-      "type": "string"
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "family": { "type": "string" },
+        "era": { "type": "string" },
+        "ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
     },
     "tour": {
       "type": "string"

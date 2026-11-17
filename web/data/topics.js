@@ -1,6 +1,7 @@
 /* Curated Topics list (owner order). Each row points at existing encyclopedia entries; the
    summary is taken only from those cited entries and the Guide lines already written from them.
-   Test-only example rows, if any, must set example: true and load only with ?exampleData=1. */
+   Test-only example rows are not in this file. They live in data/next/topics/example.json and
+   load only with ?exampleData=1. */
 (window.SEAGLOBE_DATA = window.SEAGLOBE_DATA || {}).topics = [
   {
     id: "topic-nav:historical-bells",

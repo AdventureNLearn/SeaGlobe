@@ -207,3 +207,18 @@ body.atlas-open .radiopanel, body.topics-open .radiopanel { left: calc(490px * v
   .bellspanel { top: calc(var(--mtop) + var(--mgap) * 2); left: var(--mgap); max-width: 70vw; font-size: calc(11px * var(--ui)); }
   .bellticks { display: block; }
 }
+
+/* Topics chip, shown after Show on the globe */
+.topicchip-open { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: inherit; padding: 0; text-align: left; min-width: 0; }
+.topicchip-open #topicChipText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 820px) {
+  .topicchip-open { min-height: calc(44px * var(--ui)); }
+}
+
+/* Topics cap ask: pick an active heavy layer to turn off */
+.topics-ask { margin: calc(8px * var(--ui)) 0; padding: calc(8px * var(--ui)); border: calc(1px * var(--ui)) solid var(--edge-hi); }
+.topics-ask p { margin: 0 0 calc(8px * var(--ui)); }
+.topics-ask .btn { margin: calc(4px * var(--ui)) 0; }
+@media (max-width: 820px) {
+  .topics-ask .btn { min-height: calc(44px * var(--ui)); width: 100%; }
+}

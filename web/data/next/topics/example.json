@@ -1,0 +1,39 @@
+{
+ "$comment": "Test-only Topics rows. Loaded only with ?exampleData=1. Do not ship in the default list.",
+ "example": true,
+ "topics": [
+  {
+   "id": "topic-nav:example-show",
+   "title": "Example topic (test only)",
+   "summary": "A test-only example used with ?exampleData=1. It is not part of the shipped list.",
+   "order": 99,
+   "example": true,
+   "time": {
+    "start": "1595-09-20"
+   },
+   "camera": {
+    "lat": 0,
+    "lng": 20,
+    "altitude": 2.4
+   },
+   "layersLight": [
+    "coords"
+   ],
+   "focus": {
+    "era": "age-of-sail"
+   }
+  },
+  {
+   "id": "topic-nav:example-heavy",
+   "title": "Example heavy layers (test only)",
+   "summary": "A test-only example used with ?exampleData=1 to prove the heavy-layer cap and flag-gated skips. It is not part of the shipped list.",
+   "order": 100,
+   "example": true,
+   "layersHeavy": [
+    "wind",
+    "pmtilesBorders",
+    "terrain"
+   ]
+  }
+ ]
+}
