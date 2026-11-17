@@ -15,6 +15,7 @@ records before turning a flag on for users.
 | `tax/` | US Title 26 / IRS only | Office of the Law Revision Counsel; eCFR; IRS notices |
 | `learning-paths/` | short explainers | The official standard or agency the explainer is about |
 | `bells/` | historical bells | The cited foundry, inventory, or contemporary source |
+| `uap/` | official declassified UAP records | The cited official government page (AARO, NARA, U.S. Air Force). Coordinates: OurAirports (public domain). |
 | `gis/` | county GIS, no parcels | U.S. Census Bureau |
 | `layers/registry.json` | layer registry stub | Credits per layer |
 | `topics/` | curated Topics list | Existing encyclopedia entries named on each row. `example.json` is test-only and loads only with `?exampleData=1`. |
