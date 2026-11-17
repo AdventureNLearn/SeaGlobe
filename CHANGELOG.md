@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.1.10 (2026-11-17) — official UAP records
+
+- flags.js does not inject bells.js or uap.js a second time when those flags are on and the page already included the script. Each loader also returns early if its global already exists, so the Layers toggle and state() stay in sync.
+- An Official UAP records layer (off by default, heavy, and lazy-loaded) covers four public-domain U.S. government records: AARO Al Taqaddum, 23 October 2017; AARO Aguadilla, 26 April 2013; Project Blue Book Edwards AFB, 2 May 1957 (record card: confirmed balloon); and the U.S. Air Force Roswell findings, July 1947 (project MOGUL). Pins are coarse (0.1 degree) from OurAirports (public domain). The layer is historical only; there is no live tracking. Each record is an encyclopedia entry that quotes or closely paraphrases the agency's own finding and names the primary source.
+
 ## v3.1.9 (2026-11-17) — lite region bundles
 
 - The lite build packs the per-country region files into 18 regional bundles, so the lite file count drops from 595 to 173. Desktop and phone are unchanged and still load the per-country files. The first zoom into a country in lite downloads that region's bundle once.
