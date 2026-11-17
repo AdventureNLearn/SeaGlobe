@@ -11,8 +11,10 @@ repository uploads, publishes or signs in anywhere by itself.
 - Entry page `web/lite.html`, edition file `web/data/edition-lite.js`.
 - Exactly the files listed in `grokme/lite-manifest.json` (path, size, SHA-256), copied unchanged from `web/`.
 - Left out: the full and BYO entry pages, the PC-only BYO pieces (`js/byo.js`, `data/edition-byo.js`,
-  `vendor/satellite.min.js`), the full-size textures (`textures/hd/*`; lite uses the embedded 2k texture) and one unused
-  concept image.
+  `vendor/satellite.min.js`), the full-size textures (`textures/hd/*`; lite uses the embedded 2k texture), one unused
+  concept image, and the per-country region packs under `data/regions/towns/`, `admin1/` and `counties/`. Lite loads the
+  same data from a handful of bundled files in `data/regions/lite-bundles/`, grouped by world region. Desktop and phone
+  still use the per-country files.
 - Same features as the full edition apart from those: routes and vehicles (lite level of detail), encyclopedia,
   regions, tools, space, tours, radio, version check. Chat is offline until a visitor pastes their own xAI key in chat settings.
 - Credit "Built by AdventureNLearn" with a link to https://x.com/AdventureNLearn in the footer and the About tab.

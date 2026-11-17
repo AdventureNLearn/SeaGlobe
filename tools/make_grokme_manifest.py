@@ -7,9 +7,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB = os.path.join(ROOT, "web")
 ENTRY = "lite.html"
 # Left out of the lite build: other entry pages, PC-only bring-your-own pieces, full-size textures (lite uses the
-# embedded 2k texture in data/texture.js) and an unused concept image.
+# embedded 2k texture in data/texture.js), an unused concept image, and the per-country region packs (lite loads
+# the grouped bundles in data/regions/lite-bundles/ instead).
 EXCLUDE = ["index.html", "byo.html", "js/byo.js", "data/edition-byo.js", "vendor/satellite.min.js", "vendor/LICENSE-satellite.js.md",
-           "textures/hd/*", "assets/title-concept.jpg", "assets/eras/title-concept.jpg", "*.map", ".DS_Store"]
+           "textures/hd/*", "assets/title-concept.jpg", "assets/eras/title-concept.jpg", "*.map", ".DS_Store",
+           "data/regions/towns/*", "data/regions/admin1/*", "data/regions/counties/*"]
 # Self-imposed limits (Grok.me publishes no limits we could find: [UNKNOWN]). Conservative on purpose.
 LIMITS = {"total_bytes": 20 * 1024 * 1024, "file_bytes": 5 * 1024 * 1024, "files": 600}
 
