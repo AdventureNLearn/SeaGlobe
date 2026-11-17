@@ -1,6 +1,6 @@
 {
  "name": "SeaGlobe Lite",
- "version": "3.1.4",
+ "version": "3.1.5",
  "commit": "[set at release]",
  "entry": "lite.html",
  "root": "web/",
@@ -23,7 +23,7 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 16340449,
+ "total_bytes": 16345598,
  "file_count": 591,
  "files": [
   {
@@ -513,8 +513,8 @@
   },
   {
    "path": "data/regions/admin1/HRV.js",
-   "bytes": 12696,
-   "sha256": "48fe8537350fa9de851eeb0ccc6d7d6c48e951c9fb08fde7427608972f671c79"
+   "bytes": 13257,
+   "sha256": "eae57c0762b8a07be84402ce89f902fc59119a0f9245ad29e4f8347f2839798c"
   },
   {
    "path": "data/regions/admin1/HTI.js",
@@ -1283,8 +1283,8 @@
   },
   {
    "path": "data/regions/index.js",
-   "bytes": 1140145,
-   "sha256": "6055c1b6fd5262429494700214e87b3bbb8b71494151dae765514b6c5f2bbfae"
+   "bytes": 1140311,
+   "sha256": "3d58a937739eb9b084a93da92156b0c64fc375bc13c7822e4bb330202daa4de6"
   },
   {
    "path": "data/regions/towns-index.js",
@@ -2758,8 +2758,8 @@
   },
   {
    "path": "js/app.js",
-   "bytes": 72782,
-   "sha256": "198bfa1c7d8f092a41fd990033eeedd452d00f3ca9b40ff2190abaae972342c1"
+   "bytes": 72914,
+   "sha256": "4c3a4b1d614e2b135ffe188e00e47e9ad1fb39e5843fdea49ae8b5acf6e4cbcf"
   },
   {
    "path": "js/assets.js",
@@ -2798,8 +2798,8 @@
   },
   {
    "path": "js/guide.js",
-   "bytes": 12182,
-   "sha256": "75042d33b43e0f9c4f042d0d175c2a22916a0d048b16fac460c72b818ebef4ae"
+   "bytes": 12435,
+   "sha256": "fdb1d88195538a1f35c9d6bfe79a837cee43f47f9dd5a93881e51161a25a8ed9"
   },
   {
    "path": "js/help.js",
@@ -2873,8 +2873,8 @@
   },
   {
    "path": "js/next/terrain.js",
-   "bytes": 13019,
-   "sha256": "93307b6abf9c1cb8bb2b47d472bfc1b0fd86732300ba665264b843405e41917d"
+   "bytes": 14292,
+   "sha256": "f089523afd5aa09932f0f43b03a9bb12de75a9786591e48d719c5d426041a06d"
   },
   {
    "path": "js/planet.js",
@@ -2888,8 +2888,8 @@
   },
   {
    "path": "js/regions.js",
-   "bytes": 14608,
-   "sha256": "2520f6c6d54a3d6ad4906f65eb44afc70350de1e3f8cfe036cd60ab4aa467044"
+   "bytes": 14869,
+   "sha256": "e83e2ee788946d00b757ef50bcda9c596e7d47b24c811e45d07ff25fc06c4ae2"
   },
   {
    "path": "js/sky.js",
@@ -2908,8 +2908,8 @@
   },
   {
    "path": "js/tools.js",
-   "bytes": 13132,
-   "sha256": "51121f0a95593086bb682814c74d69a820792741acc48b128b7b110544c4cfee"
+   "bytes": 15635,
+   "sha256": "33066766f48e333b6b7ddc9704b65f22debc343c4e28c993cee0090d0417847c"
   },
   {
    "path": "js/update.js",

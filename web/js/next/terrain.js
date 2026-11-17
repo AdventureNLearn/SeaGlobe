@@ -1,17 +1,24 @@
 /* USGS 3DEP terrain (Terrarium PMTiles). Loads only when SeaFlags.on("terrain").
    The Layers toggle stays off until the user turns it on (remembered in this browser, not during tests).
    Relief draws only where samples exist; elsewhere the current globe elevation stays. A missing file
-   or 404 is skipped with a "layer unavailable" note and does not throw. Coverage is US-centred,
-   zooms 0–6, zoom 6 partial. */
+   or 404 is skipped with a "layer unavailable" note and does not throw. Coverage is US-centred.
+   The current archive has zooms 0–6 (zoom 6 partial). Zoom 7–8 tiles are not in that archive;
+   at those camera zooms the closest available tile is used and no elevation is invented. */
 (function () {
   "use strict";
   const FLAG = "terrain";
   const STORE = "sg-next-layers";
   const CREDIT = "U.S. Geological Survey, 3DEP";
-  const LIMIT = "US only, zooms 0–6, zoom 6 partial";
+  const LIMIT_DEFAULT = "US only, zooms 0–6, zoom 6 partial";
   const NOTE = "layer unavailable";
   const ASSET = "dem-terrain";
-  const MIN_Z = 0, MAX_Z = 6;
+  const MIN_Z = 0, REQ_MAX_Z = 8;
+  function limitText(archiveMax) {
+    if (archiveMax == null) return LIMIT_DEFAULT;
+    if (archiveMax >= 7) return "US only, zooms 0–" + archiveMax;
+    const base = "US only, zooms 0–" + archiveMax + (archiveMax === 6 ? ", zoom 6 partial" : "");
+    return base + ". Zoom 7–8 tiles are not in this archive; close views use the closest available zoom.";
+  }
   const $ = (id) => document.getElementById(id);
   const testMode = () => { try { const q = new URLSearchParams(location.search); return q.get("capture") === "1" || q.get("shot") === "1"; } catch (e) { return false; } };
   function enabled() { return window.SeaFlags && window.SeaFlags.on(FLAG); }
@@ -22,7 +29,7 @@
   }
   function recalled() { if (testMode()) return false; return !!store()[FLAG]; }
 
-  const st = { on: false, status: "off", msg: "", group: null, lastKey: "", ready: false };
+  const st = { on: false, status: "off", msg: "", group: null, lastKey: "", ready: false, archiveMax: null, viewZoom: 0, usedZoom: 0, closeFallback: false };
   let gen = 0, ctl = null;
   const cache = new Map();
 
@@ -59,6 +66,7 @@
   function setCredit(show) {
     const c = $("terrainCredit"); if (!c) return;
     c.hidden = !show;
+    if (show) c.textContent = CREDIT + " (" + limitText(st.archiveMax) + ")";
   }
   function syncUi() {
     const cb = $("tTerrain"); if (cb) cb.checked = st.on;
@@ -228,27 +236,34 @@
     const pov = sg.globe().pointOfView();
     const alt = pov.altitude, lat = pov.lat, lon = ((pov.lng + 540) % 360) - 180;
     const arch = SeaPmtiles.open(url);
-    let maxZ = MAX_Z, minZ = MIN_Z;
+    let archiveMax = 6, minZ = MIN_Z;
     try {
       const h = await arch.header(signal);
-      if (h && h.maxZoom != null) maxZ = Math.min(maxZ, h.maxZoom);
+      if (h && h.maxZoom != null) archiveMax = h.maxZoom;
       if (h && h.minZoom != null) minZ = Math.max(minZ, h.minZoom);
     } catch (e) {
       if (signal.aborted) return;
       st.status = "down"; st.msg = NOTE; syncUi(); clearMeshes(); return;
     }
+    st.archiveMax = archiveMax;
     const zCam = (window.SeaRegions && SeaRegions.zoomFromAlt) ? SeaRegions.zoomFromAlt(alt) : zoomFromAlt(alt);
-    const z = Math.max(minZ, Math.min(zCam, maxZ));
+    // Request only zooms the archive actually has (up to 8). If the camera is
+    // closer than that, keep drawing the closest available zoom and say so.
+    const z = Math.max(minZ, Math.min(zCam, archiveMax, REQ_MAX_Z));
+    st.viewZoom = zCam;
+    st.closeFallback = zCam > archiveMax;
     const tiles = (window.SeaRegions && SeaRegions.tilesInView) ? SeaRegions.tilesInView(z, lon, lat) : tilesInView(z, lon, lat);
     const key = tiles.map((t) => t.join("/")).join("|");
     if (key === st.lastKey && st.group && st.group.children.length) return;
     const decoded = [];
+    const seen = new Set();
     for (const [tz, x, y] of tiles) {
       try {
         const t = await tileElev(arch, tz, x, y, signal, minZ);
-        if (t && t.data) decoded.push(t);
+        if (t && t.data && !seen.has(t.key)) { seen.add(t.key); decoded.push(t); }
       } catch (e) { if (signal.aborted) return; }
     }
+    st.usedZoom = decoded.length ? Math.max.apply(null, decoded.map((t) => t.srcZ != null ? t.srcZ : t.z)) : Math.min(z, archiveMax);
     if (my !== gen) return;
     const group = ensureGroup(); if (!group) return;
     const mesh = earthMesh();
@@ -266,6 +281,7 @@
       if (m) group.add(m);
     });
     st.lastKey = key;
+    syncUi();
     if (window.SeaRegions) { try { SeaRegions.update(); } catch (e) { /* chip only */ } }
   }
 
@@ -290,7 +306,7 @@
     if (pane && !$("tTerrain")) {
       pane.insertAdjacentHTML("beforeend",
         "<label title='Shows USGS 3DEP elevation over the US where tiles exist; elsewhere the globe stays as it is.'><input type='checkbox' id='tTerrain' data-next-layer='terrain'> US terrain (USGS 3DEP; off by default)</label>" +
-        "<div id='terrainCredit' class='small' hidden>" + CREDIT + " (" + LIMIT + ")</div>" +
+        "<div id='terrainCredit' class='small' hidden>" + CREDIT + " (" + LIMIT_DEFAULT + ")</div>" +
         "<div id='terrainNote' class='small warn' hidden>" + NOTE + "</div>");
       $("tTerrain").addEventListener("change", (ev) => enable(ev.target.checked));
     }
@@ -305,7 +321,7 @@
     enabled, flag: FLAG, get ready() { return st.ready; },
     enable, update, health,
     credited: () => !!(st.on && st.status === "ok"),
-    state: () => ({ on: st.on, status: st.status, msg: st.msg, ready: st.ready, tiles: st.group ? st.group.children.length : 0 })
+    state: () => ({ on: st.on, status: st.status, msg: st.msg, ready: st.ready, tiles: st.group ? st.group.children.length : 0, archiveMax: st.archiveMax, viewZoom: st.viewZoom, usedZoom: st.usedZoom, closeFallback: st.closeFallback })
   };
   function start() { init(); st.ready = true; }
   start();

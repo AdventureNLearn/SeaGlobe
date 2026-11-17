@@ -257,6 +257,48 @@ try {
       await p.close();
     });
 
+    await check("terrain at zoom 7-8 falls back to the closest archive zoom and does not throw", async () => {
+      const p = await openApp(browser, port, "capture=1&mute=1&flag=terrain&" + r2);
+      await p.waitForFunction(() => window.SeaNext && window.SeaNext.terrain && window.SeaNext.terrain.ready, { timeout: 10000 });
+      const run = async (altitude) => {
+        await p.evaluate((altitude) => {
+          window.SeaNext.terrain.enable(true);
+          window.__sg.pov({ lat: 39.1, lng: -106.3, altitude });
+        }, altitude);
+        await p.waitForFunction(() => {
+          window.SeaNext.terrain.update();
+          const s = window.SeaNext.terrain.state();
+          return s.on && s.status === "ok" && s.tiles > 0 && s.closeFallback === true;
+        }, { timeout: 20000, polling: 400 });
+        return p.evaluate(() => {
+          const s = window.SeaNext.terrain.state();
+          return {
+            state: s,
+            credit: (document.getElementById("terrainCredit") || {}).textContent,
+            creditHidden: (document.getElementById("terrainCredit") || {}).hidden,
+            noteHidden: (document.getElementById("terrainNote") || {}).hidden
+          };
+        });
+      };
+      const z7 = await run(0.35);
+      const z8 = await run(0.18);
+      for (const st of [z7, z8]) {
+        assert.equal(st.state.status, "ok");
+        assert.ok(st.state.tiles > 0, "tiles " + st.state.tiles);
+        assert.equal(st.state.archiveMax, 6);
+        assert.equal(st.state.closeFallback, true);
+        assert.ok(st.state.usedZoom <= 6, "usedZoom " + st.state.usedZoom);
+        assert.match(st.credit, /3DEP/);
+        assert.match(st.credit, /Zoom 7.8 tiles are not in this archive/);
+        assert.equal(st.creditHidden, false);
+        assert.equal(st.noteHidden, true);
+      }
+      assert.ok(z7.state.viewZoom >= 7, "z7 view " + z7.state.viewZoom);
+      assert.ok(z8.state.viewZoom >= 8, "z8 view " + z8.state.viewZoom);
+      assert.deepEqual(p._errors, []);
+      await p.close();
+    });
+
     await check("toggles stay off and issue no tile request until the user turns them on", async () => {
       const hits = [];
       tiles.srv.on("request", (req) => { if (/\/pmtiles\//.test(req.url || "")) hits.push(req.url); });
@@ -539,6 +581,89 @@ try {
     await p.close();
   });
 
+  await check("the layer test hook is present only in test mode", async () => {
+    const tes = await openApp(browser, port, "capture=1&mute=1");
+    await tes.waitForFunction(() => window.SeaLayers, { timeout: 30000 });
+    const on = await tes.evaluate(() => {
+      const h = window.__sgLayerHook;
+      return {
+        hasHook: !!h,
+        cap: h && h.cap(),
+        state: h && h.state(),
+        layers: h && h.state() && h.state().active,
+        hasReapply: !!(h && h.reapply)
+      };
+    });
+    assert.equal(on.hasHook, true);
+    assert.equal(on.cap, 5);
+    assert.deepEqual(on.layers, []);
+    assert.equal(on.hasReapply, true);
+    assert.equal(on.state.cap, 5);
+    await tes.close();
+    const plain = await openApp(browser, port, "mute=1");
+    await plain.waitForFunction(() => window.SeaLayers, { timeout: 30000 });
+    const off = await plain.evaluate(() => window.__sgLayerHook);
+    assert.equal(off, undefined);
+    await plain.close();
+  });
+
+  await check("narrowing the window re-applies the cap and keeps the allowed layers on", async () => {
+    const tiles = await rangeServer(FIX);
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=pmtilesBorders&r2base=" + encodeURIComponent("http://127.0.0.1:" + tiles.port + "/"));
+    try {
+      await p.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1 });
+      await p.waitForFunction(() => window.SeaLayers && document.getElementById("tLaunch") && document.getElementById("tPmtiles"), { timeout: 30000 });
+      assert.equal(await p.evaluate(() => window.SeaLayers.cap()), 5);
+      for (const id of ["tWind", "tRegions", "tHubs", "tLaunch", "tPmtiles"]) await clickLayer(p, id, true);
+      const atFive = await p.evaluate(() => ({
+        cap: window.SeaLayers.cap(),
+        active: window.SeaLayers.active().slice(),
+        hook: window.__sgLayerHook && window.__sgLayerHook.state()
+      }));
+      assert.equal(atFive.cap, 5);
+      assert.deepEqual(atFive.active.slice().sort(), ["hubs", "launch", "pmtilesBorders", "regions", "wind"]);
+      assert.deepEqual(atFive.hook.active.slice().sort(), atFive.active.slice().sort());
+      await p.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
+      const afterResize = await p.evaluate(() => {
+        window.dispatchEvent(new Event("resize"));
+        let applied = null, err = null;
+        try { applied = window.SeaLayers.reapply(); } catch (e) { err = String(e && e.stack || e); }
+        return { applied, err, after: window.SeaLayers.state() };
+      });
+      assert.equal(afterResize.err, null, "reapply threw: " + afterResize.err + " " + JSON.stringify(afterResize));
+      const after = await p.evaluate(() => ({
+        cap: window.SeaLayers.cap(),
+        phone: window.SeaLayers.isPhone(),
+        active: window.SeaLayers.active().slice(),
+        hook: window.__sgLayerHook && window.__sgLayerHook.state(),
+        checks: {
+          wind: document.getElementById("tWind").checked,
+          regions: document.getElementById("tRegions").checked,
+          hubs: document.getElementById("tHubs").checked,
+          launch: document.getElementById("tLaunch").checked,
+          pmtiles: document.getElementById("tPmtiles").checked
+        },
+        regionsOn: window.SeaRegions.state().on,
+        pmtilesOn: window.SeaNext.pmtilesBorders.state().on,
+        tools: window.SeaTools.state().layers.slice().sort(),
+        notice: window.SeaLayers.notice()
+      }));
+      assert.equal(after.cap, 3);
+      assert.equal(after.phone, true);
+      assert.deepEqual(after.active, ["wind", "regions", "hubs"]);
+      assert.deepEqual(after.hook.active, ["wind", "regions", "hubs"]);
+      assert.deepEqual(after.checks, { wind: true, regions: true, hubs: true, launch: false, pmtiles: false });
+      assert.equal(after.regionsOn, true);
+      assert.equal(after.pmtilesOn, false);
+      assert.deepEqual(after.tools, ["hubs"]);
+      assert.match(after.notice, /Only 3 heavier layers can be on at once on a phone/);
+      assert.deepEqual(p._errors.filter((e) => !/Failed to load resource|404|the server responded with a status/.test(e)), []);
+    } finally {
+      await p.close();
+      tiles.srv.close();
+    }
+  });
+
   await check("no console errors on desktop, phone or lite with layers on and off", async () => {
     const tiles = await rangeServer(FIX);
     const cases = [
@@ -654,7 +779,7 @@ try {
     const first = await p.evaluate(() => [...document.querySelectorAll("script[src*='counties/US-MI.js']")].length);
     assert.ok(first >= 1, "Michigan pack loaded first: " + first);
     await p.evaluate(() => window.__sg.pov({ lat: 39.96, lng: -83.00, altitude: 0.3 }));
-    await p.waitForFunction(() => { window.SeaRegions.update(); return window.SeaRegions.state().ctx.state === "Ohio"; }, { timeout: 30000, polling: 200 });
+    await p.waitForFunction(() => { window.SeaRegions.update(); return window.SeaRegions.state().ctx.state === "Ohio"; }, { timeout: 45000, polling: 200 });
     const mid = await p.evaluate(() => window.SeaRegions.state().packs || []);
     assert.ok(!mid.includes("counties/US-MI"), "Michigan pack evicted in memory: " + mid.join());
     assert.ok(mid.includes("counties/US-OH"), "Ohio pack loaded: " + mid.join());

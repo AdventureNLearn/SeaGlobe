@@ -5,6 +5,7 @@ const port = 8900 + Math.floor(Math.random() * 80);
 const server = await startServer(port);
 const browser = await launch(1280, 720);
 const views = [
+  { name: "HRV Požeško-slavonska (HR-11)", lat: 45.3863, lng: 17.6849, altitude: 0.6, expectCountry: /Croatia/, expectState: /Požeško-slavonska/, pack: "data/regions/admin1/HRV.js" },
   { name: "FRA Paris (new 10m pack)", lat: 48.862, lng: 2.36, altitude: 0.6, expectCountry: /France/, expectState: /Paris/, pack: "data/regions/admin1/FRA.js" },
   { name: "MEX Sonora (new 10m pack)", lat: 29.011, lng: -111.246, altitude: 0.7, expectCountry: /Mexico/, expectState: /Sonora/, pack: "data/regions/admin1/MEX.js" },
   { name: "PRI (rest pack)", lat: 18.24625, lng: -66.45125, altitude: 0.5, expectCountry: /Puerto Rico/, expectState: /Puerto Rico/, pack: "data/regions/admin1/rest.js" },

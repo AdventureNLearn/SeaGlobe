@@ -153,7 +153,79 @@
   function isPhone() {
     return !!(window.matchMedia && window.matchMedia("(max-width: 820px)").matches);
   }
-  function cap() { return (isLite() || isPhone()) ? 3 : 5; }
+  function capNow() { return (isLite() || isPhone()) ? 3 : 5; }
+  let appliedCap = null, reapplying = false;
+  function cap() {
+    const n = capNow();
+    if (!reapplying && appliedCap != null && n !== appliedCap) reapply();
+    return n;
+  }
+
+  function testMode() {
+    try {
+      const q = new URLSearchParams(location.search);
+      return q.get("capture") === "1" || q.get("shot") === "1";
+    } catch (e) { return false; }
+  }
+  function installHook() {
+    if (!testMode()) {
+      try { if (window.__sgLayerHook) delete window.__sgLayerHook; } catch (e) { /* ignore */ }
+      return;
+    }
+    window.__sgLayerHook = {
+      cap, isLite, isPhone,
+      active: () => [...active],
+      notice: () => noticeText,
+      state: () => ({ cap: cap(), active: [...active], notice: noticeText, lite: isLite(), phone: isPhone() }),
+      reapply
+    };
+  }
+
+  function turnOff(id) {
+    const spec = REG[id];
+    const el = spec && document.getElementById(spec.toggle);
+    if (el && el.checked) {
+      el.checked = false;
+      el.dispatchEvent(new Event("change", { bubbles: true }));
+    } else {
+      active.delete(id);
+    }
+  }
+
+  /* Re-apply the cap when the selection or the window narrows (Focus, a tighter
+     region, leaving a state so county packs unload, or a resize that drops the
+     cap from 5 to 3). Layers past the cap are turned off in turn-on order;
+     the ones that still fit stay on and loaded. */
+  function reapply() {
+    reapplying = true;
+    try {
+      const n = capNow();
+      appliedCap = n;
+      const list = [...active];
+      const dropped = list.slice(n);
+      if (!dropped.length) {
+        if (active.size < n) hideNotice();
+        installHook();
+        return { cap: n, kept: list.slice(), dropped: [], active: [...active] };
+      }
+      dropped.forEach(turnOff);
+      showNotice();
+      installHook();
+      return { cap: n, kept: [...active], dropped: dropped, active: [...active] };
+    } finally { reapplying = false; }
+  }
+
+  function bindCapWatch() {
+    if (bindCapWatch.done) return;
+    bindCapWatch.done = true;
+    if (window.matchMedia) {
+      const mq = window.matchMedia("(max-width: 820px)");
+      const on = () => reapply();
+      if (mq.addEventListener) mq.addEventListener("change", on);
+      else if (mq.addListener) mq.addListener(on);
+    }
+    window.addEventListener("resize", () => reapply());
+  }
 
   function noteEl() {
     let el = document.getElementById("layerNotice");
@@ -193,6 +265,8 @@
     const ids = wanted(idOrIds, on);
     if (!on) {
       ids.forEach((id) => active.delete(id));
+      if (active.size < cap()) hideNotice();
+      installHook();
       return true;
     }
     const need = [];
@@ -203,6 +277,7 @@
     if (active.size + need.length > cap()) { showNotice(); return false; }
     need.forEach((id) => active.add(id));
     if (need.length) hideNotice();
+    installHook();
     return true;
   }
 
@@ -225,12 +300,13 @@
   window.SeaLayers = {
     registry: REG,
     cap, isLite, isPhone,
-    request,
+    request, reapply,
     active: () => [...active],
     notice: () => noticeText,
     state: () => ({ cap: cap(), active: [...active], notice: noticeText, lite: isLite(), phone: isPhone() })
   };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
-  else bind();
-  window.addEventListener("seaglobe:ready", bind);
+  function start() { bind(); bindCapWatch(); appliedCap = capNow(); installHook(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
+  window.addEventListener("seaglobe:ready", start);
 })();

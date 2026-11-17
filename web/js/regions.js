@@ -81,8 +81,10 @@
     if (statePack) ctx.state = statePack.states.find((s) => inPolys(lon, lat, s.polys)) || null;
     const countyKey = ctx.state && alt < 0.5 && /^US-/.test(ctx.state.iso || "") ? "counties/" + ctx.state.iso : null;
     const townKey = ctx.country && alt < 0.7 ? "towns/" + ctx.country.a3 : null;
+    const narrowed = (st.wantCounty && st.wantCounty !== countyKey) || (st.wantTown && st.wantTown !== townKey);
     st.wantCounty = countyKey; st.wantTown = townKey;
     evictBelow();
+    if (narrowed && window.SeaLayers && SeaLayers.reapply) SeaLayers.reapply();
     const countyPack = countyKey ? await loadPack(countyKey) : null;
     if (countyKey !== st.wantCounty) return;
     if (countyPack) ctx.county = countyPack.counties.find((c) => inPolys(lon, lat, c.polys)) || null;
@@ -187,6 +189,7 @@
     enable(true);
     const alt = { country: 1.0, state: 0.6, county: 0.25 }[e.level] || 1.2;
     if (e.geo) window.__sg.flyTo({ lat: e.geo.lat, lng: e.geo.lon, altitude: alt }, 2.2);
+    if (window.SeaLayers && SeaLayers.reapply) SeaLayers.reapply();
   }
   function init() {
     const pane = document.querySelector("[data-pane='layers'] .toggles");

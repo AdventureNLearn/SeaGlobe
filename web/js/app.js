@@ -840,7 +840,7 @@
     document.querySelectorAll("[data-era]").forEach((b) => b.classList.toggle("active", b.dataset.era === f.era));
     document.body.classList.toggle("focused", !!parts.length);
   }
-  function clearFocus() { st.focus = {}; const L = $("logFilters"); if (L) L.querySelectorAll("select").forEach((x) => { x.value = ""; }); if ($("logQ")) $("logQ").value = ""; syncFocusUI(); refreshRoutes(); renderLog(); }
+  function clearFocus() { st.focus = {}; const L = $("logFilters"); if (L) L.querySelectorAll("select").forEach((x) => { x.value = ""; }); if ($("logQ")) $("logQ").value = ""; syncFocusUI(); refreshRoutes(); renderLog(); if (window.SeaLayers && SeaLayers.reapply) SeaLayers.reapply(); }
   function renderLegend(vis) {
     const el = $("legendFloat"); if (!el) return;
     const fams = new Map();
@@ -924,6 +924,7 @@
     if (k === "era" && v) { if (st.mode === "idle") enterTimeline(); const e = eraById(v); if (st.t < e.from || st.t > e.to + 1) { setTime(T.parse(e.showcase)); flyTo(e.camera, 2.6); } }
     if (st.mode === "idle") { st.slots.forEach((x) => { if (focusActive() && !matches(x.route)) x.phase = "out"; }); }
     syncFocusUI(); refreshRoutes(); renderLog();
+    if (window.SeaLayers && SeaLayers.reapply) SeaLayers.reapply();
   }
   function logRows() {
     const f = Object.assign({}, st.focus, { routeId: null });

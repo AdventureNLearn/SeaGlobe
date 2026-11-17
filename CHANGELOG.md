@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.1.5 (2026-11-17) — small fixes
+
+- The heavy-layer cap is re-applied when the selection or the window narrows (Focus, a tighter region, leaving a state so county packs unload, or a resize that drops the cap from 5 on a desktop to 3 on a phone). Layers past the cap turn off in turn-on order; the ones that still fit stay on and loaded. A test hook, `window.__sgLayerHook`, reports the active layers and the cap, and is exposed only in test mode (`?capture=1` or `?shot=1`).
+- Terrain still uses the current USGS 3DEP archive (zooms 0–6, zoom 6 partial). Zoom 7–8 tiles are not in that archive [UNKNOWN]; at those camera zooms the closest available tile is used, the coverage note says so, and no elevation is invented. Byte size and coverage of a complete zoom 7–8 set remain [UNKNOWN].
+- Croatia HR-11 (Požeško-slavonska) is now in the borders layer, taken from Natural Earth 1:10m row HRV-1604. The row copies iso and name from HR-12, but identifying fields on the same row (name_en, wikidataid Q58111, fips HR11, gns_adm1 HR11, gns_name, hasc_maybe HR.PS, and woe_label) prove it is HR-11. Vietnam's Bắc Kạn, Hưng Yên and Đồng Nai remain source gaps: they appear only as Natural Earth regional rows that reuse those ISO codes, and those geometries are the regions, not the provinces.
+- The admin-1 rebuild now relabels that Croatia row inside features_for, so a full rebuild keeps HR-11 and no longer raises NameError at the Great Britain merge.
+
+
 ## v3.1.4 (2026-11-15) — Historical bells
 
 - A Historical bells layer (off by default, light, and lazy-loaded) covers 25 sourced bells. Four keep official USGS GNIS coordinates; the rest are pinned at the last known building or site named in the cited source. Approximate coordinates come from OpenStreetMap or Wikidata and are marked approximate. Those coordinate links are kept in the entry’s coordinate source so citations stay primary. Credit: © OpenStreetMap contributors (ODbL). The layer panel shows that basis. The Campana de la Independencia still has no known cast year.

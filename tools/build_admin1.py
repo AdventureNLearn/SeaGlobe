@@ -142,6 +142,7 @@ def pick_items(rows_by_a3):
 
 def features_for(a3, items):
     """Return a list of state dicts ready to write (no parent/bbox; those go in the index)."""
+    items = relabel_proven_units(a3, items)
     used = set()
     out = []
     if a3 == "GBR":
@@ -181,12 +182,52 @@ def _area(rec):
     return abs(a) / 2
 
 
+def repair_utf8(s):
+    """Undo the Latin-1/UTF-8 mojibake present in some Natural Earth text fields."""
+    if not s:
+        return s
+    try:
+        return s.encode("latin-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return s
+
+
+def relabel_proven_units(a3, items):
+    """Correct labels using identifying fields already on the Natural Earth row.
+
+    Croatia's HRV-1604 row copies iso_3166_2 HR-12 and name Brodsko-Posavska
+    from the real HR-12 unit. The same row identifies it as Požeško-slavonska
+    (ISO 3166-2:HR-11) via name_en, wikidataid Q58111, fips HR11, gns_adm1
+    HR11, gns_name, hasc_maybe HR.PS, and woe_label. The geometry is kept.
+    The name is taken from woe_label after repairing its UTF-8 storage.
+    """
+    if a3 != "HRV":
+        return items
+    out = []
+    for it in items:
+        fips = str(it.get("fips") or "").upper()
+        gns = str(it.get("gns_adm1") or "").upper()
+        name_en = it.get("name_en") or ""
+        wid = it.get("wikidataid") or ""
+        if (it.get("adm1_code") == "HRV-1604"
+                or (fips == "HR11" and gns == "HR11"
+                    and name_en.startswith("Požega-Slavonia") and wid == "Q58111")):
+            it = dict(it)
+            it["iso_3166_2"] = "HR-11"
+            label = repair_utf8(it.get("woe_label") or "").split(",")[0].strip()
+            it["name"] = label or name_en
+            if str(it.get("hasc_maybe") or "").endswith(".PS"):
+                it["postal"] = "PS"
+        out.append(it)
+    return out
+
+
 def drop_unproven_duplicates(a3, recs):
     """Drop source rows that repeat a code without proving a new unit.
 
-    Croatia lists HR-12 (Brodsko-Posavska) twice; the second covers the HR-11
-    area, but the source does not prove it is that county, so it is dropped
-    rather than relabelled. Slovenia has a near-zero-area second SI-054.
+    Slovenia has a near-zero-area second SI-054; it is dropped, not relabelled.
+    Croatia's second HR-12 row is relabelled to HR-11 first (see
+    relabel_proven_units) when the same row proves that identity.
     """
     kept, seen_hr12 = [], False
     for rec in recs:
