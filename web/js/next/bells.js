@@ -2,6 +2,7 @@
    layer is turned on or when the encyclopedia / chat asks for every entry. */
 (function () {
   "use strict";
+  if (window.SeaBells) return;
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const unk = (v) => (v == null || v === "" || v === "[UNKNOWN]" ? "Unknown" : String(v));
