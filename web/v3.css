@@ -208,6 +208,18 @@ body.atlas-open .radiopanel, body.topics-open .radiopanel { left: calc(490px * v
   .bellticks { display: block; }
 }
 
+/* Official UAP records layer */
+.uapticks { position: absolute; left: 0; right: 0; top: calc(42px * var(--ui)); height: calc(12px * var(--ui)); pointer-events: none; z-index: 3; }
+.uaptick { position: absolute; width: calc(8px * var(--ui)); height: calc(8px * var(--ui)); border-radius: 50%; background: #b7c4d4; border: 0; padding: 0; transform: translateX(-50%); cursor: pointer; pointer-events: auto; }
+.uappanel { position: absolute; top: calc(88px * var(--ui)); right: calc(14px * var(--ui)); left: auto; max-width: min(calc(280px * var(--ui)), 42vw); max-height: 40vh; overflow: auto; padding: calc(8px * var(--ui)) calc(12px * var(--ui)); font-size: calc(12px * var(--ui)); z-index: 12; }
+.uappanel ul { margin: 0 0 calc(8px * var(--ui)); padding-left: calc(16px * var(--ui)); }
+.uappanel a { color: var(--text); text-decoration: none; }
+.uappanel a:hover { color: var(--cyan); }
+@media (max-width: 820px) {
+  .uappanel { top: calc(var(--mtop) + var(--mgap) * 2); right: var(--mgap); left: auto; max-width: 70vw; font-size: calc(11px * var(--ui)); }
+  .uapticks { display: block; }
+}
+
 /* Topics chip, shown after Show on the globe */
 .topicchip-open { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: inherit; padding: 0; text-align: left; min-width: 0; }
 .topicchip-open #topicChipText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
