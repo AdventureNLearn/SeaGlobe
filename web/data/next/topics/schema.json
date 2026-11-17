@@ -1,0 +1,70 @@
+{
+  "$comment": "Curated Topics navigation rows. Ids start with topic-nav:. title, summary and order are required. Facts in the summary must come from cited encyclopedia entries named in entities, or carry their own citations. example:true marks test-only rows, never shipped in the default list.",
+  "type": "object",
+  "required": ["id", "title", "summary", "order"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^topic-nav:"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "group": {
+      "type": "string"
+    },
+    "parent": {
+      "type": "string"
+    },
+    "eras": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "time": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": { "type": ["number", "string"] },
+        "end": { "type": ["number", "string"] },
+        "precision": { "type": "string" }
+      }
+    },
+    "camera": {
+      "type": "object"
+    },
+    "entities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "layersLight": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "layersHeavy": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "focus": {
+      "type": "string"
+    },
+    "tour": {
+      "type": "string"
+    },
+    "citations": {
+      "type": "array"
+    },
+    "example": {
+      "type": "boolean"
+    }
+  }
+}

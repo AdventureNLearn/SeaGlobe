@@ -1,6 +1,6 @@
 {
  "name": "SeaGlobe Lite",
- "version": "3.1.5",
+ "version": "3.1.6",
  "commit": "[set at release]",
  "entry": "lite.html",
  "root": "web/",
@@ -23,8 +23,8 @@
   "*.map",
   ".DS_Store"
  ],
- "total_bytes": 16345598,
- "file_count": 591,
+ "total_bytes": 16358894,
+ "file_count": 594,
  "files": [
   {
    "path": "app.css",
@@ -190,6 +190,11 @@
    "path": "data/next/tax/schema.json",
    "bytes": 702,
    "sha256": "ccad9bd51594af56c319a0d96cd68ca45153ce16994d515792cb298d24aba716"
+  },
+  {
+   "path": "data/next/topics/schema.json",
+   "bytes": 1616,
+   "sha256": "5f58aff0818d3b8337fa8bc86389ba2484a9cffb9682bb21e859977978d6885e"
   },
   {
    "path": "data/places/airports.js",
@@ -2722,6 +2727,11 @@
    "sha256": "3d1137caaebd0b47274b0cf0ce81cc14ea45271b2511160ad60f5c5ccdbf69e2"
   },
   {
+   "path": "data/topics.js",
+   "bytes": 1412,
+   "sha256": "bc956f440d5e3f3f351c9227f160e5e5e4cd56323c75f0b377b4cf06aca2b734"
+  },
+  {
    "path": "data/tours.js",
    "bytes": 1083,
    "sha256": "7c69c365000b3be4b8e09479d74ac2428fdf195af89cd59fdb49ae1038294ae0"
@@ -2783,13 +2793,13 @@
   },
   {
    "path": "js/encyclopedia.js",
-   "bytes": 24563,
-   "sha256": "d1f085f13319d5ea6c4f61be3ea877b3f2dc08c2c9e3b5bd558cbfefa57fed5e"
+   "bytes": 24692,
+   "sha256": "2bd6b44cd551c599d1bf4ccda384a2d574b391a9b7160f4b3f4341fec6a0dabe"
   },
   {
    "path": "js/flags.js",
-   "bytes": 2723,
-   "sha256": "e8fade4e7a8cab9532889fd1dedff6e7f816fd66bc66b23f162be0f623799593"
+   "bytes": 2773,
+   "sha256": "85ae89d7f56354712ee02c53f2bd6786e3349f4bb75ca2056f82b87fb80ec11d"
   },
   {
    "path": "js/frame-guard.js",
@@ -2798,8 +2808,8 @@
   },
   {
    "path": "js/guide.js",
-   "bytes": 12435,
-   "sha256": "fdb1d88195538a1f35c9d6bfe79a837cee43f47f9dd5a93881e51161a25a8ed9"
+   "bytes": 12831,
+   "sha256": "e26d51bacf4505880b0912907a2c038de0b2947a7e9cb2ce0fedb699a062de5f"
   },
   {
    "path": "js/help.js",
@@ -2877,6 +2887,11 @@
    "sha256": "f089523afd5aa09932f0f43b03a9bb12de75a9786591e48d719c5d426041a06d"
   },
   {
+   "path": "js/next/topics.js",
+   "bytes": 9406,
+   "sha256": "efb13e2aa138203b24ab94ba786a7d26c96009a574295a84c20b76dd1887f780"
+  },
+  {
    "path": "js/planet.js",
    "bytes": 10936,
    "sha256": "35f1dc647eb9b44f8398b40fc88f9240b39e811c785885a8efc453c8271e3001"
@@ -2924,7 +2939,7 @@
   {
    "path": "js/version.js",
    "bytes": 492,
-   "sha256": "edd151392699d33aeb8c87e01495fef47317640aa7dff7f8e3b3633e2e9f526e"
+   "sha256": "550b326fa52b61bca04dfabdb80bf10f01905e6083c951fc327ecdb3bb2fec00"
   },
   {
    "path": "js/voyages.js",
@@ -2938,8 +2953,8 @@
   },
   {
    "path": "lite.html",
-   "bytes": 11226,
-   "sha256": "a801684eb1355171290dae19d5fafbc4e0807c27ee3d15e970b130f482995022"
+   "bytes": 11267,
+   "sha256": "769cbb4dedfdb95d94e821a20fb3cce8e28bced2b90b6a3b51ed72ff51037e07"
   },
   {
    "path": "textures/earth-navy.png",
@@ -2948,8 +2963,8 @@
   },
   {
    "path": "v3.css",
-   "bytes": 18899,
-   "sha256": "50918d483518519e3b94279cbd675cac3d74c3afc666d393528bdd6786bdf4cd"
+   "bytes": 19145,
+   "sha256": "658f5ccfa2848c93ac8c71e70cb30c175632defcfca3fbf7540a02dfc80cf33d"
   },
   {
    "path": "vendor/README.md",
@@ -2979,7 +2994,7 @@
   {
    "path": "version.json",
    "bytes": 352,
-   "sha256": "ef5f535a82b6585061a16e8989e517fb6603a016b4b26b76036296a07ae1db50"
+   "sha256": "e7beed0092f40972b258d12e55a1addf435ba7ae6a69ec7957195acc9dd446da"
   }
  ]
 }

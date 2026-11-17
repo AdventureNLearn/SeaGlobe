@@ -74,16 +74,23 @@ try {
         any: f && f.any(),
         example: f && f.exampleData,
         nextToggles: [...document.querySelectorAll("[data-next-layer], #tPmtiles, #tTerrain, #tLaws")].map((e) => e.id || e.dataset.nextLayer),
-        exampleEntries: window.SeaAtlas && window.SeaAtlas.get && !!(window.SeaAtlas.get("law:zz-example-instrument") || window.SeaAtlas.get("bell:example-not-a-real-bell"))
+        exampleEntries: window.SeaAtlas && window.SeaAtlas.get && !!(window.SeaAtlas.get("law:zz-example-instrument") || window.SeaAtlas.get("bell:example-not-a-real-bell")),
+        topicsBtn: !!document.getElementById("topicsBtn"),
+        mTopicsBtn: !!document.getElementById("mTopicsBtn"),
+        topicsPanel: !!document.getElementById("topicsPanel")
       };
     });
     assert.equal(st.present, true, "SeaFlags missing");
     assert.equal(st.any, false);
     assert.equal(st.example, false);
     assert.ok(st.names && st.names.includes("pmtilesBorders"));
+    assert.ok(st.names && st.names.includes("topicNav"));
     assert.ok(Object.values(st.all).every((v) => v === false));
     assert.deepEqual(st.nextToggles, []);
     assert.equal(st.exampleEntries, false);
+    assert.equal(st.topicsBtn, false, "Topics button must stay out of a normal visit");
+    assert.equal(st.mTopicsBtn, false);
+    assert.equal(st.topicsPanel, false);
     assert.deepEqual(p._errors, []);
     await p.close();
   });
@@ -903,6 +910,255 @@ try {
     assert.ok(entry.chat.includes("app:guide-bells"), "chat " + (entry.chat || []).join());
     assert.deepEqual(p._errors, []);
     await p.close();
+  });
+
+
+  await check("topics.js ships only Historical Bells and matches the schema", async () => {
+    const src = fs.readFileSync(path.join(root, "web", "data", "topics.js"), "utf8");
+    const sandbox = { SEAGLOBE_DATA: {} };
+    const fn = new Function("window", src);
+    fn(sandbox);
+    const list = sandbox.SEAGLOBE_DATA.topics;
+    assert.ok(Array.isArray(list) && list.length === 1, "first slice ships one topic");
+    const tpc = list[0];
+    assert.equal(tpc.id, "topic-nav:historical-bells");
+    assert.equal(tpc.title, "Historical Bells");
+    assert.equal(tpc.order, 1);
+    assert.equal(tpc.example, undefined);
+    assert.deepEqual(tpc.layersLight, ["bells"]);
+    assert.ok(!tpc.layersHeavy || tpc.layersHeavy.length === 0, "no heavy layers on the first row");
+    const lines = String(tpc.summary || "").trim().split(/\n/).filter(Boolean);
+    assert.ok(lines.length >= 1 && lines.length <= 2, "summary must be one or two lines");
+    const schema = JSON.parse(fs.readFileSync(path.join(root, "web", "data", "next", "topics", "schema.json"), "utf8"));
+    assert.deepEqual(schema.required, ["id", "title", "summary", "order"]);
+    assert.equal(schema.properties.id.pattern, "^topic-nav:");
+    for (const key of Object.keys(tpc)) {
+      assert.ok(schema.properties[key], "unexpected field " + key);
+    }
+    for (const req of schema.required) assert.ok(tpc[req] != null && tpc[req] !== "", "missing " + req);
+    assert.match(tpc.id, new RegExp(schema.properties.id.pattern));
+    const bells = JSON.parse(fs.readFileSync(path.join(root, "web", "data", "next", "bells", "bells.json"), "utf8"));
+    const bellIds = (bells.records || []).filter((r) => r && r.example !== true).map((r) => r.id);
+    assert.deepEqual(tpc.entities, bellIds, "entities must be the existing encyclopedia bell ids");
+    assert.equal(tpc.entities.length, 25);
+    const man = JSON.parse(fs.readFileSync(path.join(root, "grokme", "lite-manifest.json"), "utf8"));
+    assert.ok(man.file_count <= 600, "lite file count " + man.file_count);
+  });
+
+  const snapGlobe = () => ({
+    mode: document.getElementById("modeBtn") && document.getElementById("modeBtn").getAttribute("aria-pressed"),
+    date: document.getElementById("dateLabel") && document.getElementById("dateLabel").textContent,
+    layers: window.SeaLayers && window.SeaLayers.active ? window.SeaLayers.active() : [],
+    atlasOpen: !!(document.getElementById("atlasPanel") && !document.getElementById("atlasPanel").hidden)
+  });
+
+  await check("#/topic/ is ignored when topicNav is off", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1");
+    const before = await p.evaluate(snapGlobe);
+    await p.evaluate(() => { location.hash = "#/topic/topic-nav:historical-bells"; });
+    await p.waitForFunction(() => location.hash.indexOf("#/topic/") === 0);
+    const after = await p.evaluate(() => {
+      const s = {
+        mode: document.getElementById("modeBtn") && document.getElementById("modeBtn").getAttribute("aria-pressed"),
+        date: document.getElementById("dateLabel") && document.getElementById("dateLabel").textContent,
+        layers: window.SeaLayers && window.SeaLayers.active ? window.SeaLayers.active() : [],
+        atlasOpen: !!(document.getElementById("atlasPanel") && !document.getElementById("atlasPanel").hidden),
+        topicsBtn: !!document.getElementById("topicsBtn"),
+        topicsPanel: !!document.getElementById("topicsPanel"),
+        topicsOpen: !!(document.getElementById("topicsPanel") && !document.getElementById("topicsPanel").hidden),
+        hash: location.hash
+      };
+      return s;
+    });
+    assert.equal(after.topicsBtn, false);
+    assert.equal(after.topicsPanel, false);
+    assert.equal(after.topicsOpen, false);
+    assert.equal(after.atlasOpen, false, "encyclopedia must not steal #/topic/");
+    assert.equal(after.mode, before.mode);
+    assert.equal(after.date, before.date);
+    assert.deepEqual(after.layers, before.layers);
+    assert.match(after.hash, /#\/topic\//);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("topicNav opens glance and overview without touching Sampler, layers or the clock", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const before = await p.evaluate(snapGlobe);
+    const ui = await p.evaluate(() => {
+      const btn = document.getElementById("topicsBtn");
+      const m = document.getElementById("mTopicsBtn");
+      return {
+        btn: !!(btn && btn.textContent.trim() === "Topics"),
+        mBtn: !!(m && m.textContent.trim() === "Topics"),
+        afterHelp: !!(btn && btn.previousElementSibling && btn.previousElementSibling.id === "helpBtn"),
+        panelHidden: !!(document.getElementById("topicsPanel") && document.getElementById("topicsPanel").hidden),
+        showOnGlobe: !!document.getElementById("topicsShow")
+      };
+    });
+    assert.equal(ui.btn, true, "header Topics button");
+    assert.equal(ui.mBtn, true, "phone quick Topics button is in the document");
+    assert.equal(ui.afterHelp, true, "Topics sits after Help");
+    assert.equal(ui.panelHidden, true);
+    assert.equal(ui.showOnGlobe, false);
+    await p.click("#topicsBtn");
+    await p.waitForFunction(() => document.getElementById("topicsPanel") && !document.getElementById("topicsPanel").hidden);
+    const glance = await p.evaluate(() => {
+      const body = document.getElementById("topicsBody");
+      const text = (body && body.textContent) || "";
+      const links = [...(body ? body.querySelectorAll("a[href*='topic']") : [])].map((a) => a.getAttribute("href"));
+      return {
+        text,
+        links,
+        backHidden: !!(document.getElementById("topicsBack") && document.getElementById("topicsBack").hidden),
+        layers: window.SeaLayers.active(),
+        mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+        date: document.getElementById("dateLabel").textContent
+      };
+    });
+    assert.match(glance.text, /Historical Bells/);
+    assert.match(glance.text, /Twenty-five sourced bells/);
+    assert.ok(glance.links.some((h) => decodeURIComponent(h).indexOf("topic-nav:historical-bells") >= 0));
+    assert.equal(glance.backHidden, true);
+    assert.deepEqual(glance.layers, before.layers);
+    assert.equal(glance.mode, before.mode);
+    assert.equal(glance.date, before.date);
+    await p.click("#topicsBody a[href*='topic']");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.state && window.SeaTopics.state().view === "overview");
+    const over = await p.evaluate(() => {
+      const body = document.getElementById("topicsBody");
+      const hrefs = [...(body ? body.querySelectorAll("a[href^='#/entry/']") : [])].map((a) => decodeURIComponent(a.getAttribute("href")));
+      return {
+        text: (body && body.textContent) || "",
+        hrefs,
+        hash: decodeURIComponent(location.hash || ""),
+        backHidden: !!(document.getElementById("topicsBack") && document.getElementById("topicsBack").hidden),
+        showOnGlobe: /Show on the globe/i.test((body && body.textContent) || ""),
+        layers: window.SeaLayers.active(),
+        mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+        date: document.getElementById("dateLabel").textContent,
+        bellsToggle: !!(document.getElementById("tBells") && document.getElementById("tBells").checked)
+      };
+    });
+    assert.match(over.text, /Historical Bells/);
+    assert.match(over.text, /Each bell is in the encyclopedia/);
+    assert.equal(over.backHidden, false);
+    assert.equal(over.showOnGlobe, false, "Show on the globe is not in this slice");
+    assert.match(over.hash, /#\/topic\/topic-nav:historical-bells/);
+    assert.ok(over.hrefs.includes("#/entry/bell:liberty"), over.hrefs.join(","));
+    assert.equal(over.hrefs.length, 25);
+    assert.deepEqual(over.layers, before.layers);
+    assert.equal(over.mode, before.mode);
+    assert.equal(over.date, before.date);
+    assert.equal(over.bellsToggle, false, "bells layer must stay off");
+    await p.close();
+  });
+
+  await check("#/topic/<id> opens overview when topicNav is on", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const before = await p.evaluate(snapGlobe);
+    await p.evaluate(() => { location.hash = "#/topic/" + encodeURIComponent("topic-nav:historical-bells"); });
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.state && window.SeaTopics.state().view === "overview" && document.getElementById("topicsPanel") && !document.getElementById("topicsPanel").hidden);
+    const st = await p.evaluate(() => ({
+      text: (document.getElementById("topicsBody") && document.getElementById("topicsBody").textContent) || "",
+      atlasOpen: !!(document.getElementById("atlasPanel") && !document.getElementById("atlasPanel").hidden),
+      layers: window.SeaLayers.active(),
+      mode: document.getElementById("modeBtn").getAttribute("aria-pressed"),
+      date: document.getElementById("dateLabel").textContent
+    }));
+    assert.match(st.text, /Historical Bells/);
+    assert.equal(st.atlasOpen, false);
+    assert.deepEqual(st.layers, before.layers);
+    assert.equal(st.mode, before.mode);
+    assert.equal(st.date, before.date);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("Topics phone quick button opens a sheet at glance, and a smoke load stays clean", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    await p.setViewport({ width: 390, height: 844, deviceScaleFactor: 1 });
+    await new Promise((r) => setTimeout(r, 250));
+    const phone = await p.evaluate(() => {
+      const btn = document.getElementById("topicsBtn");
+      const m = document.getElementById("mTopicsBtn");
+      const cs = btn && getComputedStyle(btn);
+      return {
+        headerHidden: !!(cs && cs.display === "none"),
+        mBtn: !!(m && m.textContent.trim() === "Topics"),
+        inQuick: !!(m && m.closest("#mQuick"))
+      };
+    });
+    assert.equal(phone.headerHidden, true, "header Topics hides on a phone; the quick button is used");
+    assert.equal(phone.mBtn, true);
+    assert.equal(phone.inQuick, true);
+    await p.evaluate(() => { if (window.__sgMobile) window.__sgMobile.sheet("menu"); });
+    await p.waitForFunction(() => {
+      const m = document.getElementById("mTopicsBtn");
+      if (!m || !document.body.classList.contains("m-sheet-menu")) return false;
+      const r = m.getBoundingClientRect();
+      if (r.width <= 0 || r.height <= 0) return false;
+      const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return !!(top && (top === m || m.contains(top)));
+    });
+    await p.evaluate(() => document.getElementById("mTopicsBtn").click());
+    await p.waitForFunction(() => document.getElementById("topicsPanel") && !document.getElementById("topicsPanel").hidden);
+    const glance = await p.evaluate(() => ({
+      text: (document.getElementById("topicsBody") && document.getElementById("topicsBody").textContent) || "",
+      errors: 0
+    }));
+    assert.match(glance.text, /Historical Bells/);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("Topics lite smoke load shows the same Historical Bells list", async () => {
+    const p = await openApp(browser, port, "capture=1&mute=1&flag=topicNav", "lite.html");
+    await p.waitForFunction(() => window.SeaTopics && window.SeaTopics.ready, { timeout: 10000 });
+    const st = await p.evaluate(() => ({
+      ready: document.documentElement.dataset.ready,
+      btn: !!(document.getElementById("topicsBtn") && document.getElementById("topicsBtn").textContent.trim() === "Topics"),
+      rows: window.SeaTopics.rows().map((t) => t.id)
+    }));
+    assert.equal(st.ready, "1");
+    assert.equal(st.btn, true);
+    assert.deepEqual(st.rows, ["topic-nav:historical-bells"]);
+    await p.click("#topicsBtn");
+    await p.waitForFunction(() => document.getElementById("topicsPanel") && !document.getElementById("topicsPanel").hidden);
+    const text = await p.evaluate(() => (document.getElementById("topicsBody") && document.getElementById("topicsBody").textContent) || "");
+    assert.match(text, /Historical Bells/);
+    assert.deepEqual(p._errors, []);
+    await p.close();
+  });
+
+  await check("Topics flag-off smoke load on desktop, phone and lite", async () => {
+    for (const [label, file, size] of [
+      ["desktop", "", null],
+      ["phone", "", { width: 390, height: 844, deviceScaleFactor: 1 }],
+      ["lite", "lite.html", null]
+    ]) {
+      const p = await openApp(browser, port, "capture=1&mute=1", file);
+      if (size) {
+        await p.setViewport(size);
+        await new Promise((r) => setTimeout(r, 250));
+      }
+      const st = await p.evaluate(() => ({
+        ready: document.documentElement.dataset.ready,
+        topicsBtn: !!document.getElementById("topicsBtn"),
+        mTopicsBtn: !!document.getElementById("mTopicsBtn"),
+        log: !!document.getElementById("logBtn"),
+        mode: document.getElementById("modeBtn") && document.getElementById("modeBtn").getAttribute("aria-pressed")
+      }));
+      assert.equal(st.ready, "1", label + " ready");
+      assert.equal(st.topicsBtn, false, label + " Topics button");
+      assert.equal(st.mTopicsBtn, false, label + " phone Topics button");
+      assert.equal(st.log, true, label + " log");
+      assert.deepEqual(p._errors, [], label + " errors: " + (p._errors || []).join(" | "));
+      await p.close();
+    }
   });
 
   skip("quoted laws attach to country entries", "todo: official instruments not re-verified");

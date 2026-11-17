@@ -52,7 +52,7 @@
     document.body.classList.toggle("atlas-open", !!on);
     $("atlasBtn").setAttribute("aria-pressed", String(!!on));
     if (on && A().ensureAll) A().ensureAll().then(count);   // region and town entries join search on first open
-    if (on) { if (window.__sg && window.__sg.log) window.__sg.log(false); if (!/^#\//.test(location.hash)) go("#/browse"); else route(); setTimeout(() => q.focus(), 0); }
+    if (on) { if (window.__sg && window.__sg.log) window.__sg.log(false); if (!/^#\//.test(location.hash) || /^#\/topic(\/|$)/.test(location.hash)) go("#/browse"); else route(); setTimeout(() => q.focus(), 0); }
     else if (/^#\//.test(location.hash)) history.replaceState(null, "", location.pathname + location.search);
   }
   function go(h, replace) { if (location.hash === h) { route(); return; } if (replace) { history.replaceState(null, "", h); route(); } else location.hash = h; }
@@ -64,6 +64,7 @@
     const h = decodeURIComponent(location.hash || "");
     const m = /^#\/([a-z]+)\/?(.*)$/.exec(h);
     if (!m) return;
+    if (m[1] === "topic") return; // Topics owns #/topic/; do not open the encyclopedia
     if (panel.hidden) { panel.hidden = false; document.body.classList.add("atlas-open"); $("atlasBtn").setAttribute("aria-pressed", "true"); }
     count();
     const [, view, arg] = m;

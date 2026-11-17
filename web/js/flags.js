@@ -12,7 +12,8 @@
     "authorities",
     "taxDrilldown",
     "learningPaths",
-    "countyGis"
+    "countyGis",
+    "topicNav"
   ];
   function parse(search) {
     const q = new URLSearchParams(typeof search === "string" ? search.replace(/^\?/, "") : (search || ""));
@@ -59,7 +60,8 @@
       authorities: "next/authorities.js",
       taxDrilldown: "next/tax.js",
       learningPaths: "next/learning-paths.js",
-      countyGis: "next/county-gis.js"
+      countyGis: "next/county-gis.js",
+      topicNav: "next/topics.js"
     };
     for (const k of NAMES) {
       if (parsed.flags[k]) await load(map[k]);

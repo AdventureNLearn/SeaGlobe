@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.6 (2026-11-17) — Topics navigation
+
+- Behind a `topicNav` flag that stays off on a normal visit (`?flag=topicNav`): a Topics button appears in the header, near Help and Encyclopedia, and in the phone quick buttons. The first list has only Historical Bells (order 1). Opening Topics shows a short list; tapping a topic shows a short overview and links to existing encyclopedia entries. The globe, Sampler, layers and the clock stay as they are. Show on the globe is not in this slice. A deep link `#/topic/<id>` opens that overview when the flag is on, and is ignored when the flag is off. Desktop and lite ship the same list.
+
 ## v3.1.5 (2026-11-17) — small fixes
 
 - The heavy-layer cap is re-applied when the selection or the window narrows (Focus, a tighter region, leaving a state so county packs unload, or a resize that drops the cap from 5 on a desktop to 3 on a phone). Layers past the cap turn off in turn-on order; the ones that still fit stay on and loaded. A test hook, `window.__sgLayerHook`, reports the active layers and the cap, and is exposed only in test mode (`?capture=1` or `?shot=1`).
