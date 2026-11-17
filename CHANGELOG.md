@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.9 (2026-11-17) — lite region bundles
+
+- The lite build packs the per-country region files into 18 regional bundles, so the lite file count drops from 595 to 173. Desktop and phone are unchanged and still load the per-country files. The first zoom into a country in lite downloads that region's bundle once.
+
 ## v3.1.8 (2026-11-17) — Topics encyclopedia records and the first eight topics
 
 - Behind a `topicNav` flag that stays off on a normal visit (`?flag=topicNav`): a Topics button appears in the header, near Help and Encyclopedia, and in the phone quick buttons. The first list has eight topics, in this order: Historical Bells, Six eras of sea routes, Early flight to the jet age, The space age, Ships and assets today, Countries and regions, Wind and weather, and How SeaGlobe works. Opening Topics shows a short list; tapping a topic shows a short overview and links to existing encyclopedia entries. A second press, Show on the globe, applies only the named time, camera, Focus and light layers (Historical Bells turns on the bells layer). It never runs on its own. A topic chip, or Back to Sampler, clears it and restores the prior state (heavy layers the topic turned on are turned off; a previous heavy set is not restored). If a named heavy layer would pass the cap, the topic asks which active layer to turn off first and never drops one silently. Terrain and Census boundaries are skipped with a short note when their flags are off. Heavy layers go through SeaLayers.request and the existing cap re-apply hook. A deep link `#/topic/<id>` opens that overview when the flag is on, and is ignored when the flag is off. Desktop and lite ship the same list. Glance and overview do not fetch topic data beyond a normal visit (bells.json waits until Show on the globe).

@@ -35,9 +35,35 @@
     if (key.startsWith("towns/") && key !== "towns-index") return key === st.wantTown;
     return true;
   }
+  function liteEdition() { return !!(window.SEAGLOBE_EDITION && window.SEAGLOBE_EDITION.lite); }
+  const bundleCache = {}, bundleLoading = {};
+  let mapPromise = null;
+  function loadScript(src, read) {
+    return new Promise((res) => { const s = document.createElement("script"); s.src = src; s.onload = () => res(read()); s.onerror = () => res(null); document.head.appendChild(s); });
+  }
+  function loadLiteMap() {
+    if (window.SEAGLOBE_LITE_REGION_MAP) return Promise.resolve(window.SEAGLOBE_LITE_REGION_MAP);
+    if (!mapPromise) mapPromise = loadScript("data/regions/lite-bundles/map.js", () => window.SEAGLOBE_LITE_REGION_MAP || null);
+    return mapPromise;
+  }
+  function loadLiteBundle(id) {
+    if (bundleCache[id]) return Promise.resolve(bundleCache[id]);
+    if (!bundleLoading[id]) bundleLoading[id] = loadScript("data/regions/lite-bundles/" + id + ".js", () => (bundleCache[id] = (window.SEAGLOBE_REGION_BUNDLES || {})[id] || null));
+    return bundleLoading[id];
+  }
   function loadPack(key) {
     if (R()[key]) return Promise.resolve(R()[key]);
-    if (!loading[key]) loading[key] = new Promise((res) => { const s = document.createElement("script"); s.src = "data/regions/" + key + ".js"; s.onload = () => res(R()[key] || null); s.onerror = () => res(null); document.head.appendChild(s); });
+    if (!loading[key]) {
+      if (liteEdition() && /^(towns|admin1|counties)\//.test(key)) {
+        loading[key] = loadLiteMap().then((map) => {
+          const id = map && map[key];
+          if (!id) return null;
+          return loadLiteBundle(id).then((packs) => (packs && packs[key]) || null);
+        });
+      } else {
+        loading[key] = loadScript("data/regions/" + key + ".js", () => R()[key] || null);
+      }
+    }
     return loading[key].then((pack) => {
       if (!pack) return null;
       if (!R()[key]) {
