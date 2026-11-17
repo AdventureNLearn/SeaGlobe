@@ -32,7 +32,7 @@ The checker prints errors in plain words and does not write or merge anything.
 }
 ```
 
-`layer` is one of `airports`, `launch-sites`, `bells`, `routes`, `regions`. `merge_into` must already exist in the repo. Coordinate order follows the existing files: route and place points are `[lat, lon]` or named `lat` / `lon`; region rings are `[lon, lat]`.
+`layer` is one of `airports`, `launch-sites`, `bells`, `routes`, `regions`, `uap`. `merge_into` must already exist in the repo. Coordinate order follows the existing files: route and place points are `[lat, lon]` or named `lat` / `lon`; region rings are `[lon, lat]`.
 
 ## Templates
 
@@ -66,6 +66,48 @@ Merge into `web/data/space/gcat.js`. Required fields: `code`, `name`, `short`, `
 ### Bells (points)
 
 Merge into `web/data/next/bells/bells.json` (the shipped historical bells layer). Required fields: `id` (must start with `bell:`), `kind` (must be `bell`), `title`, `example` (real submissions must use `false`), and `citations` (a non-empty list with a primary source). Optional fields may use `[UNKNOWN]` when not sourced. A bell without coordinates gets no map pin. `web/data/next/bells/example.json` is example data only and must not be shipped as a real record.
+
+### UAP records (official, declassified) (points)
+
+Merge into `web/data/next/uap/uap.json` (the official declassified UAP layer, heavy and off by default). Use `"layer": "uap"` and `"license": "public domain"` on the wrapper; the allowed license values are unchanged. Only official government records that are public domain (for example U.S. government works: AARO, the National Archives, U.S. Air Force) are accepted. Records from archives under other licenses (for example UK Open Government Licence, Library and Archives Canada terms, CNES GEIPAN) are linked under Go deeper only, not added here.
+
+Required fields:
+
+- `id`: `uap:<agency>-<place>-<year>`, lowercase words joined by `-` (for example `uap:aaro-al-taqaddum-2017`).
+- `kind`: `uap-record`. `example`: `false` for real records.
+- `title`: the record's name (case or file title as the agency gives it, with the date).
+- `place`: the installation, town, county, or sea area named in the official record.
+- `geo`: `lat` / `lon` rounded to 0.1 degree (about 11 km), taken from a cited public-domain gazetteer (for example OurAirports or GNIS), or `null` when the record names no usable place (no pin). Say what the point stands for in `location_basis` and where it came from in `coordinate_source`. Never pin a finer point than the record names.
+- `date` (`YYYY-MM-DD`, `YYYY-MM`, or `YYYY`) and `time` (`start`, `end`, `precision`), as on the official record.
+- `agency`: the issuing body (for example AARO, U.S. Air Force Project Blue Book).
+- `finding`: the agency's own conclusion, quoted or closely paraphrased from the cited page, or `[UNKNOWN]` when it was not read. A record with no readable finding and nothing else official to say is not added.
+- `claim`: `we-have-a-record`, `not-proven`, or `people-disagree`. On this layer `claim` describes the agency's own finding: `we-have-a-record` means the official finding was read on the cited page; it is not SeaGlobe asserting what the object was. Any claim of extraterrestrial origin is `not-proven`; public claims that contradict the official finding go in `other_claims` as `people-disagree`, each with its own `cite`.
+- `citations`: a non-empty list with the primary official URL and, where one exists, a durable identifier (for example a National Archives Identifier, NAID, with series, record group, and microfilm roll). Every fact on the record is covered by a citation.
+- `license_basis`: why the record is public domain (for example "U.S. government work (17 U.S.C. 105)").
+
+Optional fields: `summary` (only what the official page states), `status` (`official-report` or `declassified`), `claim_note`, `other_claims`, `evidence.gaps` (each gap as `[UNKNOWN]` with what was not read).
+
+Not allowed: names of witnesses or other private people, personal data of any kind, exact or street addresses, homes, parcels, or coordinates finer than 0.1 degree. Official videos, scans, and PDFs are linked, never bundled.
+
+```json
+{
+  "example": false,
+  "kind": "uap-record",
+  "id": "uap:aaro-al-taqaddum-2017",
+  "title": "Al Taqaddum Air Base object, 23 October 2017",
+  "place": "Al Taqaddum Air Base, Iraq",
+  "geo": {"lat": 33.3, "lon": 43.6},
+  "location_basis": "installation named in the official record (coarse, 0.1 degree)",
+  "coordinate_source": "OurAirports airports.csv (public domain), ident ORAT",
+  "date": "2017-10-23",
+  "time": {"start": 2017, "end": 2017, "precision": "day"},
+  "agency": "All-domain Anomaly Resolution Office (AARO), U.S. Department of Defense",
+  "finding": "AARO assesses with high confidence that the object was consistent with a cluster of fully and partially inflated balloons.",
+  "claim": "we-have-a-record",
+  "citations": ["https://www.aaro.mil/UAP-Cases/UAP-Case-Resolution-Reports/"],
+  "license_basis": "U.S. government work (17 U.S.C. 105), public domain"
+}
+```
 
 ### Routes (lines)
 

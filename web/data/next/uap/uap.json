@@ -1,0 +1,162 @@
+{
+ "license": "public domain",
+ "layer": "uap",
+ "merge_into": "web/data/next/uap/uap.json",
+ "citation": "Official U.S. government sources named on each record (AARO, National Archives, U.S. Air Force).",
+ "records": [
+  {
+   "example": false,
+   "kind": "uap-record",
+   "id": "uap:aaro-al-taqaddum-2017",
+   "title": "Al Taqaddum Air Base object, 23 October 2017",
+   "place": "Al Taqaddum Air Base, Iraq",
+   "geo": {
+    "lat": 33.3,
+    "lon": 43.6
+   },
+   "location_basis": "installation named in the official record (coarse, 0.1 degree)",
+   "coordinate_source": "OurAirports airports.csv (public domain), ident ORAT, https://davidmegginson.github.io/ourairports-data/airports.csv (downloaded 2026-11-17); rounded to 0.1 degree (about 11 km).",
+   "date": "2017-10-23",
+   "time": {
+    "start": 2017,
+    "end": 2017,
+    "precision": "day"
+   },
+   "agency": "All-domain Anomaly Resolution Office (AARO), U.S. Department of Defense",
+   "status": "official-report",
+   "summary": "An infrared sensor on an aerostat force-protection blimp at 2,700 feet above Al Taqaddum Air Base recorded 17 minutes and 30 seconds of footage of an unidentified object that appears to float above the ground.",
+   "finding": "AARO assesses with high confidence that the object did not exhibit anomalous behavior or capabilities, and that it was consistent with a cluster of fully and partially inflated balloons.",
+   "claim": "we-have-a-record",
+   "claim_note": "we-have-a-record of AARO's own published resolution; SeaGlobe does not assert the object's nature beyond that finding.",
+   "citations": [
+    "https://www.aaro.mil/UAP-Cases/UAP-Case-Resolution-Reports/"
+   ],
+   "license_basis": "U.S. government work (17 U.S.C. 105), public domain. Official video linked, not bundled.",
+   "evidence": {
+    "gaps": [
+     "Direct URL of the AARO case-resolution PDF and video: [UNKNOWN] (linked from the cited page, not read in this pass)."
+    ]
+   }
+  },
+  {
+   "example": false,
+   "kind": "uap-record",
+   "id": "uap:aaro-aguadilla-2013",
+   "title": "Puerto Rico (Aguadilla) objects, 26 April 2013",
+   "place": "Over Rafael Hernandez Airport near Aguadilla, Puerto Rico, and the ocean off the northwestern coast",
+   "geo": {
+    "lat": 18.5,
+    "lon": -67.1
+   },
+   "location_basis": "airport named in the official record (coarse, 0.1 degree); the track ran out over the ocean",
+   "coordinate_source": "OurAirports airports.csv (public domain), ident TJBQ, https://davidmegginson.github.io/ourairports-data/airports.csv (downloaded 2026-11-17); rounded to 0.1 degree (about 11 km).",
+   "date": "2013-04-26",
+   "time": {
+    "start": 2013,
+    "end": 2013,
+    "precision": "day"
+   },
+   "agency": "All-domain Anomaly Resolution Office (AARO), U.S. Department of Defense",
+   "status": "official-report",
+   "summary": "An infrared sensor on a U.S. Customs and Border Protection aircraft recorded footage that appears to show a UAP moving at high speed, splitting in two, and entering and leaving the water.",
+   "finding": "AARO assesses with high confidence that the objects did not demonstrate anomalous speeds or flight behaviors. An Intelligence Community partner's reconstruction indicates two objects traveling near each other in a straight line at wind speed, which did not enter the water at any point.",
+   "claim": "we-have-a-record",
+   "claim_note": "we-have-a-record of AARO's own published resolution; SeaGlobe does not assert the objects' nature beyond that finding.",
+   "citations": [
+    "https://www.aaro.mil/UAP-Cases/UAP-Case-Resolution-Reports/"
+   ],
+   "license_basis": "U.S. government work (17 U.S.C. 105), public domain. Official video and reconstruction linked, not bundled.",
+   "evidence": {
+    "gaps": [
+     "What the two objects were: [UNKNOWN] (the cited page does not identify them).",
+     "Direct URL of the AARO case-resolution PDF: [UNKNOWN]."
+    ]
+   }
+  },
+  {
+   "example": false,
+   "kind": "uap-record",
+   "id": "uap:usaf-edwards-afb-1957",
+   "title": "Edwards AFB sighting, 2 May 1957 (Project Blue Book)",
+   "place": "Edwards AFB, California",
+   "geo": {
+    "lat": 34.9,
+    "lon": -117.9
+   },
+   "location_basis": "installation named in the official record (coarse, 0.1 degree)",
+   "coordinate_source": "OurAirports airports.csv (public domain), ident KEDW, https://davidmegginson.github.io/ourairports-data/airports.csv (downloaded 2026-11-17); rounded to 0.1 degree (about 11 km).",
+   "date": "1957-05-02",
+   "time": {
+    "start": 1957,
+    "end": 1957,
+    "precision": "day"
+   },
+   "agency": "U.S. Air Force, Project Blue Book",
+   "status": "declassified",
+   "summary": "Sanitized Project Blue Book case file \"Edwards AFB, California, May 1957\". Its Project 10073 Record Card (image 1) gives 2 May 1957, ground-visual, one object, 25 minutes, easterly course.",
+   "finding": "The Project 10073 Record Card marks the conclusion \"Was Balloon\", with the comment \"Confirmed balloon. See case file.\"",
+   "claim": "we-have-a-record",
+   "claim_note": "we-have-a-record of the Air Force's own conclusion on the record card; SeaGlobe does not assert the object's nature beyond that finding.",
+   "citations": [
+    "https://catalog.archives.gov/id/28970018",
+    "https://catalog.archives.gov/id/28970018?objectPage=1",
+    "National Archives Identifier 28970018 (file unit); series NAID 597821; RG 341; microfilm T1206, roll 27"
+   ],
+   "license_basis": "Official U.S. Air Force record, U.S. government work, public domain. NARA: Catalog items can be republished with attribution to NARA. Scans linked, not bundled.",
+   "evidence": {
+    "gaps": [
+     "Images 2 to 106 of the file were not read; whether they hold other sightings or conclusions is [UNKNOWN]."
+    ]
+   }
+  },
+  {
+   "example": false,
+   "kind": "uap-record",
+   "id": "uap:usaf-roswell-1947",
+   "title": "Roswell incident, July 1947 (official Air Force findings)",
+   "place": "Near Roswell, New Mexico",
+   "geo": {
+    "lat": 33.3,
+    "lon": -104.5
+   },
+   "location_basis": "town named in the official record (coarse, 0.1 degree, at the former Roswell Army Air Field); not the debris recovery site, which the cited pages do not locate",
+   "coordinate_source": "OurAirports airports.csv (public domain), ident KROW, https://davidmegginson.github.io/ourairports-data/airports.csv (downloaded 2026-11-17); rounded to 0.1 degree (about 11 km).",
+   "date": "1947-07",
+   "time": {
+    "start": 1947,
+    "end": 1947,
+    "precision": "month"
+   },
+   "agency": "U.S. Air Force (1994 and 1995 reports, following a General Accounting Office audit)",
+   "status": "declassified",
+   "summary": "Following a GAO audit begun in February 1994, the Air Force searched its records for the alleged July 1947 crash and recovery near Roswell. NARA states it found no documentation of the incident among the Project Blue Book records.",
+   "finding": "The 1994 Air Force report concluded that the U.S. Army Air Forces recovered debris from a balloon-borne research project code named MOGUL. NARA: the materials recovered were consistent with a balloon device of the type used in a then-classified project, and no records indicated the recovery of alien bodies or extraterrestrial materials.",
+   "claim": "we-have-a-record",
+   "claim_note": "we-have-a-record of the Air Force's and NARA's own published findings.",
+   "other_claims": [
+    {
+     "label": "not-proven",
+     "text": "Claims that an extraterrestrial spacecraft and occupants were recovered near Roswell.",
+     "cite": "https://www.archives.gov/research/military/air-force/ufos"
+    },
+    {
+     "label": "people-disagree",
+     "text": "Those public claims contradict the official conclusions above.",
+     "cite": "https://www.archives.gov/research/military/air-force/ufos"
+    }
+   ],
+   "citations": [
+    "https://www.af.mil/The-Roswell-Report/",
+    "https://www.archives.gov/research/military/air-force/ufos",
+    "The Roswell Report: Fact vs. Fiction in the New Mexico Desert, Headquarters U.S. Air Force, 1995, ISBN 0-16-048023-X (secondary listing; the pages above are the primary citations)"
+   ],
+   "license_basis": "NARA: all documentation related to this case is declassified and the information is in the public domain. Official Air Force text is a U.S. government work.",
+   "evidence": {
+    "gaps": [
+     "Exact day in July 1947: [UNKNOWN] in the cited pages.",
+     "Debris recovery site coordinates: [UNKNOWN]; the pin is the town, coarse."
+    ]
+   }
+  }
+ ]
+}

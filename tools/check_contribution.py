@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_BYTES = 1048576
-LAYERS = ("airports", "launch-sites", "bells", "routes", "regions")
+LAYERS = ("airports", "launch-sites", "bells", "uap", "routes", "regions")
 PRIVACY = {
     "email", "phone", "telephone", "mobile", "address", "street", "ssn",
     "social_security", "parcel", "parcel_id", "apn", "owner_name",
@@ -42,6 +42,10 @@ def is_num(v) -> bool:
 
 def latlon_ok(lat, lon) -> bool:
     return is_num(lat) and is_num(lon) and -90 <= lat <= 90 and -180 <= lon <= 180
+
+
+def at_most_tenth(v) -> bool:
+    return is_num(v) and abs(round(float(v) * 10) / 10.0 - float(v)) < 1e-8
 
 
 def extract_jsonish(text: str):
@@ -97,7 +101,7 @@ def existing_keys(path: Path, layer: str) -> set[str]:
                         recs.extend(pack["states"])
     elif isinstance(data, list):
         recs = data
-    field = {"launch-sites": "code", "bells": "id", "routes": "id", "regions": "id"}.get(layer, "id")
+    field = {"launch-sites": "code", "bells": "id", "uap": "id", "routes": "id", "regions": "id"}.get(layer, "id")
     for rec in recs:
         if isinstance(rec, dict) and rec.get(field) not in (None, ""):
             keys.add(str(rec[field]))
@@ -150,6 +154,8 @@ def allowed_merge(layer: str, rel: str) -> bool:
         return rel == "web/data/space/gcat.js"
     if layer == "bells":
         return rel in ("web/data/next/bells/example.json", "web/data/next/bells/bells.json")
+    if layer == "uap":
+        return rel == "web/data/next/uap/uap.json"
     if layer == "routes":
         return bool(re.fullmatch(r"web/data/routes/[^/]+\.json", rel)) and rel != "web/data/routes.json"
     if layer == "regions":
@@ -163,6 +169,10 @@ def rec_source(rec, layer: str, sub: dict) -> bool:
             return True
         return wrapper_source(sub)
     if layer == "bells":
+        if isinstance(rec, dict) and rec.get("example") is True:
+            return True
+        return isinstance(rec, dict) and has_source(rec.get("citation") or rec.get("citations") or rec.get("cite"))
+    if layer == "uap":
         if isinstance(rec, dict) and rec.get("example") is True:
             return True
         return isinstance(rec, dict) and has_source(rec.get("citation") or rec.get("citations") or rec.get("cite"))
@@ -197,6 +207,12 @@ def check_coords(rec, layer: str, errors: list[tuple[int, str]]) -> None:
         geo = rec["geo"]
         if isinstance(geo, dict):
             point(geo.get("lat"), geo.get("lon"))
+    elif layer == "uap" and isinstance(rec, dict) and rec.get("geo") not in (None,):
+        geo = rec["geo"]
+        if isinstance(geo, dict):
+            point(geo.get("lat"), geo.get("lon"))
+            if latlon_ok(geo.get("lat"), geo.get("lon")) and not (at_most_tenth(geo.get("lat")) and at_most_tenth(geo.get("lon"))):
+                errors.append((3, "A UAP coordinate must be rounded to 0.1 degree."))
     elif layer == "routes" and isinstance(rec, dict) and "path" in rec:
         path = rec["path"]
         if not isinstance(path, list) or len(path) < 2:
@@ -278,6 +294,8 @@ def check_record_format(rec, layer: str, types: set[str], eras: set[str], errors
             errors.append((1, "This field has the wrong type: citations."))
         if "title" in rec and not isinstance(rec["title"], str):
             errors.append((1, "This field has the wrong type: title."))
+    elif layer == "uap":
+        check_uap_record(rec, errors)
     elif layer == "routes":
         for name in ("id", "name", "type", "era", "path", "source", "citation", "start_date", "end_date"):
             if name not in rec:
@@ -305,6 +323,56 @@ def check_record_format(rec, layer: str, types: set[str], eras: set[str], errors
             errors.append((1, "This field has the wrong type: polys."))
 
 
+
+UAP_CLAIMS = ("we-have-a-record", "not-proven", "people-disagree")
+UAP_ID_RE = re.compile(r"^uap:[a-z0-9]+(?:-[a-z0-9]+)*-[0-9]{4}$")
+UAP_DATE_RE = re.compile(r"^\d{4}(?:-\d{2}(?:-\d{2})?)?$")
+
+
+def check_uap_record(rec: dict, errors: list[tuple[int, str]]) -> None:
+    for name in ("id", "kind", "example", "title", "place", "geo", "date", "time", "agency", "finding", "claim", "citations", "license_basis"):
+        if name not in rec:
+            errors.append((1, f"This record is missing a required field: {name}."))
+    if "id" in rec:
+        if not isinstance(rec["id"], str):
+            errors.append((1, "This field has the wrong type: id."))
+        elif not UAP_ID_RE.fullmatch(rec["id"]):
+            errors.append((1, "A UAP id must start with uap: and end with a year."))
+    if "kind" in rec and rec["kind"] != "uap-record":
+        errors.append((1, "This field has the wrong type: kind."))
+    if "example" in rec and not isinstance(rec["example"], bool):
+        errors.append((1, "This field has the wrong type: example."))
+    if rec.get("example") is False and "citations" not in rec:
+        errors.append((1, "This record is missing a required field: citations."))
+    elif "citations" in rec and not isinstance(rec["citations"], list):
+        errors.append((1, "This field has the wrong type: citations."))
+    elif rec.get("example") is False and isinstance(rec.get("citations"), list) and not rec["citations"]:
+        errors.append((1, "This record is missing a required field: citations."))
+    for name in ("title", "place", "date", "agency", "finding", "license_basis"):
+        if name in rec and not isinstance(rec[name], str):
+            errors.append((1, f"This field has the wrong type: {name}."))
+        elif name in rec and isinstance(rec[name], str) and not rec[name].strip():
+            errors.append((1, f"This record is missing a required field: {name}."))
+    if "date" in rec and isinstance(rec["date"], str) and rec["date"].strip() and not UAP_DATE_RE.fullmatch(rec["date"].strip()):
+        errors.append((1, "This field has the wrong type: date."))
+    if "claim" in rec and rec["claim"] not in UAP_CLAIMS:
+        errors.append((1, "This field has the wrong type: claim."))
+    if "geo" in rec and rec.get("geo") not in (None,):
+        geo = rec["geo"]
+        if not (isinstance(geo, dict) and "lat" in geo and "lon" in geo):
+            errors.append((1, "This field has the wrong type: geo."))
+    if "time" in rec:
+        tm = rec["time"]
+        if not isinstance(tm, dict):
+            errors.append((1, "This field has the wrong type: time."))
+        else:
+            for name in ("start", "end", "precision"):
+                if name not in tm:
+                    errors.append((1, f"This record is missing a required field: time.{name}."))
+            if "precision" in tm and not isinstance(tm["precision"], str):
+                errors.append((1, "This field has the wrong type: time.precision."))
+
+
 def region_extra(rel: str, rec: dict, errors: list[tuple[int, str]]) -> None:
     if rel.endswith("world.js"):
         if "a3" not in rec:
@@ -330,7 +398,7 @@ def rec_key(rec, layer: str):
         return None
     if not isinstance(rec, dict):
         return None
-    field = {"launch-sites": "code", "bells": "id", "routes": "id", "regions": "id"}[layer]
+    field = {"launch-sites": "code", "bells": "id", "uap": "id", "routes": "id", "regions": "id"}[layer]
     val = rec.get(field)
     return None if val in (None, "") else str(val)
 

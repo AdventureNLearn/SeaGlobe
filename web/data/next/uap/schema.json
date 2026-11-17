@@ -1,0 +1,89 @@
+{
+ "$comment": "Official declassified UAP records. Every field sourced or [UNKNOWN]. Coordinates at most 0.1 degree.",
+ "type": "object",
+ "required": [
+  "id",
+  "kind",
+  "title",
+  "example",
+  "place",
+  "geo",
+  "date",
+  "time",
+  "agency",
+  "finding",
+  "claim",
+  "citations",
+  "license_basis"
+ ],
+ "properties": {
+  "id": {
+   "type": "string",
+   "pattern": "^uap:[a-z0-9]+(?:-[a-z0-9]+)*-[0-9]{4}$"
+  },
+  "kind": {
+   "const": "uap-record"
+  },
+  "title": {
+   "type": "string"
+  },
+  "place": {
+   "type": "string"
+  },
+  "geo": {
+   "type": [
+    "object",
+    "null"
+   ]
+  },
+  "location_basis": {
+   "type": "string"
+  },
+  "coordinate_source": {
+   "type": "string"
+  },
+  "date": {
+   "type": "string"
+  },
+  "time": {
+   "type": "object"
+  },
+  "agency": {
+   "type": "string"
+  },
+  "status": {
+   "type": "string"
+  },
+  "summary": {
+   "type": "string"
+  },
+  "finding": {
+   "type": "string"
+  },
+  "claim": {
+   "enum": [
+    "we-have-a-record",
+    "not-proven",
+    "people-disagree"
+   ]
+  },
+  "claim_note": {
+   "type": "string"
+  },
+  "other_claims": {
+   "type": "array"
+  },
+  "citations": {
+   "type": "array"
+  },
+  "license_basis": {
+   "type": "string"
+  },
+  "evidence": {
+   "type": "object"
+  },
+  "example": {
+   "type": "boolean"
+  }
+ }
+}

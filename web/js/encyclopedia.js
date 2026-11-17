@@ -6,7 +6,7 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const A = () => window.SeaAtlas;
-  const KIND = { route: "Route", vessel: "Ship", aircraft: "Aircraft", vehicle: "Vehicle type", spacecraft: "Spacecraft", "launch-year": "Launch year", place: "Place", region: "Region", level: "Drill-down level", era: "Era", topic: "Topic", tour: "Tour", link: "Outside project", app: "SeaGlobe feature", source: "Source", bell: "Bell" };
+  const KIND = { route: "Route", vessel: "Ship", aircraft: "Aircraft", vehicle: "Vehicle type", spacecraft: "Spacecraft", "launch-year": "Launch year", place: "Place", region: "Region", level: "Drill-down level", era: "Era", topic: "Topic", tour: "Tour", link: "Outside project", app: "SeaGlobe feature", source: "Source", bell: "Bell", "uap-record": "UAP record" };
   const compareSet = [];
   let panel, body, q, last = "";
 
@@ -170,7 +170,8 @@
     if (e.kind === "spacecraft" && window.SeaSky) { window.SeaSky.show(e); return; }
     if (e.kind === "region" && window.SeaRegions) { window.SeaRegions.focus(e); return; }
     if (e.kind === "bell" && window.SeaBells) window.SeaBells.enable(true);
-    if (e.geo) { if (e.layer === "air" && window.SeaTools) window.SeaTools.layer("hubs", true); if (e.layer === "space" && window.SeaSky) window.SeaSky.sites(true); sg.flyTo({ lat: e.geo.lat, lng: e.geo.lon, altitude: e.kind === "place" || e.kind === "bell" ? 0.6 : 1.4 }, 2); }
+    if (e.kind === "uap-record" && window.SeaUap) window.SeaUap.enable(true);
+    if (e.geo) { if (e.layer === "air" && window.SeaTools) window.SeaTools.layer("hubs", true); if (e.layer === "space" && window.SeaSky) window.SeaSky.sites(true); sg.flyTo({ lat: e.geo.lat, lng: e.geo.lon, altitude: e.kind === "place" || e.kind === "bell" || e.kind === "uap-record" ? 0.6 : 1.4 }, 2); }
   }
   function compareView(arg) {
     const ids = (arg || "").split(",").map(decodeURIComponent).filter(Boolean);

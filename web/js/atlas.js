@@ -223,7 +223,8 @@
     build();
     if (!allLoading) allLoading = Promise.all([
       window.SeaRegions ? Promise.all([window.SeaRegions.loadIndex(), window.SeaRegions.loadPack("towns-index")]) : Promise.resolve(),
-      window.SeaBells && window.SeaBells.load ? window.SeaBells.load() : Promise.resolve()
+      window.SeaBells && window.SeaBells.load ? window.SeaBells.load() : Promise.resolve(),
+      window.SeaUap && window.SeaUap.load ? window.SeaUap.load() : Promise.resolve()
     ]).then(() => { const a = addRegions(), b = addTowns(); if (a || b) { addSources(); buildIndex(); } return entities.size; });
     return allLoading;
   }

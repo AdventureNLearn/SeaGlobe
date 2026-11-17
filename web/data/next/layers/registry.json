@@ -31,7 +31,7 @@
    "coverage": "US",
    "minzoom": 0,
    "maxzoom": 12,
-   "reason": "Flag off by default. Toggles in Layers are remembered. Archives are not uploaded until owner YES. Cousub and place archives stop at zoom 10 (z11–13 not built).",
+   "reason": "Flag off by default. Toggles in Layers are remembered. Archives are not uploaded until owner YES. Cousub and place archives stop at zoom 10 (z11\u201313 not built).",
    "tiles": "pmtiles/census-state-2026.pmtiles",
    "fallback": "Skipped with a layer-unavailable note when the archive is missing or the host is down."
   },
@@ -46,9 +46,19 @@
    "coverage": "US",
    "minzoom": 0,
    "maxzoom": 6,
-   "reason": "Flag off by default. Toggles in Layers are remembered. Archive is not uploaded until owner YES. Zoom 6 is partial; zooms 7–8 are not in this archive.",
+   "reason": "Flag off by default. Toggles in Layers are remembered. Archive is not uploaded until owner YES. Zoom 6 is partial; zooms 7\u20138 are not in this archive.",
    "tiles": "pmtiles/usgs-3dep-terrain.pmtiles",
    "fallback": "Skipped with a layer-unavailable note when the archive is missing or the host is down. Missing or black tiles keep the current globe elevation."
+  },
+  {
+   "id": "official-uap",
+   "label": "Official UAP records (declassified)",
+   "group": "overlay",
+   "status": "working",
+   "credit": "AARO; National Archives (NARA); U.S. Air Force (U.S. government works, public domain). Coordinates: OurAirports (public domain).",
+   "hosting": "bundled",
+   "coverage": "selected official U.S. records",
+   "reason": "Toggle in Layers is off by default and counts as a heavy layer. Historical records only; no live tracking."
   }
  ]
 }
