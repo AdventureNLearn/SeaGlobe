@@ -18,7 +18,7 @@ The checker prints errors in plain words and does not write or merge anything.
 
 - A record that matches one of the templates in this file (points, lines, or areas).
 - A primary source for every record (an official page, archive, dataset, or durable identifier such as a DOI) in `citation` or `citations` / `cite`, and a short `source` label where the template has that field. A secondary book may be listed as well; it does not replace the primary source. Gaps are `[UNKNOWN]`, never guessed.
-- A license line on the submission wrapper. Allowed values: `public domain`, or `CC BY` with an optional version (for example `CC BY 4.0` or `CC BY 3.0`). `CC BY-SA`, `CC BY-NC`, and any other value are rejected.
+- A license line on the submission wrapper. Allowed values: `public domain`, or `CC BY` with an optional version (for example `CC BY 4.0` or `CC BY 3.0`). `CC BY-SA`, `CC BY-NC`, and any other value are rejected. Narrow exception: the StarFire layer (`"layer": "starfire"`) may use `"license": "MIT"`, by creator permission given to the owner on 16 and 17 November 2026; the credit line is exactly `StarFire by @wntrslmbr`. Every other layer keeps the public domain or CC BY rule.
 - No names of private people, emails, phone numbers, street addresses, or parcel identifiers.
 
 ## Submission wrapper
@@ -32,7 +32,7 @@ The checker prints errors in plain words and does not write or merge anything.
 }
 ```
 
-`layer` is one of `airports`, `launch-sites`, `bells`, `routes`, `regions`, `uap`. `merge_into` must already exist in the repo. Coordinate order follows the existing files: route and place points are `[lat, lon]` or named `lat` / `lon`; region rings are `[lon, lat]`.
+`layer` is one of `airports`, `launch-sites`, `bells`, `routes`, `regions`, `uap`, `starfire`. `merge_into` must already exist in the repo. Coordinate order follows the existing files: route and place points are `[lat, lon]` or named `lat` / `lon`; region rings are `[lon, lat]`.
 
 ## Templates
 
@@ -106,6 +106,45 @@ Not allowed: names of witnesses or other private people, personal data of any ki
   "claim": "we-have-a-record",
   "citations": ["https://www.aaro.mil/UAP-Cases/UAP-Case-Resolution-Reports/"],
   "license_basis": "U.S. government work (17 U.S.C. 105), public domain"
+}
+```
+
+
+### StarFire sightings (points)
+
+Merge into `web/data/next/starfire/starfire.json` (the StarFire sightings layer, heavy and off by default). Use `"layer": "starfire"` and `"license": "MIT"` on the wrapper. This MIT exception is only for the StarFire layer; creator permission was given to the owner on 16 and 17 November 2026. Credit every record and the wrapper as `StarFire by @wntrslmbr`. This is a dated archive snapshot (17 November 2026): do not add a live feed, a refresh URL, or a poll of the archive. Keep this layer separate from official UAP records. Default `claim` is `not-proven` (these are reports, not confirmed identifications).
+
+Required fields:
+
+- `id`: `starfire:<source-id>-<year>`, lowercase words and digits joined by `-`.
+- `kind`: `starfire-record`. `example`: `false` for real records.
+- `title`, `place`, `date` (`YYYY-MM-DD`, `YYYY-MM`, or `YYYY`) and `time` (`start`, `end`, `precision`).
+- `geo`: `lat` / `lon` rounded to 0.1 degree, or `null` when there is no pin. Say what the point stands for in `location_basis` and where it came from in `coordinate_source`. If the coordinate is a state, region or county centroid, or the archive says it is not a sighting position, say so in `location_basis` so the pin can be drawn as approximate.
+- `agency`: `StarFire by @wntrslmbr`.
+- `finding`: the archive or official finding, or `[UNKNOWN]` when it was not given.
+- `claim`: `we-have-a-record`, `not-proven`, or `people-disagree`. This layer uses `not-proven` unless a later cited finding changes that.
+- `citations`: a non-empty list with at least one source URL from the archive.
+- `license_basis`: why the record can be kept (StarFire archive under the MIT License; place data from GeoNames, CC BY 4.0; linked articles belong to their publishers and are cited, not copied).
+
+Not allowed: names of witnesses or other private people, personal data of any kind, exact or street addresses, homes, parcels, article text, a live feed, or coordinates finer than 0.1 degree.
+
+```json
+{
+  "example": false,
+  "kind": "starfire-record",
+  "id": "starfire:example-place-2026",
+  "title": "Example sighting report",
+  "place": "Example State, United States",
+  "geo": {"lat": 44.9, "lon": -122.7},
+  "location_basis": "state/province-level only; NOT a sighting position. Coarse pin, 0.1 degree.",
+  "coordinate_source": "StarFire by @wntrslmbr snapshot, 17 November 2026; coordinates rounded to 0.1 degree. Place data: GeoNames (geonames.org), CC BY 4.0.",
+  "date": "2026",
+  "time": {"start": 2026, "end": 2026, "precision": "year"},
+  "agency": "StarFire by @wntrslmbr",
+  "finding": "[UNKNOWN]",
+  "claim": "not-proven",
+  "citations": ["Example outlet, 2026-11-17: https://example.invalid/report"],
+  "license_basis": "StarFire archive under the MIT License; place data from GeoNames (geonames.org), CC BY 4.0; linked articles belong to their publishers. This record is a coarsened snapshot with source citations, not article text."
 }
 ```
 
