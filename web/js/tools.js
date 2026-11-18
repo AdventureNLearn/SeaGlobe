@@ -133,6 +133,7 @@
     ships: { weight: "light", toggle: "tShips" },
     bells: { weight: "light", toggle: "tBells" },
     uap: { weight: "heavy", toggle: "tUap" },
+    starfire: { weight: "heavy", toggle: "tStarfire" },
     wind: { weight: "heavy", toggle: "tWind" },
     regions: { weight: "heavy", toggle: "tRegions" },
     live: { weight: "heavy", toggle: "tLive" },

@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.1.11 (2026-11-18) — StarFire dated snapshot
+
+- Personal-data pass on the StarFire snapshot: first-person and over-long titles replaced with short neutral titles; X citation links rewritten to `x.com/i/status/<id>`; three Mastodon handle citations removed (two records dropped because they had no handle-free source); witness details trimmed from location_basis and date_basis. Panel wording covers county centroids too.
+- A StarFire sightings layer (off by default, heavy, and lazy-loaded) shows a dated archive snapshot of 206 sighting reports from StarFire by @wntrslmbr, taken 17 November 2026. There is no live feed and no refresh. Pins are coarse (0.1 degree). State, region or county centroid coordinates render as approximate pins, and the info panel states the location is not the sighting position. Credit: StarFire by @wntrslmbr. This layer is separate from official UAP records.
+
+
 ## v3.1.10 (2026-11-17) — official UAP records
 
 - flags.js does not inject bells.js or uap.js a second time when those flags are on and the page already included the script. Each loader also returns early if its global already exists, so the Layers toggle and state() stay in sync.

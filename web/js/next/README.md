@@ -23,4 +23,4 @@ Other stubs still only register a `seaglobe:next-layer` event and a
 `window.SeaNext[flag]` hook. Example records in `web/data/next/` load only with
 `?exampleData=1` in a later wiring pass.
 
-`bells.js` and `uap.js` also ship in the page scripts so their Layers toggles exist on a normal visit. Both stay off by default, and their data is fetched only when the layer is turned on or when the encyclopedia needs every entry. `uap.js` is a heavy layer (`?flag=officialUap` also maps to it).
+`bells.js`, `uap.js` and `starfire.js` also ship in the page scripts so their Layers toggles exist on a normal visit. They stay off by default, and their data is fetched only when the layer is turned on (and, for bells and official UAP records, when the encyclopedia needs every entry). `uap.js` and `starfire.js` are heavy layers (`?flag=officialUap` and `?flag=starfire` also map to them). The StarFire pack is a dated 17 November 2026 snapshot; there is no live feed. Individual StarFire reports are not added as encyclopedia entries.

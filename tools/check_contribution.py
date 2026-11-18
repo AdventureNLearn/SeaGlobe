@@ -9,12 +9,29 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_BYTES = 1048576
-LAYERS = ("airports", "launch-sites", "bells", "uap", "routes", "regions")
+LAYERS = ("airports", "launch-sites", "bells", "uap", "starfire", "routes", "regions")
 PRIVACY = {
     "email", "phone", "telephone", "mobile", "address", "street", "ssn",
     "social_security", "parcel", "parcel_id", "apn", "owner_name",
 }
 LICENSE_RE = re.compile(r"^(public domain|cc by(?: \d+(?:\.\d+)?)?)$", re.I)
+# StarFire archive is MIT. Creator permission was given to the owner
+# on 16 and 17 November 2026; credit is "StarFire by @wntrslmbr".
+# This exception is tied to layer "starfire" only. Every other layer
+# still requires public domain or CC BY.
+STARFIRE_LICENSE_RE = re.compile(r"^MIT$", re.I)
+
+
+def license_allowed(lic, layer) -> bool:
+    if not isinstance(lic, str):
+        return False
+    text = lic.strip()
+    if LICENSE_RE.fullmatch(text):
+        return True
+    if layer == "starfire" and STARFIRE_LICENSE_RE.fullmatch(text):
+        return True
+    return False
+
 ID_RE = re.compile(r"https?://|doi:\s*10\.|doi\.org/10\.|\b10\.\d{4,}/", re.I)
 AIRPORT_FIELDS = ("ident", "name", "lat", "lon", "country", "municipality", "iata", "type")
 LAUNCH_FIELDS = ("code", "name", "short", "state", "location", "lat", "lon", "launches", "first", "last")
@@ -101,7 +118,7 @@ def existing_keys(path: Path, layer: str) -> set[str]:
                         recs.extend(pack["states"])
     elif isinstance(data, list):
         recs = data
-    field = {"launch-sites": "code", "bells": "id", "uap": "id", "routes": "id", "regions": "id"}.get(layer, "id")
+    field = {"launch-sites": "code", "bells": "id", "uap": "id", "starfire": "id", "routes": "id", "regions": "id"}.get(layer, "id")
     for rec in recs:
         if isinstance(rec, dict) and rec.get(field) not in (None, ""):
             keys.add(str(rec[field]))
@@ -156,6 +173,8 @@ def allowed_merge(layer: str, rel: str) -> bool:
         return rel in ("web/data/next/bells/example.json", "web/data/next/bells/bells.json")
     if layer == "uap":
         return rel == "web/data/next/uap/uap.json"
+    if layer == "starfire":
+        return rel == "web/data/next/starfire/starfire.json"
     if layer == "routes":
         return bool(re.fullmatch(r"web/data/routes/[^/]+\.json", rel)) and rel != "web/data/routes.json"
     if layer == "regions":
@@ -173,6 +192,10 @@ def rec_source(rec, layer: str, sub: dict) -> bool:
             return True
         return isinstance(rec, dict) and has_source(rec.get("citation") or rec.get("citations") or rec.get("cite"))
     if layer == "uap":
+        if isinstance(rec, dict) and rec.get("example") is True:
+            return True
+        return isinstance(rec, dict) and has_source(rec.get("citation") or rec.get("citations") or rec.get("cite"))
+    if layer == "starfire":
         if isinstance(rec, dict) and rec.get("example") is True:
             return True
         return isinstance(rec, dict) and has_source(rec.get("citation") or rec.get("citations") or rec.get("cite"))
@@ -213,6 +236,12 @@ def check_coords(rec, layer: str, errors: list[tuple[int, str]]) -> None:
             point(geo.get("lat"), geo.get("lon"))
             if latlon_ok(geo.get("lat"), geo.get("lon")) and not (at_most_tenth(geo.get("lat")) and at_most_tenth(geo.get("lon"))):
                 errors.append((3, "A UAP coordinate must be rounded to 0.1 degree."))
+    elif layer == "starfire" and isinstance(rec, dict) and rec.get("geo") not in (None,):
+        geo = rec["geo"]
+        if isinstance(geo, dict):
+            point(geo.get("lat"), geo.get("lon"))
+            if latlon_ok(geo.get("lat"), geo.get("lon")) and not (at_most_tenth(geo.get("lat")) and at_most_tenth(geo.get("lon"))):
+                errors.append((3, "A StarFire coordinate must be rounded to 0.1 degree."))
     elif layer == "routes" and isinstance(rec, dict) and "path" in rec:
         path = rec["path"]
         if not isinstance(path, list) or len(path) < 2:
@@ -296,6 +325,8 @@ def check_record_format(rec, layer: str, types: set[str], eras: set[str], errors
             errors.append((1, "This field has the wrong type: title."))
     elif layer == "uap":
         check_uap_record(rec, errors)
+    elif layer == "starfire":
+        check_starfire_record(rec, errors)
     elif layer == "routes":
         for name in ("id", "name", "type", "era", "path", "source", "citation", "start_date", "end_date"):
             if name not in rec:
@@ -373,6 +404,53 @@ def check_uap_record(rec: dict, errors: list[tuple[int, str]]) -> None:
                 errors.append((1, "This field has the wrong type: time.precision."))
 
 
+STARFIRE_ID_RE = re.compile(r"^starfire:[a-z0-9]+(?:-[a-z0-9]+)*-[0-9]{4}$")
+
+
+def check_starfire_record(rec: dict, errors: list[tuple[int, str]]) -> None:
+    for name in ("id", "kind", "example", "title", "place", "geo", "date", "time", "agency", "finding", "claim", "citations", "license_basis", "location_basis", "coordinate_source"):
+        if name not in rec:
+            errors.append((1, f"This record is missing a required field: {name}."))
+    if "id" in rec:
+        if not isinstance(rec["id"], str):
+            errors.append((1, "This field has the wrong type: id."))
+        elif not STARFIRE_ID_RE.fullmatch(rec["id"]):
+            errors.append((1, "A StarFire id must start with starfire: and end with a year."))
+    if "kind" in rec and rec["kind"] != "starfire-record":
+        errors.append((1, "This field has the wrong type: kind."))
+    if "example" in rec and not isinstance(rec["example"], bool):
+        errors.append((1, "This field has the wrong type: example."))
+    if rec.get("example") is False and "citations" not in rec:
+        errors.append((1, "This record is missing a required field: citations."))
+    elif "citations" in rec and not isinstance(rec["citations"], list):
+        errors.append((1, "This field has the wrong type: citations."))
+    elif rec.get("example") is False and isinstance(rec.get("citations"), list) and not rec["citations"]:
+        errors.append((1, "This record is missing a required field: citations."))
+    for name in ("title", "place", "date", "agency", "finding", "license_basis", "location_basis", "coordinate_source"):
+        if name in rec and not isinstance(rec[name], str):
+            errors.append((1, f"This field has the wrong type: {name}."))
+        elif name in rec and isinstance(rec[name], str) and not rec[name].strip():
+            errors.append((1, f"This record is missing a required field: {name}."))
+    if "date" in rec and isinstance(rec["date"], str) and rec["date"].strip() and not UAP_DATE_RE.fullmatch(rec["date"].strip()):
+        errors.append((1, "This field has the wrong type: date."))
+    if "claim" in rec and rec["claim"] not in UAP_CLAIMS:
+        errors.append((1, "This field has the wrong type: claim."))
+    if "geo" in rec and rec.get("geo") not in (None,):
+        geo = rec["geo"]
+        if not (isinstance(geo, dict) and "lat" in geo and "lon" in geo):
+            errors.append((1, "This field has the wrong type: geo."))
+    if "time" in rec:
+        tm = rec["time"]
+        if not isinstance(tm, dict):
+            errors.append((1, "This field has the wrong type: time."))
+        else:
+            for name in ("start", "end", "precision"):
+                if name not in tm:
+                    errors.append((1, f"This record is missing a required field: time.{name}."))
+            if "precision" in tm and not isinstance(tm["precision"], str):
+                errors.append((1, "This field has the wrong type: time.precision."))
+
+
 def region_extra(rel: str, rec: dict, errors: list[tuple[int, str]]) -> None:
     if rel.endswith("world.js"):
         if "a3" not in rec:
@@ -398,7 +476,7 @@ def rec_key(rec, layer: str):
         return None
     if not isinstance(rec, dict):
         return None
-    field = {"launch-sites": "code", "bells": "id", "uap": "id", "routes": "id", "regions": "id"}[layer]
+    field = {"launch-sites": "code", "bells": "id", "uap": "id", "starfire": "id", "routes": "id", "regions": "id"}[layer]
     val = rec.get(field)
     return None if val in (None, "") else str(val)
 
@@ -441,16 +519,15 @@ def main(argv: list[str]) -> int:
     if "records" in sub and not isinstance(sub["records"], list):
         errors.append((1, "This field has the wrong type: records."))
 
-    if "license" in sub:
-        lic = sub["license"]
-        if not isinstance(lic, str) or not LICENSE_RE.fullmatch(lic.strip()):
-            errors.append((6, "The license must be public domain or CC BY, and the submission must say which."))
-
     layer = sub.get("layer") if isinstance(sub.get("layer"), str) else None
     rel = sub.get("merge_into") if isinstance(sub.get("merge_into"), str) else None
     if "layer" in sub and layer not in LAYERS:
         errors.append((1, "This layer or merge_into path is not allowed."))
         layer = None
+
+    if "license" in sub:
+        if not license_allowed(sub["license"], layer):
+            errors.append((6, "The license must be public domain or CC BY, and the submission must say which."))
     merge_path = None
     if rel:
         rel_norm = rel.replace("\\", "/")

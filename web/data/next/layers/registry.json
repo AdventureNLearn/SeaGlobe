@@ -59,6 +59,16 @@
    "hosting": "bundled",
    "coverage": "selected official U.S. records",
    "reason": "Toggle in Layers is off by default and counts as a heavy layer. Historical records only; no live tracking."
+  },
+  {
+   "id": "starfire",
+   "label": "StarFire sightings",
+   "group": "overlay",
+   "status": "working",
+   "credit": "StarFire by @wntrslmbr",
+   "hosting": "bundled",
+   "coverage": "dated archive snapshot, 17 November 2026",
+   "reason": "Toggle in Layers is off by default and counts as a heavy layer. Dated archive snapshot only; no live feed and no refresh. State, region or county centroid pins are approximate and are not the sighting position."
   }
  ]
 }
