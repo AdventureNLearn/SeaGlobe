@@ -86,6 +86,7 @@ try {
     assert.ok(st.names && st.names.includes("pmtilesBorders"));
     assert.ok(st.names && st.names.includes("topicNav"));
     assert.ok(st.names && st.names.includes("officialUap"));
+    assert.ok(st.names && st.names.includes("starfire"));
     assert.ok(Object.values(st.all).every((v) => v === false));
     assert.deepEqual(st.nextToggles, []);
     assert.equal(st.exampleEntries, false);
@@ -690,7 +691,7 @@ try {
           await p.waitForFunction(() => document.getElementById("tPmtiles") && document.getElementById("tTerrain"), { timeout: 30000 });
         }
         await p.evaluate(async () => {
-          const ids = ["tRoutes", "tWakes", "tShips", "tWind", "tNight", "tSats", "tOrbit", "tRegions", "tHubs", "tCoords", "tLaunch", "tBells", "tUap", "tPmtiles", "tTerrain"];
+          const ids = ["tRoutes", "tWakes", "tShips", "tWind", "tNight", "tSats", "tOrbit", "tRegions", "tHubs", "tCoords", "tLaunch", "tBells", "tUap", "tStarfire", "tPmtiles", "tTerrain"];
           for (const id of ids) {
             const el = document.getElementById(id);
             if (!el) continue;
@@ -914,10 +915,11 @@ try {
   });
 
 
-  await check("layer flags load bells.js and uap.js once and state() matches each toggle", async () => {
+  await check("layer flags load bells.js, uap.js and starfire.js once and state() matches each toggle", async () => {
     const cases = [
       { flag: "historicalBells", file: "js/next/bells.js", api: "SeaBells", toggle: "tBells" },
-      { flag: "officialUap", file: "js/next/uap.js", api: "SeaUap", toggle: "tUap" }
+      { flag: "officialUap", file: "js/next/uap.js", api: "SeaUap", toggle: "tUap" },
+      { flag: "starfire", file: "js/next/starfire.js", api: "SeaStarfire", toggle: "tStarfire" }
     ];
     for (const c of cases) {
       const p = await openApp(browser, port, "capture=1&mute=1&flag=" + c.flag);
@@ -979,7 +981,7 @@ try {
     "topic-nav:wind-and-weather",
     "topic-nav:how-seaglobe-works"
   ];
-  const LAYER_IDS = new Set(["routes", "wakes", "night", "sats", "orbit", "coords", "ships", "bells", "uap", "wind", "regions", "live", "hubs", "launch", "pmtilesBorders", "terrain"]);
+  const LAYER_IDS = new Set(["routes", "wakes", "night", "sats", "orbit", "coords", "ships", "bells", "uap", "starfire", "wind", "regions", "live", "hubs", "launch", "pmtilesBorders", "terrain"]);
 
   await check("topics.js ships the eight approved topics and matches the schema", async () => {
     const src = fs.readFileSync(path.join(root, "web", "data", "topics.js"), "utf8");
