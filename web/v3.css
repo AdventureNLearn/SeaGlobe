@@ -220,6 +220,23 @@ body.atlas-open .radiopanel, body.topics-open .radiopanel { left: calc(490px * v
   .uapticks { display: block; }
 }
 
+/* StarFire sightings layer */
+.sfticks { position: absolute; left: 0; right: 0; top: calc(54px * var(--ui)); height: calc(12px * var(--ui)); pointer-events: none; z-index: 3; }
+.sftick { position: absolute; width: calc(8px * var(--ui)); height: calc(8px * var(--ui)); border-radius: 50%; background: #d4a24a; border: 0; padding: 0; transform: translateX(-50%); cursor: pointer; pointer-events: auto; }
+.sfpanel { position: absolute; top: calc(88px * var(--ui)); right: calc(14px * var(--ui)); left: auto; max-width: min(calc(300px * var(--ui)), 44vw); max-height: 44vh; overflow: auto; padding: calc(8px * var(--ui)) calc(12px * var(--ui)); font-size: calc(12px * var(--ui)); z-index: 12; }
+.sfpanel ul { margin: 0 0 calc(8px * var(--ui)); padding-left: calc(16px * var(--ui)); }
+.sfpanel a { color: var(--text); text-decoration: underline; }
+.sfpanel a:hover { color: var(--cyan); }
+.sfpanel .sf-row, .sfpanel .sf-back { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; text-align: left; padding: 0; }
+.sfpanel .sf-row:hover, .sfpanel .sf-back:hover { color: var(--cyan); }
+.sfpanel .sf-title { margin: 0 0 calc(4px * var(--ui)); font-size: calc(14px * var(--ui)); }
+.sfpanel .sf-tag, .sfpanel .sf-approx-note { color: #8fd4e8; }
+.sfpanel .sf-approx-note { margin: calc(6px * var(--ui)) 0; }
+@media (max-width: 820px) {
+  .sfpanel { top: calc(var(--mtop) + var(--mgap) * 2); right: var(--mgap); left: auto; max-width: 70vw; font-size: calc(11px * var(--ui)); }
+  .sfticks { display: block; }
+}
+
 /* Topics chip, shown after Show on the globe */
 .topicchip-open { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: inherit; padding: 0; text-align: left; min-width: 0; }
 .topicchip-open #topicChipText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
