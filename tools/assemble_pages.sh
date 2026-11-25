@@ -18,14 +18,9 @@ cp -f pages/videos.html "$dest/videos.html"
 rm -f "$dest/byo.html" "$dest/js/byo.js" "$dest/data/edition-byo.js" "$dest"/vendor/satellite* "$dest"/vendor/LICENSE-satellite*
 # version.json is the file every copy compares itself with; it must be at the site root.
 test -f "$dest/version.json" || { echo "missing version.json" >&2; exit 1; }
-# Stamp the published copy with this commit (the Pages SHA). Hash a temporary git archive for
-# zip_sha256 so the zip is not published and does not have to contain its own hash.
+# Stamp the published copy with this commit (the Pages SHA) and the v3.1.11 release asset URL and hash.
 commit="$(git rev-parse HEAD)" || { echo "assemble needs a git commit to stamp version.json" >&2; exit 1; }
-tmpzip="$(mktemp --suffix=.zip)"
-git archive --format=zip --prefix=seaglobe/ -o "$tmpzip" HEAD
-zsha="$(sha256sum "$tmpzip" | cut -d' ' -f1)"
-rm -f "$tmpzip"
-python3 tools/stamp_version.py --commit "$commit" --zip-sha256 "$zsha" --out-dir "$dest"
+python3 tools/stamp_version.py --commit "$commit" --zip-sha256 "3f8ee25b90a613cf61670f106d5a28891e1015a5a7fe2d64410976a7defb5866" --download-url "https://github.com/AdventureNLearn/SeaGlobe/releases/download/v3.1.11/seaglobe-3.1.11.zip" --out-dir "$dest"
 for f in LICENSE README.md CHANGELOG.md DATA.md SOURCES.md ASSETS-LICENSES.md THIRD-PARTY-NOTICES.md INTENT.md; do
   if [ -f "$f" ]; then
     cp -f "$f" "$dest/"
