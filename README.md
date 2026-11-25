@@ -115,7 +115,8 @@ Useful URL options: `?t=1595-09-20` (start date; `-0479-05-01` is 480 BCE), `?er
 This repository is the hosted site (GitHub Pages, no build of the app itself; a workflow publishes the
 `web/` folder plus videos and screenshots):
 
-https://adventurenlearn.github.io/SeaGlobe/
+- Full site (GitHub Pages): https://adventurenlearn.github.io/SeaGlobe/
+- Lite edition (Grok.me): https://seaglobe.grok.me/
 
 ## Videos
 
